@@ -1,0 +1,34 @@
+<pre class='metadata'>
+Title: WebRTC Insertable Media using Streams
+Shortname: webrtc-media-streams
+Level: 1
+Status: ED
+Group: webrtc
+Repository: alvestrand/webrtc-media-streams/
+URL: https://alvestrand.github.io/webrtc-media-streams/
+Editor: Harald Alvestrand, Google https://google.com, hta@google.com
+Abstract: This API defines an API surface for manipulating the bits on
+Abstract: MediaStreamTracks being sent via an RTCPeerConnection.
+Markup Shorthands: css no
+</pre>
+<pre class='anchors'>
+spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
+    type: interface
+        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom
+-rtcrtpencodingparameters
+    type: enum
+        text: RTCPriorityType; url: #dom-rtcprioritytype
+    type: attribute
+        for: RTCRtpEncodingParameters; text: priority; url: #dom-rtcrtpencodingparameters-priority
+</pre>
+
+# Introduction
+
+# IDL specification
+
+The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
+This specification shows the IDL extensions for WebRTC.
+
+<pre class='idl'>
+
+</pre>

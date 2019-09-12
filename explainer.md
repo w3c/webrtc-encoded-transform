@@ -36,10 +36,36 @@ The encoder is an object that takes a Stream(raw frames) and emits a Stream(enco
 
 ## Code examples
 
-We can pass a factory function to the PeerConnection that does the building whenever an encoder is needed (and similar for the decoder):
+In order to insert your own processing in the media pipeline, do the following:
+
+1. Declare a function that does what you want to a single frame.
+<pre>
+function mungeFunction(frame) { … }
+</pre>
+2. Set up a transform stream that will apply this function to all frames passed to it.
+<pre>
+var munger = new TransformStream({transformer: mungeFunction});
+</pre>
+3. Create a function that will take the original encoder, connect it to the transformStream in an appropriate way, and return an object that can be treated by the rest of the system as if it is an encoder:
+<pre>
+function installMunger(encoder, context) {
+   encoder.readable.pipeTo(munger.writable);
+   var wrappedEncoder = { readable: munger.readable,
+                          writable: encoder.writable };
+   return wrappedEncoder;
+}
+</pre>
+4. Tell the PeerConnection to call this function whenever an encoder is created:
+<pre>
+pc = new RTCPeerConnection ({
+    encoderFactory: installMunger;
+});
+</pre>
+
+Or do it all using a deeply nested set of parentheses:
 
 <pre>
-pc = new PeerConnection( {
+pc = new RTCPeerConnection( {
     encoderFactory: (encoder) => {
         var munger = new TransformStream({
             transformer: munge
@@ -56,7 +82,7 @@ The PC will then connect the returned object’s “writable” to the media inp
 
 When the processing is to be done in a worker, we let the factory method pass the pipes to the worker:
 <pre>
-pc = new PeerConnection({
+pc = new RTCPeerConnection({
     encoderFactory: (encoder) => {
        var munger = new TransformStream({ transformer: munge });
        output = encoder.readable.pipeThrough(munger.writable);

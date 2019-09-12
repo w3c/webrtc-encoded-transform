@@ -12,7 +12,7 @@ We need an API for processing media that:
 
 ## Approach
 
-This document builds on WebCodecs, and tries to unify the concepts from there with the legacy PeerConnection in order to build an API that is:
+This document builds on [WebCodecs](https://github.com/pthatcherg/web-codecs/), and tries to unify the concepts from there with the existing RTCPeerConnection API in order to build an API that is:
 
 * Familiar to existing PeerConnection users
 * Able to support user defined component wrapping and replacement

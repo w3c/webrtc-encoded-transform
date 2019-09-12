@@ -34,6 +34,21 @@ and a decoder.
 
 The encoder is an object that takes a Stream(raw frames) and emits a Stream(encoded frames). It will also have API surface for non-data interfaces like asking the encoder to produce a keyframe, or setting the normal keyframe interval, target bitrate and so on.
 
+## Use cases
+The use cases for this API include the following cases from the [WebRTC NV use cases](https://www.w3.org/TR/webrtc-nv-use-cases/) document:
+* Funny Hats (pre-processing inserted before codec)
+* Background removal
+* Voice processing
+* Secure Web conferencing with trusted Javascript (from [the pull request](https://github.com/w3c/webrtc-nv-use-cases/pull/49))
+
+In addition, the following use cases can be addressed because the codec's dynamic parameters are exposed to the application):
+* Dynamic control of codec parameters
+* App-defined bandwidth distribution between tracks
+
+When it's possible to replace the returned codec with a completely custom codec, we can address:
+* Custom codec for special purposes
+
+
 ## Code examples
 
 In order to insert your own processing in the media pipeline, do the following:
@@ -91,3 +106,8 @@ pc = new RTCPeerConnection({
     }
  })});      
 </pre>
+
+## Implementation efficiency opportunities
+The API outlined here gives the implementation lots of opportunity to optimize. For instance, when the UA discovers that it has been asked to run a pipe from an internal encoder to an internal RTP sender, it has no need to convert the data into the Javascript format, since it is never going to be exposed to Javascript, and does not need to switch to the thread on which Javascript is running.
+
+Similarly, piping from a MediaStreamTrack created on the main thread to a processing step that is executing in a worker has no need to touch the main thread; the media buffers can be piped directly to the worker.

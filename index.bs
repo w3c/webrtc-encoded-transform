@@ -14,8 +14,7 @@ Markup Shorthands: css no
 <pre class='anchors'>
 spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
     type: interface
-        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom
--rtcrtpencodingparameters
+        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom-rtcrtpencodingparameters
     type: enum
         text: RTCPriorityType; url: #dom-rtcprioritytype
     type: attribute

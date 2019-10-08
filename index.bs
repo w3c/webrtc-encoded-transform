@@ -14,8 +14,7 @@ Markup Shorthands: css no
 <pre class='anchors'>
 spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
     type: interface
-        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom
--rtcrtpencodingparameters
+        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom-rtcrtpencodingparameters
     type: enum
         text: RTCPriorityType; url: #dom-rtcprioritytype
     type: attribute
@@ -30,5 +29,11 @@ The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.
 
 <pre class='idl'>
+callback EncoderDecorator = Encoder(Encoder encoder, Config config);
+callback DecoderDecorator = Decoder(Decoder encoder, Config config);
 
+partial dictionary RTCConfiguration {
+   EncoderDecorator encoderFactory;
+   DecoderDecorator decoderFactory;
+};
 </pre>

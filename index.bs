@@ -20,6 +20,15 @@ spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
     type: attribute
         for: RTCRtpEncodingParameters; text: priority; url: #dom-rtcrtpencodingparameters-priority
 </pre>
+<pre class=biblio>
+{
+  "WEB-CODECS": {
+     "href":
+     "https://github.com/WICG/web-codecs/blob/master/explainer.md",
+     "title": "Web Codecs explainer"
+   }
+}
+</pre>
 
 # Introduction
 
@@ -29,6 +38,7 @@ including, but not limited to:
 * Funny Hats
 * Machine Learning
 * Virtual Reality Gaming
+
 These use cases further require that processing can be done in worker
 threads (requirement N23-N24).
 
@@ -47,6 +57,9 @@ The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.
 
 <pre class='idl'>
+typedef (AudioEncoder or VideoEncoder) Encoder;
+typedef (AudioDecoder or VideoDecoder) Decoder;
+
 callback EncoderDecorator = Encoder(Encoder encoder, Config config);
 callback DecoderDecorator = Decoder(Decoder encoder, Config config);
 
@@ -56,21 +69,30 @@ partial dictionary RTCConfiguration {
 };
 </pre>
 
-## Additional operation
+## Extension operation
 At creation of an RTCPeerConnection, the following steps are added to
 the creation algorithm:
 
-* Let the RTCPeerConnection object have two internal slots
-  [[\EncoderFactory]] and [[\DecoderFactory]], initialized to null.
-* If the RTCConfiguration parameter contains a value for
-  "encoderFactory", store that in [[\EncoderFactory]].
-* If the RTCConfiguration parameter contains a value for
-  "decoderFactory", store that in [[\DecoderFactory]].
+* Let the RTCPeerConnection object have two internal slots named [[\EncoderFactory]] and [[\DecoderFactory]], initialized to null.
+* If the RTCConfiguration parameter contains a value for "encoderFactory", store that in [[\EncoderFactory]].
+* If the RTCConfiguration parameter contains a value for "decoderFactory", store that in [[\DecoderFactory]].
 
 At the time when a codec is initialized as part of the encoder, run
 the following steps:
 
-* If [[\EncoderFactory]] is null, 
+* If the unencoded data source does not permit access, abort these steps. (OPEN ISSUE: How is this error surfaced?)
+* Let the unencoded data source be represented by a ReadableStream called "source".
+* Let the encoded data sink be represented by a WriteableStream called
+* "sink".
+* Let the internal encoder object be called "internalEncoder". "internalEncoder" will have a WritableStream property called "writable" (by virtue of being an instance of WebCodec).
+* "internalEncoder" will have a ReadableStream property called "readable".
+* If the PeerConnection's [[\EncoderFactory]] is null, pipe "source" to "writable", and pipe "readable" to "sink", and skip the rest of these steps.
+* Call the function stored in [[\EncoderFactory]], using the newly initialized encoder and its parameters as arguments.
+* Let the return value from the function be "encoder".
+* If "encoder" has an attribute "readable", pipe it to "sink". Otherwise, pipe the "internalEncoder"'s "readable" to "sink".
+* If "encoder" has an attribute "writable", pipe "source" to it. Otherwise, pipe "source" to the "internalEncoder"'s "writable".
+
+The media will then be processed according to the rules of [[WEB-CODECS]].
 
 # Privacy and security considerations
 

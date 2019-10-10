@@ -1219,7 +1219,7 @@ Possible extra rowspan handling
       background-attachment: fixed;
     }
   </style>
-  <meta content="Bikeshed version c80088ef848c5e5446a2eaced80623027d194593" name="generator">
+  <meta content="Bikeshed version 7e430f4a6cb4a7616872addf238a902c73553f9d" name="generator">
   <link href="https://alvestrand.github.io/webrtc-media-streams/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1467,7 +1467,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-10-03">3 October 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-10-10">10 October 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1514,7 +1514,13 @@ MediaStreamTracks being sent via an RTCPeerConnection.</p>
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
     <li><a href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
-    <li><a href="#idl-specification"><span class="secno">2</span> <span class="content">IDL specification</span></a>
+    <li>
+     <a href="#idl-specification"><span class="secno">2</span> <span class="content">IDL specification</span></a>
+     <ol class="toc">
+      <li><a href="#extension-operation"><span class="secno">2.1</span> <span class="content">Extension operation</span></a>
+     </ol>
+    <li><a href="#privacy-and-security-considerations"><span class="secno">3</span> <span class="content">Privacy and security considerations</span></a>
+    <li><a href="#examples"><span class="secno">4</span> <span class="content">Examples</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -1525,23 +1531,90 @@ MediaStreamTracks being sent via an RTCPeerConnection.</p>
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
      </ol>
     <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
    </ol>
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
+   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]</a> document describes several functions that
+can only be achieved by access to media (requirements N20-N22),
+including, but not limited to:</p>
+   <ul>
+    <li data-md>
+     <p>Funny Hats</p>
+    <li data-md>
+     <p>Machine Learning</p>
+    <li data-md>
+     <p>Virtual Reality Gaming</p>
+   </ul>
+   <p>These use cases further require that processing can be done in worker
+threads (requirement N23-N24).</p>
+   <p>Furthermore, the "trusted JavaScript cloud conferencing" use case
+requires such processing to be done on encoded media, not just the raw
+media.</p>
+   <p>This specification gives an interface that builds on <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
+provide access to such functionality while retaining the setup flow of
+RTCPeerConnection.</p>
    <h2 class="heading settled" data-level="2" id="idl-specification"><span class="secno">2. </span><span class="content">IDL specification</span><a class="self-link" href="#idl-specification"></a></h2>
    <p>The Streams definition doesn’t use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.</p>
-<pre class="idl highlight def"><c- b>callback</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="callback" data-export id="callbackdef-encoderdecorator"><code><c- g>EncoderDecorator</c-></code></dfn> = <a class="n" data-link-type="idl-name"><c- n>Encoder</c-></a>(<a class="n" data-link-type="idl-name"><c- n>Encoder</c-></a> <dfn class="idl-code" data-dfn-for="EncoderDecorator" data-dfn-type="argument" data-export id="dom-encoderdecorator-encoder"><code><c- g>encoder</c-></code><a class="self-link" href="#dom-encoderdecorator-encoder"></a></dfn>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <dfn class="idl-code" data-dfn-for="EncoderDecorator" data-dfn-type="argument" data-export id="dom-encoderdecorator-config"><code><c- g>config</c-></code><a class="self-link" href="#dom-encoderdecorator-config"></a></dfn>);
-<c- b>callback</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="callback" data-export id="callbackdef-decoderdecorator"><code><c- g>DecoderDecorator</c-></code></dfn> = <a class="n" data-link-type="idl-name"><c- n>Decoder</c-></a>(<a class="n" data-link-type="idl-name"><c- n>Decoder</c-></a> <dfn class="idl-code" data-dfn-for="DecoderDecorator" data-dfn-type="argument" data-export id="dom-decoderdecorator-encoder"><code><c- g>encoder</c-></code><a class="self-link" href="#dom-decoderdecorator-encoder"></a></dfn>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <dfn class="idl-code" data-dfn-for="DecoderDecorator" data-dfn-type="argument" data-export id="dom-decoderdecorator-config"><code><c- g>config</c-></code><a class="self-link" href="#dom-decoderdecorator-config"></a></dfn>);
+<pre class="idl highlight def"><c- b>typedef</c-> (<a class="n" data-link-type="idl-name"><c- n>AudioEncoder</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name"><c- n>VideoEncoder</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-encoder"><code><c- g>Encoder</c-></code></dfn>;
+<c- b>typedef</c-> (<a class="n" data-link-type="idl-name"><c- n>AudioDecoder</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name"><c- n>VideoDecoder</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-decoder"><code><c- g>Decoder</c-></code></dfn>;
+
+<c- b>callback</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="callback" data-export id="callbackdef-encoderdecorator"><code><c- g>EncoderDecorator</c-></code></dfn> = <a class="n" data-link-type="idl-name" href="#typedefdef-encoder" id="ref-for-typedefdef-encoder"><c- n>Encoder</c-></a>(<a class="n" data-link-type="idl-name" href="#typedefdef-encoder" id="ref-for-typedefdef-encoder①"><c- n>Encoder</c-></a> <dfn class="idl-code" data-dfn-for="EncoderDecorator" data-dfn-type="argument" data-export id="dom-encoderdecorator-encoder"><code><c- g>encoder</c-></code><a class="self-link" href="#dom-encoderdecorator-encoder"></a></dfn>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <dfn class="idl-code" data-dfn-for="EncoderDecorator" data-dfn-type="argument" data-export id="dom-encoderdecorator-config"><code><c- g>config</c-></code><a class="self-link" href="#dom-encoderdecorator-config"></a></dfn>);
+<c- b>callback</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="callback" data-export id="callbackdef-decoderdecorator"><code><c- g>DecoderDecorator</c-></code></dfn> = <a class="n" data-link-type="idl-name" href="#typedefdef-decoder" id="ref-for-typedefdef-decoder"><c- n>Decoder</c-></a>(<a class="n" data-link-type="idl-name" href="#typedefdef-decoder" id="ref-for-typedefdef-decoder①"><c- n>Decoder</c-></a> <dfn class="idl-code" data-dfn-for="DecoderDecorator" data-dfn-type="argument" data-export id="dom-decoderdecorator-encoder"><code><c- g>encoder</c-></code><a class="self-link" href="#dom-decoderdecorator-encoder"></a></dfn>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <dfn class="idl-code" data-dfn-for="DecoderDecorator" data-dfn-type="argument" data-export id="dom-decoderdecorator-config"><code><c- g>config</c-></code><a class="self-link" href="#dom-decoderdecorator-config"></a></dfn>);
 
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary"><c- g>RTCConfiguration</c-></a> {
    <a class="n" data-link-type="idl-name" href="#callbackdef-encoderdecorator" id="ref-for-callbackdef-encoderdecorator"><c- n>EncoderDecorator</c-></a> <dfn class="idl-code" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="EncoderDecorator " id="dom-rtcconfiguration-encoderfactory"><code><c- g>encoderFactory</c-></code><a class="self-link" href="#dom-rtcconfiguration-encoderfactory"></a></dfn>;
    <a class="n" data-link-type="idl-name" href="#callbackdef-decoderdecorator" id="ref-for-callbackdef-decoderdecorator"><c- n>DecoderDecorator</c-></a> <dfn class="idl-code" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="DecoderDecorator " id="dom-rtcconfiguration-decoderfactory"><code><c- g>decoderFactory</c-></code><a class="self-link" href="#dom-rtcconfiguration-decoderfactory"></a></dfn>;
 };
 </pre>
+   <h3 class="heading settled" data-level="2.1" id="extension-operation"><span class="secno">2.1. </span><span class="content">Extension operation</span><a class="self-link" href="#extension-operation"></a></h3>
+    At creation of an RTCPeerConnection, the following steps are added to
+the creation algorithm: 
+   <ul>
+    <li data-md>
+     <p>Let the RTCPeerConnection object have two internal slots named [[\EncoderFactory]] and [[\DecoderFactory]], initialized to null.</p>
+    <li data-md>
+     <p>If the RTCConfiguration parameter contains a value for "encoderFactory", store that in [[\EncoderFactory]].</p>
+    <li data-md>
+     <p>If the RTCConfiguration parameter contains a value for "decoderFactory", store that in [[\DecoderFactory]].</p>
+   </ul>
+   <p>At the time when a codec is initialized as part of the encoder, run
+the following steps:</p>
+   <ul>
+    <li data-md>
+     <p>If the unencoded data source does not permit access, abort these steps. (OPEN ISSUE: How is this error surfaced?)</p>
+    <li data-md>
+     <p>Let the unencoded data source be represented by a ReadableStream called "source".</p>
+    <li data-md>
+     <p>Let the encoded data sink be represented by a WriteableStream called</p>
+    <li data-md>
+     <p>"sink".</p>
+    <li data-md>
+     <p>Let the internal encoder object be called "internalEncoder". "internalEncoder" will have a WritableStream property called "writable" (by virtue of being an instance of WebCodec).</p>
+    <li data-md>
+     <p>"internalEncoder" will have a ReadableStream property called "readable".</p>
+    <li data-md>
+     <p>If the PeerConnection’s [[\EncoderFactory]] is null, pipe "source" to "writable", and pipe "readable" to "sink", and skip the rest of these steps.</p>
+    <li data-md>
+     <p>Call the function stored in [[\EncoderFactory]], using the newly initialized encoder and its parameters as arguments.</p>
+    <li data-md>
+     <p>Let the return value from the function be "encoder".</p>
+    <li data-md>
+     <p>If "encoder" has an attribute "readable", pipe it to "sink". Otherwise, pipe the "internalEncoder"'s "readable" to "sink".</p>
+    <li data-md>
+     <p>If "encoder" has an attribute "writable", pipe "source" to it. Otherwise, pipe "source" to the "internalEncoder"'s "writable".</p>
+   </ul>
+   <p>The media will then be processed according to the rules of <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a>.</p>
+   <h2 class="heading settled" data-level="3" id="privacy-and-security-considerations"><span class="secno">3. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy-and-security-considerations"></a></h2>
+   <p>This API gives Javascript access to the content of media streams. This
+is also available from other sources, such as Canvas and WebAudio.</p>
+   <p>However, streams that are isolated (as specified in <a data-link-type="biblio" href="#biblio-webrtc-identity">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
+accessed using this API, since that would break the isolation rule.</p>
+   <h2 class="heading settled" data-level="4" id="examples"><span class="secno">4. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -1692,8 +1765,10 @@ This specification shows the IDL extensions for WebRTC.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#typedefdef-decoder">Decoder</a><span>, in §2</span>
    <li><a href="#callbackdef-decoderdecorator">DecoderDecorator</a><span>, in §2</span>
    <li><a href="#dom-rtcconfiguration-decoderfactory">decoderFactory</a><span>, in §2</span>
+   <li><a href="#typedefdef-encoder">Encoder</a><span>, in §2</span>
    <li><a href="#callbackdef-encoderdecorator">EncoderDecorator</a><span>, in §2</span>
    <li><a href="#dom-rtcconfiguration-encoderfactory">encoderFactory</a><span>, in §2</span>
   </ul>
@@ -1703,9 +1778,21 @@ This specification shows the IDL extensions for WebRTC.</p>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
   </dl>
+  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <dl>
+   <dt id="biblio-web-codecs">[WEB-CODECS]
+   <dd><a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">Web Codecs explainer</a>. URL: <a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">https://github.com/WICG/web-codecs/blob/master/explainer.md</a>
+   <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
+   <dd>Cullen Jennings; Martin Thomson. <a href="https://www.w3.org/TR/webrtc-identity/">Identity for WebRTC 1.0</a>. 27 September 2018. CR. URL: <a href="https://www.w3.org/TR/webrtc-identity/">https://www.w3.org/TR/webrtc-identity/</a>
+   <dt id="biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]
+   <dd>Bernard Aboba. <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">WebRTC Next Version Use Cases</a>. 11 December 2018. WD. URL: <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">https://www.w3.org/TR/webrtc-nv-use-cases/</a>
+  </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def"><c- b>callback</c-> <a href="#callbackdef-encoderdecorator"><code><c- g>EncoderDecorator</c-></code></a> = <a class="n" data-link-type="idl-name"><c- n>Encoder</c-></a>(<a class="n" data-link-type="idl-name"><c- n>Encoder</c-></a> <a href="#dom-encoderdecorator-encoder"><code><c- g>encoder</c-></code></a>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <a href="#dom-encoderdecorator-config"><code><c- g>config</c-></code></a>);
-<c- b>callback</c-> <a href="#callbackdef-decoderdecorator"><code><c- g>DecoderDecorator</c-></code></a> = <a class="n" data-link-type="idl-name"><c- n>Decoder</c-></a>(<a class="n" data-link-type="idl-name"><c- n>Decoder</c-></a> <a href="#dom-decoderdecorator-encoder"><code><c- g>encoder</c-></code></a>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <a href="#dom-decoderdecorator-config"><code><c- g>config</c-></code></a>);
+<pre class="idl highlight def"><c- b>typedef</c-> (<a class="n" data-link-type="idl-name"><c- n>AudioEncoder</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name"><c- n>VideoEncoder</c-></a>) <a href="#typedefdef-encoder"><code><c- g>Encoder</c-></code></a>;
+<c- b>typedef</c-> (<a class="n" data-link-type="idl-name"><c- n>AudioDecoder</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name"><c- n>VideoDecoder</c-></a>) <a href="#typedefdef-decoder"><code><c- g>Decoder</c-></code></a>;
+
+<c- b>callback</c-> <a href="#callbackdef-encoderdecorator"><code><c- g>EncoderDecorator</c-></code></a> = <a class="n" data-link-type="idl-name" href="#typedefdef-encoder" id="ref-for-typedefdef-encoder②"><c- n>Encoder</c-></a>(<a class="n" data-link-type="idl-name" href="#typedefdef-encoder" id="ref-for-typedefdef-encoder①①"><c- n>Encoder</c-></a> <a href="#dom-encoderdecorator-encoder"><code><c- g>encoder</c-></code></a>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <a href="#dom-encoderdecorator-config"><code><c- g>config</c-></code></a>);
+<c- b>callback</c-> <a href="#callbackdef-decoderdecorator"><code><c- g>DecoderDecorator</c-></code></a> = <a class="n" data-link-type="idl-name" href="#typedefdef-decoder" id="ref-for-typedefdef-decoder②"><c- n>Decoder</c-></a>(<a class="n" data-link-type="idl-name" href="#typedefdef-decoder" id="ref-for-typedefdef-decoder①①"><c- n>Decoder</c-></a> <a href="#dom-decoderdecorator-encoder"><code><c- g>encoder</c-></code></a>, <a class="n" data-link-type="idl-name"><c- n>Config</c-></a> <a href="#dom-decoderdecorator-config"><code><c- g>config</c-></code></a>);
 
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary"><c- g>RTCConfiguration</c-></a> {
    <a class="n" data-link-type="idl-name" href="#callbackdef-encoderdecorator" id="ref-for-callbackdef-encoderdecorator①"><c- n>EncoderDecorator</c-></a> <a data-type="EncoderDecorator " href="#dom-rtcconfiguration-encoderfactory"><code><c- g>encoderFactory</c-></code></a>;
@@ -1713,6 +1800,18 @@ This specification shows the IDL extensions for WebRTC.</p>
 };
 
 </pre>
+  <aside class="dfn-panel" data-for="typedefdef-encoder">
+   <b><a href="#typedefdef-encoder">#typedefdef-encoder</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-typedefdef-encoder">2. IDL specification</a> <a href="#ref-for-typedefdef-encoder①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="typedefdef-decoder">
+   <b><a href="#typedefdef-decoder">#typedefdef-decoder</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-typedefdef-decoder">2. IDL specification</a> <a href="#ref-for-typedefdef-decoder①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="callbackdef-encoderdecorator">
    <b><a href="#callbackdef-encoderdecorator">#callbackdef-encoderdecorator</a></b><b>Referenced in:</b>
    <ul>

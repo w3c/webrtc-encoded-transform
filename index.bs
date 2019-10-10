@@ -23,6 +23,24 @@ spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
 
 # Introduction
 
+The [[WEBRTC-NV-USE-CASES]] document describes several functions that
+can only be achieved by access to media (requirements N20-N22),
+including, but not limited to:
+* Funny Hats
+* Machine Learning
+* Virtual Reality Gaming
+These use cases further require that processing can be done in worker
+threads (requirement N23-N24).
+
+Furthermore, the "trusted JavaScript cloud conferencing" use case
+requires such processing to be done on encoded media, not just the raw
+media.
+
+This specification gives an interface that builds on [[WEB-CODECS]] to
+provide access to such functionality while retaining the setup flow of
+RTCPeerConnection.
+
+
 # IDL specification
 
 The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
@@ -37,3 +55,33 @@ partial dictionary RTCConfiguration {
    DecoderDecorator decoderFactory;
 };
 </pre>
+
+## Additional operation
+At creation of an RTCPeerConnection, the following steps are added to
+the creation algorithm:
+
+* Let the RTCPeerConnection object have two internal slots
+  [[\EncoderFactory]] and [[\DecoderFactory]], initialized to null.
+* If the RTCConfiguration parameter contains a value for
+  "encoderFactory", store that in [[\EncoderFactory]].
+* If the RTCConfiguration parameter contains a value for
+  "decoderFactory", store that in [[\DecoderFactory]].
+
+At the time when a codec is initialized as part of the encoder, run
+the following steps:
+
+* If [[\EncoderFactory]] is null, 
+
+# Privacy and security considerations
+
+This API gives Javascript access to the content of media streams. This
+is also available from other sources, such as Canvas and WebAudio.
+
+However, streams that are isolated (as specified in
+[[WEBRTC-IDENTITY]]) or tainted with another origin, cannot be
+accessed using this API, since that would break the isolation rule.
+
+
+# Examples
+
+

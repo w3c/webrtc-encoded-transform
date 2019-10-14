@@ -2,23 +2,30 @@
 Title: WebRTC Insertable Media using Streams
 Shortname: webrtc-media-streams
 Level: 1
-Status: ED
+Status: DREAM
 Group: webrtc
 Repository: alvestrand/webrtc-media-streams/
 URL: https://alvestrand.github.io/webrtc-media-streams/
 Editor: Harald Alvestrand, Google https://google.com, hta@google.com
 Abstract: This API defines an API surface for manipulating the bits on
 Abstract: MediaStreamTracks being sent via an RTCPeerConnection.
-Markup Shorthands: css no
+Markup Shorthands: css no, markdown yes
 </pre>
 <pre class='anchors'>
 spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
     type: interface
-        for: RTCRtpEncodingParameters; text: RTCRtpEncodingParameters; url: #dom-rtcrtpencodingparameters
-    type: enum
-        text: RTCPriorityType; url: #dom-rtcprioritytype
-    type: attribute
-        for: RTCRtpEncodingParameters; text: priority; url: #dom-rtcrtpencodingparameters-priority
+        text: RTCPeerConnection; url: #dom-rtcpeerconnection
+    type: dictionary
+        text: RTCConfiguration; url: #dom-rtcconfiguration
+spec: WEB-CODECS; urlPrefix: https://github.com/WICG/web-codecs/
+    type: interface
+        text: AudioEncoder; url: #dom-audioencoder
+    type: interface
+        text: AudioDecoder; url: #dom-audiodecoder
+    type: interface
+        text: VideoEncoder; url: #dom-videoencoder
+    type: interface
+        text: VideoDecoder; url: #dom-videodecoder
 </pre>
 <pre class=biblio>
 {
@@ -30,7 +37,7 @@ spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
 }
 </pre>
 
-# Introduction
+# Introduction {#introduction}
 
 The [[WEBRTC-NV-USE-CASES]] document describes several functions that
 can only be achieved by access to media (requirements N20-N22),
@@ -50,18 +57,31 @@ This specification gives an interface that builds on [[WEB-CODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.
 
+# Terminology {#terminology}
 
-# IDL specification
+<p noexport>
+The IDL terms <dfn type="idl-name">AudioEncoder</dfn>, <dfn>VideoEncoder</dfn>,
+<dfn>AudioDecoder</dfn>, <dfn>VideoDecoder</dfn> are defined in [[WEB-CODECS]].
+</p>
+
+# Specification {#specification}
 
 The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.
+
+It uses an extension to RTCConfiguration in order to pass the extra
+decorators for encoder and decoder initialization to an {{RTCPeerConnection}}.
 
 <pre class='idl'>
 typedef (AudioEncoder or VideoEncoder) Encoder;
 typedef (AudioDecoder or VideoDecoder) Decoder;
 
-callback EncoderDecorator = Encoder(Encoder encoder, Config config);
-callback DecoderDecorator = Decoder(Decoder encoder, Config config);
+dictionary Config {
+  // To Be Defined
+};  
+
+callback EncoderDecorator = Encoder(Encoder encoder, optional Config config);
+callback DecoderDecorator = Decoder(Decoder encoder, optional Config config);
 
 partial dictionary RTCConfiguration {
    EncoderDecorator encoderFactory;
@@ -69,7 +89,7 @@ partial dictionary RTCConfiguration {
 };
 </pre>
 
-## Extension operation
+## Extension operation {#operation}
 At creation of an RTCPeerConnection, the following steps are added to
 the creation algorithm:
 
@@ -94,7 +114,7 @@ the following steps:
 
 The media will then be processed according to the rules of [[WEB-CODECS]].
 
-# Privacy and security considerations
+# Privacy and security considerations {#privacy}
 
 This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.
@@ -104,6 +124,6 @@ However, streams that are isolated (as specified in
 accessed using this API, since that would break the isolation rule.
 
 
-# Examples
+# Examples {#examples}
 
 

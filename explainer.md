@@ -1,4 +1,4 @@
-# Explainer - WebRTC Insertable Stream Processing of Media
+# Explainer - WebRTC Insertable Streams
 
 ## Problem to be solved
 
@@ -10,104 +10,209 @@ We need an API for processing media that:
 * Allows the use of techniques like Workers to avoid blocking on the main thread
 * Does not negatively impact security or privacy of current communications
 
+
 ## Approach
 
-This document builds on [WebCodecs](https://github.com/pthatcherg/web-codecs/), and tries to unify the concepts from there with the existing RTCPeerConnection API in order to build an API that is:
+This document builds on concepts previously proposed by
+[WebCodecs](https://github.com/pthatcherg/web-codecs/), and applies them to the existing
+RTCPeerConnection API in order to build an API that is:
 
 * Familiar to existing PeerConnection users
-* Able to support user defined component wrapping and replacement
+* Able to support insertion of user-defined components
 * Able to support high performance user-specified transformations
+* Able to support user defined component wrapping and replacement
 
-The central component of the API is the concept (inherited from WebCodecs) of a component’s main role being a TransformStream (part of the WHATWG Streams spec).
+The central idea is to expose components in an RTCPeerConnection as a collection of
+streams (as defined by the [WHATWG Streams API] (https://streams.spec.whatwg.org/)),
+which can be manipulated to introduce new components, or to wrap or replace existing
+components.
 
-A PeerConnection in this model is a bunch of TransformStreams, connected together into a network that provides the functions expected of it. In particular:
-
-* MediaStreamTrack contains a TransformStream (input & output: Media samples)
-* RTPSender contains a TransformStream (input: Media samples, output: RTP packets)
-* RTPReceiver contains a TransformStream (input: RTP packets, output: Media samples)
-
-
-RTPSender and RTPReceiver are composable objects - a sender has an encoder and a
-RTP packetizer, which pipe into each other; a receiver has an RTP depacketizer
-and a decoder.
-
-
-The encoder is an object that takes a Stream(raw frames) and emits a Stream(encoded frames). It will also have API surface for non-data interfaces like asking the encoder to produce a keyframe, or setting the normal keyframe interval, target bitrate and so on.
 
 ## Use cases
-The use cases for this API include the following cases from the [WebRTC NV use cases](https://www.w3.org/TR/webrtc-nv-use-cases/) document:
-* Funny Hats (pre-processing inserted before codec)
+
+The first use case to be supported by the API is the processing of encoded media, with
+end-to-end encryption intended as the motivating application. As such, the first version
+of the API will focus on this use case. However, the same approach can be used in future
+iterations to support additional use cases such as:
+
+* Funny Hats (processing inserted before encoding or after decoding)
 * Background removal
 * Voice processing
-* Secure Web conferencing with trusted Javascript (from [the pull request](https://github.com/w3c/webrtc-nv-use-cases/pull/49))
-
-In addition, the following use cases can be addressed because the codec's dynamic parameters are exposed to the application):
 * Dynamic control of codec parameters
 * App-defined bandwidth distribution between tracks
+* Custom codecs for special purposes (in combination with WebCodecs)
 
-When it's possible to replace the returned codec with a completely custom codec, we can address:
-* Custom codec for special purposes
+## Code Examples
 
+1. Let an PeerConnection know that it should allow exposing the data flowing through it
+as streams.
 
-## Code examples
+To ensure backwards compatibility, if the Insertable Streams API is not used, an
+RTCPeerConnection should work exactly as it did before the introduction of this API.
+Therefore, we explicitly let the RTCPeerConnection know that we want to use insertable
+streams. For example:
 
-In order to insert your own processing in the media pipeline, do the following:
-
-1. Declare a function that does what you want to a single frame.
 <pre>
-function mungeFunction(frame) { … }
+let pc = new RTCPeerConnection({
+    forceEncodedVideoInsertableStreams: true,
+    forceEncodedAudioInsertableStreams: true
+});
 </pre>
-2. Set up a transform stream that will apply this function to all frames passed to it.
+
+2. Set up transform streams that perform some processing on data.
+
+The following example negates every bit in the original data payload
+of an encoded frame and adds 4 bytes of padding.
+
 <pre>
-var munger = new TransformStream({transformer: mungeFunction});
+    let senderTransform = new TransformStream({
+      start() {
+        // Called on startup.
+      },
+
+      async transform(chunk, controller) {
+        let view = new DataView(chunk.data);
+        // Create a new buffer with 4 additional bytes.
+        let newData = new ArrayBuffer(chunk.data.byteLength + 4);
+        Let newView = new DataView(newData);
+
+        // Fill the new buffer with a negated version of all
+        // the bits in the original frame.
+        for (let i = 0; i < chunk.data.byteLength; ++i)
+          newView.setInt8(i, ~view.getInt8(i));
+        // Set the padding bytes to zero.
+        For (let i = 0; i < 4; ++i)
+          newView.setInt8(chunk.data.byteLength + i, 0);
+
+        // Replace the frame's data with the new buffer.
+        chunk.data = newData;
+
+        // Send it to the output stream.
+        controller.enqueue(chunk);
+      },
+
+      flush() {
+        // Called when the stream is about to be closed.
+      }
+    });
 </pre>
-3. Create a function that will take the original encoder, connect it to the transformStream in an appropriate way, and return an object that can be treated by the rest of the system as if it is an encoder:
+
+3. Create a MediaStreamTrack, add it to the RTCPeerConnection and connect the
+Transform stream to the track's sender.
+
 <pre>
-function installMunger(encoder, context) {
-   encoder.readable.pipeTo(munger.writable);
-   var wrappedEncoder = { readable: munger.readable,
-                          writable: encoder.writable };
-   return wrappedEncoder;
+let stream = await navigator.mediaDevices.getUserMedia({video:true});
+let [track] = stream.getTracks();
+let videoSender = pc.addTrack(track, stream)
+let senderStreams = videoSender.getEncodedVideoStreams();
+
+// Do ICE and offer/answer exchange.
+
+senderStreams.readable
+  .pipeThrough(senderTransform)
+  .pipeTo(senderStreams.writable);
 }
 </pre>
-4. Tell the PeerConnection to call this function whenever an encoder is created:
-<pre>
-pc = new RTCPeerConnection ({
-    encoderFactory: installMunger;
-});
-</pre>
 
-Or do it all using a deeply nested set of parentheses:
+4. Do the corresponding operations on the receiver side.
 
 <pre>
-pc = new RTCPeerConnection( {
-    encoderFactory: (encoder) => {
-        var munger = new TransformStream({
-            transformer: munge
-         });
-         var wrapped = { readable: munger.readable,
-                         writable: encoder.writable };
-         encoder.readable.pipeTo(munger.writable);
-         return wrappedEncoder;
-    }
-});
+let pc = new RTCPeerConnection({forceEncodedVideoInsertableStreams: true});
+pc.ontrack = e => {
+  let receivers = pc.getReceivers();
+  let videoReceiver = null;
+  for (const r of receivers) {
+    if (r.track.kind == 'video')
+      videoReceiver = r;
+  }
+  if (!videoReceiver)
+    return;
+
+  let receiverTransform = new TransformStream({
+    start() {},
+    flush() {},
+    async transform(chunk, controller) {
+      // Reconstruct the original frame.
+      let view = new DataView(chunk.data);
+
+      // Ignore the last 4 bytes
+      let newData = new ArrayBuffer(chunk.data.byteLength - 4);
+      let newView = new DataView(newData);
+
+      // Negate all bits in the incoming frame, ignoring the
+      // last 4 bytes
+      for (let i = 0; i < chunk.data.byteLength - 4; ++i)
+        newView.setInt8(i, ~view.getInt8(i));
+
+      chunk.data = newData;
+      controller.enqueue(chunk);
+      },
+    });
+
+    let receiver_streams = video_receiver.createEncodedVideoStreams();
+    receiver_streams.readable
+      .pipeThrough(my_transform)
+      .pipeTo(receiver_streams.writable);
+  }
+}
 </pre>
 
-The PC will then connect the returned object’s “writable” to the media input, and the returned object’s “readable” to the RTP packetizer’s input.
+## API
 
-When the processing is to be done in a worker, we let the factory method pass the pipes to the worker:
+The following are the IDL modifications proposed by this API.
+Future iterations will add additional operations following a similar pattern.
+
 <pre>
-pc = new RTCPeerConnection({
-    encoderFactory: (encoder) => {
-       var munger = new TransformStream({ transformer: munge });
-       output = encoder.readable.pipeThrough(munger.writable);
-       worker.postMessage([‘munge this’, munger], [munger]);
-       Return { readable: output, writable: encoder.writable };
-    }
- })});      
+// New dictionary.
+dictionary RTCInsertableStreams {
+    ReadableStream readable;
+    WritableStream writable;
+};
+
+// New enum for video frame types. Will eventually re-use the equivalent defined
+// by WebCodecs.
+enum RTCEncodedVideoFrameType {
+    "empty",
+    "key",
+    "delta",
+};
+
+// New interfaces to define encoded video and audio frames. Will eventually
+// re-use or extend the equivalent defined in WebCodecs.
+// The additionalData fields contain metadata about the frame and might be
+// eventually be exposed differently.
+interface RTCEncodedVideoFrame {
+    readonly attribute RTCEncodedVideoFrameType type;
+    readonly attribute unsigned long long timestamp;
+    attribute ArrayBuffer data;
+    readonly attribute ArrayBuffer additionalData;
+};
+
+interface RTCEncodedAudioFrame {
+    readonly attribute unsigned long long timestamp;
+    attribute ArrayBuffer data;
+    readonly attribute ArrayBuffer additionalData;
+};
+
+
+// New fields in RTCConfiguration
+dictionary RTCConfiguration {
+    ...
+    boolean forceEncodedVideoInsertableStreams = false;
+    boolean forceEncodedAudioInsertableStreams = false;
+};
+
+// New methods for RTCRtpSender and RTCRtpReceiver
+interface RTCRtpSender {
+    // ...
+    RTCInsertableStreams createEncodedVideoStreams();
+    RTCInsertableStreams createEncodedAudioStreams();
+};
+
+interface RTCRtpReceiver {
+    // ...
+    RTCInsertableStreams createEncodedVideoStreams();
+    RTCInsertableStreams createEncodedAudioStreams();
+};
+
 </pre>
-
-## Implementation efficiency opportunities
-The API outlined here gives the implementation lots of opportunity to optimize. For instance, when the UA discovers that it has been asked to run a pipe from an internal encoder to an internal RTP sender, it has no need to convert the data into the Javascript format, since it is never going to be exposed to Javascript, and does not need to switch to the thread on which Javascript is running.
-
-Similarly, piping from a MediaStreamTrack created on the main thread to a processing step that is executing in a worker has no need to touch the main thread; the media buffers can be piped directly to the worker.

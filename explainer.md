@@ -148,10 +148,10 @@ pc.ontrack = e => {
       },
     });
 
-    let receiverStreams = videoReceiver.createEncodedVideoStreams();
-    receiverStreams.readable
-      .pipeThrough(receiverTransform)
-      .pipeTo(receiverStreams.writable);
+  let receiverStreams = videoReceiver.createEncodedVideoStreams();
+  receiverStreams.readable
+    .pipeThrough(receiverTransform)
+    .pipeTo(receiverStreams.writable);
 }
 </pre>
 

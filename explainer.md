@@ -74,14 +74,14 @@ of an encoded frame and adds 4 bytes of padding.
         let view = new DataView(chunk.data);
         // Create a new buffer with 4 additional bytes.
         let newData = new ArrayBuffer(chunk.data.byteLength + 4);
-        Let newView = new DataView(newData);
+        let newView = new DataView(newData);
 
         // Fill the new buffer with a negated version of all
         // the bits in the original frame.
         for (let i = 0; i < chunk.data.byteLength; ++i)
           newView.setInt8(i, ~view.getInt8(i));
         // Set the padding bytes to zero.
-        For (let i = 0; i < 4; ++i)
+        for (let i = 0; i < 4; ++i)
           newView.setInt8(chunk.data.byteLength + i, 0);
 
         // Replace the frame's data with the new buffer.
@@ -111,7 +111,6 @@ let senderStreams = videoSender.getEncodedVideoStreams();
 senderStreams.readable
   .pipeThrough(senderTransform)
   .pipeTo(senderStreams.writable);
-}
 </pre>
 
 4. Do the corresponding operations on the receiver side.
@@ -149,11 +148,10 @@ pc.ontrack = e => {
       },
     });
 
-    let receiver_streams = video_receiver.createEncodedVideoStreams();
-    receiver_streams.readable
-      .pipeThrough(my_transform)
-      .pipeTo(receiver_streams.writable);
-  }
+    let receiverStreams = videoReceiver.createEncodedVideoStreams();
+    receiverStreams.readable
+      .pipeThrough(receiverTransform)
+      .pipeTo(receiverStreams.writable);
 }
 </pre>
 

@@ -43,6 +43,12 @@ iterations to support additional use cases such as:
 * Custom codecs for special purposes (in combination with WebCodecs)
 
 ## Code Examples
+0. Feature detection can be done as follows:
+
+<pre>
+const supportsInsertableStreams = window.RTCRtpSender &&
+      !!RTCRtpSender.prototype.createEncodedVideoStreams;
+</pre>
 
 1. Let an PeerConnection know that it should allow exposing the data flowing through it
 as streams.

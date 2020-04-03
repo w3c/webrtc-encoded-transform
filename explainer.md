@@ -118,15 +118,6 @@ senderStreams.readable
 <pre>
 let pc = new RTCPeerConnection({forceEncodedVideoInsertableStreams: true});
 pc.ontrack = e => {
-  let receivers = pc.getReceivers();
-  let videoReceiver = null;
-  for (const r of receivers) {
-    if (r.track.kind == 'video')
-      videoReceiver = r;
-  }
-  if (!videoReceiver)
-    return;
-
   let receiverTransform = new TransformStream({
     start() {},
     flush() {},
@@ -148,7 +139,7 @@ pc.ontrack = e => {
       },
     });
 
-  let receiverStreams = videoReceiver.createEncodedVideoStreams();
+  let receiverStreams = e.receiver.createEncodedVideoStreams();
   receiverStreams.readable
     .pipeThrough(receiverTransform)
     .pipeTo(receiverStreams.writable);

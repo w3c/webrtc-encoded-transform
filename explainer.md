@@ -23,7 +23,7 @@ RTCPeerConnection API in order to build an API that is:
 * Able to support user defined component wrapping and replacement
 
 The central idea is to expose components in an RTCPeerConnection as a collection of
-streams (as defined by the [WHATWG Streams API] (https://streams.spec.whatwg.org/)),
+streams (as defined by the [WHATWG Streams API](https://streams.spec.whatwg.org/)),
 which can be manipulated to introduce new components, or to wrap or replace existing
 components.
 

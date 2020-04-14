@@ -155,7 +155,7 @@ pc.ontrack = e => {
 ## API
 
 The following are the IDL modifications proposed by this API.
-Future iterations will add additional operations following a similar pattern.
+Future iterations may add additional operations following a similar pattern.
 
 <pre>
 // New dictionary.
@@ -174,25 +174,28 @@ enum RTCEncodedVideoFrameType {
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-// The additionalData fields contain metadata about the frame and might be
+// The additionalData fields contain metadata about the frame and will
 // eventually be exposed differently.
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
     readonly attribute ArrayBuffer additionalData;
+    readonly attribute unsigned long synchronizationSource;
 };
 
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
     readonly attribute ArrayBuffer additionalData;
+    readonly attribute unsigned long synchronizationSource;
+    readonly attribute FrozenArray<unsigned long> contributingSources;
 };
 
 
 // New fields in RTCConfiguration
 dictionary RTCConfiguration {
-    ...
+    // ...
     boolean forceEncodedVideoInsertableStreams = false;
     boolean forceEncodedAudioInsertableStreams = false;
 };

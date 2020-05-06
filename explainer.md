@@ -76,25 +76,25 @@ of an encoded frame and adds 4 bytes of padding.
         // Called on startup.
       },
 
-      async transform(chunk, controller) {
-        let view = new DataView(chunk.data);
+      async transform(encodedFrame, controller) {
+        let view = new DataView(encodedFrame.data);
         // Create a new buffer with 4 additional bytes.
-        let newData = new ArrayBuffer(chunk.data.byteLength + 4);
+        let newData = new ArrayBuffer(encodedFrame.data.byteLength + 4);
         let newView = new DataView(newData);
 
         // Fill the new buffer with a negated version of all
         // the bits in the original frame.
-        for (let i = 0; i < chunk.data.byteLength; ++i)
+        for (let i = 0; i < encodedFrame.data.byteLength; ++i)
           newView.setInt8(i, ~view.getInt8(i));
         // Set the padding bytes to zero.
         for (let i = 0; i < 4; ++i)
-          newView.setInt8(chunk.data.byteLength + i, 0);
+          newView.setInt8(encodedFrame.data.byteLength + i, 0);
 
         // Replace the frame's data with the new buffer.
-        chunk.data = newData;
+        encodedFrame.data = newData;
 
         // Send it to the output stream.
-        controller.enqueue(chunk);
+        controller.enqueue(encodedFrame);
       },
 
       flush() {
@@ -127,21 +127,21 @@ pc.ontrack = e => {
   let receiverTransform = new TransformStream({
     start() {},
     flush() {},
-    async transform(chunk, controller) {
+    async transform(encodedFrame, controller) {
       // Reconstruct the original frame.
-      let view = new DataView(chunk.data);
+      let view = new DataView(encodedFrame.data);
 
       // Ignore the last 4 bytes
-      let newData = new ArrayBuffer(chunk.data.byteLength - 4);
+      let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
       let newView = new DataView(newData);
 
       // Negate all bits in the incoming frame, ignoring the
       // last 4 bytes
-      for (let i = 0; i < chunk.data.byteLength - 4; ++i)
+      for (let i = 0; i < encodedFrame.data.byteLength - 4; ++i)
         newView.setInt8(i, ~view.getInt8(i));
 
-      chunk.data = newData;
-      controller.enqueue(chunk);
+      encodedFrame.data = newData;
+      controller.enqueue(encodedFrame);
       },
     });
 

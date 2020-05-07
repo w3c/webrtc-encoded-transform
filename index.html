@@ -6,7 +6,7 @@
   <meta content="DREAM" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-DREAM" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 86a39676f08870ba1210b97fe65ff62bd4e723c9" name="generator">
+  <meta content="Bikeshed version ae6def1cbca03b321b2ad730ac2f51eeba21ed81" name="generator">
   <link href="https://alvestrand.github.io/webrtc-media-streams/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -254,7 +254,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2019-10-14">14 October 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-02-21">21 February 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -266,7 +266,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2019 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2020 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -283,15 +283,15 @@ MediaStreamTracks being sent via an RTCPeerConnection.</p>
   <nav data-fill-with="table-of-contents" id="toc">
    <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
    <ol class="toc" role="directory">
-    <li><a href="#introduction"><span class="secno">1</span> <span class="content">Introduction {#introduction}</span></a>
-    <li><a href="#terminology"><span class="secno">2</span> <span class="content">Terminology {#terminology}</span></a>
+    <li><a href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li><a href="#terminology"><span class="secno">2</span> <span class="content">Terminology</span></a>
     <li>
-     <a href="#specification"><span class="secno">3</span> <span class="content">Specification {#specification}</span></a>
+     <a href="#specification"><span class="secno">3</span> <span class="content">Specification</span></a>
      <ol class="toc">
-      <li><a href="#operation"><span class="secno">3.1</span> <span class="content">Extension operation {#operation}</span></a>
+      <li><a href="#operation"><span class="secno">3.1</span> <span class="content">Extension operation # {#operation}</span></a>
      </ol>
-    <li><a href="#privacy"><span class="secno">4</span> <span class="content">Privacy and security considerations {#privacy}</span></a>
-    <li><a href="#examples"><span class="secno">5</span> <span class="content">Examples {#examples}</span></a>
+    <li><a href="#privacy"><span class="secno">4</span> <span class="content">Privacy and security considerations</span></a>
+    <li><a href="#examples"><span class="secno">5</span> <span class="content">Examples</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -309,7 +309,7 @@ MediaStreamTracks being sent via an RTCPeerConnection.</p>
    </ol>
   </nav>
   <main>
-   <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction {#introduction}</span><a class="self-link" href="#introduction"></a></h2>
+   <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
    <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]</a> document describes several functions that
 can only be achieved by access to media (requirements N20-N22),
 including, but not limited to:</p>
@@ -329,9 +329,9 @@ media.</p>
    <p>This specification gives an interface that builds on <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.</p>
-   <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology {#terminology}</span><a class="self-link" href="#terminology"></a></h2>
+   <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <p> The IDL terms <dfn data-dfn-type="dfn" data-noexport id="audioencoder" type="idl-name">AudioEncoder<a class="self-link" href="#audioencoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="videoencoder">VideoEncoder<a class="self-link" href="#videoencoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="audiodecoder">AudioDecoder<a class="self-link" href="#audiodecoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="videodecoder">VideoDecoder<a class="self-link" href="#videodecoder"></a></dfn> are defined in <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a>. </p>
-   <h2 class="heading settled" data-level="3" id="specification"><span class="secno">3. </span><span class="content">Specification {#specification}</span><a class="self-link" href="#specification"></a></h2>
+   <h2 class="heading settled" data-level="3" id="specification"><span class="secno">3. </span><span class="content">Specification</span><a class="self-link" href="#specification"></a></h2>
    <p>The Streams definition doesn’t use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.</p>
    <p>It uses an extension to RTCConfiguration in order to pass the extra
@@ -351,7 +351,7 @@ decorators for encoder and decoder initialization to an <code class="idl"><a dat
    <a class="n" data-link-type="idl-name" href="#callbackdef-decoderdecorator" id="ref-for-callbackdef-decoderdecorator"><c- n>DecoderDecorator</c-></a> <dfn class="idl-code" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="DecoderDecorator " id="dom-rtcconfiguration-decoderfactory"><code><c- g>decoderFactory</c-></code><a class="self-link" href="#dom-rtcconfiguration-decoderfactory"></a></dfn>;
 };
 </pre>
-   <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation {#operation}</span><a class="self-link" href="#operation"></a></h3>
+   <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation # {#operation}</span><a class="self-link" href="#operation"></a></h3>
     At creation of an RTCPeerConnection, the following steps are added to
 the creation algorithm: 
    <ul>
@@ -389,12 +389,12 @@ the following steps:</p>
      <p>If "encoder" has an attribute "writable", pipe "source" to it. Otherwise, pipe "source" to the "internalEncoder"'s "writable".</p>
    </ul>
    <p>The media will then be processed according to the rules of <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a>.</p>
-   <h2 class="heading settled" data-level="4" id="privacy"><span class="secno">4. </span><span class="content">Privacy and security considerations {#privacy}</span><a class="self-link" href="#privacy"></a></h2>
+   <h2 class="heading settled" data-level="4" id="privacy"><span class="secno">4. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.</p>
    <p>However, streams that are isolated (as specified in <a data-link-type="biblio" href="#biblio-webrtc-identity">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
 accessed using this API, since that would break the isolation rule.</p>
-   <h2 class="heading settled" data-level="5" id="examples"><span class="secno">5. </span><span class="content">Examples {#examples}</span><a class="self-link" href="#examples"></a></h2>
+   <h2 class="heading settled" data-level="5" id="examples"><span class="secno">5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -560,37 +560,37 @@ accessed using this API, since that would break the isolation rule.</p>
   <aside class="dfn-panel" data-for="term-for-dom-audiodecoder">
    <a href="https://github.com/WICG/web-codecs/#dom-audiodecoder">https://github.com/WICG/web-codecs/#dom-audiodecoder</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-audiodecoder">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-audiodecoder">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-audioencoder">
    <a href="https://github.com/WICG/web-codecs/#dom-audioencoder">https://github.com/WICG/web-codecs/#dom-audioencoder</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-audioencoder">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-audioencoder">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-videodecoder">
    <a href="https://github.com/WICG/web-codecs/#dom-videodecoder">https://github.com/WICG/web-codecs/#dom-videodecoder</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videodecoder">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-videodecoder">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-videoencoder">
    <a href="https://github.com/WICG/web-codecs/#dom-videoencoder">https://github.com/WICG/web-codecs/#dom-videoencoder</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-videoencoder">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-videoencoder">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcconfiguration">
    <a href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration">https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcconfiguration">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-rtcconfiguration">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcpeerconnection">
    <a href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection">https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcpeerconnection">3. Specification {#specification}</a>
+    <li><a href="#ref-for-dom-rtcpeerconnection">3. Specification</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -618,7 +618,7 @@ accessed using this API, since that would break the isolation rule.</p>
    <dt id="biblio-web-codecs">[WEB-CODECS]
    <dd><a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">Web Codecs explainer</a>. URL: <a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">https://github.com/WICG/web-codecs/blob/master/explainer.md</a>
    <dt id="biblio-webrtc">[WEBRTC]
-   <dd>Adam Bergkvist; et al. <a href="https://www.w3.org/TR/webrtc/">WebRTC 1.0: Real-time Communication Between Browsers</a>. 27 September 2018. CR. URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/webrtc/">WebRTC 1.0: Real-time Communication Between Browsers</a>. 13 December 2019. CR. URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -647,31 +647,31 @@ accessed using this API, since that would break the isolation rule.</p>
   <aside class="dfn-panel" data-for="typedefdef-encoder">
    <b><a href="#typedefdef-encoder">#typedefdef-encoder</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-typedefdef-encoder">3. Specification {#specification}</a> <a href="#ref-for-typedefdef-encoder①">(2)</a>
+    <li><a href="#ref-for-typedefdef-encoder">3. Specification</a> <a href="#ref-for-typedefdef-encoder①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="typedefdef-decoder">
    <b><a href="#typedefdef-decoder">#typedefdef-decoder</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-typedefdef-decoder">3. Specification {#specification}</a> <a href="#ref-for-typedefdef-decoder①">(2)</a>
+    <li><a href="#ref-for-typedefdef-decoder">3. Specification</a> <a href="#ref-for-typedefdef-decoder①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-config">
    <b><a href="#dictdef-config">#dictdef-config</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-config">3. Specification {#specification}</a> <a href="#ref-for-dictdef-config①">(2)</a>
+    <li><a href="#ref-for-dictdef-config">3. Specification</a> <a href="#ref-for-dictdef-config①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="callbackdef-encoderdecorator">
    <b><a href="#callbackdef-encoderdecorator">#callbackdef-encoderdecorator</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-callbackdef-encoderdecorator">3. Specification {#specification}</a>
+    <li><a href="#ref-for-callbackdef-encoderdecorator">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="callbackdef-decoderdecorator">
    <b><a href="#callbackdef-decoderdecorator">#callbackdef-decoderdecorator</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-callbackdef-decoderdecorator">3. Specification {#specification}</a>
+    <li><a href="#ref-for-callbackdef-decoderdecorator">3. Specification</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

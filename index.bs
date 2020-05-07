@@ -37,7 +37,7 @@ spec: WEB-CODECS; urlPrefix: https://github.com/WICG/web-codecs/
 }
 </pre>
 
-# Introduction {#introduction}
+# Introduction # {#introduction}
 
 The [[WEBRTC-NV-USE-CASES]] document describes several functions that
 can only be achieved by access to media (requirements N20-N22),
@@ -57,14 +57,14 @@ This specification gives an interface that builds on [[WEB-CODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.
 
-# Terminology {#terminology}
+# Terminology # {#terminology}
 
 <p noexport>
 The IDL terms <dfn type="idl-name">AudioEncoder</dfn>, <dfn>VideoEncoder</dfn>,
 <dfn>AudioDecoder</dfn>, <dfn>VideoDecoder</dfn> are defined in [[WEB-CODECS]].
 </p>
 
-# Specification {#specification}
+# Specification # {#specification}
 
 The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.
@@ -89,7 +89,7 @@ partial dictionary RTCConfiguration {
 };
 </pre>
 
-## Extension operation {#operation}
+## Extension operation ## {#operation}
 At creation of an RTCPeerConnection, the following steps are added to
 the creation algorithm:
 
@@ -114,7 +114,7 @@ the following steps:
 
 The media will then be processed according to the rules of [[WEB-CODECS]].
 
-# Privacy and security considerations {#privacy}
+# Privacy and security considerations # {#privacy}
 
 This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.
@@ -124,6 +124,6 @@ However, streams that are isolated (as specified in
 accessed using this API, since that would break the isolation rule.
 
 
-# Examples {#examples}
+# Examples # {#examples}
 
 

@@ -7,6 +7,7 @@ Group: webrtc
 Repository: alvestrand/webrtc-media-streams/
 URL: https://alvestrand.github.io/webrtc-media-streams/
 Editor: Harald Alvestrand, Google https://google.com, hta@google.com
+Editor: Guido Urdaneta, Google https://google.com, guidou@google.com
 Abstract: This API defines an API surface for manipulating the bits on
 Abstract: MediaStreamTracks being sent via an RTCPeerConnection.
 Markup Shorthands: css no, markdown yes
@@ -36,6 +37,9 @@ spec: WEB-CODECS; urlPrefix: https://github.com/WICG/web-codecs/
    }
 }
 </pre>
+<pre class=link-defaults>
+spec:streams; type:interface; text:ReadableStream
+</pre>
 
 # Introduction # {#introduction}
 
@@ -57,6 +61,10 @@ This specification gives an interface that builds on [[WEB-CODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.
 
+This iteration of the specification provides access to encoded media,
+which is the output of the encoder part of a codec and the input to the
+decoder part of a codec.
+
 # Terminology # {#terminology}
 
 <p noexport>
@@ -69,50 +77,97 @@ The IDL terms <dfn type="idl-name">AudioEncoder</dfn>, <dfn>VideoEncoder</dfn>,
 The Streams definition doesn't use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.
 
-It uses an extension to RTCConfiguration in order to pass the extra
-decorators for encoder and decoder initialization to an {{RTCPeerConnection}}.
+It uses an extension to RTCConfiguration in order to notify the
+{{RTCPeerConnection}} that insertable streams will be used, and uses
+an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
+insert the processing into the pipeline.
 
-<pre class='idl'>
-typedef (AudioEncoder or VideoEncoder) Encoder;
-typedef (AudioDecoder or VideoDecoder) Decoder;
+<pre class="idl">
+// New dictionary.
+dictionary RTCInsertableStreams {
+    ReadableStream readableStream;
+    WritableStream writableStream;
+};
 
-dictionary Config {
-  // To Be Defined
-};  
+// New enum for video frame types. Will eventually re-use the equivalent defined
+// by WebCodecs.
+enum RTCEncodedVideoFrameType {
+    "empty",
+    "key",
+    "delta",
+};
 
-callback EncoderDecorator = Encoder(Encoder encoder, optional Config config);
-callback DecoderDecorator = Decoder(Decoder encoder, optional Config config);
+dictionary RTCVideoFrameMetadata {
+   long synchronizationSource;
+   sequence&lt;long&gt; contributingSources;
+};
 
+// New interfaces to define encoded video and audio frames. Will eventually
+// re-use or extend the equivalent defined in WebCodecs.
+interface RTCEncodedVideoFrame {
+    readonly attribute RTCEncodedVideoFrameType type;
+    readonly attribute unsigned long long timestamp;
+    attribute ArrayBuffer data;
+    RTCVideoFrameMetadata getMetadata();
+};
+
+dictionary RTCAudioFrameMetadata {
+   long synchronizationSource;
+   sequence&lt;long&gt; contributingSources;
+};
+
+interface RTCEncodedAudioFrame {
+    readonly attribute unsigned long long timestamp;
+    attribute ArrayBuffer data;
+    RTCAudioFrameMetadata getMetadata();
+};
+
+
+// New fields in RTCConfiguration
 partial dictionary RTCConfiguration {
-   EncoderDecorator encoderFactory;
-   DecoderDecorator decoderFactory;
+    boolean forceEncodedVideoInsertableStreams = false;
+    boolean forceEncodedAudioInsertableStreams = false;
+};
+
+// New methods for RTCRtpSender and RTCRtpReceiver
+partial interface RTCRtpSender {
+    RTCInsertableStreams createEncodedVideoStreams();
+    RTCInsertableStreams createEncodedAudioStreams();
+};
+
+partial interface RTCRtpReceiver {
+    RTCInsertableStreams createEncodedVideoStreams();
+    RTCInsertableStreams createEncodedAudioStreams();
 };
 </pre>
 
 ## Extension operation ## {#operation}
-At creation of an RTCPeerConnection, the following steps are added to
-the creation algorithm:
 
-* Let the RTCPeerConnection object have two internal slots named [[\EncoderFactory]] and [[\DecoderFactory]], initialized to null.
-* If the RTCConfiguration parameter contains a value for "encoderFactory", store that in [[\EncoderFactory]].
-* If the RTCConfiguration parameter contains a value for "decoderFactory", store that in [[\DecoderFactory]].
+At the time when a codec is initialized as part of the encoder, and the
+corresponding flag is set in the {{RTCPeerConnection}}'s {{RTCConfiguration}}
+argument, ensure that the codec is disabled and produces no output.
 
-At the time when a codec is initialized as part of the encoder, run
-the following steps:
+Let the {{RTCRtpSender}} or {{RTCRtpReceiver}} have an internal slot,
+[[\Streams]], initialized to null.
 
-* If the unencoded data source does not permit access, abort these steps. (OPEN ISSUE: How is this error surfaced?)
-* Let the unencoded data source be represented by a ReadableStream called "source".
-* Let the encoded data sink be represented by a WriteableStream called
-* "sink".
-* Let the internal encoder object be called "internalEncoder". "internalEncoder" will have a WritableStream property called "writable" (by virtue of being an instance of WebCodec).
-* "internalEncoder" will have a ReadableStream property called "readable".
-* If the PeerConnection's [[\EncoderFactory]] is null, pipe "source" to "writable", and pipe "readable" to "sink", and skip the rest of these steps.
-* Call the function stored in [[\EncoderFactory]], using the newly initialized encoder and its parameters as arguments.
-* Let the return value from the function be "encoder".
-* If "encoder" has an attribute "readable", pipe it to "sink". Otherwise, pipe the "internalEncoder"'s "readable" to "sink".
-* If "encoder" has an attribute "writable", pipe "source" to it. Otherwise, pipe "source" to the "internalEncoder"'s "writable".
+When {{RTCRtpSender/createEncodedVideoStreams}}() or {{RTCRtpSender/createEncodedAudioStreams}}() is
+called, run the following steps:
 
-The media will then be processed according to the rules of [[WEB-CODECS]].
+* If the kind of the sender does not match, throw a {{TypeError}} and abort these steps.
+* If the data source does not permit access, throw an {{InvalidAccessError}} and abort these steps.
+* If [[\Streams]] is not null, throw an {{InvalidStateError}}.
+* Create an {{RTCInsertableStreams}} object 's'.
+* Set s.readableStream to a ReadableStream representing the encoded data source.
+* Set s.writableStream to a WritableStream representing the encoded data sink.
+* Enable the encoded data source.
+* Store 's' in the internal slot [[\Streams]].
+* Return 's'
+
+When a frame is produced from the encoded data source, place it on the
+[[\Streams]].readableStream'.
+
+When a frame appears on the [[\Streams]].writableStream, process it as if it came
+directly from the encoded data source.
 
 # Privacy and security considerations # {#privacy}
 
@@ -123,7 +178,12 @@ However, streams that are isolated (as specified in
 [[WEBRTC-IDENTITY]]) or tainted with another origin, cannot be
 accessed using this API, since that would break the isolation rule.
 
+The API will allow access to some aspects of timing information that are
+otherwise unavailable, which allows some fingerprinting surface.
+
 
 # Examples # {#examples}
+
+See the explainer document.
 
 

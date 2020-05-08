@@ -85,8 +85,8 @@ insert the processing into the pipeline.
 <pre class="idl">
 // New dictionary.
 dictionary RTCInsertableStreams {
-    ReadableStream readable;
-    WritableStream writable;
+    ReadableStream readableStream;
+    WritableStream writableStream;
 };
 
 // New enum for video frame types. Will eventually re-use the equivalent defined
@@ -97,26 +97,29 @@ enum RTCEncodedVideoFrameType {
     "delta",
 };
 
-dictionary RTCFrameMetadata {
+dictionary RTCVideoFrameMetadata {
    long synchronizationSource;
    sequence&lt;long&gt; contributingSources;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-// The additionalData fields contain metadata about the frame and will
-// eventually be exposed differently.
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    RTCFrameMetadata getMetadata();
+    RTCVideoFrameMetadata getMetadata();
+};
+
+dictionary RTCAudioFrameMetadata {
+   long synchronizationSource;
+   sequence&lt;long&gt; contributingSources;
 };
 
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    RTCFrameMetadata getMetadata();
+    RTCAudioFrameMetadata getMetadata();
 };
 
 
@@ -144,22 +147,26 @@ At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the {{RTCPeerConnection}}'s {{RTCConfiguration}}
 argument, ensure that the codec is disabled and produces no output.
 
+Let the {{RTCRtpSender}} or {{RTCRtpReceiver}} have an internal slot,
+[[\Streams]], initialized to null.
+
 When {{RTCRtpSender/createEncodedVideoStreams}}() or {{RTCRtpSender/createEncodedAudioStreams}}() is
 called, run the following steps:
 
 * If the kind of the sender does not match, throw a {{TypeError}} and abort these steps.
 * If the data source does not permit access, throw an {{InvalidAccessError}} and abort these steps.
+* If [[\Streams]] is not null, throw an {{InvalidStateError}}.
 * Create an {{RTCInsertableStreams}} object 's'.
-* Set s.readable to a ReadableStream representing the encoded data source.
-* Set s.writable to a WritableStream representing the encoded data sink.
+* Set s.readableStream to a ReadableStream representing the encoded data source.
+* Set s.writableStream to a WritableStream representing the encoded data sink.
 * Enable the encoded data source.
-* Store 's' in an internal slot [[\streams]].
+* Store 's' in the internal slot [[\Streams]].
 * Return 's'
 
 When a frame is produced from the encoded data source, place it on the
-[[\streams]].readable' stream.
+[[\Streams]].readableStream'.
 
-When a frame appears on the [[\streams]].writable stream, process it as if it came
+When a frame appears on the [[\Streams]].writableStream, process it as if it came
 directly from the encoded data source.
 
 # Privacy and security considerations # {#privacy}

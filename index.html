@@ -254,7 +254,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-05-08">8 May 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-05-11">11 May 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -383,19 +383,16 @@ insert the processing into the pipeline.</p>
 
 // New fields in RTCConfiguration
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration"><c- g>RTCConfiguration</c-></a> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="idl-code" data-default="false" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-rtcconfiguration-forceencodedvideoinsertablestreams"><code><c- g>forceEncodedVideoInsertableStreams</c-></code><a class="self-link" href="#dom-rtcconfiguration-forceencodedvideoinsertablestreams"></a></dfn> = <c- b>false</c->;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><c- b>boolean</c-></a> <dfn class="idl-code" data-default="false" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-rtcconfiguration-forceencodedaudioinsertablestreams"><code><c- g>forceEncodedAudioInsertableStreams</c-></code><a class="self-link" href="#dom-rtcconfiguration-forceencodedaudioinsertablestreams"></a></dfn> = <c- b>false</c->;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-rtcconfiguration-forceencodedinsertablestreams"><code><c- g>forceEncodedInsertableStreams</c-></code></dfn> = <c- b>false</c->;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①"><c- g>RTCRtpSender</c-></a> {
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="method" data-export data-lt="createEncodedVideoStreams()" id="dom-rtcrtpsender-createencodedvideostreams"><code><c- g>createEncodedVideoStreams</c-></code></dfn>();
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams①"><c- n>RTCInsertableStreams</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="method" data-export data-lt="createEncodedAudioStreams()" id="dom-rtcrtpsender-createencodedaudiostreams"><code><c- g>createEncodedAudioStreams</c-></code></dfn>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="method" data-export data-lt="createEncodedStreams()" id="dom-rtcrtpsender-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></dfn>();
 };
 
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①"><c- g>RTCRtpReceiver</c-></a> {
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②"><c- n>RTCInsertableStreams</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpReceiver" data-dfn-type="method" data-export data-lt="createEncodedVideoStreams()" id="dom-rtcrtpreceiver-createencodedvideostreams"><code><c- g>createEncodedVideoStreams</c-></code><a class="self-link" href="#dom-rtcrtpreceiver-createencodedvideostreams"></a></dfn>();
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams③"><c- n>RTCInsertableStreams</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpReceiver" data-dfn-type="method" data-export data-lt="createEncodedAudioStreams()" id="dom-rtcrtpreceiver-createencodedaudiostreams"><code><c- g>createEncodedAudioStreams</c-></code><a class="self-link" href="#dom-rtcrtpreceiver-createencodedaudiostreams"></a></dfn>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams①"><c- n>RTCInsertableStreams</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpReceiver" data-dfn-type="method" data-export data-lt="createEncodedStreams()" id="dom-rtcrtpreceiver-createencodedstreams"><code><c- g>createEncodedStreams</c-></code><a class="self-link" href="#dom-rtcrtpreceiver-createencodedstreams"></a></dfn>();
 };
 </pre>
    <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
@@ -403,17 +400,17 @@ insert the processing into the pipeline.</p>
 corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration①">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
    <p>Let the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code> have an internal slot,
 [[\Streams]], initialized to null.</p>
-   <p>When <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedvideostreams" id="ref-for-dom-rtcrtpsender-createencodedvideostreams">createEncodedVideoStreams</a></code>() or <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedaudiostreams" id="ref-for-dom-rtcrtpsender-createencodedaudiostreams">createEncodedAudioStreams</a></code>() is
+   <p>When <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedstreams" id="ref-for-dom-rtcrtpsender-createencodedstreams">createEncodedStreams</a></code>() is
 called, run the following steps:</p>
    <ul>
     <li data-md>
-     <p>If the kind of the sender does not match, throw a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code> and abort these steps.</p>
+     <p>If the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection②">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-forceencodedinsertablestreams" id="ref-for-dom-rtcconfiguration-forceencodedinsertablestreams">forceEncodedInsertableStreams</a></code> set to "true", throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
     <li data-md>
      <p>If the data source does not permit access, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If [[\Streams]] is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>.</p>
+     <p>If [[\Streams]] is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>.</p>
     <li data-md>
-     <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams④">RTCInsertableStreams</a></code> object 's'.</p>
+     <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object 's'.</p>
     <li data-md>
      <p>Set s.readableStream to a ReadableStream representing the encoded data source.</p>
     <li data-md>
@@ -597,16 +594,10 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><a href="#dom-rtcvideoframemetadata-contributingsources">dict-member for RTCVideoFrameMetadata</a><span>, in §3</span>
     </ul>
    <li>
-    createEncodedAudioStreams()
+    createEncodedStreams()
     <ul>
-     <li><a href="#dom-rtcrtpreceiver-createencodedaudiostreams">method for RTCRtpReceiver</a><span>, in §3</span>
-     <li><a href="#dom-rtcrtpsender-createencodedaudiostreams">method for RTCRtpSender</a><span>, in §3</span>
-    </ul>
-   <li>
-    createEncodedVideoStreams()
-    <ul>
-     <li><a href="#dom-rtcrtpreceiver-createencodedvideostreams">method for RTCRtpReceiver</a><span>, in §3</span>
-     <li><a href="#dom-rtcrtpsender-createencodedvideostreams">method for RTCRtpSender</a><span>, in §3</span>
+     <li><a href="#dom-rtcrtpreceiver-createencodedstreams">method for RTCRtpReceiver</a><span>, in §3</span>
+     <li><a href="#dom-rtcrtpsender-createencodedstreams">method for RTCRtpSender</a><span>, in §3</span>
     </ul>
    <li>
     data
@@ -616,8 +607,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     </ul>
    <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframetype-empty">"empty"</a><span>, in §3</span>
-   <li><a href="#dom-rtcconfiguration-forceencodedaudioinsertablestreams">forceEncodedAudioInsertableStreams</a><span>, in §3</span>
-   <li><a href="#dom-rtcconfiguration-forceencodedvideoinsertablestreams">forceEncodedVideoInsertableStreams</a><span>, in §3</span>
+   <li><a href="#dom-rtcconfiguration-forceencodedinsertablestreams">forceEncodedInsertableStreams</a><span>, in §3</span>
    <li>
     getMetadata()
     <ul>
@@ -676,19 +666,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-invalidstateerror">
    <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidstateerror">3.1. Extension operation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-typeerror">
-   <a href="https://heycam.github.io/webidl/#exceptiondef-typeerror">https://heycam.github.io/webidl/#exceptiondef-typeerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-exceptiondef-typeerror">3.1. Extension operation</a>
+    <li><a href="#ref-for-invalidstateerror">3.1. Extension operation</a> <a href="#ref-for-invalidstateerror①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
    <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-boolean">3. Specification</a> <a href="#ref-for-idl-boolean①">(2)</a>
+    <li><a href="#ref-for-idl-boolean">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-long">
@@ -714,7 +698,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection">https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcpeerconnection">3. Specification</a>
-    <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a> <a href="#ref-for-dom-rtcpeerconnection②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpreceiver">
@@ -745,7 +729,6 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-idl-ArrayBuffer" style="color:initial">ArrayBuffer</span>
      <li><span class="dfn-paneled" id="term-for-invalidaccesserror" style="color:initial">InvalidAccessError</span>
      <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-typeerror" style="color:initial">TypeError</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-long" style="color:initial">long</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long" style="color:initial">unsigned long long</span>
@@ -823,27 +806,24 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
 
 // New fields in RTCConfiguration
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration"><c- g>RTCConfiguration</c-></a> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-rtcconfiguration-forceencodedvideoinsertablestreams"><code><c- g>forceEncodedVideoInsertableStreams</c-></code></a> = <c- b>false</c->;
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-rtcconfiguration-forceencodedaudioinsertablestreams"><code><c- g>forceEncodedAudioInsertableStreams</c-></code></a> = <c- b>false</c->;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-rtcconfiguration-forceencodedinsertablestreams"><code><c- g>forceEncodedInsertableStreams</c-></code></a> = <c- b>false</c->;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpsender-createencodedvideostreams"><code><c- g>createEncodedVideoStreams</c-></code></a>();
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpsender-createencodedaudiostreams"><code><c- g>createEncodedAudioStreams</c-></code></a>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpsender-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></a>();
 };
 
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver"><c- g>RTCRtpReceiver</c-></a> {
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpreceiver-createencodedvideostreams"><code><c- g>createEncodedVideoStreams</c-></code></a>();
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpreceiver-createencodedaudiostreams"><code><c- g>createEncodedAudioStreams</c-></code></a>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpreceiver-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></a>();
 };
 
 </pre>
   <aside class="dfn-panel" data-for="dictdef-rtcinsertablestreams">
    <b><a href="#dictdef-rtcinsertablestreams">#dictdef-rtcinsertablestreams</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-rtcinsertablestreams">3. Specification</a> <a href="#ref-for-dictdef-rtcinsertablestreams①">(2)</a> <a href="#ref-for-dictdef-rtcinsertablestreams②">(3)</a> <a href="#ref-for-dictdef-rtcinsertablestreams③">(4)</a>
-    <li><a href="#ref-for-dictdef-rtcinsertablestreams④">3.1. Extension operation</a>
+    <li><a href="#ref-for-dictdef-rtcinsertablestreams">3. Specification</a> <a href="#ref-for-dictdef-rtcinsertablestreams①">(2)</a>
+    <li><a href="#ref-for-dictdef-rtcinsertablestreams②">3.1. Extension operation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-rtcencodedvideoframetype">
@@ -864,16 +844,16 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-dictdef-rtcaudioframemetadata">3. Specification</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpsender-createencodedvideostreams">
-   <b><a href="#dom-rtcrtpsender-createencodedvideostreams">#dom-rtcrtpsender-createencodedvideostreams</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-rtcconfiguration-forceencodedinsertablestreams">
+   <b><a href="#dom-rtcconfiguration-forceencodedinsertablestreams">#dom-rtcconfiguration-forceencodedinsertablestreams</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-createencodedvideostreams">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcconfiguration-forceencodedinsertablestreams">3.1. Extension operation</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpsender-createencodedaudiostreams">
-   <b><a href="#dom-rtcrtpsender-createencodedaudiostreams">#dom-rtcrtpsender-createencodedaudiostreams</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-rtcrtpsender-createencodedstreams">
+   <b><a href="#dom-rtcrtpsender-createencodedstreams">#dom-rtcrtpsender-createencodedstreams</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-createencodedaudiostreams">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcrtpsender-createencodedstreams">3.1. Extension operation</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

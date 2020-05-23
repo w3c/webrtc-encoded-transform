@@ -97,9 +97,15 @@ enum RTCEncodedVideoFrameType {
     "delta",
 };
 
-dictionary RTCVideoFrameMetadata {
-   long synchronizationSource;
-   sequence&lt;long&gt; contributingSources;
+dictionary RTCEncodedVideoFrameMetadata {
+    long long frameId;
+    sequence&lt;long long&gt; dependencies;
+    unsigned short width;
+    unsigned short height;
+    long spatialIndex;
+    long temporalIndex;
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
@@ -111,9 +117,9 @@ interface RTCEncodedVideoFrame {
     RTCVideoFrameMetadata getMetadata();
 };
 
-dictionary RTCAudioFrameMetadata {
-   long synchronizationSource;
-   sequence&lt;long&gt; contributingSources;
+dictionary RTCEncodedAudioFrameMetadata {
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
 };
 
 interface RTCEncodedAudioFrame {
@@ -125,7 +131,7 @@ interface RTCEncodedAudioFrame {
 
 // New fields in RTCConfiguration
 partial dictionary RTCConfiguration {
-    boolean forceEncodedInsertableStreams = false;
+    boolean encodedInsertableStreams = false;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
@@ -150,7 +156,7 @@ Let the {{RTCRtpSender}} or {{RTCRtpReceiver}} have an internal slot,
 When {{RTCRtpSender/createEncodedStreams}}() is
 called, run the following steps:
 
-* If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/forceEncodedInsertableStreams}} set to "true", throw an {{InvalidStateError}} and abort these steps.
+* If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", throw an {{InvalidStateError}} and abort these steps.
 * If the data source does not permit access, throw an {{InvalidAccessError}} and abort these steps.
 * If [[\Streams]] is not null, throw an {{InvalidStateError}}.
 * Create an {{RTCInsertableStreams}} object 's'.

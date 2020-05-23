@@ -47,7 +47,7 @@ iterations to support additional use cases such as:
 
 <pre>
 const supportsInsertableStreams = window.RTCRtpSender &&
-      !!RTCRtpSender.prototype.createEncodedVideoStreams;
+      !!RTCRtpSender.prototype.createEncodedStreams;
 </pre>
 
 1. Let an PeerConnection know that it should allow exposing the data flowing through it
@@ -60,8 +60,7 @@ streams. For example:
 
 <pre>
 let pc = new RTCPeerConnection({
-    forceEncodedVideoInsertableStreams: true,
-    forceEncodedAudioInsertableStreams: true
+    encodedInsertableStreams: true,
 });
 </pre>
 
@@ -110,7 +109,7 @@ Transform stream to the track's sender.
 let stream = await navigator.mediaDevices.getUserMedia({video:true});
 let [track] = stream.getTracks();
 let videoSender = pc.addTrack(track, stream)
-let senderStreams = videoSender.getEncodedVideoStreams();
+let senderStreams = videoSender.createEncodedStreams();
 
 // Do ICE and offer/answer exchange.
 
@@ -122,7 +121,7 @@ senderStreams.readable
 4. Do the corresponding operations on the receiver side.
 
 <pre>
-let pc = new RTCPeerConnection({forceEncodedVideoInsertableStreams: true});
+let pc = new RTCPeerConnection({encodedInsertableStreams: true});
 pc.ontrack = e => {
   let receiverTransform = new TransformStream({
     start() {},
@@ -145,7 +144,7 @@ pc.ontrack = e => {
       },
     });
 
-  let receiverStreams = e.receiver.createEncodedVideoStreams();
+  let receiverStreams = e.receiver.createEncodedStreams();
   receiverStreams.readable
     .pipeThrough(receiverTransform)
     .pipeTo(receiverStreams.writable);
@@ -172,6 +171,23 @@ enum RTCEncodedVideoFrameType {
     "delta",
 };
 
+// New dictionaries for video and audio metadata.
+dictionary RTCEncodedVideoFrameMetadata {
+    long long frameId;
+    sequence&lt;long long&gt; dependencies;
+    unsigned short width;
+    unsigned short height;
+    long spatialIndex;
+    long temporalIndex;
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
+};
+
+dictionary RTCEncodedAudioFrameMetadata {
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
+};
+
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 // The additionalData fields contain metadata about the frame and will
@@ -180,37 +196,27 @@ interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    readonly attribute ArrayBuffer additionalData;
-    readonly attribute unsigned long synchronizationSource;
+    RTCVideoFrameMetadata getMetadata();
 };
 
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    readonly attribute ArrayBuffer additionalData;
-    readonly attribute unsigned long synchronizationSource;
-    readonly attribute FrozenArray<unsigned long> contributingSources;
+    RTCAudioFrameMetadata getMetadata();
 };
 
-
-// New fields in RTCConfiguration
-dictionary RTCConfiguration {
-    // ...
-    boolean forceEncodedVideoInsertableStreams = false;
-    boolean forceEncodedAudioInsertableStreams = false;
+// New field in RTCConfiguration
+partial dictionary RTCConfiguration {
+    boolean encodedInsertableStreams = false;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
-interface RTCRtpSender {
-    // ...
-    RTCInsertableStreams createEncodedVideoStreams();
-    RTCInsertableStreams createEncodedAudioStreams();
+partial interface RTCRtpSender {
+    RTCInsertableStreams createEncodedStreams();
 };
 
-interface RTCRtpReceiver {
-    // ...
-    RTCInsertableStreams createEncodedVideoStreams();
-    RTCInsertableStreams createEncodedAudioStreams();
+partial interface RTCRtpReceiver {
+    RTCInsertableStreams createEncodedStreams();
 };
 
 </pre>

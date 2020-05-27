@@ -2,7 +2,7 @@
 Title: WebRTC Insertable Media using Streams
 Shortname: webrtc-media-streams
 Level: 1
-Status: DREAM
+Status: UD
 Group: webrtc
 Repository: alvestrand/webrtc-media-streams/
 URL: https://alvestrand.github.io/webrtc-media-streams/
@@ -57,7 +57,7 @@ Furthermore, the "trusted JavaScript cloud conferencing" use case
 requires such processing to be done on encoded media, not just the raw
 media.
 
-This specification gives an interface that builds on [[WEB-CODECS]] to
+This specification gives an interface inspired by [[WEB-CODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.
 
@@ -66,11 +66,6 @@ which is the output of the encoder part of a codec and the input to the
 decoder part of a codec.
 
 # Terminology # {#terminology}
-
-<p noexport>
-The IDL terms <dfn type="idl-name">AudioEncoder</dfn>, <dfn>VideoEncoder</dfn>,
-<dfn>AudioDecoder</dfn>, <dfn>VideoDecoder</dfn> are defined in [[WEB-CODECS]].
-</p>
 
 # Specification # {#specification}
 
@@ -114,7 +109,7 @@ interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    RTCVideoFrameMetadata getMetadata();
+    RTCEncodedVideoFrameMetadata getMetadata();
 };
 
 dictionary RTCEncodedAudioFrameMetadata {
@@ -125,7 +120,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    RTCAudioFrameMetadata getMetadata();
+    RTCEncodedAudioFrameMetadata getMetadata();
 };
 
 
@@ -150,6 +145,9 @@ At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the {{RTCPeerConnection}}'s {{RTCConfiguration}}
 argument, ensure that the codec is disabled and produces no output.
 
+
+### Stream creation ### {#stream-creation}
+
 Let the {{RTCRtpSender}} or {{RTCRtpReceiver}} have an internal slot,
 [[\Streams]], initialized to null.
 
@@ -166,11 +164,15 @@ called, run the following steps:
 * Store 's' in the internal slot [[\Streams]].
 * Return 's'
 
+### Stream processing ### {#stream-processing}
+
 When a frame is produced from the encoded data source, place it on the
 [[\Streams]].readableStream'.
 
-When a frame appears on the [[\Streams]].writableStream, process it as if it came
-directly from the encoded data source.
+When a frame appears on the [[\Streams]].writableStream, do the following:
+* Check that the frame is a a valid frame that has been created by the encoded data source; if it is not, discard it. A processor cannot create frames, or move frames between streams.
+* Check that the frame's {{RTCEncodedVideoFrame/timestamp}} is equal to or larger than any previously received frame. A processor cannot reorder frames, although it may delay them or drop them. 
+* Process the frame as if it came directly from the encoded data source.
 
 # Privacy and security considerations # {#privacy}
 

@@ -3,10 +3,10 @@
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>WebRTC Insertable Media using Streams</title>
-  <meta content="DREAM" name="w3c-status">
-  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-DREAM" rel="stylesheet">
+  <meta content="UD" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-UD" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version e3f9ab1a, updated Fri Apr 24 17:43:54 2020 -0700" name="generator">
+  <meta content="Bikeshed version 78f8c09c, updated Tue May 19 10:51:23 2020 -0700" name="generator">
   <link href="https://alvestrand.github.io/webrtc-media-streams/" rel="canonical">
 <style>/* style-autolinks */
 
@@ -254,7 +254,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">A Collection of Interesting Ideas, <time class="dt-updated" datetime="2020-05-11">11 May 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Unofficial Proposal Draft, <time class="dt-updated" datetime="2020-05-27">27 May 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -289,7 +289,12 @@ MediaStreamTracks being sent via an RTCPeerConnection.</p>
     <li>
      <a href="#specification"><span class="secno">3</span> <span class="content">Specification</span></a>
      <ol class="toc">
-      <li><a href="#operation"><span class="secno">3.1</span> <span class="content">Extension operation</span></a>
+      <li>
+       <a href="#operation"><span class="secno">3.1</span> <span class="content">Extension operation</span></a>
+       <ol class="toc">
+        <li><a href="#stream-creation"><span class="secno">3.1.1</span> <span class="content">Stream creation</span></a>
+        <li><a href="#stream-processing"><span class="secno">3.1.2</span> <span class="content">Stream processing</span></a>
+       </ol>
      </ol>
     <li><a href="#privacy"><span class="secno">4</span> <span class="content">Privacy and security considerations</span></a>
     <li><a href="#examples"><span class="secno">5</span> <span class="content">Examples</span></a>
@@ -327,14 +332,13 @@ threads (requirement N23-N24).</p>
    <p>Furthermore, the "trusted JavaScript cloud conferencing" use case
 requires such processing to be done on encoded media, not just the raw
 media.</p>
-   <p>This specification gives an interface that builds on <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
+   <p>This specification gives an interface inspired by <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection.</p>
    <p>This iteration of the specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
 decoder part of a codec.</p>
    <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
-   <p> The IDL terms <dfn data-dfn-type="dfn" data-noexport id="audioencoder" type="idl-name">AudioEncoder<a class="self-link" href="#audioencoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="videoencoder">VideoEncoder<a class="self-link" href="#videoencoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="audiodecoder">AudioDecoder<a class="self-link" href="#audiodecoder"></a></dfn>, <dfn data-dfn-type="dfn" data-noexport id="videodecoder">VideoDecoder<a class="self-link" href="#videodecoder"></a></dfn> are defined in <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a>. </p>
    <h2 class="heading settled" data-level="3" id="specification"><span class="secno">3. </span><span class="content">Specification</span><a class="self-link" href="#specification"></a></h2>
    <p>The Streams definition doesn’t use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.</p>
@@ -355,35 +359,41 @@ insert the processing into the pipeline.</p>
     <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export id="dom-rtcencodedvideoframetype-delta"><code><c- s>"delta"</c-></code><a class="self-link" href="#dom-rtcencodedvideoframetype-delta"></a></dfn>,
 };
 
-<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcvideoframemetadata"><code><c- g>RTCVideoFrameMetadata</c-></code></dfn> {
-   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcvideoframemetadata-synchronizationsource"></a></dfn>;
-   <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①"><c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long> " id="dom-rtcvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcvideoframemetadata-contributingsources"></a></dfn>;
+<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></dfn> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long long " id="dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-frameid"></a></dfn>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long-long" id="ref-for-idl-long-long①"><c- b>long</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long long> " id="dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-dependencies"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-width"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-height"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-spatialindex"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-temporalindex"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-synchronizationsource"></a></dfn>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long③"><c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 <c- b>interface</c-> <dfn class="idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe"><code><c- g>RTCEncodedVideoFrame</c-></code><a class="self-link" href="#rtcencodedvideoframe"></a></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="RTCEncodedVideoFrameType" id="dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-type"></a></dfn>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-timestamp"></a></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code></dfn>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-data"></a></dfn>;
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcvideoframemetadata" id="ref-for-dictdef-rtcvideoframemetadata"><c- n>RTCVideoFrameMetadata</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export data-lt="getMetadata()" id="dom-rtcencodedvideoframe-getmetadata"><code><c- g>getMetadata</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-getmetadata"></a></dfn>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export data-lt="getMetadata()" id="dom-rtcencodedvideoframe-getmetadata"><code><c- g>getMetadata</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-getmetadata"></a></dfn>();
 };
 
-<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcaudioframemetadata"><code><c- g>RTCAudioFrameMetadata</c-></code></dfn> {
-   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long②"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcaudioframemetadata-synchronizationsource"></a></dfn>;
-   <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long③"><c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long> " id="dom-rtcaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcaudioframemetadata-contributingsources"></a></dfn>;
+<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframemetadata"><code><c- g>RTCEncodedAudioFrameMetadata</c-></code></dfn> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long④"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-synchronizationsource"></a></dfn>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long" id="ref-for-idl-long⑤"><c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long> " id="dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-contributingsources"></a></dfn>;
 };
 
 <c- b>interface</c-> <dfn class="idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe"><code><c- g>RTCEncodedAudioFrame</c-></code><a class="self-link" href="#rtcencodedaudioframe"></a></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long long" id="dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-timestamp"></a></dfn>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedaudioframe-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-data"></a></dfn>;
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcaudioframemetadata" id="ref-for-dictdef-rtcaudioframemetadata"><c- n>RTCAudioFrameMetadata</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export data-lt="getMetadata()" id="dom-rtcencodedaudioframe-getmetadata"><code><c- g>getMetadata</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-getmetadata"></a></dfn>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export data-lt="getMetadata()" id="dom-rtcencodedaudioframe-getmetadata"><code><c- g>getMetadata</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-getmetadata"></a></dfn>();
 };
 
 
 // New fields in RTCConfiguration
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration"><c- g>RTCConfiguration</c-></a> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-rtcconfiguration-forceencodedinsertablestreams"><code><c- g>forceEncodedInsertableStreams</c-></code></dfn> = <c- b>false</c->;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-default="false" data-dfn-for="RTCConfiguration" data-dfn-type="dict-member" data-export data-type="boolean " id="dom-rtcconfiguration-encodedinsertablestreams"><code><c- g>encodedInsertableStreams</c-></code></dfn> = <c- b>false</c->;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
@@ -398,13 +408,14 @@ insert the processing into the pipeline.</p>
    <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
    <p>At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration①">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
+   <h4 class="heading settled" data-level="3.1.1" id="stream-creation"><span class="secno">3.1.1. </span><span class="content">Stream creation</span><a class="self-link" href="#stream-creation"></a></h4>
    <p>Let the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code> have an internal slot,
 [[\Streams]], initialized to null.</p>
    <p>When <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedstreams" id="ref-for-dom-rtcrtpsender-createencodedstreams">createEncodedStreams</a></code>() is
 called, run the following steps:</p>
    <ul>
     <li data-md>
-     <p>If the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection②">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-forceencodedinsertablestreams" id="ref-for-dom-rtcconfiguration-forceencodedinsertablestreams">forceEncodedInsertableStreams</a></code> set to "true", throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
+     <p>If the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection②">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-encodedinsertablestreams" id="ref-for-dom-rtcconfiguration-encodedinsertablestreams">encodedInsertableStreams</a></code> set to "true", throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
     <li data-md>
      <p>If the data source does not permit access, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
@@ -422,10 +433,18 @@ called, run the following steps:</p>
     <li data-md>
      <p>Return 's'</p>
    </ul>
+   <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p>When a frame is produced from the encoded data source, place it on the
 [[\Streams]].readableStream'.</p>
-   <p>When a frame appears on the [[\Streams]].writableStream, process it as if it came
-directly from the encoded data source.</p>
+   <p>When a frame appears on the [[\Streams]].writableStream, do the following:</p>
+   <ul>
+    <li data-md>
+     <p>Check that the frame is a a valid frame that has been created by the encoded data source; if it is not, discard it. A processor cannot create frames, or move frames between streams.</p>
+    <li data-md>
+     <p>Check that the frame’s <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp">timestamp</a></code> is equal to or larger than any previously received frame. A processor cannot reorder frames, although it may delay them or drop them.</p>
+    <li data-md>
+     <p>Process the frame as if it came directly from the encoded data source.</p>
+   </ul>
    <h2 class="heading settled" data-level="4" id="privacy"><span class="secno">4. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.</p>
@@ -585,13 +604,11 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#audiodecoder">AudioDecoder</a><span>, in §2</span>
-   <li><a href="#audioencoder">AudioEncoder</a><span>, in §2</span>
    <li>
     contributingSources
     <ul>
-     <li><a href="#dom-rtcaudioframemetadata-contributingsources">dict-member for RTCAudioFrameMetadata</a><span>, in §3</span>
-     <li><a href="#dom-rtcvideoframemetadata-contributingsources">dict-member for RTCVideoFrameMetadata</a><span>, in §3</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-contributingsources">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in §3</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-contributingsources">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in §3</span>
     </ul>
    <li>
     createEncodedStreams()
@@ -606,28 +623,33 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in §3</span>
     </ul>
    <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in §3</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-dependencies">dependencies</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframetype-empty">"empty"</a><span>, in §3</span>
-   <li><a href="#dom-rtcconfiguration-forceencodedinsertablestreams">forceEncodedInsertableStreams</a><span>, in §3</span>
+   <li><a href="#dom-rtcconfiguration-encodedinsertablestreams">encodedInsertableStreams</a><span>, in §3</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-frameid">frameId</a><span>, in §3</span>
    <li>
     getMetadata()
     <ul>
      <li><a href="#dom-rtcencodedaudioframe-getmetadata">method for RTCEncodedAudioFrame</a><span>, in §3</span>
      <li><a href="#dom-rtcencodedvideoframe-getmetadata">method for RTCEncodedVideoFrame</a><span>, in §3</span>
     </ul>
+   <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in §3</span>
    <li><a href="#dom-rtcinsertablestreams-readablestream">readableStream</a><span>, in §3</span>
-   <li><a href="#dictdef-rtcaudioframemetadata">RTCAudioFrameMetadata</a><span>, in §3</span>
    <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in §3</span>
+   <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in §3</span>
    <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in §3</span>
+   <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in §3</span>
    <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in §3</span>
    <li><a href="#dictdef-rtcinsertablestreams">RTCInsertableStreams</a><span>, in §3</span>
-   <li><a href="#dictdef-rtcvideoframemetadata">RTCVideoFrameMetadata</a><span>, in §3</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in §3</span>
    <li>
     synchronizationSource
     <ul>
-     <li><a href="#dom-rtcaudioframemetadata-synchronizationsource">dict-member for RTCAudioFrameMetadata</a><span>, in §3</span>
-     <li><a href="#dom-rtcvideoframemetadata-synchronizationsource">dict-member for RTCVideoFrameMetadata</a><span>, in §3</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-synchronizationsource">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in §3</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-synchronizationsource">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in §3</span>
     </ul>
+   <li><a href="#dom-rtcencodedvideoframemetadata-temporalindex">temporalIndex</a><span>, in §3</span>
    <li>
     timestamp
     <ul>
@@ -635,8 +657,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in §3</span>
     </ul>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in §3</span>
-   <li><a href="#videodecoder">VideoDecoder</a><span>, in §2</span>
-   <li><a href="#videoencoder">VideoEncoder</a><span>, in §2</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in §3</span>
    <li><a href="#dom-rtcinsertablestreams-writablestream">writableStream</a><span>, in §3</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-rs-class">
@@ -660,13 +681,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-invalidaccesserror">
    <a href="https://heycam.github.io/webidl/#invalidaccesserror">https://heycam.github.io/webidl/#invalidaccesserror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidaccesserror">3.1. Extension operation</a>
+    <li><a href="#ref-for-invalidaccesserror">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-invalidstateerror">
    <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidstateerror">3.1. Extension operation</a> <a href="#ref-for-invalidstateerror①">(2)</a>
+    <li><a href="#ref-for-invalidstateerror">3.1.1. Stream creation</a> <a href="#ref-for-invalidstateerror①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -678,13 +699,25 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-idl-long">
    <a href="https://heycam.github.io/webidl/#idl-long">https://heycam.github.io/webidl/#idl-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-long">3. Specification</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a>
+    <li><a href="#ref-for-idl-long">3. Specification</a> <a href="#ref-for-idl-long①">(2)</a> <a href="#ref-for-idl-long②">(3)</a> <a href="#ref-for-idl-long③">(4)</a> <a href="#ref-for-idl-long④">(5)</a> <a href="#ref-for-idl-long⑤">(6)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-long-long">
+   <a href="https://heycam.github.io/webidl/#idl-long-long">https://heycam.github.io/webidl/#idl-long-long</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-long-long">3. Specification</a> <a href="#ref-for-idl-long-long①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
    <a href="https://heycam.github.io/webidl/#idl-unsigned-long-long">https://heycam.github.io/webidl/#idl-unsigned-long-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long-long">3. Specification</a> <a href="#ref-for-idl-unsigned-long-long①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-short">https://heycam.github.io/webidl/#idl-unsigned-short</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-short">3. Specification</a> <a href="#ref-for-idl-unsigned-short①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcconfiguration">
@@ -698,21 +731,22 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection">https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcpeerconnection">3. Specification</a>
-    <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a> <a href="#ref-for-dom-rtcpeerconnection②">(2)</a>
+    <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcpeerconnection②">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpreceiver">
    <a href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver">https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcrtpreceiver">3. Specification</a> <a href="#ref-for-dom-rtcrtpreceiver①">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver②">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcrtpreceiver②">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpsender">
    <a href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender">https://www.w3.org/TR/webrtc/#dom-rtcrtpsender</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcrtpsender">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender①">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender②">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcrtpsender②">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -731,7 +765,9 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-long" style="color:initial">long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-long-long" style="color:initial">long long</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long" style="color:initial">unsigned long long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[webrtc]</a> defines the following terms:
@@ -778,9 +814,15 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <a href="#dom-rtcencodedvideoframetype-delta"><code><c- s>"delta"</c-></code></a>,
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-rtcvideoframemetadata"><code><c- g>RTCVideoFrameMetadata</c-></code></a> {
-   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
-   <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a>> <a data-type="sequence<long> " href="#dom-rtcvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></a> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a data-type="long long " href="#dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code></a>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a>> <a data-type="sequence<long long> " href="#dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a>> <a data-type="sequence<long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
@@ -789,24 +831,24 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <a data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long long" href="#dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code></a>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code></a>;
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcvideoframemetadata"><c- n>RTCVideoFrameMetadata</c-></a> <a href="#dom-rtcencodedvideoframe-getmetadata"><code><c- g>getMetadata</c-></code></a>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a href="#dom-rtcencodedvideoframe-getmetadata"><code><c- g>getMetadata</c-></code></a>();
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-rtcaudioframemetadata"><code><c- g>RTCAudioFrameMetadata</c-></code></a> {
-   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
-   <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a>> <a data-type="sequence<long> " href="#dom-rtcaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-rtcencodedaudioframemetadata"><code><c- g>RTCEncodedAudioFrameMetadata</c-></code></a> {
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
+    <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-long"><c- b>long</c-></a>> <a data-type="sequence<long> " href="#dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
 };
 
 <c- b>interface</c-> <a href="#rtcencodedaudioframe"><code><c- g>RTCEncodedAudioFrame</c-></code></a> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long long" href="#dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code></a>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data"><code><c- g>data</c-></code></a>;
-    <a class="n" data-link-type="idl-name" href="#dictdef-rtcaudioframemetadata"><c- n>RTCAudioFrameMetadata</c-></a> <a href="#dom-rtcencodedaudioframe-getmetadata"><code><c- g>getMetadata</c-></code></a>();
+    <a class="n" data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a href="#dom-rtcencodedaudioframe-getmetadata"><code><c- g>getMetadata</c-></code></a>();
 };
 
 
 // New fields in RTCConfiguration
 <c- b>partial</c-> <c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration"><c- g>RTCConfiguration</c-></a> {
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-rtcconfiguration-forceencodedinsertablestreams"><code><c- g>forceEncodedInsertableStreams</c-></code></a> = <c- b>false</c->;
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-default="false" data-type="boolean " href="#dom-rtcconfiguration-encodedinsertablestreams"><code><c- g>encodedInsertableStreams</c-></code></a> = <c- b>false</c->;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
@@ -823,7 +865,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <b><a href="#dictdef-rtcinsertablestreams">#dictdef-rtcinsertablestreams</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-rtcinsertablestreams">3. Specification</a> <a href="#ref-for-dictdef-rtcinsertablestreams①">(2)</a>
-    <li><a href="#ref-for-dictdef-rtcinsertablestreams②">3.1. Extension operation</a>
+    <li><a href="#ref-for-dictdef-rtcinsertablestreams②">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-rtcencodedvideoframetype">
@@ -832,28 +874,34 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-enumdef-rtcencodedvideoframetype">3. Specification</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-rtcvideoframemetadata">
-   <b><a href="#dictdef-rtcvideoframemetadata">#dictdef-rtcvideoframemetadata</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dictdef-rtcencodedvideoframemetadata">
+   <b><a href="#dictdef-rtcencodedvideoframemetadata">#dictdef-rtcencodedvideoframemetadata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-rtcvideoframemetadata">3. Specification</a>
+    <li><a href="#ref-for-dictdef-rtcencodedvideoframemetadata">3. Specification</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-rtcaudioframemetadata">
-   <b><a href="#dictdef-rtcaudioframemetadata">#dictdef-rtcaudioframemetadata</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-rtcencodedvideoframe-timestamp">
+   <b><a href="#dom-rtcencodedvideoframe-timestamp">#dom-rtcencodedvideoframe-timestamp</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-rtcaudioframemetadata">3. Specification</a>
+    <li><a href="#ref-for-dom-rtcencodedvideoframe-timestamp">3.1.2. Stream processing</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-rtcconfiguration-forceencodedinsertablestreams">
-   <b><a href="#dom-rtcconfiguration-forceencodedinsertablestreams">#dom-rtcconfiguration-forceencodedinsertablestreams</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dictdef-rtcencodedaudioframemetadata">
+   <b><a href="#dictdef-rtcencodedaudioframemetadata">#dictdef-rtcencodedaudioframemetadata</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcconfiguration-forceencodedinsertablestreams">3.1. Extension operation</a>
+    <li><a href="#ref-for-dictdef-rtcencodedaudioframemetadata">3. Specification</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-rtcconfiguration-encodedinsertablestreams">
+   <b><a href="#dom-rtcconfiguration-encodedinsertablestreams">#dom-rtcconfiguration-encodedinsertablestreams</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtcconfiguration-encodedinsertablestreams">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-rtcrtpsender-createencodedstreams">
    <b><a href="#dom-rtcrtpsender-createencodedstreams">#dom-rtcrtpsender-createencodedstreams</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-createencodedstreams">3.1. Extension operation</a>
+    <li><a href="#ref-for-dom-rtcrtpsender-createencodedstreams">3.1.1. Stream creation</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

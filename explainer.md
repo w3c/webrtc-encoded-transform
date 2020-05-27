@@ -221,7 +221,7 @@ partial interface RTCRtpReceiver {
 
 </pre>
 
-## Design considerations, alternatives considered ##
+## Design considerations ##
 
 This design is built upon the Streams API. This is a natural interface
 for stuff that can be considered a "sequence of objects", and has an ecosystem
@@ -246,13 +246,21 @@ There are some challenges with the Streams interface:
 * How to integrate error signalling and recovery, given that most of the
   time, breaking the pipeline is not an appropriate action.
   
-The alternatives involve callback-based or event-based interfaces; those
-would require developing new interfaces that allow the relevant WebRTC
-objects to be visible in the worker context in order to do processing off
-the main thread. This is complex.
+These things may be solved by use of non-data "frames" (in the forward direction),
+by reverse streams of non-data "frames" (in the reverse direction), or by defining
+new interfaces based on events, promises or callbacks.
 
 Experimentation with the prototype API seems to show that performance is
 adequate for real-time processing; the streaming part is not contributing
 very much to slowing down the pipelines.
+
+## Alternatives to Streams ##
+The alternatives involve callback-based or event-based interfaces; those
+would require developing new interfaces that allow the relevant WebRTC
+objects to be visible in the worker context in order to do processing off
+the main thread. This would seem to be a significantly bigger specification
+and implementation effort.
+
+
 
 

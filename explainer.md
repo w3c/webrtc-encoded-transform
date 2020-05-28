@@ -220,3 +220,54 @@ partial interface RTCRtpReceiver {
 };
 
 </pre>
+
+## Design considerations ##
+
+This design is built upon the Streams API. This is a natural interface
+for stuff that can be considered a "sequence of objects", and has an ecosystem
+around it that allows some concerns to be handed off easily.
+
+In particular:
+
+* Sequencing comes naturally; streams are in-order entities.
+* With the Transferable Streams paradigm, changing what thread is doing
+  the processing can be done in a manner that has been tested by others.
+* Since other users of Streams interfaces are going to deal with issues
+  like efficient handover and WASM interaction, we can expect to leverage
+  common solutions for these problems.
+
+There are some challenges with the Streams interface:
+
+* Queueing in response to backpressure isn't an appropriate reaction in a
+  real-time environment. This can be mitigated at the sender by not queueing,
+  preferring to discard frames or not generating them.
+* How to interface to congestion control signals, which travel in the
+  opposite direction from the streams flow.
+* How to integrate error signalling and recovery, given that most of the
+  time, breaking the pipeline is not an appropriate action.
+  
+These things may be solved by use of non-data "frames" (in the forward direction),
+by reverse streams of non-data "frames" (in the reverse direction), or by defining
+new interfaces based on events, promises or callbacks.
+
+Experimentation with the prototype API seems to show that performance is
+adequate for real-time processing; the streaming part is not contributing
+very much to slowing down the pipelines.
+
+## Alternatives to Streams ##
+One set of alternatives involve callback-based or event-based interfaces; those
+would require developing new interfaces that allow the relevant WebRTC
+objects to be visible in the worker context in order to do processing off
+the main thread. This would seem to be a significantly bigger specification
+and implementation effort.
+
+Another path would involve specifying a worklet API, similar to the AudioWorklet,
+and specifying new APIs for connecting encoders and decoders to such worklets.
+This also seemed to involve a significantly larger set of new interfaces, with a
+correspondingly larger implementation effort, and would offer less flexibility
+in how the processing elements could be implemented.
+
+
+
+
+

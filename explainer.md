@@ -255,11 +255,18 @@ adequate for real-time processing; the streaming part is not contributing
 very much to slowing down the pipelines.
 
 ## Alternatives to Streams ##
-The alternatives involve callback-based or event-based interfaces; those
+One set of alternatives involve callback-based or event-based interfaces; those
 would require developing new interfaces that allow the relevant WebRTC
 objects to be visible in the worker context in order to do processing off
 the main thread. This would seem to be a significantly bigger specification
 and implementation effort.
+
+Another path would involve specifying a worklet API, similar to the AudioWorklet,
+and specifying new APIs for connecting encoders and decoders to such worklets.
+This also seemed to involve a significantly larger set of new interfaces, with a
+correspondingly larger implementation effort, and would offer less flexibility
+in how the processing elements could be implemented.
+
 
 
 

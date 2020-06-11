@@ -4,8 +4,8 @@ Shortname: webrtc-media-streams
 Level: 1
 Status: UD
 Group: webrtc
-Repository: alvestrand/webrtc-media-streams/
-URL: https://alvestrand.github.io/webrtc-media-streams/
+Repository: w3c/webrtc-insertable-streams/
+URL: https://w3c.github.io/webrtc-insertable-streams/
 Editor: Harald Alvestrand, Google https://google.com, hta@google.com
 Editor: Guido Urdaneta, Google https://google.com, guidou@google.com
 Abstract: This API defines an API surface for manipulating the bits on

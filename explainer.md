@@ -30,9 +30,7 @@ components.
 
 ## Use cases
 
-The first use case to be supported by the API is the processing of encoded media.
-However, the same approach can be used in future
-This includes use cases such as:
+Use cases include:
 
 * Funny Hats (processing inserted before encoding or after decoding)
 * Background removal

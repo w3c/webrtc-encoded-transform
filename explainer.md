@@ -31,8 +31,8 @@ components.
 ## Use cases
 
 The first use case to be supported by the API is the processing of encoded media.
-However, the same approach can be used in future
-This includes use cases such as:
+
+However, the same approach can be used in future for use cases such as:
 
 * Funny Hats (processing inserted before encoding or after decoding)
 * Background removal
@@ -41,7 +41,7 @@ This includes use cases such as:
 * App-defined bandwidth distribution between tracks
 * Custom codecs for special purposes (in combination with WebCodecs)
 
-This API can also be used for experimenting with end-to-end media
+This API can be used for experimenting with end-to-end media
 encryption (e.g.,
 [SFrame](https://datatracker.ietf.org/doc/draft-omara-sframe/). However,
 having both the key and media available to the JavaScript is

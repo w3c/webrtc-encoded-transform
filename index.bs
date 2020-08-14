@@ -1,8 +1,8 @@
 <pre class='metadata'>
 Title: WebRTC Insertable Media using Streams
 Shortname: webrtc-media-streams
-Level: 1
-Status: UD
+Level: None
+Status: ED
 Group: webrtc
 Repository: w3c/webrtc-insertable-streams/
 URL: https://w3c.github.io/webrtc-insertable-streams/

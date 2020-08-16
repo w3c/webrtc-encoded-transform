@@ -23,7 +23,7 @@ RTCPeerConnection API in order to build an API that is:
 * Able to support user defined component wrapping and replacement
 
 The central idea is to expose components in an RTCPeerConnection as a collection of
-streams (as defined by the [WHATWG Streams API] (https://streams.spec.whatwg.org/)),
+streams (as defined by the [WHATWG Streams API](https://streams.spec.whatwg.org/)),
 which can be manipulated to introduce new components, or to wrap or replace existing
 components.
 
@@ -43,6 +43,12 @@ iterations to support additional use cases such as:
 * Custom codecs for special purposes (in combination with WebCodecs)
 
 ## Code Examples
+0. Feature detection can be done as follows:
+
+<pre>
+const supportsInsertableStreams = window.RTCRtpSender &&
+      !!RTCRtpSender.prototype.createEncodedStreams;
+</pre>
 
 1. Let an PeerConnection know that it should allow exposing the data flowing through it
 as streams.
@@ -54,8 +60,7 @@ streams. For example:
 
 <pre>
 let pc = new RTCPeerConnection({
-    forceEncodedVideoInsertableStreams: true,
-    forceEncodedAudioInsertableStreams: true
+    encodedInsertableStreams: true,
 });
 </pre>
 
@@ -70,25 +75,25 @@ of an encoded frame and adds 4 bytes of padding.
         // Called on startup.
       },
 
-      async transform(chunk, controller) {
-        let view = new DataView(chunk.data);
+      async transform(encodedFrame, controller) {
+        let view = new DataView(encodedFrame.data);
         // Create a new buffer with 4 additional bytes.
-        let newData = new ArrayBuffer(chunk.data.byteLength + 4);
+        let newData = new ArrayBuffer(encodedFrame.data.byteLength + 4);
         let newView = new DataView(newData);
 
         // Fill the new buffer with a negated version of all
         // the bits in the original frame.
-        for (let i = 0; i < chunk.data.byteLength; ++i)
+        for (let i = 0; i < encodedFrame.data.byteLength; ++i)
           newView.setInt8(i, ~view.getInt8(i));
         // Set the padding bytes to zero.
         for (let i = 0; i < 4; ++i)
-          newView.setInt8(chunk.data.byteLength + i, 0);
+          newView.setInt8(encodedFrame.data.byteLength + i, 0);
 
         // Replace the frame's data with the new buffer.
-        chunk.data = newData;
+        encodedFrame.data = newData;
 
         // Send it to the output stream.
-        controller.enqueue(chunk);
+        controller.enqueue(encodedFrame);
       },
 
       flush() {
@@ -104,7 +109,7 @@ Transform stream to the track's sender.
 let stream = await navigator.mediaDevices.getUserMedia({video:true});
 let [track] = stream.getTracks();
 let videoSender = pc.addTrack(track, stream)
-let senderStreams = videoSender.getEncodedVideoStreams();
+let senderStreams = videoSender.createEncodedStreams();
 
 // Do ICE and offer/answer exchange.
 
@@ -116,39 +121,30 @@ senderStreams.readable
 4. Do the corresponding operations on the receiver side.
 
 <pre>
-let pc = new RTCPeerConnection({forceEncodedVideoInsertableStreams: true});
+let pc = new RTCPeerConnection({encodedInsertableStreams: true});
 pc.ontrack = e => {
-  let receivers = pc.getReceivers();
-  let videoReceiver = null;
-  for (const r of receivers) {
-    if (r.track.kind == 'video')
-      videoReceiver = r;
-  }
-  if (!videoReceiver)
-    return;
-
   let receiverTransform = new TransformStream({
     start() {},
     flush() {},
-    async transform(chunk, controller) {
+    async transform(encodedFrame, controller) {
       // Reconstruct the original frame.
-      let view = new DataView(chunk.data);
+      let view = new DataView(encodedFrame.data);
 
       // Ignore the last 4 bytes
-      let newData = new ArrayBuffer(chunk.data.byteLength - 4);
+      let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
       let newView = new DataView(newData);
 
       // Negate all bits in the incoming frame, ignoring the
       // last 4 bytes
-      for (let i = 0; i < chunk.data.byteLength - 4; ++i)
+      for (let i = 0; i < encodedFrame.data.byteLength - 4; ++i)
         newView.setInt8(i, ~view.getInt8(i));
 
-      chunk.data = newData;
-      controller.enqueue(chunk);
+      encodedFrame.data = newData;
+      controller.enqueue(encodedFrame);
       },
     });
 
-  let receiverStreams = videoReceiver.createEncodedVideoStreams();
+  let receiverStreams = e.receiver.createEncodedStreams();
   receiverStreams.readable
     .pipeThrough(receiverTransform)
     .pipeTo(receiverStreams.writable);
@@ -158,7 +154,7 @@ pc.ontrack = e => {
 ## API
 
 The following are the IDL modifications proposed by this API.
-Future iterations will add additional operations following a similar pattern.
+Future iterations may add additional operations following a similar pattern.
 
 <pre>
 // New dictionary.
@@ -175,42 +171,103 @@ enum RTCEncodedVideoFrameType {
     "delta",
 };
 
+// New dictionaries for video and audio metadata.
+dictionary RTCEncodedVideoFrameMetadata {
+    long long frameId;
+    sequence&lt;long long&gt; dependencies;
+    unsigned short width;
+    unsigned short height;
+    long spatialIndex;
+    long temporalIndex;
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
+};
+
+dictionary RTCEncodedAudioFrameMetadata {
+    long synchronizationSource;
+    sequence&lt;long&gt; contributingSources;
+};
+
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-// The additionalData fields contain metadata about the frame and might be
+// The additionalData fields contain metadata about the frame and will
 // eventually be exposed differently.
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    readonly attribute ArrayBuffer additionalData;
+    RTCVideoFrameMetadata getMetadata();
 };
 
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;
-    readonly attribute ArrayBuffer additionalData;
+    RTCAudioFrameMetadata getMetadata();
 };
 
-
-// New fields in RTCConfiguration
-dictionary RTCConfiguration {
-    ...
-    boolean forceEncodedVideoInsertableStreams = false;
-    boolean forceEncodedAudioInsertableStreams = false;
+// New field in RTCConfiguration
+partial dictionary RTCConfiguration {
+    boolean encodedInsertableStreams = false;
 };
 
 // New methods for RTCRtpSender and RTCRtpReceiver
-interface RTCRtpSender {
-    // ...
-    RTCInsertableStreams createEncodedVideoStreams();
-    RTCInsertableStreams createEncodedAudioStreams();
+partial interface RTCRtpSender {
+    RTCInsertableStreams createEncodedStreams();
 };
 
-interface RTCRtpReceiver {
-    // ...
-    RTCInsertableStreams createEncodedVideoStreams();
-    RTCInsertableStreams createEncodedAudioStreams();
+partial interface RTCRtpReceiver {
+    RTCInsertableStreams createEncodedStreams();
 };
 
 </pre>
+
+## Design considerations ##
+
+This design is built upon the Streams API. This is a natural interface
+for stuff that can be considered a "sequence of objects", and has an ecosystem
+around it that allows some concerns to be handed off easily.
+
+In particular:
+
+* Sequencing comes naturally; streams are in-order entities.
+* With the Transferable Streams paradigm, changing what thread is doing
+  the processing can be done in a manner that has been tested by others.
+* Since other users of Streams interfaces are going to deal with issues
+  like efficient handover and WASM interaction, we can expect to leverage
+  common solutions for these problems.
+
+There are some challenges with the Streams interface:
+
+* Queueing in response to backpressure isn't an appropriate reaction in a
+  real-time environment. This can be mitigated at the sender by not queueing,
+  preferring to discard frames or not generating them.
+* How to interface to congestion control signals, which travel in the
+  opposite direction from the streams flow.
+* How to integrate error signalling and recovery, given that most of the
+  time, breaking the pipeline is not an appropriate action.
+  
+These things may be solved by use of non-data "frames" (in the forward direction),
+by reverse streams of non-data "frames" (in the reverse direction), or by defining
+new interfaces based on events, promises or callbacks.
+
+Experimentation with the prototype API seems to show that performance is
+adequate for real-time processing; the streaming part is not contributing
+very much to slowing down the pipelines.
+
+## Alternatives to Streams ##
+One set of alternatives involve callback-based or event-based interfaces; those
+would require developing new interfaces that allow the relevant WebRTC
+objects to be visible in the worker context in order to do processing off
+the main thread. This would seem to be a significantly bigger specification
+and implementation effort.
+
+Another path would involve specifying a worklet API, similar to the AudioWorklet,
+and specifying new APIs for connecting encoders and decoders to such worklets.
+This also seemed to involve a significantly larger set of new interfaces, with a
+correspondingly larger implementation effort, and would offer less flexibility
+in how the processing elements could be implemented.
+
+
+
+
+

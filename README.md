@@ -1,4 +1,4 @@
-# WebRTC API for insertable Streams of Media
+# WebRTC API for Insertable Streams of Media
 
 (not to be confused with the MediaStreams API)
 

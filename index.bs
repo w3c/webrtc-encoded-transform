@@ -80,8 +80,8 @@ insert the processing into the pipeline.
 <pre class="idl">
 // New dictionary.
 dictionary RTCInsertableStreams {
-    ReadableStream readableStream;
-    WritableStream writableStream;
+    ReadableStream readable;
+    WritableStream writable;
 };
 
 // New enum for video frame types. Will eventually re-use the equivalent defined
@@ -158,8 +158,8 @@ called, run the following steps:
 * If the data source does not permit access, throw an {{InvalidAccessError}} and abort these steps.
 * If [[\Streams]] is not null, throw an {{InvalidStateError}}.
 * Create an {{RTCInsertableStreams}} object 's'.
-* Set s.readableStream to a ReadableStream representing the encoded data source.
-* Set s.writableStream to a WritableStream representing the encoded data sink.
+* Set s.readable to a ReadableStream representing the encoded data source.
+* Set s.writable to a WritableStream representing the encoded data sink.
 * Enable the encoded data source.
 * Store 's' in the internal slot [[\Streams]].
 * Return 's'
@@ -169,7 +169,7 @@ called, run the following steps:
 When a frame is produced from the encoded data source, place it on the
 [[\Streams]].readableStream'.
 
-When a frame appears on the [[\Streams]].writableStream, do the following:
+When a frame appears on the [[\Streams]].writable, do the following:
 * Check that the frame is a a valid frame that has been created by the encoded data source; if it is not, discard it. A processor cannot create frames, or move frames between streams.
 * Check that the frame's {{RTCEncodedVideoFrame/timestamp}} is equal to or larger than any previously received frame. A processor cannot reorder frames, although it may delay them or drop them. 
 * Process the frame as if it came directly from the encoded data source.

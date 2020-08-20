@@ -1586,8 +1586,8 @@ an additional API on <code class="idl"><a data-link-type="idl" href="https://www
 insert the processing into the pipeline.</p>
 <pre class="idl highlight def">// New dictionary.
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcinsertablestreams"><code><c- g>RTCInsertableStreams</c-></code></dfn> {
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream"><c- n>ReadableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="ReadableStream " id="dom-rtcinsertablestreams-readablestream"><code><c- g>readableStream</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-readablestream"></a></dfn>;
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream"><c- n>WritableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="WritableStream " id="dom-rtcinsertablestreams-writablestream"><code><c- g>writableStream</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-writablestream"></a></dfn>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream"><c- n>ReadableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="ReadableStream " id="dom-rtcinsertablestreams-readablestream"><code><c- g>readable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-readablestream"></a></dfn>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream"><c- n>WritableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="WritableStream " id="dom-rtcinsertablestreams-writablestream"><code><c- g>writable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-writablestream"></a></dfn>;
 };
 
 // New enum for video frame types. Will eventually re-use the equivalent defined
@@ -1662,9 +1662,9 @@ called, run the following steps:</p>
     <li data-md>
      <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object 's'.</p>
     <li data-md>
-     <p>Set s.readableStream to a ReadableStream representing the encoded data source.</p>
+     <p>Set s.readable to a ReadableStream representing the encoded data source.</p>
     <li data-md>
-     <p>Set s.writableStream to a WritableStream representing the encoded data sink.</p>
+     <p>Set s.writable to a WritableStream representing the encoded data sink.</p>
     <li data-md>
      <p>Enable the encoded data source.</p>
     <li data-md>
@@ -1674,8 +1674,8 @@ called, run the following steps:</p>
    </ul>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p>When a frame is produced from the encoded data source, place it on the
-[[\Streams]].readableStream'.</p>
-   <p>When a frame appears on the [[\Streams]].writableStream, do the following:</p>
+[[\Streams]].readable'.</p>
+   <p>When a frame appears on the [[\Streams]].writable, do the following:</p>
    <ul>
     <li data-md>
      <p>Check that the frame is a a valid frame that has been created by the encoded data source; if it is not, discard it. A processor cannot create frames, or move frames between streams.</p>
@@ -1874,7 +1874,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     </ul>
    <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in §3</span>
-   <li><a href="#dom-rtcinsertablestreams-readablestream">readableStream</a><span>, in §3</span>
+   <li><a href="#dom-rtcinsertablestreams-readablestream">readable</a><span>, in §3</span>
    <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in §3</span>
    <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in §3</span>
    <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in §3</span>
@@ -1897,7 +1897,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     </ul>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in §3</span>
-   <li><a href="#dom-rtcinsertablestreams-writablestream">writableStream</a><span>, in §3</span>
+   <li><a href="#dom-rtcinsertablestreams-writablestream">writable</a><span>, in §3</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-readablestream">
    <a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
@@ -2041,8 +2041,8 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def">// New dictionary.
 <c- b>dictionary</c-> <a href="#dictdef-rtcinsertablestreams"><code><c- g>RTCInsertableStreams</c-></code></a> {
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a data-type="ReadableStream " href="#dom-rtcinsertablestreams-readablestream"><code><c- g>readableStream</c-></code></a>;
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a data-type="WritableStream " href="#dom-rtcinsertablestreams-writablestream"><code><c- g>writableStream</c-></code></a>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a data-type="ReadableStream " href="#dom-rtcinsertablestreams-readablestream"><code><c- g>readable</c-></code></a>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a data-type="WritableStream " href="#dom-rtcinsertablestreams-writablestream"><code><c- g>writable</c-></code></a>;
 };
 
 // New enum for video frame types. Will eventually re-use the equivalent defined

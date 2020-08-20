@@ -30,10 +30,8 @@ components.
 
 ## Use cases
 
-The first use case to be supported by the API is the processing of encoded media, with
-end-to-end encryption intended as the motivating application. As such, the first version
-of the API will focus on this use case. However, the same approach can be used in future
-iterations to support additional use cases such as:
+The first use case to be supported by the API is the processing of encoded media.
+However, the same approach can be used in future for use cases such as:
 
 * Funny Hats (processing inserted before encoding or after decoding)
 * Background removal
@@ -41,6 +39,18 @@ iterations to support additional use cases such as:
 * Dynamic control of codec parameters
 * App-defined bandwidth distribution between tracks
 * Custom codecs for special purposes (in combination with WebCodecs)
+
+This API can be used for experimenting with end-to-end media
+encryption (e.g.,
+[SFrame](https://datatracker.ietf.org/doc/draft-omara-sframe/).
+However, this API is not recommended for this use case until a
+mechanism that allows browsers to perform end-to-end encryption
+without exposing keys to JavaScript becomes available.
+This document will also define a
+mechanism for browsers to provide built-in transformers which do not
+require JavaScript access to the key or media. Separately, this or
+some other WG may work on a mechanism for end-to-end keying.
+
 
 ## Code Examples
 0. Feature detection can be done as follows:

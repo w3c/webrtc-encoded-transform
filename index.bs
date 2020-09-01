@@ -4,29 +4,13 @@ Shortname: webrtc-media-streams
 Level: None
 Status: ED
 Group: webrtc
-Repository: w3c/webrtc-insertable-streams/
+Repository: w3c/webrtc-insertable-streams
 URL: https://w3c.github.io/webrtc-insertable-streams/
 Editor: Harald Alvestrand, Google https://google.com, hta@google.com
 Editor: Guido Urdaneta, Google https://google.com, guidou@google.com
 Abstract: This API defines an API surface for manipulating the bits on
-Abstract: MediaStreamTracks being sent via an RTCPeerConnection.
+Abstract: {{MediaStreamTrack}}s being sent via an {{RTCPeerConnection}}.
 Markup Shorthands: css no, markdown yes
-</pre>
-<pre class='anchors'>
-spec: WEBRTC; urlPrefix: https://w3c.github.io/webrtc-pc/
-    type: interface
-        text: RTCPeerConnection; url: #dom-rtcpeerconnection
-    type: dictionary
-        text: RTCConfiguration; url: #dom-rtcconfiguration
-spec: WEB-CODECS; urlPrefix: https://github.com/WICG/web-codecs/
-    type: interface
-        text: AudioEncoder; url: #dom-audioencoder
-    type: interface
-        text: AudioDecoder; url: #dom-audiodecoder
-    type: interface
-        text: VideoEncoder; url: #dom-videoencoder
-    type: interface
-        text: VideoDecoder; url: #dom-videodecoder
 </pre>
 <pre class=biblio>
 {

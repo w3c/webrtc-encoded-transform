@@ -1586,8 +1586,8 @@ an additional API on <code class="idl"><a data-link-type="idl" href="https://www
 insert the processing into the pipeline.</p>
 <pre class="idl highlight def">// New dictionary.
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcinsertablestreams"><code><c- g>RTCInsertableStreams</c-></code></dfn> {
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream"><c- n>ReadableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="ReadableStream " id="dom-rtcinsertablestreams-readable"><code><c- g>readable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-readable"></a></dfn>;
-    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream"><c- n>WritableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="WritableStream " id="dom-rtcinsertablestreams-writable"><code><c- g>writable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-writable"></a></dfn>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream"><c- n>ReadableStream</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="ReadableStream " id="dom-rtcinsertablestreams-readable"><code><c- g>readable</c-></code></dfn>;
+    <a class="n" data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream"><c- n>WritableStream</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="WritableStream " id="dom-rtcinsertablestreams-writable"><code><c- g>writable</c-></code></dfn>;
 };
 
 // New enum for video frame types. Will eventually re-use the equivalent defined
@@ -1650,8 +1650,7 @@ insert the processing into the pipeline.</p>
    <p>At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection②">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration①">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
    <h4 class="heading settled" data-level="3.1.1" id="stream-creation"><span class="secno">3.1.1. </span><span class="content">Stream creation</span><a class="self-link" href="#stream-creation"></a></h4>
-   <p>Let the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code> have an internal slot,
-[[\Streams]], initialized to null.</p>
+   <p>Let the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code> have an internal slot, <code>[[Streams]]</code>, initialized to null.</p>
    <p>When <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedstreams" id="ref-for-dom-rtcrtpsender-createencodedstreams">createEncodedStreams</a></code>() is
 called, run the following steps:</p>
    <ul>
@@ -1660,24 +1659,23 @@ called, run the following steps:</p>
     <li data-md>
      <p>If the data source does not permit access, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If [[\Streams]] is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>.</p>
+     <p>If <code>[[Streams]]</code> is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>.</p>
     <li data-md>
-     <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object 's'.</p>
+     <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object <var>s</var>.</p>
     <li data-md>
-     <p>Set s.readable to a ReadableStream representing the encoded data source.</p>
+     <p>Set <var>s</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-readable" id="ref-for-dom-rtcinsertablestreams-readable">readable</a></code> to a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①">ReadableStream</a></code> representing the encoded data source.</p>
     <li data-md>
-     <p>Set s.writable to a WritableStream representing the encoded data sink.</p>
+     <p>Set <var>s</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-writable" id="ref-for-dom-rtcinsertablestreams-writable">writable</a></code> to a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①">WritableStream</a></code> representing the encoded data sink.</p>
     <li data-md>
      <p>Enable the encoded data source.</p>
     <li data-md>
-     <p>Store 's' in the internal slot [[\Streams]].</p>
+     <p>Store <var>s</var> in the internal slot <code>[[Streams]]</code>.</p>
     <li data-md>
-     <p>Return 's'</p>
+     <p>Return <var>s</var></p>
    </ul>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
-   <p>When a frame is produced from the encoded data source, place it on the
-[[\Streams]].readableStream'.</p>
-   <p>When a frame appears on the [[\Streams]].writable, do the following:</p>
+   <p>When a frame is produced from the encoded data source, place it on the <code>[[Streams]]</code>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-readable" id="ref-for-dom-rtcinsertablestreams-readable①">readable</a></code>.</p>
+   <p>When a frame appears on the <code>[[Streams]]</code>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-writable" id="ref-for-dom-rtcinsertablestreams-writable①">writable</a></code>, do the following:</p>
    <ul>
     <li data-md>
      <p>Check that the frame is a a valid frame that has been created by the encoded data source; if it is not, discard it. A processor cannot create frames, or move frames between streams.</p>
@@ -1694,7 +1692,7 @@ accessed using this API, since that would break the isolation rule.</p>
    <p>The API will allow access to some aspects of timing information that are
 otherwise unavailable, which allows some fingerprinting surface.</p>
    <h2 class="heading settled" data-level="5" id="examples"><span class="secno">5. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h2>
-   <p>See the explainer document.</p>
+   <p>See the <a href="https://github.com/w3c/webrtc-insertable-streams/blob/master/explainer.md#code-examples">explainer document</a>.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -1911,12 +1909,14 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-readablestream">3. Specification</a>
+    <li><a href="#ref-for-readablestream①">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-writablestream">
    <a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-writablestream">3. Specification</a>
+    <li><a href="#ref-for-writablestream①">3.1.1. Stream creation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-ArrayBuffer">
@@ -2130,6 +2130,20 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <ul>
     <li><a href="#ref-for-dictdef-rtcinsertablestreams">3. Specification</a> <a href="#ref-for-dictdef-rtcinsertablestreams①">(2)</a>
     <li><a href="#ref-for-dictdef-rtcinsertablestreams②">3.1.1. Stream creation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-rtcinsertablestreams-readable">
+   <b><a href="#dom-rtcinsertablestreams-readable">#dom-rtcinsertablestreams-readable</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtcinsertablestreams-readable">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-dom-rtcinsertablestreams-readable①">3.1.2. Stream processing</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-rtcinsertablestreams-writable">
+   <b><a href="#dom-rtcinsertablestreams-writable">#dom-rtcinsertablestreams-writable</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtcinsertablestreams-writable">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-dom-rtcinsertablestreams-writable①">3.1.2. Stream processing</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-rtcencodedvideoframetype">

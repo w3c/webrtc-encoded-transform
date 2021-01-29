@@ -162,9 +162,9 @@ argument, ensure that the codec is disabled and produces no output.
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
 1. Initialize `[[Streams]]` to null.
 2. Initialize `[[transform]]` to null.
-3. Initialize `[[readable]]` to the result of <a href="https://streams.spec.whatwg.org/#readablestream-create">creating a</a> {{ReadableStream}}. `[[readable]]` is provided frames using the [=readEncodedData=] algorithm given |this| as parameter.
+3. Initialize `[[readable]]` to the result of <a dfn for="ReadableStream">creating</a> a {{ReadableStream}}. `[[readable]]` is provided frames using the [=readEncodedData=] algorithm given |this| as parameter.
 4. Set `[[readable]]`.`[[owner]]` to |this|.
-5. Initialize `[[writable]]` to the result of <a href="https://streams.spec.whatwg.org/#writablestream-create">creating a</a> {{WritableStream}}, its <a href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm">writeAlgorithm</a> set to [=writeEncodedData=] given |this| as parameter.
+5. Initialize `[[writable]]` to the result of <a dfn for="WritableStream">creating</a> a {{WritableStream}}, its <a href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm">writeAlgorithm</a> set to [=writeEncodedData=] given |this| as parameter.
 6. Set `[[writable]]`.`[[owner]]` to |this|.
 7. Initialize `[[pipeToController]]` to null.
 8. Initialize `[[lastReceivedFrameTimestamp]]` to zero.

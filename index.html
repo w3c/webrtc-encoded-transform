@@ -567,7 +567,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-01-26">26 January 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-02-01">1 February 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -751,27 +751,28 @@ insert the processing into the pipeline.</p>
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
-    <dfn class="idl-code" data-dfn-for="SFrameTransform" data-dfn-type="constructor" data-export data-lt="SFrameTransform(options)|constructor(options)|SFrameTransform()|constructor()" id="dom-sframetransform-sframetransform"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform"></a></dfn>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/SFrameTransform(options), SFrameTransform/constructor(options), SFrameTransform/SFrameTransform(), SFrameTransform/constructor()" data-dfn-type="argument" data-export id="dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform-options-options"></a></dfn>);
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform" id="ref-for-dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/SFrameTransform(options), SFrameTransform/constructor(options), SFrameTransform/SFrameTransform(), SFrameTransform/constructor()" data-dfn-type="argument" data-export id="dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform-options-options"></a></dfn>);
     // FIXME: add key handling methods.
 };
 <a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform"><c- n>SFrameTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></dfn> {
-    <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="constructor" data-export data-lt="RTCRtpScriptTransform(worker, options)|constructor(worker, options)|RTCRtpScriptTransform(worker)|constructor(worker)" id="dom-rtcrtpscripttransform-rtcrtpscripttransform"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-object" id="ref-for-idl-object"><c- b>object</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>); // worker as DedicatedWorker.
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-object" id="ref-for-idl-object"><c- b>object</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>);
+    // FIXME: add messaging methods.
 };
 
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform①"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></dfn>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①"><c- g>RTCRtpSender</c-></a> {
-    <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="method" data-export data-lt="createEncodedStreams()" id="dom-rtcrtpsender-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></dfn>();
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <dfn class="idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="attribute" data-export data-type="RTCRtpTransform?" id="dom-rtcrtpsender-transform"><code><c- g>transform</c-></code><a class="self-link" href="#dom-rtcrtpsender-transform"></a></dfn>;
+    <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-createencodedstreams" id="ref-for-dom-rtcrtpsender-createencodedstreams"><c- g>createEncodedStreams</c-></a>();
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform" id="ref-for-dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①"><c- g>RTCRtpReceiver</c-></a> {
     <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams①"><c- n>RTCInsertableStreams</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpReceiver" data-dfn-type="method" data-export data-lt="createEncodedStreams()" id="dom-rtcrtpreceiver-createencodedstreams"><code><c- g>createEncodedStreams</c-></code><a class="self-link" href="#dom-rtcrtpreceiver-createencodedstreams"></a></dfn>();
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform①"><c- n>RTCRtpTransform</c-></a>? <dfn class="idl-code" data-dfn-for="RTCRtpReceiver" data-dfn-type="attribute" data-export data-type="RTCRtpTransform?" id="dom-rtcrtpreceiver-transform"><code><c- g>transform</c-></code><a class="self-link" href="#dom-rtcrtpreceiver-transform"></a></dfn>;
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform①"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform" id="ref-for-dom-rtcrtpsender-transform①"><c- g>transform</c-></a>;
 };
 </pre>
    <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
@@ -781,53 +782,52 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
    <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code>, run the following steps:</p>
    <ol>
     <li data-md>
-     <p>Initialize <code>[[Streams]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this">this</a>.<code>[[Streams]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <code>[[transform]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①">this</a>.<code>[[transform]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <code>[[readable]]</code> to the result of <a href="https://streams.spec.whatwg.org/#readablestream-create">creating a</a> <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①">ReadableStream</a></code>. <code>[[readable]]</code> is provided frames using the <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②">this</a>.<code>[[readable]]</code> to the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-create" id="ref-for-readablestream-create">creating</a> a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①">ReadableStream</a></code>. <code>[[readable]]</code> is provided frames using the <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
     <li data-md>
-     <p>Set <code>[[readable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this③">this</a>.<code>[[readable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
-     <p>Initialize <code>[[writable]]</code> to the result of <a href="https://streams.spec.whatwg.org/#writablestream-create">creating a</a> <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①">WritableStream</a></code>, its <a href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this④">this</a>.<code>[[writable]]</code> to the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-create" id="ref-for-writablestream-create">creating</a> a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①">WritableStream</a></code>, its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm" id="ref-for-writablestream-create-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter.</p>
     <li data-md>
-     <p>Set <code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
-     <p>Initialize <code>[[pipeToController]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑥">this</a>.<code>[[pipeToController]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <code>[[lastReceivedFrameTimestamp]]</code> to zero.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑦">this</a>.<code>[[lastReceivedFrameTimestamp]]</code> to zero.</p>
     <li data-md>
      <p>If the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection③">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-encodedinsertablestreams" id="ref-for-dom-rtcconfiguration-encodedinsertablestreams">encodedInsertableStreams</a></code> set to "true", queue a task to run the following steps:</p>
      <ol>
       <li data-md>
-       <p>If <code>[[pipeToController]]</code> is not null, abort these steps.</p>
+       <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑧">this</a>.<code>[[pipeToController]]</code> is not null, abort these steps.</p>
       <li data-md>
-       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <code>[[readable]]</code>, <code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <code>[[pipeToController]]</code>.signal.</p>
+       <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑨">this</a>.<code>[[pipeToController]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller">AbortController</a></code>.</p>
+      <li data-md>
+       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⓪">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①①">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①②">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
    </ol>
-   <p>When <code class="idl"><a data-link-type="idl" href="#dom-rtcrtpsender-createencodedstreams" id="ref-for-dom-rtcrtpsender-createencodedstreams">createEncodedStreams</a></code>() is
-called, run the following steps:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender" data-dfn-type="method" data-export id="dom-rtcrtpsender-createencodedstreams"><code>createEncodedStreams()</code></dfn> method steps are:</p>
    <ol>
     <li data-md>
-     <p>If the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection④">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-encodedinsertablestreams" id="ref-for-dom-rtcconfiguration-encodedinsertablestreams①">encodedInsertableStreams</a></code> set to "true", throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
+     <p>If the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection④">RTCPeerConnection</a></code>'s configuration does not have <code class="idl"><a data-link-type="idl" href="#dom-rtcconfiguration-encodedinsertablestreams" id="ref-for-dom-rtcconfiguration-encodedinsertablestreams①">encodedInsertableStreams</a></code> set to "true", throw an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException">DOMException</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If the data source does not permit access, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
+     <p>If the data source does not permit access, throw an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror①">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException①">DOMException</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code>[[Streams]]</code> is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>.</p>
+     <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①③">this</a>.<code>[[Streams]]</code> is not null, throw an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror②">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException②">DOMException</a></code>.</p>
     <li data-md>
-     <p>If <code>[[pipeToController]]</code> is not null, throw an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code>.</p>
+     <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①④">this</a>.<code>[[pipeToController]]</code> is not null, throw an "<code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror③">InvalidAccessError</a></code>" <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DOMException" id="ref-for-idl-DOMException③">DOMException</a></code>.</p>
     <li data-md>
-     <p>Create an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object <var>s</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑤">this</a>.<code>[[Streams]]</code> to an <code class="idl"><a data-link-type="idl" href="#dictdef-rtcinsertablestreams" id="ref-for-dictdef-rtcinsertablestreams②">RTCInsertableStreams</a></code> object.</p>
     <li data-md>
-     <p>Set <var>s</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-readable" id="ref-for-dom-rtcinsertablestreams-readable">readable</a></code> to <code>[[readable]]</code>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑥">this</a>.<code>[[Streams]]</code>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-readable" id="ref-for-dom-rtcinsertablestreams-readable">readable</a></code> to <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑦">this</a>.<code>[[readable]]</code>.</p>
     <li data-md>
-     <p>Set <var>s</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-writable" id="ref-for-dom-rtcinsertablestreams-writable">writable</a></code> to <code>[[writable]]</code>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑧">this</a>.<code>[[Streams]]</code>.<code class="idl"><a data-link-type="idl" href="#dom-rtcinsertablestreams-writable" id="ref-for-dom-rtcinsertablestreams-writable">writable</a></code> to <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑨">this</a>.<code>[[writable]]</code>.</p>
     <li data-md>
      <p>Enable the encoded data source.</p>
     <li data-md>
-     <p>Store <var>s</var> in the internal slot <code>[[Streams]]</code>.</p>
-    <li data-md>
-     <p>Return <var>s</var></p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⓪">this</a>.<code>[[Streams]]</code>.</p>
    </ol>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
@@ -839,7 +839,7 @@ called, run the following steps:</p>
     <li data-md>
      <p>Set <var>frame</var>.<code>[[owner]]</code> to <var>rtcObject</var>.</p>
     <li data-md>
-     <p><a href="https://streams.spec.whatwg.org/#readablestream-enqueue">Enqueue</a> <var>frame</var> in <var>rtcObject</var>.<code>[[readable]]</code>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue">enqueue</a> <var>frame</var> in <var>rtcObject</var>.<code>[[readable]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="writeencodeddata">writeEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter and a <var>frame</var> as input. It is defined by running the following steps:</p>
    <ol>
@@ -860,50 +860,46 @@ called, run the following steps:</p>
    </ol>
    <h3 class="heading settled" data-level="3.2" id="attribute"><span class="secno">3.2. </span><span class="content">Extension attribute</span><a class="self-link" href="#attribute"></a></h3>
    <p>A RTCRtpTransform has two private slots called <code>[[readable]]</code> and <code>[[writable]]</code>.</p>
-   <p>On getting the transform attribute, the user agent MUST run the following steps:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender,RTCRtpReceiver" data-dfn-type="attribute" data-export id="dom-rtcrtpsender-transform"><code>transform</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Let <var>rtcObject</var> be the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑤">RTCRtpReceiver</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑤">RTCRtpSender</a></code> on which the getter is invoked.</p>
-    <li data-md>
-     <p>Return <var>rtcObject</var>.<code>[[transform]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code>.</p>
    </ol>
-   <p>On setting the transform attribute, the user agent MUST run the following steps:</p>
-   <ol>
-    <li data-md>
-     <p>Let <var>rtcObject</var> be the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑥">RTCRtpReceiver</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑥">RTCRtpSender</a></code> on which the setter is invoked.</p>
+   <p>The <code>transform</code> setter steps are:</p>
+   <ol start="2">
     <li data-md>
      <p>Let <var>transform</var> be the argument to the setter.</p>
     <li data-md>
-     <p>Let <var>checkedTransform</var> set to <var>transform</var> if it is not null or to an <a href="https://streams.spec.whatwg.org/#identity-transform-stream">identity transform</a> otherwise.</p>
+     <p>Let <var>checkedTransform</var> set to <var>transform</var> if it is not null or to an <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#identity-transform-stream" id="ref-for-identity-transform-stream">identity transform stream</a> otherwise.</p>
     <li data-md>
-     <p>Let <var>reader</var> be the result of <a href="https://streams.spec.whatwg.org/#readablestream-get-a-reader">getting a reader</a> for <var>checkedTransform</var>.<code>[[readable]]</code>.</p>
+     <p>Let <var>reader</var> be the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-get-a-reader" id="ref-for-readablestream-get-a-reader">getting a reader</a> for <var>checkedTransform</var>.<code>[[readable]]</code>.</p>
     <li data-md>
-     <p>Let <var>writer</var> be the result of <a href="https://streams.spec.whatwg.org/#writablestream-get-a-writer">getting a writer</a> for <var>checkedTransform</var>.<code>[[writable]]</code>.</p>
+     <p>Let <var>writer</var> be the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-get-a-writer" id="ref-for-writablestream-get-a-writer">getting a writer</a> for <var>checkedTransform</var>.<code>[[writable]]</code>.</p>
     <li data-md>
-     <p>Initialize <var>newPipeToController</var> to a new AbortController.</p>
+     <p>Initialize <var>newPipeToController</var> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller①">AbortController</a></code>.</p>
     <li data-md>
-     <p>If <var>rtcObject</var>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
+     <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②②">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
      <ol>
       <li data-md>
-       <p><a href="https://dom.spec.whatwg.org/#abortsignal-add">Add</a> the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm">chain transform algorithm</a> to <var>rtcObject</var>.<code>[[pipeToController]]</code>:</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②③">this</a>.<code>[[pipeToController]]</code>.signal.</p>
       <li data-md>
-       <p>Call <a href="https://dom.spec.whatwg.org/#abortsignal-signal-abort">abort</a> on <var>rtcObject</var>.<code>[[pipeToController]]</code>.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-signal-abort" id="ref-for-abortsignal-signal-abort">signal abort</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②④">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
     <li data-md>
      <p>Else, run the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
     <li data-md>
-     <p>Set <var>rtcObject</var>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⑤">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
     <li data-md>
-     <p>Set <var>rtcObject</var>.<code>[[transform]]</code> to <var>transform</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⑥">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
    <ol>
     <li data-md>
-     <p>If <var>newPipeToController</var> <a href="https://dom.spec.whatwg.org/#abortsignal-aborted-flag">aborted flag</a> is true, abort these steps.</p>
+     <p>If <var>newPipeToController</var>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted-flag" id="ref-for-abortsignal-aborted-flag">aborted flag</a> is true, abort these steps.</p>
     <li data-md>
-     <p>Call <a href="https://streams.spec.whatwg.org/#readablestreamdefaultreader-release">release</a> with <var>reader</var>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestreamdefaultreader-release" id="ref-for-readablestreamdefaultreader-release">Release</a> <var>reader</var>.</p>
     <li data-md>
-     <p>Call <a href="https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release">release</a> with <var>writer</var>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release" id="ref-for-writablestreamdefaultwriter-release">Release</a> <var>writer</var>.</p>
     <li data-md>
      <p>Assert that <var>newPipeToController</var> is the same object as <var>rtcObject</var>.<code>[[pipeToController]]</code>.</p>
     <li data-md>
@@ -913,23 +909,23 @@ called, run the following steps:</p>
    </ol>
    <p>This algorithm is defined so that transforms can be updated dynamically.
 There is no guarantee on which frame will happen the switch from the previous transform to the new transform.</p>
-   <p>If a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code> (for instance when calling addTrack), the transform will receive the first frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑧">RTCRtpSender</a></code>'s encoder.
-Similarly, if a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code> (for instance when calling addTrack, or at track event handler), the transform will receive the first full frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑧">RTCRtpReceiver</a></code>'s packetizer.</p>
+   <p>If a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑤">RTCRtpSender</a></code> (for instance when calling addTrack), the transform will receive the first frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑥">RTCRtpSender</a></code>'s encoder.
+Similarly, if a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑤">RTCRtpReceiver</a></code> (for instance when calling addTrack, or at track event handler), the transform will receive the first full frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑥">RTCRtpReceiver</a></code>'s packetizer.</p>
    <h2 class="heading settled" data-level="4" id="sframe"><span class="secno">4. </span><span class="content">SFrameTransform</span><a class="self-link" href="#sframe"></a></h2>
-   <p>When the SFrameTransform.constructor() is invoked, run the following steps:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransform" data-dfn-type="constructor" data-export data-lt="SFrameTransform(options)|constructor(options)|SFrameTransform()|constructor()" id="dom-sframetransform-sframetransform"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>transformAlgorithm</var> be an algorithm which takes a <var>frame</var> as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with <var>this</var> and <var>frame</var>.</p>
     <li data-md>
-     <p>Set <var>this</var>.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform"><code>[[transform]]</code></a> to the result of <a href="https://streams.spec.whatwg.org/#transformstream-create">creating a TransformStream</a>, its <a href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
+     <p>Set <var>this</var>.<code>[[transform]]</code> to the result of <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create" id="ref-for-transformstream-create">creating</a> a <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>, with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm" id="ref-for-transformstream-create-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
     <li data-md>
-     <p>Set <var>this</var>.<code>[[role]]</code> to <var>options</var>.role.</p>
+     <p>Set <var>this</var>.<code>[[role]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl">role</a></code>"].</p>
     <li data-md>
-     <p>Set <var>this</var>.<code>[[readable]]</code> to <var>this</var>.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform"><code>[[transform]]</code></a>.<code>[[readable]]</code>.</p>
+     <p>Set <var>this</var>.<code>[[readable]]</code> to <var>this</var>.<code>[[transform]]</code>.<code>[[readable]]</code>.</p>
     <li data-md>
-     <p>Set <var>this</var>.<code>[[writable]]</code> to <var>this</var>.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform"><code>[[transform]]</code></a>.<code>[[writable]]</code>.</p>
+     <p>Set <var>this</var>.<code>[[writable]]</code> to <var>this</var>.<code>[[transform]]</code>.<code>[[writable]]</code>.</p>
    </ol>
    <h3 class="heading settled" data-level="4.1" id="sframe-transform-algorithm"><span class="secno">4.1. </span><span class="content">SFrame transform algorithm</span><a class="self-link" href="#sframe-transform-algorithm"></a></h3>
    <p>The SFrame transform algorithm, given <var>sframe</var> as a SFrameTransform object and <var>frame</var>, runs these steps:</p>
@@ -937,9 +933,9 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>role</var> be <var>sframe</var>.<code>[[role]]</code>.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑨">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
+     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑨">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
+     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
     <li data-md>
      <p>Let <var>data</var> be undefined.</p>
     <li data-md>
@@ -959,13 +955,15 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>If <var>frame</var> is an <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe①">RTCEncodedVideoFrame</a></code>, set <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data①">data</a></code> to <var>buffer</var>.</p>
     <li data-md>
-     <p><a href="https://streams.spec.whatwg.org/#transformstream-enqueue">Enqueue</a> <var>frame</var> in <var>sframe</var>.<code>[[transform]]</code>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue①">Enqueue</a> <var>frame</var> in <var>sframe</var>.<code>[[transform]]</code>.</p>
    </ol>
    <h2 class="heading settled" data-level="5" id="scriptTransform"><span class="secno">5. </span><span class="content">RTCRtpScriptTransform</span><a class="self-link" href="#scriptTransform"></a></h2>
-   <p>When the RTCRtpScriptTransform.constructor() is invoked, run the following steps:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="constructor" data-export data-lt="RTCRtpScriptTransform(worker, options)|constructor(worker, options)|RTCRtpScriptTransform(worker)|constructor(worker)" id="dom-rtcrtpscripttransform-rtcrtpscripttransform"><code>new RTCRtpScriptTransform(<var>worker</var>, <var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
-     <p>Create two <a href="https://streams.spec.whatwg.org/#identity-transform-stream">identity transforms</a> named <var>t1</var> and <var>t2</var>.</p>
+     <p>Set <var>t1</var> to an <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#identity-transform-stream" id="ref-for-identity-transform-stream①">identity transform stream</a>.</p>
+    <li data-md>
+     <p>Set <var>t2</var> to an <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#identity-transform-stream" id="ref-for-identity-transform-stream②">identity transform stream</a>.</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[writable]]</code> to <var>t1</var>.<code>[[writable]]</code>.</p>
     <li data-md>
@@ -1031,10 +1029,10 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#chain-transform-algorithm">chain transform algorithm</a><span>, in §3.2</span>
-   <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in §3</span>
-   <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in §3</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker)</a><span>, in §3</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options)</a><span>, in §3</span>
+   <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in §4</span>
+   <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in §4</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker)</a><span>, in §5</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options)</a><span>, in §5</span>
    <li>
     contributingSources
     <ul>
@@ -1045,7 +1043,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     createEncodedStreams()
     <ul>
      <li><a href="#dom-rtcrtpreceiver-createencodedstreams">method for RTCRtpReceiver</a><span>, in §3</span>
-     <li><a href="#dom-rtcrtpsender-createencodedstreams">method for RTCRtpSender</a><span>, in §3</span>
+     <li><a href="#dom-rtcrtpsender-createencodedstreams">method for RTCRtpSender</a><span>, in §3.1.1</span>
     </ul>
    <li>
     data
@@ -1078,12 +1076,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in §3</span>
    <li><a href="#dictdef-rtcinsertablestreams">RTCInsertableStreams</a><span>, in §3</span>
    <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in §3</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in §3</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options)</a><span>, in §3</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in §5</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options)</a><span>, in §5</span>
    <li><a href="#typedefdef-rtcrtptransform">RTCRtpTransform</a><span>, in §3</span>
    <li><a href="#sframetransform">SFrameTransform</a><span>, in §3</span>
-   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform()</a><span>, in §3</span>
-   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform(options)</a><span>, in §3</span>
+   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform()</a><span>, in §4</span>
+   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform(options)</a><span>, in §4</span>
    <li><a href="#dictdef-sframetransformoptions">SFrameTransformOptions</a><span>, in §3</span>
    <li><a href="#enumdef-sframetransformrole">SFrameTransformRole</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in §3</span>
@@ -1100,17 +1098,43 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><a href="#dom-rtcencodedaudioframe-timestamp">attribute for RTCEncodedAudioFrame</a><span>, in §3</span>
      <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in §3</span>
     </ul>
-   <li>
-    transform
-    <ul>
-     <li><a href="#dom-rtcrtpreceiver-transform">attribute for RTCRtpReceiver</a><span>, in §3</span>
-     <li><a href="#dom-rtcrtpsender-transform">attribute for RTCRtpSender</a><span>, in §3</span>
-    </ul>
+   <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in §3.2</span>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in §3</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in §3</span>
    <li><a href="#dom-rtcinsertablestreams-writable">writable</a><span>, in §3</span>
    <li><a href="#writeencodeddata">writeEncodedData</a><span>, in §3.1.2</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-abortcontroller">
+   <a href="https://dom.spec.whatwg.org/#abortcontroller">https://dom.spec.whatwg.org/#abortcontroller</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abortcontroller">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-abortcontroller①">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-abortsignal-aborted-flag">
+   <a href="https://dom.spec.whatwg.org/#abortsignal-aborted-flag">https://dom.spec.whatwg.org/#abortsignal-aborted-flag</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abortsignal-aborted-flag">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-abortsignal-add">
+   <a href="https://dom.spec.whatwg.org/#abortsignal-add">https://dom.spec.whatwg.org/#abortsignal-add</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abortsignal-add">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-abortsignal-signal-abort">
+   <a href="https://dom.spec.whatwg.org/#abortsignal-signal-abort">https://dom.spec.whatwg.org/#abortsignal-signal-abort</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-abortsignal-signal-abort">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-worker">
+   <a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-worker">3. Specification</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-dom-mediastreamtrack">
    <a href="https://www.w3.org/TR/mediacapture-streams/#dom-mediastreamtrack">https://www.w3.org/TR/mediacapture-streams/#dom-mediastreamtrack</a><b>Referenced in:</b>
    <ul>
@@ -1130,6 +1154,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-readablestream①">3.1.1. Stream creation</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-transformstream">
+   <a href="https://streams.spec.whatwg.org/#transformstream">https://streams.spec.whatwg.org/#transformstream</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transformstream">4. SFrameTransform</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-writablestream">
    <a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
    <ul>
@@ -1137,10 +1167,66 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-writablestream①">3.1.1. Stream creation</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-writablestream-create">
+   <a href="https://streams.spec.whatwg.org/#writablestream-create">https://streams.spec.whatwg.org/#writablestream-create</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-writablestream-create">3.1.1. Stream creation</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-readablestream-enqueue">
+   <a href="https://streams.spec.whatwg.org/#readablestream-enqueue">https://streams.spec.whatwg.org/#readablestream-enqueue</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-readablestream-enqueue">3.1.2. Stream processing</a>
+    <li><a href="#ref-for-readablestream-enqueue①">4.1. SFrame transform algorithm</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-readablestream-get-a-reader">
+   <a href="https://streams.spec.whatwg.org/#readablestream-get-a-reader">https://streams.spec.whatwg.org/#readablestream-get-a-reader</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-readablestream-get-a-reader">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-writablestream-get-a-writer">
+   <a href="https://streams.spec.whatwg.org/#writablestream-get-a-writer">https://streams.spec.whatwg.org/#writablestream-get-a-writer</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-writablestream-get-a-writer">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-identity-transform-stream">
+   <a href="https://streams.spec.whatwg.org/#identity-transform-stream">https://streams.spec.whatwg.org/#identity-transform-stream</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-identity-transform-stream">3.2. Extension attribute</a>
+    <li><a href="#ref-for-identity-transform-stream①">5. RTCRtpScriptTransform</a> <a href="#ref-for-identity-transform-stream②">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-writablestreamdefaultwriter-release">
+   <a href="https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release">https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-writablestreamdefaultwriter-release">3.2. Extension attribute</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-transformstream-create-transformalgorithm">
+   <a href="https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-create-transformalgorithm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transformstream-create-transformalgorithm">4. SFrameTransform</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-writablestream-create-writealgorithm">
+   <a href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm">https://streams.spec.whatwg.org/#writablestream-create-writealgorithm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-writablestream-create-writealgorithm">3.1.1. Stream creation</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-ArrayBuffer">
    <a href="https://heycam.github.io/webidl/#idl-ArrayBuffer">https://heycam.github.io/webidl/#idl-ArrayBuffer</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-ArrayBuffer">3. Specification</a> <a href="#ref-for-idl-ArrayBuffer①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DOMException">
+   <a href="https://heycam.github.io/webidl/#idl-DOMException">https://heycam.github.io/webidl/#idl-DOMException</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DOMException">3.1.1. Stream creation</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-Exposed">
@@ -1152,19 +1238,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-invalidaccesserror">
    <a href="https://heycam.github.io/webidl/#invalidaccesserror">https://heycam.github.io/webidl/#invalidaccesserror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidaccesserror">3.1.1. Stream creation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-invalidstateerror">
-   <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-invalidstateerror">3.1.1. Stream creation</a> <a href="#ref-for-invalidstateerror①">(2)</a> <a href="#ref-for-invalidstateerror②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-any">
-   <a href="https://heycam.github.io/webidl/#idl-any">https://heycam.github.io/webidl/#idl-any</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-any">3. Specification</a>
+    <li><a href="#ref-for-invalidaccesserror">3.1.1. Stream creation</a> <a href="#ref-for-invalidaccesserror①">(2)</a> <a href="#ref-for-invalidaccesserror②">(3)</a> <a href="#ref-for-invalidaccesserror③">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -1195,6 +1269,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://heycam.github.io/webidl/#idl-sequence">https://heycam.github.io/webidl/#idl-sequence</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-sequence">3. Specification</a> <a href="#ref-for-idl-sequence①">(2)</a> <a href="#ref-for-idl-sequence②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-this">
+   <a href="https://heycam.github.io/webidl/#this">https://heycam.github.io/webidl/#this</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-this">3.1.1. Stream creation</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a> <a href="#ref-for-this⑦">(8)</a> <a href="#ref-for-this⑧">(9)</a> <a href="#ref-for-this⑨">(10)</a> <a href="#ref-for-this①⓪">(11)</a> <a href="#ref-for-this①①">(12)</a> <a href="#ref-for-this①②">(13)</a> <a href="#ref-for-this①③">(14)</a> <a href="#ref-for-this①④">(15)</a> <a href="#ref-for-this①⑤">(16)</a> <a href="#ref-for-this①⑥">(17)</a> <a href="#ref-for-this①⑦">(18)</a> <a href="#ref-for-this①⑧">(19)</a> <a href="#ref-for-this①⑨">(20)</a> <a href="#ref-for-this②⓪">(21)</a>
+    <li><a href="#ref-for-this②①">3.2. Extension attribute</a> <a href="#ref-for-this②②">(2)</a> <a href="#ref-for-this②③">(3)</a> <a href="#ref-for-this②④">(4)</a> <a href="#ref-for-this②⑤">(5)</a> <a href="#ref-for-this②⑥">(6)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
@@ -1231,8 +1312,8 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-dom-rtcrtpreceiver">3. Specification</a> <a href="#ref-for-dom-rtcrtpreceiver①">(2)</a>
     <li><a href="#ref-for-dom-rtcrtpreceiver②">3.1.1. Stream creation</a>
     <li><a href="#ref-for-dom-rtcrtpreceiver③">3.1.2. Stream processing</a> <a href="#ref-for-dom-rtcrtpreceiver④">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpreceiver⑥">(2)</a> <a href="#ref-for-dom-rtcrtpreceiver⑦">(3)</a> <a href="#ref-for-dom-rtcrtpreceiver⑧">(4)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver⑨">4.1. SFrame transform algorithm</a>
+    <li><a href="#ref-for-dom-rtcrtpreceiver⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpreceiver⑥">(2)</a>
+    <li><a href="#ref-for-dom-rtcrtpreceiver⑦">4.1. SFrame transform algorithm</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpsender">
@@ -1241,12 +1322,25 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-dom-rtcrtpsender">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender①">(2)</a>
     <li><a href="#ref-for-dom-rtcrtpsender②">3.1.1. Stream creation</a>
     <li><a href="#ref-for-dom-rtcrtpsender③">3.1.2. Stream processing</a> <a href="#ref-for-dom-rtcrtpsender④">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpsender⑥">(2)</a> <a href="#ref-for-dom-rtcrtpsender⑦">(3)</a> <a href="#ref-for-dom-rtcrtpsender⑧">(4)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑨">4.1. SFrame transform algorithm</a>
+    <li><a href="#ref-for-dom-rtcrtpsender⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpsender⑥">(2)</a>
+    <li><a href="#ref-for-dom-rtcrtpsender⑦">4.1. SFrame transform algorithm</a>
    </ul>
   </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
+   <li>
+    <a data-link-type="biblio">[DOM]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-abortcontroller">AbortController</span>
+     <li><span class="dfn-paneled" id="term-for-abortsignal-aborted-flag">aborted flag</span>
+     <li><span class="dfn-paneled" id="term-for-abortsignal-add">add</span>
+     <li><span class="dfn-paneled" id="term-for-abortsignal-signal-abort">signal abort</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[HTML]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="term-for-worker">Worker</span>
+    </ul>
    <li>
     <a data-link-type="biblio">[mediacapture-streams]</a> defines the following terms:
     <ul>
@@ -1257,21 +1351,30 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <ul>
      <li><span class="dfn-paneled" id="term-for-generictransformstream">GenericTransformStream</span>
      <li><span class="dfn-paneled" id="term-for-readablestream">ReadableStream</span>
+     <li><span class="dfn-paneled" id="term-for-transformstream">TransformStream</span>
      <li><span class="dfn-paneled" id="term-for-writablestream">WritableStream</span>
+     <li><span class="dfn-paneled" id="term-for-writablestream-create">creating <small>(for WritableStream)</small></span>
+     <li><span class="dfn-paneled" id="term-for-readablestream-enqueue">enqueue</span>
+     <li><span class="dfn-paneled" id="term-for-readablestream-get-a-reader">getting a reader</span>
+     <li><span class="dfn-paneled" id="term-for-writablestream-get-a-writer">getting a writer</span>
+     <li><span class="dfn-paneled" id="term-for-identity-transform-stream">identity transform stream</span>
+     <li><span class="dfn-paneled" id="term-for-writablestreamdefaultwriter-release">release <small>(for WritableStreamDefaultWriter)</small></span>
+     <li><span class="dfn-paneled" id="term-for-transformstream-create-transformalgorithm">transformalgorithm</span>
+     <li><span class="dfn-paneled" id="term-for-writablestream-create-writealgorithm">writealgorithm</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-idl-ArrayBuffer">ArrayBuffer</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
      <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
      <li><span class="dfn-paneled" id="term-for-invalidaccesserror">InvalidAccessError</span>
-     <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-long">long</span>
      <li><span class="dfn-paneled" id="term-for-idl-long-long">long long</span>
      <li><span class="dfn-paneled" id="term-for-idl-object">object</span>
      <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
+     <li><span class="dfn-paneled" id="term-for-this">this</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long">unsigned long long</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-short">unsigned short</span>
     </ul>
@@ -1287,8 +1390,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-dom">[DOM]
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+   <dt id="biblio-html">[HTML]
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 21 January 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 28 January 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -1372,27 +1479,28 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {
-    <a href="#dom-sframetransform-sframetransform"><code><c- g>constructor</c-></code></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code></a>);
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code></a>);
     // FIXME: add key handling methods.
 };
 <a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
 <c- b>interface</c-> <a href="#rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></a> {
-    <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform"><code><c- g>constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-object"><c- b>object</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code></a>); // worker as DedicatedWorker.
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-object"><c- b>object</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code></a>);
+    // FIXME: add messaging methods.
 };
 
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <a href="#typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></a>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
-    <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpsender-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></a>();
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform"><code><c- g>transform</c-></code></a>;
+    <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-createencodedstreams"><c- g>createEncodedStreams</c-></a>();
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver"><c- g>RTCRtpReceiver</c-></a> {
     <a data-link-type="idl-name" href="#dictdef-rtcinsertablestreams"><c- n>RTCInsertableStreams</c-></a> <a href="#dom-rtcrtpreceiver-createencodedstreams"><code><c- g>createEncodedStreams</c-></code></a>();
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a data-type="RTCRtpTransform?" href="#dom-rtcrtpreceiver-transform"><code><c- g>transform</c-></code></a>;
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
 </pre>
@@ -1502,7 +1610,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="dom-rtcrtpsender-createencodedstreams">
    <b><a href="#dom-rtcrtpsender-createencodedstreams">#dom-rtcrtpsender-createencodedstreams</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-createencodedstreams">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-dom-rtcrtpsender-createencodedstreams">3. Specification</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="readencodeddata">
@@ -1517,10 +1625,28 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-writeencodeddata">3.1.1. Stream creation</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dom-rtcrtpsender-transform">
+   <b><a href="#dom-rtcrtpsender-transform">#dom-rtcrtpsender-transform</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtcrtpsender-transform">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender-transform①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="chain-transform-algorithm">
    <b><a href="#chain-transform-algorithm">#chain-transform-algorithm</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-chain-transform-algorithm">3.2. Extension attribute</a> <a href="#ref-for-chain-transform-algorithm①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-sframetransform-sframetransform">
+   <b><a href="#dom-sframetransform-sframetransform">#dom-sframetransform-sframetransform</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-sframetransform-sframetransform">3. Specification</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransform-rtcrtpscripttransform">
+   <b><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">#dom-rtcrtpscripttransform-rtcrtpscripttransform</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform">3. Specification</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

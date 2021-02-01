@@ -227,7 +227,7 @@ On setting the transform attribute, the user agent MUST run the following steps:
 The <dfn>chain transform algorithm</dfn> steps are defined as:
 1. If |newPipeToController| <a href="https://dom.spec.whatwg.org/#abortsignal-aborted-flag">aborted flag</a> is true, abort these steps.
 2. Call <a href="https://streams.spec.whatwg.org/#readablestreamdefaultreader-release">release</a> with |reader|.
-3. Call <a href="https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release">release</a> with |writer|.
+3. [=WritableStreamDefaultWriter/Release=] |writer|.
 4. Assert that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.
 5. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |rtcObject|.`[[readable]]`, |checkedTransform|.`[[writable]]`, preventClose equal to false, preventAbort equal to false, preventCancel equal to true and |newPipeToController|.signal.
 6. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |checkedTransform|.`[[readable]]`, |rtcObject|.`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to false and |newPipeToController|.signal.

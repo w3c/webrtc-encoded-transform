@@ -267,7 +267,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 
 # RTCRtpScriptTransform # {#scriptTransform}
 
-When the RTCRtpScriptTransform.constructor() is invoked, run the following steps:
+The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(<var>worker</var>, <var>options</var>)</code></dfn> constructor steps are:
 1. Create two <a href="https://streams.spec.whatwg.org/#identity-transform-stream">identity transforms</a> named |t1| and |t2|.
 2. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
 3. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.

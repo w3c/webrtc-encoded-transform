@@ -192,7 +192,7 @@ The <dfn>readEncodedData</dfn> algorithm is given a |rtcObject| as parameter. It
 1. Wait for a frame to be produced by |rtcObject|'s encoder if it is a {{RTCRtpSender}} or |rtcObject|'s packetizer if it is a {{RTCRtpReceiver}}.
 2. Let |frame| be the newly produced frame.
 3. Set |frame|.`[[owner]]` to |rtcObject|.
-4. <a href="https://streams.spec.whatwg.org/#readablestream-enqueue">Enqueue</a> |frame| in |rtcObject|.`[[readable]]`.
+4. [=ReadableStream/enqueue=] |frame| in |rtcObject|.`[[readable]]`.
 
 The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
 1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps. A  processor cannot create frames, or move frames between streams.
@@ -290,4 +290,3 @@ otherwise unavailable, which allows some fingerprinting surface.
 # Examples # {#examples}
 
 See the [explainer document](https://github.com/w3c/webrtc-insertable-streams/blob/master/explainer.md#code-examples).
-

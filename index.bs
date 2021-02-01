@@ -133,7 +133,7 @@ SFrameTransform includes GenericTransformStream;
 
 [Exposed=(Window)]
 interface RTCRtpScriptTransform {
-    constructor(any worker, optional object options); // worker as DedicatedWorker.
+    constructor(Worker worker, optional object options);
 };
 
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;

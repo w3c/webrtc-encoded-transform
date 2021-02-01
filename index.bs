@@ -176,7 +176,7 @@ When {{RTCRtpSender/createEncodedStreams}}() is
 called, run the following steps:
 
 1. If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", throw an {{InvalidStateError}} and abort these steps.
-2. If the data source does not permit access, throw an {{InvalidAccessError}} and abort these steps.
+2. If the data source does not permit access, throw an "{{InvalidAccessError}}" {{DOMException}} and abort these steps.
 3. If `[[Streams]]` is not null, throw an {{InvalidStateError}}.
 4. If `[[pipeToController]]` is not null, throw an {{InvalidStateError}}.
 5. Create an {{RTCInsertableStreams}} object |s|.

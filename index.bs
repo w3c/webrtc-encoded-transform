@@ -172,6 +172,7 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 9. If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", queue a task to run the following steps:
     1. If [=this=].`[[pipeToController]]` is not null, abort these steps.
     2. Set [=this=].`[[pipeToController]]` to a new {{AbortController}}.
+    <!-- FIXME: Use pipeTo algorithm when available. -->
     3. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with [=this=].`[[readable]]`, [=this=].`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and [=this=].`[[pipeToController]]`.signal.
 
 When {{RTCRtpSender/createEncodedStreams}}() is
@@ -230,6 +231,7 @@ The <dfn>chain transform algorithm</dfn> steps are defined as:
 2. [=ReadableStreamDefaultReader/Release=] |reader|.
 3. [=WritableStreamDefaultWriter/Release=] |writer|.
 4. Assert that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.
+<!-- FIXME: Use pipeTo algorithm when available. -->
 5. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |rtcObject|.`[[readable]]`, |checkedTransform|.`[[writable]]`, preventClose equal to false, preventAbort equal to false, preventCancel equal to true and |newPipeToController|.signal.
 6. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |checkedTransform|.`[[readable]]`, |rtcObject|.`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to false and |newPipeToController|.signal.
 

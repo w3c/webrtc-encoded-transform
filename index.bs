@@ -210,7 +210,7 @@ A RTCRtpTransform has two private slots called `[[readable]]` and `[[writable]]`
 The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter steps are:
 1. Return [=this=].`[[transform]]`.
 
-On setting the transform attribute, the user agent MUST run the following steps:
+The `transform` setter steps are:
 1. Let |rtcObject| be the {{RTCRtpReceiver}} or {{RTCRtpSender}} on which the setter is invoked.
 2. Let |transform| be the argument to the setter.
 3. Let |checkedTransform| set to |transform| if it is not null or to an [=identity transform stream=] otherwise.

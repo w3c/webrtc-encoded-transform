@@ -244,7 +244,7 @@ The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>n
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with |this| and |frame|.
 2. Set |this|.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform">`[[transform]]`</a> to the result of [=TransformStream/creating=] a {{TransformStream}}, with [=TransformStream/create/transformAlgorithm=] set to |transformAlgorithm|.
 3. Let |options| be the method's first argument.
-4. Set |this|.`[[role]]` to |options|.role.
+4. Set |this|.`[[role]]` to |options|["{{SFrameTransportOptions/role}}"].
 5. Set |this|.`[[readable]]` to |this|.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform">`[[transform]]`</a>.`[[readable]]`.
 6. Set |this|.`[[writable]]` to |this|.<a href="https://streams.spec.whatwg.org/#generictransformstream-transform">`[[transform]]`</a>.`[[writable]]`.
 

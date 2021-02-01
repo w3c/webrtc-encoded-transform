@@ -208,8 +208,7 @@ The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter an
 A RTCRtpTransform has two private slots called `[[readable]]` and `[[writable]]`.
 
 The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter steps are:
-1. Let |rtcObject| be the {{RTCRtpReceiver}} or {{RTCRtpSender}} on which the getter is invoked.
-2. Return |rtcObject|.`[[transform]]`.
+1. Return [=this=].`[[transform]]`.
 
 On setting the transform attribute, the user agent MUST run the following steps:
 1. Let |rtcObject| be the {{RTCRtpReceiver}} or {{RTCRtpSender}} on which the setter is invoked.

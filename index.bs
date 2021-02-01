@@ -164,7 +164,7 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 2. Initialize `[[transform]]` to null.
 3. Initialize `[[readable]]` to the result of <a dfn for="ReadableStream">creating</a> a {{ReadableStream}}. `[[readable]]` is provided frames using the [=readEncodedData=] algorithm given |this| as parameter.
 4. Set `[[readable]]`.`[[owner]]` to |this|.
-5. Initialize `[[writable]]` to the result of <a dfn for="WritableStream">creating</a> a {{WritableStream}}, its <a href="https://streams.spec.whatwg.org/#writablestream-create-writealgorithm">writeAlgorithm</a> set to [=writeEncodedData=] given |this| as parameter.
+5. Initialize `[[writable]]` to the result of [=WritableStream/creating=] a {{WritableStream}}, its [=WritableStream/create/writeAlgorithm=] set to [=writeEncodedData=] given |this| as parameter.
 6. Set `[[writable]]`.`[[owner]]` to |this|.
 7. Initialize `[[pipeToController]]` to null.
 8. Initialize `[[lastReceivedFrameTimestamp]]` to zero.
@@ -290,5 +290,4 @@ otherwise unavailable, which allows some fingerprinting surface.
 # Examples # {#examples}
 
 See the [explainer document](https://github.com/w3c/webrtc-insertable-streams/blob/master/explainer.md#code-examples).
-
 

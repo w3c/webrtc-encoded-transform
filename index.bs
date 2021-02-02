@@ -199,9 +199,9 @@ The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter an
 1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
 2. If the |frame|'s {{RTCEncodedVideoFrame/timestamp}} is equal to or larger than |rtcObject|.`[[lastReceivedFrameTimestamp]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
 3. Set |rtcObject|.`[[lastReceivedFrameTimestamp]]` to the |frame|'s {{RTCEncodedVideoFrame/timestamp}}.
-4. Process the frame as if it came directly from the encoded data source, by running the following steps [=in parallel=]:
-    * If |rtcObject| is a {{RTCRtpSender}}, enqueue it to |rtcObject|'s packetizer.
-    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue it to |rtcObject|'s decoder.
+4. Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:
+    * If |rtcObject| is a {{RTCRtpSender}}, enqueue it to |rtcObject|'s packetizer, to be processed [=in parallel=].
+    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue it to |rtcObject|'s decoder, to be processed [=in parallel=].
 5. Return [=a promise resolved with=] undefined.
 
 ## Extension attribute ## {#attribute}

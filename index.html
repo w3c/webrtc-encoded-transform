@@ -828,12 +828,12 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Set <var>rtcObject</var>.<code>[[lastReceivedFrameTimestamp]]</code> to the <var>frame</var>’s <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp①">timestamp</a></code>.</p>
     <li data-md>
-     <p>Process the frame as if it came directly from the encoded data source, by running the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
+     <p>Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:</p>
      <ul>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue it to <var>rtcObject</var>’s packetizer.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue it to <var>rtcObject</var>’s packetizer, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>.</p>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue it to <var>rtcObject</var>’s decoder.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue it to <var>rtcObject</var>’s decoder, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>.</p>
      </ul>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
@@ -1140,7 +1140,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-in-parallel">
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-in-parallel">3.1.2. Stream processing</a>
+    <li><a href="#ref-for-in-parallel">3.1.2. Stream processing</a> <a href="#ref-for-in-parallel①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-mediastreamtrack">

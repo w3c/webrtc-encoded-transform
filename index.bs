@@ -115,28 +115,6 @@ partial dictionary RTCConfiguration {
     boolean encodedInsertableStreams = false;
 };
 
-enum SFrameTransformRole {
-    "encrypt",
-    "decrypt"
-};
-
-dictionary SFrameTransformOptions {
-    SFrameTransformRole role = "encrypt";
-};
-
-[Exposed=(Window,DedicatedWorker)]
-interface SFrameTransform {
-    constructor(optional SFrameTransformOptions options);
-    // FIXME: add key handling methods.
-};
-SFrameTransform includes GenericTransformStream;
-
-[Exposed=(Window)]
-interface RTCRtpScriptTransform {
-    constructor(Worker worker, optional object options);
-    // FIXME: add messaging methods.
-};
-
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
@@ -241,6 +219,24 @@ Similarly, if a web application sets the transform synchronously at creation of 
 
 # SFrameTransform # {#sframe}
 
+<pre class="idl">
+enum SFrameTransformRole {
+    "encrypt",
+    "decrypt"
+};
+
+dictionary SFrameTransformOptions {
+    SFrameTransformRole role = "encrypt";
+};
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameTransform {
+    constructor(optional SFrameTransformOptions options);
+    // FIXME: add key handling methods.
+};
+SFrameTransform includes GenericTransformStream;
+</pre>
+
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with |this| and |frame|.
 2. Set |this|.`[[transform]]` to the result of [=TransformStream/creating=] a {{TransformStream}}, with [=TransformStream/create/transformAlgorithm=] set to |transformAlgorithm|.
@@ -267,6 +263,14 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 13. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
 
 # RTCRtpScriptTransform # {#scriptTransform}
+
+<pre class="idl">
+[Exposed=(Window)]
+interface RTCRtpScriptTransform {
+    constructor(Worker worker, optional object options);
+    // FIXME: add messaging methods.
+};
+</pre>
 
 The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(<var>worker</var>, <var>options</var>)</code></dfn> constructor steps are:
 1. Set |t1| to an [=identity transform stream=].

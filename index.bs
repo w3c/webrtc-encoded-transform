@@ -231,7 +231,7 @@ dictionary SFrameTransformOptions {
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameTransform {
-    constructor(optional SFrameTransformOptions options);
+    constructor(optional SFrameTransformOptions options = {});
     // FIXME: add key handling methods.
 };
 SFrameTransform includes GenericTransformStream;

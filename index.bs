@@ -219,7 +219,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 
 # SFrameTransform # {#sframe}
 
-<pre class="idl">
+<xmp class="idl">
 enum SFrameTransformRole {
     "encrypt",
     "decrypt"
@@ -232,10 +232,10 @@ dictionary SFrameTransformOptions {
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameTransform {
     constructor(optional SFrameTransformOptions options = {});
-    // FIXME: add key handling methods.
+    Promise<undefined> setEncryptionKey(CryptoKey key, optional unsigned long long keyID);
 };
 SFrameTransform includes GenericTransformStream;
-</pre>
+</xmp>
 
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with |this| and |frame|.
@@ -261,6 +261,15 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 11. If |frame| is an {{RTCEncodedAudioFrame}}, set |frame|.{{RTCEncodedAudioFrame/data}} to |buffer|.
 12. If |frame| is an {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
 13. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
+
+## Methods
+The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
+1. Let |promise| be [=a new promise=].
+2.  [=In parallel=], run the following steps:
+    1. Set |key| with its optional |keyID| as key material to use for the SFrame transform algorithm, as defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a>.
+    2. [=Resolve=] |promise| with undefined.
+3. Return |promise|.
+
 
 # RTCRtpScriptTransform # {#scriptTransform}
 

@@ -62,13 +62,21 @@ an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
+// New fields in RTCConfiguration
+partial dictionary RTCConfiguration {
+    boolean encodedInsertableStreams = false;
+};
+
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
+// New methods for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
+    RTCInsertableStreams createEncodedStreams();
     attribute RTCRtpTransform? transform;
 };
 
 partial interface RTCRtpReceiver {
+    RTCInsertableStreams createEncodedStreams();
     attribute RTCRtpTransform? transform;
 };
 </pre>
@@ -83,6 +91,7 @@ argument, ensure that the codec is disabled and produces no output.
 ### Stream creation ### {#stream-creation}
 
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
+1. Initialize [=this=].`[[Streams]]` to null.
 2. Initialize [=this=].`[[transform]]` to null.
 3. Initialize [=this=].`[[readable]]` to the result of <a dfn for="ReadableStream">creating</a> a {{ReadableStream}}. [=this=].`[[readable]]` is provided frames using the [=readEncodedData=] algorithm given |this| as parameter.
 4. Set [=this=].`[[readable]]`.`[[owner]]` to |this|.
@@ -90,12 +99,23 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 6. Set [=this=].`[[writable]]`.`[[owner]]` to |this|.
 7. Initialize [=this=].`[[pipeToController]]` to null.
 8. Initialize [=this=].`[[lastReceivedFrameTimestamp]]` to zero.
-9. [=Queue a task=] to run the following steps:
+9. If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", [=queue a task=] to run the following steps:
     1. If [=this=].`[[pipeToController]]` is not null, abort these steps.
     2. Set [=this=].`[[pipeToController]]` to a new {{AbortController}}.
     <!-- FIXME: Use pipeTo algorithm when available. -->
     3. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with [=this=].`[[readable]]`, [=this=].`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and [=this=].`[[pipeToController]]`.signal.
 
+The <dfn method for="RTCRtpSender">createEncodedStreams()</dfn> method steps are:
+
+1. If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", throw an "{{InvalidAccessError}}" {{DOMException}} and abort these steps.
+2. If the data source does not permit access, throw an "{{InvalidAccessError}}" {{DOMException}} and abort these steps.
+3. If [=this=].`[[Streams]]` is not null, throw an "{{InvalidAccessError}}" {{DOMException}}.
+4. If [=this=].`[[pipeToController]]` is not null, throw an "{{InvalidAccessError}}" {{DOMException}}.
+5. Set [=this=].`[[Streams]]` to an {{RTCInsertableStreams}} object.
+6. Set [=this=].`[[Streams]]`.{{RTCInsertableStreams/readable}} to [=this=].`[[readable]]`.
+7. Set [=this=].`[[Streams]]`.{{RTCInsertableStreams/writable}} to [=this=].`[[writable]]`.
+8. Enable the encoded data source.
+10. Return [=this=].`[[Streams]]`.
 
 ### Stream processing ### {#stream-processing}
 

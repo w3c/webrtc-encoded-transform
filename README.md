@@ -1,6 +1,4 @@
-# WebRTC API for Insertable Streams of Media
-
-(not to be confused with the MediaStreams API)
+# WebRTC Encoded Media
 
 This repository contains a **proposal** for an API that allows the
 insertion of user-defined processing steps in the pipeline that

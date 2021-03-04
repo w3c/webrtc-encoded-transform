@@ -5,9 +5,9 @@
   <title>WebRTC Insertable Media using Streams</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
-  <meta content="Bikeshed version c5172e83, updated Fri Nov 20 15:35:20 2020 -0800" name="generator">
+  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-insertable-streams/" rel="canonical">
-  <meta content="bc9ae2ddc09bd239e193bc827db45ae3bb5e42b1" name="document-revision">
+  <meta content="d721a4c3b697654be16e61a5e39e16f84d495078" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-02-18">18 February 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-04">4 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -580,6 +580,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:hta@google.com">Harald Alvestrand</a> (<a class="p-org org" href="https://google.com">Google</a>)
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:guidou@google.com">Guido Urdaneta</a> (<a class="p-org org" href="https://google.com">Google</a>)
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:youenn@apple.com">Youenn Fablet</a> (<a class="p-org org" href="https://www.apple.com">Apple</a>)
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -1504,7 +1505,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 4 November 2020. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 18 February 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -1523,7 +1524,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
    <dd>Cullen Jennings; Martin Thomson. <a href="https://www.w3.org/TR/webrtc-identity/">Identity for WebRTC 1.0</a>. 27 September 2018. CR. URL: <a href="https://www.w3.org/TR/webrtc-identity/">https://www.w3.org/TR/webrtc-identity/</a>
    <dt id="biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]
-   <dd>Bernard Aboba. <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">WebRTC Next Version Use Cases</a>. 11 December 2018. WD. URL: <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">https://www.w3.org/TR/webrtc-nv-use-cases/</a>
+   <dd>Bernard Aboba. <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">WebRTC Next Version Use Cases</a>. 15 February 2021. WD. URL: <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">https://www.w3.org/TR/webrtc-nv-use-cases/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def">// New dictionary.

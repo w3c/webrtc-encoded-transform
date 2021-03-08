@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-insertable-streams/" rel="canonical">
-  <meta content="85be2c60c67a52e8b22de064a3e54d9f8bb8f9ee" name="document-revision">
+  <meta content="45d6fb6b593b75fe278d16ffa5fb4cd2f339794c" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Insertable Media using Streams</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-04">4 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-08">8 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -981,21 +981,20 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <dfn class="idl-code" data-dfn-for="RTCTransformEvent" data-dfn-type="attribute" data-export data-readonly data-type="RTCRtpScriptTransformer" id="dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code><a class="self-link" href="#dom-rtctransformevent-transformer"></a></dfn>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global" id="ref-for-Global①"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker①"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope" id="ref-for-dedicatedworkerglobalscope"><c- g>DedicatedWorkerGlobalScope</c-></a> : <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#workerglobalscope" id="ref-for-workerglobalscope"><c- n>WorkerGlobalScope</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope" id="ref-for-dedicatedworkerglobalscope"><c- g>DedicatedWorkerGlobalScope</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="DedicatedWorkerGlobalScope" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-dedicatedworkerglobalscope-onrtctransform"><code><c- g>onrtctransform</c-></code><a class="self-link" href="#dom-dedicatedworkerglobalscope-onrtctransform"></a></dfn>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global" id="ref-for-Global②"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker②"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global" id="ref-for-Global①"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker①"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑥"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></dfn> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker③"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>);
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker②"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>);
     // FIXME: add messaging methods.
 };
 </pre>
@@ -1274,13 +1273,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-worker">
    <a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-worker">5. RTCRtpScriptTransform</a> <a href="#ref-for-worker①">(2)</a> <a href="#ref-for-worker②">(3)</a> <a href="#ref-for-worker③">(4)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-workerglobalscope">
-   <a href="https://html.spec.whatwg.org/multipage/workers.html#workerglobalscope">https://html.spec.whatwg.org/multipage/workers.html#workerglobalscope</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-workerglobalscope">5. RTCRtpScriptTransform</a>
+    <li><a href="#ref-for-worker">5. RTCRtpScriptTransform</a> <a href="#ref-for-worker①">(2)</a> <a href="#ref-for-worker②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-in-parallel">
@@ -1414,13 +1407,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-Exposed">4. SFrameTransform</a>
-    <li><a href="#ref-for-Exposed①">5. RTCRtpScriptTransform</a> <a href="#ref-for-Exposed②">(2)</a> <a href="#ref-for-Exposed③">(3)</a> <a href="#ref-for-Exposed④">(4)</a> <a href="#ref-for-Exposed⑤">(5)</a> <a href="#ref-for-Exposed⑥">(6)</a>
+    <li><a href="#ref-for-Exposed①">5. RTCRtpScriptTransform</a> <a href="#ref-for-Exposed②">(2)</a> <a href="#ref-for-Exposed③">(3)</a> <a href="#ref-for-Exposed④">(4)</a> <a href="#ref-for-Exposed⑤">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-Global">
    <a href="https://heycam.github.io/webidl/#Global">https://heycam.github.io/webidl/#Global</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-Global">5. RTCRtpScriptTransform</a> <a href="#ref-for-Global①">(2)</a> <a href="#ref-for-Global②">(3)</a>
+    <li><a href="#ref-for-Global">5. RTCRtpScriptTransform</a> <a href="#ref-for-Global①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-invalidaccesserror">
@@ -1578,7 +1571,6 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-structuredserialize">StructuredSerialize</span>
      <li><span class="dfn-paneled" id="term-for-structuredserializewithtransfer">StructuredSerializeWithTransfer</span>
      <li><span class="dfn-paneled" id="term-for-worker">Worker</span>
-     <li><span class="dfn-paneled" id="term-for-workerglobalscope">WorkerGlobalScope</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
      <li><span class="dfn-paneled" id="term-for-queue-a-task">queue a task</span>
      <li><span class="dfn-paneled" id="term-for-task-source">task source</span>
@@ -1757,8 +1749,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <a data-readonly data-type="RTCRtpScriptTransformer" href="#dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope"><c- g>DedicatedWorkerGlobalScope</c-></a> : <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#workerglobalscope"><c- n>WorkerGlobalScope</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope"><c- g>DedicatedWorkerGlobalScope</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-dedicatedworkerglobalscope-onrtctransform"><code><c- g>onrtctransform</c-></code></a>;
 };
 

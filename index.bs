@@ -13,6 +13,9 @@ Abstract: This API defines an API surface for manipulating the bits on
 Abstract: {{MediaStreamTrack}}s being sent via an {{RTCPeerConnection}}.
 Markup Shorthands: css no, markdown yes
 </pre>
+<pre class=link-defaults>
+spec:webidl; type:dfn; text:resolve
+</pre>
 <pre class=biblio>
 {
   "WEB-CODECS": {

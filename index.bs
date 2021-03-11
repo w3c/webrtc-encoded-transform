@@ -63,6 +63,12 @@ an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
+// New dictionary
+dictionary RTCInsertableStreams {
+    ReadableStream readable;
+    WritableStream writable;
+};
+
 // New fields in RTCConfiguration
 partial dictionary RTCConfiguration {
     boolean encodedInsertableStreams = false;

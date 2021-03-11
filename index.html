@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-insertable-streams/" rel="canonical">
-  <meta content="eac51f0b493a13582c3bfa4407fdde3e0332b7d4" name="document-revision">
+  <meta content="11c8f9fd636f3b48e65407f4522cd16d7f92fbc1" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -867,7 +867,8 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole" id="ref-for-enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;encrypt&quot;" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameTransformRole " id="dom-sframetransformoptions-role"><code><c- g>role</c-></code></dfn> = "encrypt";
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
+// FIXME: We plan to expose only in dedicated worker scopes, but may want to discuss extending it in other contexts.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform" id="ref-for-dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/SFrameTransform(options), SFrameTransform/constructor(options), SFrameTransform/SFrameTransform(), SFrameTransform/constructor()" data-dfn-type="argument" data-export id="dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform-options-options"></a></dfn> = {});
     <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey" id="ref-for-dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey" id="ref-for-dfn-CryptoKey"><c- n>CryptoKey</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-key"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"></a></dfn>);
@@ -982,7 +983,8 @@ Similarly, if a web application sets the transform synchronously at creation of 
 
 // New interfaces to expose JavaScript-based transforms.
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global" id="ref-for-Global"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
+// FIXME: We want to expose only in dedicated worker scopes.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=<c- n>Worker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtctransformevent"><code><c- g>RTCTransformEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <dfn class="idl-code" data-dfn-for="RTCTransformEvent" data-dfn-type="attribute" data-export data-readonly data-type="RTCRtpScriptTransformer" id="dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code><a class="self-link" href="#dom-rtctransformevent-transformer"></a></dfn>;
 };
@@ -991,16 +993,17 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="DedicatedWorkerGlobalScope" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-dedicatedworkerglobalscope-onrtctransform"><code><c- g>onrtctransform</c-></code><a class="self-link" href="#dom-dedicatedworkerglobalscope-onrtctransform"></a></dfn>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global" id="ref-for-Global①"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker①"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
+// FIXME: We want to expose only in dedicated worker scopes.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=<c- n>Worker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream②"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></dfn> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker②"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>);
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"></a></dfn>);
     // FIXME: add messaging methods.
 };
 </pre>
@@ -1290,7 +1293,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-worker">
    <a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-worker">5. RTCRtpScriptTransform</a> <a href="#ref-for-worker①">(2)</a> <a href="#ref-for-worker②">(3)</a>
+    <li><a href="#ref-for-worker">5. RTCRtpScriptTransform</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-in-parallel">
@@ -1427,12 +1430,6 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <ul>
     <li><a href="#ref-for-Exposed">4. SFrameTransform</a>
     <li><a href="#ref-for-Exposed①">5. RTCRtpScriptTransform</a> <a href="#ref-for-Exposed②">(2)</a> <a href="#ref-for-Exposed③">(3)</a> <a href="#ref-for-Exposed④">(4)</a> <a href="#ref-for-Exposed⑤">(5)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-Global">
-   <a href="https://heycam.github.io/webidl/#Global">https://heycam.github.io/webidl/#Global</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-Global">5. RTCRtpScriptTransform</a> <a href="#ref-for-Global①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-invalidaccesserror">
@@ -1627,7 +1624,6 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
      <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
      <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-Global">Global</span>
      <li><span class="dfn-paneled" id="term-for-invalidaccesserror">InvalidAccessError</span>
      <li><span class="dfn-paneled" id="term-for-invalidmodificationerror">InvalidModificationError</span>
      <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
@@ -1718,7 +1714,8 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <a data-default="&quot;encrypt&quot;" data-type="SFrameTransformRole " href="#dom-sframetransformoptions-role"><code><c- g>role</c-></code></a> = "encrypt";
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
+// FIXME: We plan to expose only in dedicated worker scopes, but may want to discuss extending it in other contexts.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code></a> = {});
     <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey"><c- n>CryptoKey</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code></a>);
@@ -1769,7 +1766,8 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
 
 // New interfaces to expose JavaScript-based transforms.
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
+// FIXME: We want to expose only in dedicated worker scopes.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Worker</c->]
 <c- b>interface</c-> <a href="#rtctransformevent"><code><c- g>RTCTransformEvent</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <a data-readonly data-type="RTCRtpScriptTransformer" href="#dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code></a>;
 };
@@ -1778,14 +1776,15 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-dedicatedworkerglobalscope-onrtctransform"><code><c- g>onrtctransform</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Global"><c- g>Global</c-></a>=(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a>,<a data-link-type="idl-name"><c- n>DedicatedWorker</c-></a>),<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
+// FIXME: We want to expose only in dedicated worker scopes.
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Worker</c->]
 <c- b>interface</c-> <a href="#rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></a> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->)]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <a href="#rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-worker"><code><c- g>worker</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-options"><code><c- g>options</c-></code></a>);
     // FIXME: add messaging methods.

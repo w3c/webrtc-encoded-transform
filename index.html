@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-insertable-streams/" rel="canonical">
-  <meta content="d0dfe73ca211229be3eee7709b1822ed9c1ae0e6" name="document-revision">
+  <meta content="eac51f0b493a13582c3bfa4407fdde3e0332b7d4" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -895,9 +895,9 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>role</var> be <var>sframe</var>.<code>[[role]]</code>.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
+     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[rtcObject]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
+     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
     <li data-md>
      <p>Let <var>data</var> be undefined.</p>
     <li data-md>

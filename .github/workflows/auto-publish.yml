@@ -15,3 +15,4 @@ jobs:
           GH_PAGES_BRANCH: gh-pages
           W3C_WG_DECISION_URL: "https://lists.w3.org/Archives/Public/public-webrtc/2016Mar/0031.html"
           VALIDATE_LINKS: false
+          BUILD_FAIL_ON: link-error

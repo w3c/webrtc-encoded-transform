@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-insertable-streams/" rel="canonical">
-  <meta content="24482b7a044c95eeb9d6e29c3e4d4e7dc667d784" name="document-revision">
+  <meta content="d0dfe73ca211229be3eee7709b1822ed9c1ae0e6" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -864,7 +864,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-sframetransformoptions"><code><c- g>SFrameTransformOptions</c-></code></dfn> {
-    <a data-link-type="idl-name" href="#enumdef-sframetransformrole" id="ref-for-enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <dfn class="idl-code" data-default="&quot;encrypt&quot;" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameTransformRole " id="dom-sframetransformoptions-role"><code><c- g>role</c-></code><a class="self-link" href="#dom-sframetransformoptions-role"></a></dfn> = "encrypt";
+    <a data-link-type="idl-name" href="#enumdef-sframetransformrole" id="ref-for-enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;encrypt&quot;" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameTransformRole " id="dom-sframetransformoptions-role"><code><c- g>role</c-></code></dfn> = "encrypt";
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
@@ -883,7 +883,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
     <li data-md>
-     <p>Set <var>this</var>.<code>[[role]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl">role</a></code>"].</p>
+     <p>Set <var>this</var>.<code>[[role]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-sframetransformoptions-role" id="ref-for-dom-sframetransformoptions-role">role</a></code>"].</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[readable]]</code> to <var>this</var>.<code>[[transform]]</code>.<code>[[readable]]</code>.</p>
     <li data-md>
@@ -1863,6 +1863,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <b><a href="#dictdef-sframetransformoptions">#dictdef-sframetransformoptions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-sframetransformoptions">4. SFrameTransform</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-sframetransformoptions-role">
+   <b><a href="#dom-sframetransformoptions-role">#dom-sframetransformoptions-role</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-sframetransformoptions-role">4. SFrameTransform</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="sframetransform">

@@ -208,8 +208,8 @@ The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>n
 
 The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |frame|, runs these steps:
 1. Let |role| be |sframe|.`[[role]]`.
-2. If |frame|.`[[rtcObject]]` is a {{RTCRtpSender}}, set |role| to 'encrypt'.
-3. If |frame|.`[[rtcObject]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
+2. If |frame|.`[[owner]]` is a {{RTCRtpSender}}, set |role| to 'encrypt'.
+3. If |frame|.`[[owner]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
 4. Let |data| be undefined.
 5. If |frame| is a {{BufferSource}}, set |data| to |frame|.
 6. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}

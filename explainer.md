@@ -57,7 +57,7 @@ some other WG may work on a mechanism for end-to-end keying.
 
 <pre>
 const supportsInsertableStreams = window.RTCRtpSender &&
-      !!RTCRtpSender.prototype.createEncodedStreams;
+      "transform" in RTCRtpSender.prototype;
 </pre>
 
 1. Let an PeerConnection know that it should allow exposing the data flowing through it
@@ -69,9 +69,7 @@ Therefore, we explicitly let the RTCPeerConnection know that we want to use inse
 streams. For example:
 
 <pre>
-let pc = new RTCPeerConnection({
-    encodedInsertableStreams: true,
-});
+const pc = new RTCPeerConnection();
 </pre>
 
 2. Set up transform streams that perform some processing on data.
@@ -79,8 +77,10 @@ let pc = new RTCPeerConnection({
 The following example negates every bit in the original data payload
 of an encoded frame and adds 4 bytes of padding.
 
-<pre>
-    let senderTransform = new TransformStream({
+<pre>// code in worker.js file
+  // Sender transform
+  function createSenderTransform() {
+    return new TransformStream({
       start() {
         // Called on startup.
       },
@@ -110,54 +110,66 @@ of an encoded frame and adds 4 bytes of padding.
         // Called when the stream is about to be closed.
       }
     });
+  }
+
+  // Receiver transform
+  function createReceiverTransform() {
+    return  new TransformStream({
+      start() {},
+      flush() {},
+      async transform(encodedFrame, controller) {
+        // Reconstruct the original frame.
+        let view = new DataView(encodedFrame.data);
+
+        // Ignore the last 4 bytes
+        let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
+        let newView = new DataView(newData);
+
+        // Negate all bits in the incoming frame, ignoring the
+        // last 4 bytes
+        for (let i = 0; i < encodedFrame.data.byteLength - 4; ++i)
+          newView.setInt8(i, ~view.getInt8(i));
+
+        encodedFrame.data = newData;
+        controller.enqueue(encodedFrame);
+      }
+    });
+  }
+
+  // Code to instantiate transform and attach them to sender/receiver pipelines.
+  onrtctransform = (event) => {
+    let transform;
+    if (event.transformer.options.name == "senderTransform")
+      transform = createSenderTransform();
+    else if (event.transformer.options.name == "receiverTransform")
+      transform = createReceiverTransform();
+    else
+      return;
+    event.transformer.readable
+        .pipeThrough(transform)
+        .pipeTo(event.transformer..writable);
+  };
 </pre>
 
 3. Create a MediaStreamTrack, add it to the RTCPeerConnection and connect the
 Transform stream to the track's sender.
 
 <pre>
-let stream = await navigator.mediaDevices.getUserMedia({video:true});
-let [track] = stream.getTracks();
-let videoSender = pc.addTrack(track, stream)
-let senderStreams = videoSender.createEncodedStreams();
+const worker = new Worker('worker.js');
+const stream = await navigator.mediaDevices.getUserMedia({video:true});
+const [track] = stream.getTracks();
+const videoSender = pc.addTrack(track, stream);
+videoSender.transform = new RTCRtpScriptTransform(worker, { name: "senderTransform" });
 
 // Do ICE and offer/answer exchange.
-
-senderStreams.readable
-  .pipeThrough(senderTransform)
-  .pipeTo(senderStreams.writable);
-</pre>
 
 4. Do the corresponding operations on the receiver side.
 
 <pre>
-let pc = new RTCPeerConnection({encodedInsertableStreams: true});
+const worker = new Worker('worker.js');
+const pc = new RTCPeerConnection({encodedInsertableStreams: true});
 pc.ontrack = e => {
-  let receiverTransform = new TransformStream({
-    start() {},
-    flush() {},
-    async transform(encodedFrame, controller) {
-      // Reconstruct the original frame.
-      let view = new DataView(encodedFrame.data);
-
-      // Ignore the last 4 bytes
-      let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
-      let newView = new DataView(newData);
-
-      // Negate all bits in the incoming frame, ignoring the
-      // last 4 bytes
-      for (let i = 0; i < encodedFrame.data.byteLength - 4; ++i)
-        newView.setInt8(i, ~view.getInt8(i));
-
-      encodedFrame.data = newData;
-      controller.enqueue(encodedFrame);
-      },
-    });
-
-  let receiverStreams = e.receiver.createEncodedStreams();
-  receiverStreams.readable
-    .pipeThrough(receiverTransform)
-    .pipeTo(receiverStreams.writable);
+  e.receiver.transform = new RTCRtpScriptTransform(worker, { name: "receiverTransform" });
 }
 </pre>
 
@@ -167,12 +179,6 @@ The following are the IDL modifications proposed by this API.
 Future iterations may add additional operations following a similar pattern.
 
 <pre>
-// New dictionary.
-dictionary RTCInsertableStreams {
-    ReadableStream readable;
-    WritableStream writable;
-};
-
 // New enum for video frame types. Will eventually re-use the equivalent defined
 // by WebCodecs.
 enum RTCEncodedVideoFrameType {
@@ -215,18 +221,45 @@ interface RTCEncodedAudioFrame {
     RTCAudioFrameMetadata getMetadata();
 };
 
-// New field in RTCConfiguration
-partial dictionary RTCConfiguration {
-    boolean encodedInsertableStreams = false;
-};
+// New methods for RTCRtpSender and RTCRtpReceiver
+typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
-    RTCInsertableStreams createEncodedStreams();
+    attribute RTCRtpTransform? transform;
 };
 
 partial interface RTCRtpReceiver {
-    RTCInsertableStreams createEncodedStreams();
+    attribute RTCRtpTransform? transform;
+};
+
+[Exposed=(Window,Worker)]
+interface SFrameTransform {
+    constructor(optional SFrameTransformOptions options = {});
+    Promise<undefined> setEncryptionKey(CryptoKey key, optional unsigned long long keyID);
+};
+
+[Exposed=Worker]
+interface RTCTransformEvent : Event {
+    readonly attribute RTCRtpScriptTransformer transformer;
+};
+
+partial interface DedicatedWorkerGlobalScope {
+    attribute EventHandler onrtctransform;
+};
+
+// FIXME: We want to expose only in dedicated worker scopes.
+[Exposed=Worker]
+interface RTCRtpScriptTransformer {
+    readonly attribute ReadableStream readable;
+    readonly attribute WritableStream writable;
+    readonly attribute any options;
+};
+
+[Exposed=Window]
+interface RTCRtpScriptTransform {
+    constructor(Worker worker, optional any options);
+    // FIXME: add messaging methods.
 };
 
 </pre>

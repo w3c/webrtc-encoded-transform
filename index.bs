@@ -230,7 +230,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 ## Methods
 The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
-2. If |keyID| is a <a href="https://heycam.github.io/webidl/#idl-bigint">BigInt</a> which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception.
+2. If |keyID| is a <a href="https://heycam.github.io/webidl/#idl-bigint">bigint</a> which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception.
 3. Otherwise, [=in parallel=], run the following steps:
     1. Set |key| with its optional |keyID| as key material to use for the SFrame transform algorithm, as defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a>.
     2. If setting the key material fails, [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.

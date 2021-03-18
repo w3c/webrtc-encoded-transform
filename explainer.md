@@ -147,7 +147,7 @@ of an encoded frame and adds 4 bytes of padding.
       return;
     event.transformer.readable
         .pipeThrough(transform)
-        .pipeTo(event.transformer..writable);
+        .pipeTo(event.transformer.writable);
   };
 </pre>
 
@@ -309,5 +309,4 @@ and specifying new APIs for connecting encoders and decoders to such worklets.
 This also seemed to involve a significantly larger set of new interfaces, with a
 correspondingly larger implementation effort, and would offer less flexibility
 in how the processing elements could be implemented.
-
 

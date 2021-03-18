@@ -114,7 +114,7 @@ of an encoded frame and adds 4 bytes of padding.
 
   // Receiver transform
   function createReceiverTransform() {
-    return  new TransformStream({
+    return new TransformStream({
       start() {},
       flush() {},
       async transform(encodedFrame, controller) {
@@ -309,7 +309,6 @@ and specifying new APIs for connecting encoders and decoders to such worklets.
 This also seemed to involve a significantly larger set of new interfaces, with a
 correspondingly larger implementation effort, and would offer less flexibility
 in how the processing elements could be implemented.
-
 
 
 

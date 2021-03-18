@@ -1,6 +1,6 @@
 <pre class='metadata'>
-Title: WebRTC Insertable Media using Streams
-Shortname: webrtc-media-streams
+Title: WebRTC Encoded Transform
+Shortname: webrtc-encoded-transform
 Level: None
 Status: ED
 Group: webrtc

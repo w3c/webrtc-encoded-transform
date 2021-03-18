@@ -258,7 +258,7 @@ dictionary RTCEncodedVideoFrameMetadata {
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-[Exposed=Window]
+[Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long long timestamp;
@@ -271,7 +271,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     sequence&lt;long&gt; contributingSources;
 };
 
-[Exposed=Window]
+[Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long long timestamp;
     attribute ArrayBuffer data;

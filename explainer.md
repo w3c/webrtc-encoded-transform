@@ -119,7 +119,7 @@ of an encoded frame and adds 4 bytes of padding.
       flush() {},
       async transform(encodedFrame, controller) {
         // Reconstruct the original frame.
-        let view = new DataView(encodedFrame.data);
+        const view = new DataView(encodedFrame.data);
 
         // Ignore the last 4 bytes
         let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
@@ -309,7 +309,6 @@ and specifying new APIs for connecting encoders and decoders to such worklets.
 This also seemed to involve a significantly larger set of new interfaces, with a
 correspondingly larger implementation effort, and would offer less flexibility
 in how the processing elements could be implemented.
-
 
 
 

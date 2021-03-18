@@ -122,8 +122,8 @@ of an encoded frame and adds 4 bytes of padding.
         const view = new DataView(encodedFrame.data);
 
         // Ignore the last 4 bytes
-        let newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
-        let newView = new DataView(newData);
+        const newData = new ArrayBuffer(encodedFrame.data.byteLength - 4);
+        const newView = new DataView(newData);
 
         // Negate all bits in the incoming frame, ignoring the
         // last 4 bytes
@@ -309,6 +309,5 @@ and specifying new APIs for connecting encoders and decoders to such worklets.
 This also seemed to involve a significantly larger set of new interfaces, with a
 correspondingly larger implementation effort, and would offer less flexibility
 in how the processing elements could be implemented.
-
 
 

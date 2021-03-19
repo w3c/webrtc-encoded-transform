@@ -191,6 +191,9 @@ dictionary SFrameTransformOptions {
     SFrameTransformRole role = "encrypt";
 };
 
+// FIXME: Remove BigInt declaration once WebIDL parser is aware of it.
+interface BigInt {
+};
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or BigInt) CryptoKeyID;
 

@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="b5fae1552366bdee2eafdbf9985c11b1f2899d77" name="document-revision">
+  <meta content="566cd58f81ae187868ad3d5c7c8407c91679fc7a" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-18">18 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-19">19 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -867,10 +867,13 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole" id="ref-for-enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;encrypt&quot;" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameTransformRole " id="dom-sframetransformoptions-role"><code><c- g>role</c-></code></dfn> = "encrypt";
 };
 
+<c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></dfn>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint"><c- n>BigInt</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
+
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform" id="ref-for-dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/SFrameTransform(options), SFrameTransform/constructor(options), SFrameTransform/SFrameTransform(), SFrameTransform/constructor()" data-dfn-type="argument" data-export id="dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform-options-options"></a></dfn> = {});
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey" id="ref-for-dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey" id="ref-for-dfn-CryptoKey"><c- n>CryptoKey</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-key"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"></a></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey" id="ref-for-dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey" id="ref-for-dfn-CryptoKey"><c- n>CryptoKey</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-key"></a></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid" id="ref-for-typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"></a></dfn>);
 };
 <a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform①"><c- n>SFrameTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream"><c- n>GenericTransformStream</c-></a>;
 </pre>
@@ -925,12 +928,14 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>promise</var> be <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-new-promise" id="ref-for-a-new-promise">a new promise</a>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">In parallel</a>, run the following steps:</p>
+     <p>If <var>keyID</var> is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint①">BigInt</a></code> which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#reject" id="ref-for-reject">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror">RangeError</a></code> exception.</p>
+    <li data-md>
+     <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>, run the following steps:</p>
      <ol>
       <li data-md>
        <p>Set <var>key</var> with its optional <var>keyID</var> as key material to use for the SFrame transform algorithm, as defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a>.</p>
       <li data-md>
-       <p>If setting the key material fails, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#reject" id="ref-for-reject">Reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidmodificationerror" id="ref-for-invalidmodificationerror">InvalidModificationError</a></code> error and abort these steps.</p>
+       <p>If setting the key material fails, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#reject" id="ref-for-reject①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidmodificationerror" id="ref-for-invalidmodificationerror">InvalidModificationError</a></code> exception and abort these steps.</p>
       <li data-md>
        <p><a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve">Resolve</a> <var>promise</var> with undefined.</p>
      </ol>
@@ -1138,6 +1143,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><a href="#dom-rtcrtpreceiver-createencodedstreams">method for RTCRtpReceiver</a><span>, in §3</span>
      <li><a href="#dom-rtcrtpsender-createencodedstreams">method for RTCRtpSender</a><span>, in §3.1.1</span>
     </ul>
+   <li><a href="#typedefdef-cryptokeyid">CryptoKeyID</a><span>, in §4</span>
    <li>
     data
     <ul>
@@ -1188,6 +1194,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <li><a href="#dom-sframetransform-sframetransform">SFrameTransform(options)</a><span>, in §4</span>
    <li><a href="#dictdef-sframetransformoptions">SFrameTransformOptions</a><span>, in §4</span>
    <li><a href="#enumdef-sframetransformrole">SFrameTransformRole</a><span>, in §4</span>
+   <li><a href="#typedefdef-smallcryptokeyid">SmallCryptoKeyID</a><span>, in §4</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in §5</span>
    <li>
     synchronizationSource
@@ -1416,6 +1423,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-idl-DOMException">3.1.1. Stream creation</a> <a href="#ref-for-idl-DOMException①">(2)</a> <a href="#ref-for-idl-DOMException②">(3)</a> <a href="#ref-for-idl-DOMException③">(4)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-EnforceRange">
+   <a href="https://heycam.github.io/webidl/#EnforceRange">https://heycam.github.io/webidl/#EnforceRange</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-EnforceRange">4. SFrameTransform</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-Exposed">
    <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
    <ul>
@@ -1439,6 +1452,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://heycam.github.io/webidl/#idl-promise">https://heycam.github.io/webidl/#idl-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-promise">4. SFrameTransform</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-exceptiondef-rangeerror">
+   <a href="https://heycam.github.io/webidl/#exceptiondef-rangeerror">https://heycam.github.io/webidl/#exceptiondef-rangeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-exceptiondef-rangeerror">4.2. Methods</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-a-new-promise">
@@ -1480,7 +1499,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-reject">
    <a href="https://heycam.github.io/webidl/#reject">https://heycam.github.io/webidl/#reject</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-reject">4.2. Methods</a>
+    <li><a href="#ref-for-reject">4.2. Methods</a> <a href="#ref-for-reject①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-resolve">
@@ -1615,10 +1634,12 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-idl-ArrayBuffer">ArrayBuffer</span>
      <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
      <li><span class="dfn-paneled" id="term-for-idl-DOMException">DOMException</span>
+     <li><span class="dfn-paneled" id="term-for-EnforceRange">EnforceRange</span>
      <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
      <li><span class="dfn-paneled" id="term-for-invalidaccesserror">InvalidAccessError</span>
      <li><span class="dfn-paneled" id="term-for-invalidmodificationerror">InvalidModificationError</span>
      <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
+     <li><span class="dfn-paneled" id="term-for-exceptiondef-rangeerror">RangeError</span>
      <li><span class="dfn-paneled" id="term-for-a-new-promise">a new promise</span>
      <li><span class="dfn-paneled" id="term-for-a-promise-resolved-with">a promise resolved with</span>
      <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
@@ -1705,10 +1726,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <a data-default="&quot;encrypt&quot;" data-type="SFrameTransformRole " href="#dom-sframetransformoptions-role"><code><c- g>role</c-></code></a> = "encrypt";
 };
 
+<c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></a>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint"><c- n>BigInt</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
+
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code></a> = {});
-    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey"><c- n>CryptoKey</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code></a>);
+    <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey"><c- n>CryptoKey</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code></a>, <c- b>optional</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 
@@ -1856,6 +1880,18 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <b><a href="#dom-sframetransformoptions-role">#dom-sframetransformoptions-role</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-sframetransformoptions-role">4. SFrameTransform</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="typedefdef-smallcryptokeyid">
+   <b><a href="#typedefdef-smallcryptokeyid">#typedefdef-smallcryptokeyid</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-typedefdef-smallcryptokeyid">4. SFrameTransform</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="typedefdef-cryptokeyid">
+   <b><a href="#typedefdef-cryptokeyid">#typedefdef-cryptokeyid</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-typedefdef-cryptokeyid">4. SFrameTransform</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="sframetransform">

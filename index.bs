@@ -224,7 +224,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 12. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
 13. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
 
-## Methods
+## Methods {#sframe-transform-methods}
 The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 2.  [=In parallel=], run the following steps:
@@ -311,7 +311,7 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 2. Set |t2| to an [=identity transform stream=].
 3. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
 4. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
-5. Let |serializedOptions| be the result of [$StructuredSerialize$](|object|).
+5. Let |serializedOptions| be the result of [$StructuredSerialize$](|options|).
 6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
 7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
 8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:

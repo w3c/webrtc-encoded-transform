@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="566cd58f81ae187868ad3d5c7c8407c91679fc7a" name="document-revision">
+  <meta content="d7bc9b1426374b4ce0a66872ad709ae41ec8aba6" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-19">19 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-23">23 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -868,7 +868,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></dfn>;
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint"><c- n>BigInt</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint"><c- n>bigint</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
@@ -928,7 +928,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>promise</var> be <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-new-promise" id="ref-for-a-new-promise">a new promise</a>.</p>
     <li data-md>
-     <p>If <var>keyID</var> is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint①">BigInt</a></code> which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#reject" id="ref-for-reject">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror">RangeError</a></code> exception.</p>
+     <p>If <var>keyID</var> is a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint①">bigint</a></code> which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#reject" id="ref-for-reject">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#exceptiondef-rangeerror" id="ref-for-exceptiondef-rangeerror">RangeError</a></code> exception.</p>
     <li data-md>
      <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>, run the following steps:</p>
      <ol>
@@ -1478,6 +1478,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
     <li><a href="#ref-for-idl-any">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-any①">(2)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-bigint">
+   <a href="https://heycam.github.io/webidl/#idl-bigint">https://heycam.github.io/webidl/#idl-bigint</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-bigint">4. SFrameTransform</a>
+    <li><a href="#ref-for-idl-bigint①">4.2. Methods</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
    <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
    <ul>
@@ -1643,6 +1650,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
      <li><span class="dfn-paneled" id="term-for-a-new-promise">a new promise</span>
      <li><span class="dfn-paneled" id="term-for-a-promise-resolved-with">a promise resolved with</span>
      <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
+     <li><span class="dfn-paneled" id="term-for-idl-bigint">bigint</span>
      <li><span class="dfn-paneled" id="term-for-idl-boolean">boolean</span>
      <li><span class="dfn-paneled" id="term-for-idl-long">long</span>
      <li><span class="dfn-paneled" id="term-for-idl-long-long">long long</span>
@@ -1671,7 +1679,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 15 March 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 22 March 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -1727,7 +1735,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></a>;
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint"><c- n>BigInt</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint"><c- n>bigint</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {

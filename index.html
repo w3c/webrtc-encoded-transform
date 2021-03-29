@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="d7bc9b1426374b4ce0a66872ad709ae41ec8aba6" name="document-revision">
+  <meta content="19d1314db94bed317480b4cd230016960cf3134b" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-23">23 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-03-29">29 March 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -633,7 +633,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <a href="#sframe"><span class="secno">4</span> <span class="content">SFrameTransform</span></a>
      <ol class="toc">
       <li><a href="#sframe-transform-algorithm"><span class="secno">4.1</span> <span class="content">Algorithm</span></a>
-      <li><a href="#methods"><span class="secno">4.2</span> <span class="content">Methods</span></a>
+      <li><a href="#sframe-transform-methods"><span class="secno">4.2</span> <span class="content">Methods {#sframe-transform-methods}</span></a>
      </ol>
     <li>
      <a href="#scriptTransform"><span class="secno">5</span> <span class="content">RTCRtpScriptTransform</span></a>
@@ -922,7 +922,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue①">Enqueue</a> <var>frame</var> in <var>sframe</var>.<code>[[transform]]</code>.</p>
    </ol>
-   <h3 class="heading settled" data-level="4.2" id="methods"><span class="secno">4.2. </span><span class="content">Methods</span><a class="self-link" href="#methods"></a></h3>
+   <h3 class="heading settled" data-level="4.2" id="sframe-transform-methods"><span class="secno">4.2. </span><span class="content">Methods {#sframe-transform-methods}</span><a class="self-link" href="#sframe-transform-methods"></a></h3>
     The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransform" data-dfn-type="method" data-export data-lt="setEncryptionKey(key, keyID)|setEncryptionKey(key)" id="dom-sframetransform-setencryptionkey"><code>setEncryptionKey(<var>key</var>, <var>keyID</var>)</code></dfn> method steps are: 
    <ol>
     <li data-md>
@@ -1021,7 +1021,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Set <var>this</var>.<code>[[readable]]</code> to <var>t2</var>.<code>[[readable]]</code>.</p>
     <li data-md>
-     <p>Let <var>serializedOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserialize" id="ref-for-structuredserialize">StructuredSerialize</a>(<var>object</var>).</p>
+     <p>Let <var>serializedOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserialize" id="ref-for-structuredserialize">StructuredSerialize</a>(<var>options</var>).</p>
     <li data-md>
      <p>Let <var>serializedReadable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer">StructuredSerializeWithTransfer</a>(<var>t1</var>.<code>[[readable]]</code>, « <var>t1</var>.<code>[[readable]]</code> »).</p>
     <li data-md>
@@ -1298,7 +1298,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-in-parallel">3.1.2. Stream processing</a> <a href="#ref-for-in-parallel①">(2)</a>
-    <li><a href="#ref-for-in-parallel②">4.2. Methods</a>
+    <li><a href="#ref-for-in-parallel②">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-queue-a-task">
@@ -1445,7 +1445,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-invalidmodificationerror">
    <a href="https://heycam.github.io/webidl/#invalidmodificationerror">https://heycam.github.io/webidl/#invalidmodificationerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-invalidmodificationerror">4.2. Methods</a>
+    <li><a href="#ref-for-invalidmodificationerror">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-promise">
@@ -1457,13 +1457,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-exceptiondef-rangeerror">
    <a href="https://heycam.github.io/webidl/#exceptiondef-rangeerror">https://heycam.github.io/webidl/#exceptiondef-rangeerror</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-exceptiondef-rangeerror">4.2. Methods</a>
+    <li><a href="#ref-for-exceptiondef-rangeerror">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-a-new-promise">
    <a href="https://heycam.github.io/webidl/#a-new-promise">https://heycam.github.io/webidl/#a-new-promise</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-a-new-promise">4.2. Methods</a>
+    <li><a href="#ref-for-a-new-promise">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-a-promise-resolved-with">
@@ -1482,7 +1482,7 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
    <a href="https://heycam.github.io/webidl/#idl-bigint">https://heycam.github.io/webidl/#idl-bigint</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-bigint">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-bigint①">4.2. Methods</a>
+    <li><a href="#ref-for-idl-bigint①">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-boolean">
@@ -1506,13 +1506,13 @@ otherwise unavailable, which allows some fingerprinting surface.</p>
   <aside class="dfn-panel" data-for="term-for-reject">
    <a href="https://heycam.github.io/webidl/#reject">https://heycam.github.io/webidl/#reject</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-reject">4.2. Methods</a> <a href="#ref-for-reject①">(2)</a>
+    <li><a href="#ref-for-reject">4.2. Methods {#sframe-transform-methods}</a> <a href="#ref-for-reject①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-resolve">
    <a href="https://heycam.github.io/webidl/#resolve">https://heycam.github.io/webidl/#resolve</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-resolve">4.2. Methods</a>
+    <li><a href="#ref-for-resolve">4.2. Methods {#sframe-transform-methods}</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-sequence">

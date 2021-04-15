@@ -53,6 +53,11 @@ some other WG may work on a mechanism for end-to-end keying.
 
 
 ## Code Examples
+
+The API is defined in the [specification](https://w3c.github.io/webrtc-encoded-transform/).
+
+Examples below highlight some typical usages.
+
 0. Feature detection can be done as follows:
 
 <pre>

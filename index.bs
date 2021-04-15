@@ -19,9 +19,8 @@ spec:webidl; type:dfn; text:resolve
 <pre class=biblio>
 {
   "WEB-CODECS": {
-     "href":
-     "https://github.com/WICG/web-codecs/blob/master/explainer.md",
-     "title": "Web Codecs explainer"
+     "href": "https://w3c.github.io/webcodecs/",
+     "title": "Web Codecs"
    }
 }
 </pre>
@@ -139,8 +138,8 @@ The <dfn>readEncodedData</dfn> algorithm is given a |rtcObject| as parameter. It
 
 The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
 1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
-2. If the |frame|'s {{RTCEncodedVideoFrame/timestamp}} is equal to or larger than |rtcObject|.`[[lastReceivedFrameTimestamp]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
-3. Set |rtcObject|.`[[lastReceivedFrameTimestamp]]` to the |frame|'s {{RTCEncodedVideoFrame/timestamp}}.
+2. If the |frame|'s {{EncodedMediaChunk/timestamp}} is equal to or larger than |rtcObject|.`[[lastReceivedFrameTimestamp]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
+3. Set |rtcObject|.`[[lastReceivedFrameTimestamp]]` to the |frame|'s {{EncodedMediaChunk/timestamp}}.
 4. Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:
     * If |rtcObject| is a {{RTCRtpSender}}, enqueue it to |rtcObject|'s packetizer, to be processed [=in parallel=].
     * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue it to |rtcObject|'s decoder, to be processed [=in parallel=].
@@ -221,13 +220,13 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 3. If |frame|.`[[owner]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
 4. Let |data| be undefined.
 5. If |frame| is a {{BufferSource}}, set |data| to |frame|.
-6. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}
-7. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
+6. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{EncodedMediaChunk/data}}
+7. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{EncodedMediaChunk/data}}
 8. If |data| is undefined, abort these steps.
 9. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
 10. If |frame| is a {{BufferSource}}, set |frame| to |buffer|.
-11. If |frame| is a {{RTCEncodedAudioFrame}}, set |frame|.{{RTCEncodedAudioFrame/data}} to |buffer|.
-12. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
+11. If |frame| is a {{RTCEncodedAudioFrame}}, set |frame|.{{EncodedMediaChunk/data}} to |buffer|.
+12. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{EncodedMediaChunk/data}} to |buffer|.
 13. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
@@ -244,14 +243,51 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 # RTCRtpScriptTransform # {#scriptTransform}
 
 <pre class="idl">
-// New enum for video frame types. Will eventually re-use the equivalent defined
-// by WebCodecs.
-enum RTCEncodedVideoFrameType {
-    "empty",
+interface EncodedMediaChunk {
+  readonly attribute unsigned long long timestamp;  // microseconds
+  readonly attribute ArrayBuffer data;
+};
+
+// WebCodecs definitions with introduction of EncodedMediaChunk to more easily refer to timestamp and data.
+// They should be removed from this spec at some point.
+[Exposed=(Window,DedicatedWorker)]
+interface EncodedVideoChunk : EncodedMediaChunk {
+  constructor(EncodedVideoChunkInit init);
+  readonly attribute EncodedVideoChunkType type;
+  readonly attribute unsigned long long? duration;  // microseconds
+};
+
+dictionary EncodedVideoChunkInit {
+  required EncodedVideoChunkType type;
+  required unsigned long long timestamp;
+  unsigned long long duration;
+  required BufferSource data;
+};
+
+enum EncodedVideoChunkType {
     "key",
     "delta",
 };
 
+[Exposed=(Window,DedicatedWorker)]
+interface EncodedAudioChunk : EncodedMediaChunk {
+  constructor(EncodedAudioChunkInit init);
+  readonly attribute EncodedAudioChunkType type;
+};
+
+dictionary EncodedAudioChunkInit {
+  required EncodedAudioChunkType type;
+  required unsigned long long timestamp;
+  required BufferSource data;
+};
+
+enum EncodedAudioChunkType {
+    "key",
+    "delta",
+};
+</pre>
+
+<pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
     long long frameId;
     sequence&lt;long long&gt; dependencies;
@@ -263,13 +299,8 @@ dictionary RTCEncodedVideoFrameMetadata {
     sequence&lt;long&gt; contributingSources;
 };
 
-// New interfaces to define encoded video and audio frames. Will eventually
-// re-use or extend the equivalent defined in WebCodecs.
 [Exposed=(Window,DedicatedWorker)]
-interface RTCEncodedVideoFrame {
-    readonly attribute RTCEncodedVideoFrameType type;
-    readonly attribute unsigned long long timestamp;
-    attribute ArrayBuffer data;
+interface RTCEncodedVideoFrame : EncodedVideoChunk {
     RTCEncodedVideoFrameMetadata getMetadata();
 };
 
@@ -279,12 +310,9 @@ dictionary RTCEncodedAudioFrameMetadata {
 };
 
 [Exposed=(Window,DedicatedWorker)]
-interface RTCEncodedAudioFrame {
-    readonly attribute unsigned long long timestamp;
-    attribute ArrayBuffer data;
+interface RTCEncodedAudioFrame : EncodedAudioChunk {
     RTCEncodedAudioFrameMetadata getMetadata();
 };
-
 
 // New interfaces to expose JavaScript-based transforms.
 

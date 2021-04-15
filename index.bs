@@ -364,6 +364,9 @@ will have full control over what's delivered to internal components like
 the packetizer or the decoder. This may require additional care with
 auditing how data is handled inside these components.
 
+For instance, packetizers may expect to see data only from trusted encoders,
+and may not be audited for reception of data from untrusted sources.
+
 # Examples # {#examples}
 
 See the [explainer document](https://github.com/w3c/webrtc-encoded-transform/blob/master/explainer.md#code-examples).

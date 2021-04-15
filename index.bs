@@ -243,7 +243,7 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 # RTCRtpScriptTransform # {#scriptTransform}
 
 <pre class="idl">
-interface EncodedMediaChunk {
+interface mixin EncodedMediaChunk {
   readonly attribute unsigned long long timestamp;  // microseconds
   readonly attribute ArrayBuffer data;
 };
@@ -251,11 +251,12 @@ interface EncodedMediaChunk {
 // WebCodecs definitions with introduction of EncodedMediaChunk to more easily refer to timestamp and data.
 // They should be removed from this spec at some point.
 [Exposed=(Window,DedicatedWorker)]
-interface EncodedVideoChunk : EncodedMediaChunk {
+interface EncodedVideoChunk {
   constructor(EncodedVideoChunkInit init);
   readonly attribute EncodedVideoChunkType type;
   readonly attribute unsigned long long? duration;  // microseconds
 };
+EncodedVideoChunk includes EncodedMediaChunk;
 
 dictionary EncodedVideoChunkInit {
   required EncodedVideoChunkType type;
@@ -270,10 +271,11 @@ enum EncodedVideoChunkType {
 };
 
 [Exposed=(Window,DedicatedWorker)]
-interface EncodedAudioChunk : EncodedMediaChunk {
+interface EncodedAudioChunk {
   constructor(EncodedAudioChunkInit init);
   readonly attribute EncodedAudioChunkType type;
 };
+EncodedAudioChunk includes EncodedMediaChunk;
 
 dictionary EncodedAudioChunkInit {
   required EncodedAudioChunkType type;

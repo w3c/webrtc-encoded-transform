@@ -211,12 +211,18 @@ enum SFrameTransformErrorEventType {
 };
 
 [Exposed=(Window,DedicatedWorker)]
-interface SFrameTransformErrorEvent {
-    constructor(DOMString type, optional SFrameTransformErrorEventInit eventInitDict);
+interface SFrameTransformErrorEvent : Event {
+    constructor(DOMString type, SFrameTransformErrorEventInit eventInitDict);
 
     readonly attribute SFrameTransformErrorEventType type;
     readonly attribute CryptoKeyID? keyID;
     readonly attribute any frame;
+};
+
+dictionary SFrameTransformErrorEventInit : EventInit {
+    required SFrameTransformErrorEventType type;
+    required any frame;
+    CryptoKeyID? keyID;
 };
 </xmp>
 
@@ -242,14 +248,14 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 1. If |data| is undefined, abort these steps.
 1. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
 1. If the SFrame algorithm exit abruptly with an error, run the following sub steps:
-     1. If the processing fails on decrpytion side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/error}} at |sframe|,
+     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/syntax}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
-     1. If the processing fails on decrpytion side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/error}} at |sframe|,
+     1. If the processing fails on decrpytion side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/keyID}},
-        its {{SFrameTransformErrorEvent/keyID}} attribute set to the parsed keyID value, and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
-     1. If the processing fails on decrpytion side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/error}} at |sframe|,
-        using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEvent/authentication}}
+        its {{SFrameTransformErrorEvent/frame}} attribute set to |frame| and its {{SFrameTransformErrorEvent/keyID}} attribute set to the keyID value parsed in the SFrame header.
+     1. If the processing fails on decrpytion side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+        using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/authentication}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
      1. Abort these steps.
 1. If |frame| is a {{BufferSource}}, set |frame| to |buffer|.

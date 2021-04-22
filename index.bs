@@ -361,6 +361,13 @@ accessed using this API, since that would break the isolation rule.
 The API will allow access to some aspects of timing information that are
 otherwise unavailable, which allows some fingerprinting surface.
 
+The API will give access to encoded media, which means that the JS application
+will have full control over what's delivered to internal components like
+the packetizer or the decoder. This may require additional care with
+auditing how data is handled inside these components.
+
+For instance, packetizers may expect to see data only from trusted encoders,
+and may not be audited for reception of data from untrusted sources.
 
 # Examples # {#examples}
 

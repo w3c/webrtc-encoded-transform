@@ -97,7 +97,7 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 4. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]`. [=this=].`[[readable]]` is provided frames using the [=readEncodedData=] algorithm given |this| as parameter.
 5. Set [=this=].`[[readable]]`.`[[owner]]` to |this|.
 6. Initialize [=this=].`[[writable]]` to a new {{WritableStream}}.
-7. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [=writeEncodedData=] given |this| as parameter.
+7. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [=writeEncodedData=] given |this| as parameter and its [=WritableStream/set up/sizeAlgorithm=] to an algorithm that returns <code>0</code>.
 8. Set [=this=].`[[writable]]`.`[[owner]]` to |this|.
 9. Initialize [=this=].`[[pipeToController]]` to null.
 10. Initialize [=this=].`[[lastReceivedFrameTimestamp]]` to zero.

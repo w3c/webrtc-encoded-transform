@@ -254,7 +254,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
      1. If the processing fails on decrpytion side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/keyID}},
         its {{SFrameTransformErrorEvent/frame}} attribute set to |frame| and its {{SFrameTransformErrorEvent/keyID}} attribute set to the keyID value parsed in the SFrame header.
-     1. If the processing fails on decrpytion side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/authentication}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
      1. Abort these steps.

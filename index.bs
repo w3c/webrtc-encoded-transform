@@ -247,7 +247,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 1. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
 1. If |data| is undefined, abort these steps.
 1. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
-1. If the SFrame algorithm exit abruptly with an error, [=queue a task=] to run the following sub steps:
+1. If the SFrame algorithm exits abruptly with an error, [=queue a task=] to run the following sub steps:
      1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/syntax}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.

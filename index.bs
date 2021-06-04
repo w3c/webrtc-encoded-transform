@@ -178,8 +178,30 @@ typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 interface SFrameTransform {
     constructor(optional SFrameTransformOptions options = {});
     Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyID);
+    attribute EventHandler onerror;
 };
 SFrameTransform includes GenericTransformStream;
+
+enum SFrameTransformErrorEventType {
+    "authentication",
+    "keyID",
+    "syntax"
+};
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameTransformErrorEvent : Event {
+    constructor(DOMString type, SFrameTransformErrorEventInit eventInitDict);
+
+    readonly attribute SFrameTransformErrorEventType type;
+    readonly attribute CryptoKeyID? keyID;
+    readonly attribute any frame;
+};
+
+dictionary SFrameTransformErrorEventInit : EventInit {
+    required SFrameTransformErrorEventType type;
+    required any frame;
+    CryptoKeyID? keyID;
+};
 </xmp>
 
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
@@ -195,18 +217,29 @@ The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>n
 
 The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |frame|, runs these steps:
 1. Let |role| be |sframe|.`[[role]]`.
-2. If |frame|.`[[owner]]` is a {{RTCRtpSender}}, set |role| to 'encrypt'.
-3. If |frame|.`[[owner]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
-4. Let |data| be undefined.
-5. If |frame| is a {{BufferSource}}, set |data| to |frame|.
-6. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}
-7. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
-8. If |data| is undefined, abort these steps.
-9. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
-10. If |frame| is a {{BufferSource}}, set |frame| to |buffer|.
-11. If |frame| is a {{RTCEncodedAudioFrame}}, set |frame|.{{RTCEncodedAudioFrame/data}} to |buffer|.
-12. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
-13. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
+1. If |frame|.`[[owner]]` is a {{RTCRtpSender}}, set |role| to 'encrypt'.
+1. If |frame|.`[[owner]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
+1. Let |data| be undefined.
+1. If |frame| is a {{BufferSource}}, set |data| to |frame|.
+1. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}
+1. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
+1. If |data| is undefined, abort these steps.
+1. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
+1. If the SFrame algorithm exits abruptly with an error, [=queue a task=] to run the following sub steps:
+     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+        using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/syntax}}
+        and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
+     1. If the processing fails on decryption side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+        using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/keyID}},
+        its {{SFrameTransformErrorEvent/frame}} attribute set to |frame| and its {{SFrameTransformErrorEvent/keyID}} attribute set to the keyID value parsed in the SFrame header.
+     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+        using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/type}} attribute set to {{SFrameTransformErrorEventType/authentication}}
+        and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
+     1. Abort these steps.
+1. If |frame| is a {{BufferSource}}, set |frame| to |buffer|.
+1. If |frame| is a {{RTCEncodedAudioFrame}}, set |frame|.{{RTCEncodedAudioFrame/data}} to |buffer|.
+1. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
+1. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
 The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:

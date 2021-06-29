@@ -124,6 +124,13 @@ The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter an
     * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue it to |rtcObject|'s decoder, to be processed [=in parallel=].
 5. Return [=a promise resolved with=] undefined.
 
+On sender side, as part of [=readEncodedData=], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
+As [=writeEncodedData=] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
+
+On receiver side, as part of [=readEncodedData=], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
+To ensure the order is respected, the packetizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
+As [=writeEncodedData=] ensures that the transform cannot reorder frames, this will be the order expected by |rtcObject|'s decoder.
+
 ## Extension attribute ## {#attribute}
 
 A RTCRtpTransform has two private slots called `[[readable]]` and `[[writable]]`.

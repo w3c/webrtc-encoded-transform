@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 3d6a6fcbb, updated Wed Jun 16 16:19:39 2021 -0700" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="f9d5d59bda89151f5a985efdad0838754d838496" name="document-revision">
+  <meta content="a09f047ef223084fb011d675e8c36c6b90d6e52d" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-06-25">25 June 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-01">1 July 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -734,16 +734,18 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑧">this</a>.<code>[[pipeToController]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑨">this</a>.<code>[[lastReceivedFrameTimestamp]]</code> to zero.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑨">this</a>.<code>[[lastReceivedFrameCounter]]</code> to <code>0</code>.</p>
+    <li data-md>
+     <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⓪">this</a>.<code>[[lastEnqueuedFrameCounter]]</code> to <code>0</code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">Queue a task</a> to run the following steps:</p>
      <ol>
       <li data-md>
-       <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⓪">this</a>.<code>[[pipeToController]]</code> is not null, abort these steps.</p>
+       <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①①">this</a>.<code>[[pipeToController]]</code> is not null, abort these steps.</p>
       <li data-md>
-       <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①①">this</a>.<code>[[pipeToController]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller">AbortController</a></code>.</p>
+       <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①②">this</a>.<code>[[pipeToController]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller">AbortController</a></code>.</p>
       <li data-md>
-       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①②">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①③">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①④">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①③">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①④">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑤">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
    </ol>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
@@ -752,9 +754,13 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Wait for a frame to be produced by <var>rtcObject</var>’s encoder if it is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender③">RTCRtpSender</a></code> or <var>rtcObject</var>’s packetizer if it is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver③">RTCRtpReceiver</a></code>.</p>
     <li data-md>
+     <p>Increment <var>rtcObject</var>.<code>[[lastEnqueuedFrameCounter]]</code> by <code>1</code>.</p>
+    <li data-md>
      <p>Let <var>frame</var> be the newly produced frame.</p>
     <li data-md>
      <p>Set <var>frame</var>.<code>[[owner]]</code> to <var>rtcObject</var>.</p>
+    <li data-md>
+     <p>Set <var>frame</var>.<code>[[counter]]</code> to <var>rtcObject</var>.<code>[[lastEnqueuedFrameCounter]]</code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue">Enqueue</a> <var>frame</var> in <var>rtcObject</var>.<code>[[readable]]</code>.</p>
    </ol>
@@ -763,9 +769,9 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>If <var>frame</var>.<code>[[owner]]</code> is not equal to <var>rtcObject</var>, abort these steps and return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with">a promise resolved with</a> undefined. A processor cannot create frames, or move frames between streams.</p>
     <li data-md>
-     <p>If the <var>frame</var>’s <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp">timestamp</a></code> is equal to or larger than <var>rtcObject</var>.<code>[[lastReceivedFrameTimestamp]]</code>, abort these steps and return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with①">a promise resolved with</a> undefined. A processor cannot reorder frames, although it may delay them or drop them.</p>
+     <p>If <var>frame</var>.<code>[[counter]]</code> is equal or smaller than <var>rtcObject</var>.<code>[[lastReceivedFrameCounter]]</code>, abort these steps and return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with①">a promise resolved with</a> undefined. A processor cannot reorder frames, although it may delay them or drop them.</p>
     <li data-md>
-     <p>Set <var>rtcObject</var>.<code>[[lastReceivedFrameTimestamp]]</code> to the <var>frame</var>’s <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp①">timestamp</a></code>.</p>
+     <p>Set <var>rtcObject</var>.<code>[[lastReceivedFrameCounter]]</code> to <var>frame</var><code>[[counter]]</code>.</p>
     <li data-md>
      <p>Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:</p>
      <ul>
@@ -777,12 +783,17 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
    </ol>
+   <p>On sender side, as part of <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata①">readEncodedData</a>, frames produced by <var>rtcObject</var>’s encoder MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the encoder’s output order.
+As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata①">writeEncodedData</a> ensures that the transform cannot reorder frames, the encoder’s output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.</p>
+   <p>On receiver side, as part of <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata②">readEncodedData</a>, frames produced by <var>rtcObject</var>’s packetizer MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the same encoder’s output order.
+To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in <var>rtcObject</var>.<code>[[readable]]</code>.
+As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata②">writeEncodedData</a> ensures that the transform cannot reorder frames, this will be the order expected by <var>rtcObject</var>’s decoder.</p>
    <h3 class="heading settled" data-level="3.2" id="attribute"><span class="secno">3.2. </span><span class="content">Extension attribute</span><a class="self-link" href="#attribute"></a></h3>
    <p>A RTCRtpTransform has two private slots called <code>[[readable]]</code> and <code>[[writable]]</code>.</p>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender,RTCRtpReceiver" data-dfn-type="attribute" data-export id="dom-rtcrtpsender-transform"><code>transform</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑤">this</a>.<code>[[transform]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑥">this</a>.<code>[[transform]]</code>.</p>
    </ol>
    <p>The <code>transform</code> setter steps are:</p>
    <ol start="2">
@@ -797,19 +808,19 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <var>newPipeToController</var> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller①">AbortController</a></code>.</p>
     <li data-md>
-     <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑥">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
+     <p>If <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑦">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
      <ol>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑦">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-signal-abort" id="ref-for-abortsignal-signal-abort">signal abort</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-signal-abort" id="ref-for-abortsignal-signal-abort">signal abort</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
     <li data-md>
      <p>Else, run the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⓪">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⓪">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
    <ol>
@@ -879,7 +890,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Set <var>this</var>.<code>[[transform]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up①">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up①">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②②">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
     <li data-md>
@@ -980,7 +991,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe"><code><c- g>RTCEncodedVideoFrame</c-></code></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="RTCEncodedVideoFrameType" id="dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-type"></a></dfn>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-timestamp"></a></dfn>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code></dfn>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export data-lt="getMetadata()" id="dom-rtcencodedvideoframe-getmetadata"><code><c- g>getMetadata</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-getmetadata"></a></dfn>();
 };
@@ -1071,17 +1082,17 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-options"><code>options</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②②">this</a>.<code>[[options]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②③">this</a>.<code>[[options]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-readable"><code>readable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②③">this</a>.<code>[[readable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②④">this</a>.<code>[[readable]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-writable"><code>writable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②④">this</a>.<code>[[writable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this②⑤">this</a>.<code>[[writable]]</code>.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="privacy"><span class="secno">6. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>This API gives Javascript access to the content of media streams. This
@@ -1568,10 +1579,10 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-this">
    <a href="https://heycam.github.io/webidl/#this">https://heycam.github.io/webidl/#this</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-this">3.1.1. Stream creation</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a> <a href="#ref-for-this⑦">(8)</a> <a href="#ref-for-this⑧">(9)</a> <a href="#ref-for-this⑨">(10)</a> <a href="#ref-for-this①⓪">(11)</a> <a href="#ref-for-this①①">(12)</a> <a href="#ref-for-this①②">(13)</a> <a href="#ref-for-this①③">(14)</a> <a href="#ref-for-this①④">(15)</a>
-    <li><a href="#ref-for-this①⑤">3.2. Extension attribute</a> <a href="#ref-for-this①⑥">(2)</a> <a href="#ref-for-this①⑦">(3)</a> <a href="#ref-for-this①⑧">(4)</a> <a href="#ref-for-this①⑨">(5)</a> <a href="#ref-for-this②⓪">(6)</a>
-    <li><a href="#ref-for-this②①">4. SFrameTransform</a>
-    <li><a href="#ref-for-this②②">5.2. Attributes</a> <a href="#ref-for-this②③">(2)</a> <a href="#ref-for-this②④">(3)</a>
+    <li><a href="#ref-for-this">3.1.1. Stream creation</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a> <a href="#ref-for-this⑦">(8)</a> <a href="#ref-for-this⑧">(9)</a> <a href="#ref-for-this⑨">(10)</a> <a href="#ref-for-this①⓪">(11)</a> <a href="#ref-for-this①①">(12)</a> <a href="#ref-for-this①②">(13)</a> <a href="#ref-for-this①③">(14)</a> <a href="#ref-for-this①④">(15)</a> <a href="#ref-for-this①⑤">(16)</a>
+    <li><a href="#ref-for-this①⑥">3.2. Extension attribute</a> <a href="#ref-for-this①⑦">(2)</a> <a href="#ref-for-this①⑧">(3)</a> <a href="#ref-for-this①⑨">(4)</a> <a href="#ref-for-this②⓪">(5)</a> <a href="#ref-for-this②①">(6)</a>
+    <li><a href="#ref-for-this②②">4. SFrameTransform</a>
+    <li><a href="#ref-for-this②③">5.2. Attributes</a> <a href="#ref-for-this②④">(2)</a> <a href="#ref-for-this②⑤">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-undefined">
@@ -1721,7 +1732,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 10 June 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 1 July 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -1877,12 +1888,14 @@ and may not be audited for reception of data from untrusted sources.</p>
    <b><a href="#readencodeddata">#readencodeddata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-readencodeddata">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-readencodeddata①">3.1.2. Stream processing</a> <a href="#ref-for-readencodeddata②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="writeencodeddata">
    <b><a href="#writeencodeddata">#writeencodeddata</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-writeencodeddata">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-writeencodeddata①">3.1.2. Stream processing</a> <a href="#ref-for-writeencodeddata②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-rtcrtpsender-transform">
@@ -2022,12 +2035,6 @@ and may not be audited for reception of data from untrusted sources.</p>
    <b><a href="#rtcencodedvideoframe">#rtcencodedvideoframe</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-rtcencodedvideoframe">4.1. Algorithm</a> <a href="#ref-for-rtcencodedvideoframe①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedvideoframe-timestamp">
-   <b><a href="#dom-rtcencodedvideoframe-timestamp">#dom-rtcencodedvideoframe-timestamp</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedvideoframe-timestamp">3.1.2. Stream processing</a> <a href="#ref-for-dom-rtcencodedvideoframe-timestamp①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-rtcencodedvideoframe-data">

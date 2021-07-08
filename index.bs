@@ -27,6 +27,7 @@ spec:webidl; type:dfn; text:resolve
 </pre>
 <pre class=link-defaults>
 spec:streams; type:interface; text:ReadableStream
+spec:html; type:method; text:postMessage(message, transfer)
 </pre>
 
 # Introduction # {#introduction}
@@ -368,6 +369,54 @@ The <dfn attribute for="RTCRtpScriptTransformer">readable</dfn> getter steps are
 
 The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are:
 1. Return [=this=].`[[writable]]`.
+
+# Legacy stream accessor API # {#legacy}
+
+The first iteration of this specification had a different API for accessing streams.
+This is still supported by some browsers, and is therefore documented here. Once the
+new API is functionally complete and adopted by all browsers that supported the older API,
+this section will be deleted.
+
+This API uses an extension to RTCConfiguration in order to notify the
+{{RTCPeerConnection}} that insertable streams will be used, and uses
+an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
+insert the processing into the pipeline.
+
+This API generates streams in the Javascript context of the {{RTCRtpSender}} or {{RTCRtpReceiver}};
+when using streams in a worker, they must be transfered using {{MessagePort/postMessage()}}.
+
+<pre class="idl">
+// New fields in RTCConfiguration
+partial dictionary RTCConfiguration {
+    boolean encodedInsertableStreams = false;
+};
+
+// New methods for RTCRtpSender and RTCRtpReceiver
+partial interface RTCRtpSender {
+    RTCInsertableStreams createEncodedStreams();
+};
+
+partial interface RTCRtpReceiver {
+    RTCInsertableStreams createEncodedStreams();
+};
+</pre>
+
+At the construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, modify the process as follows:
+
+1. Initialize [=this=].`[[Streams]]` to null.
+2. If the {{RTCPeerConnection}}'s configuration has {{RTCConfiguration/encodedInsertableStreams}} set to "true", do NOT queue a task to set [=this=].`[[pipeToController]]` and call "pipeTo".
+
+The <dfn method for="RTCRtpSender">createEncodedStreams()</dfn> method steps are:
+
+1. If the {{RTCPeerConnection}}'s configuration does not have {{RTCConfiguration/encodedInsertableStreams}} set to "true", throw an "{{InvalidAccessError}}" {{DOMException}} and abort these steps.
+2. If the data source does not permit access, throw an "{{InvalidAccessError}}" {{DOMException}} and abort these steps.
+3. If [=this=].`[[Streams]]` is not null, throw an "{{InvalidAccessError}}" {{DOMException}}.
+4. If [=this=].`[[pipeToController]]` is not null, throw an "{{InvalidAccessError}}" {{DOMException}}.
+5. Set [=this=].`[[Streams]]` to an {{RTCInsertableStreams}} object.
+6. Set [=this=].`[[Streams]]`.{{RTCInsertableStreams/readable}} to [=this=].`[[readable]]`.
+7. Set [=this=].`[[Streams]]`.{{RTCInsertableStreams/writable}} to [=this=].`[[writable]]`.
+8. Enable the encoded data source.
+10. Return [=this=].`[[Streams]]`.
 
 
 # Privacy and security considerations # {#privacy}

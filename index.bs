@@ -27,7 +27,6 @@ spec:webidl; type:dfn; text:resolve
 </pre>
 <pre class=link-defaults>
 spec:streams; type:interface; text:ReadableStream
-spec:html; type:method; text:postMessage(message, transfer)
 </pre>
 
 # Introduction # {#introduction}
@@ -383,7 +382,7 @@ an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 This API generates streams in the Javascript context of the {{RTCRtpSender}} or {{RTCRtpReceiver}};
-when using streams in a worker, they must be transfered using {{MessagePort/postMessage()}}.
+when using streams in a worker, they must be transfered using {{MessagePort/postMessage(message, transfer)|postMessage()}}.
 
 <pre class="idl">
 // New fields in RTCConfiguration

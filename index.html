@@ -5,9 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
-  <meta content="Bikeshed version 3d6a6fcbb, updated Wed Jun 16 16:19:39 2021 -0700" name="generator">
+  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="a09f047ef223084fb011d675e8c36c6b90d6e52d" name="document-revision">
+  <meta content="f8dc25b9da166c18a1f50dc89a6c5fb31df41648" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-07-01">1 July 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-12">12 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -852,7 +852,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></dfn>;
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint"><c- n>bigint</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-bigint" id="ref-for-idl-bigint"><c- b>bigint</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
@@ -872,13 +872,13 @@ Similarly, if a web application sets the transform synchronously at creation of 
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransformerrorevent"><code><c- g>SFrameTransformErrorEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
     <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEvent" data-dfn-type="constructor" data-export data-lt="SFrameTransformErrorEvent(type, eventInitDict)|constructor(type, eventInitDict)" id="dom-sframetransformerrorevent-sframetransformerrorevent"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-sframetransformerrorevent-sframetransformerrorevent"></a></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEvent/SFrameTransformErrorEvent(type, eventInitDict), SFrameTransformErrorEvent/constructor(type, eventInitDict)" data-dfn-type="argument" data-export id="dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-type"></a></dfn>, <a data-link-type="idl-name" href="#dictdef-sframetransformerroreventinit" id="ref-for-dictdef-sframetransformerroreventinit"><c- n>SFrameTransformErrorEventInit</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEvent/SFrameTransformErrorEvent(type, eventInitDict), SFrameTransformErrorEvent/constructor(type, eventInitDict)" data-dfn-type="argument" data-export id="dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-eventinitdict"><code><c- g>eventInitDict</c-></code><a class="self-link" href="#dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-eventinitdict"></a></dfn>);
 
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype" id="ref-for-enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformErrorEvent" data-dfn-type="attribute" data-export data-readonly data-type="SFrameTransformErrorEventType" id="dom-sframetransformerrorevent-type"><code><c- g>type</c-></code></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype" id="ref-for-enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformErrorEvent" data-dfn-type="attribute" data-export data-readonly data-type="SFrameTransformErrorEventType" id="dom-sframetransformerrorevent-errortype"><code><c- g>errorType</c-></code></dfn>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid" id="ref-for-typedefdef-cryptokeyid①"><c- n>CryptoKeyID</c-></a>? <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformErrorEvent" data-dfn-type="attribute" data-export data-readonly data-type="CryptoKeyID?" id="dom-sframetransformerrorevent-keyid"><code><c- g>keyID</c-></code></dfn>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any"><c- b>any</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformErrorEvent" data-dfn-type="attribute" data-export data-readonly data-type="any" id="dom-sframetransformerrorevent-frame"><code><c- g>frame</c-></code></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-sframetransformerroreventinit"><code><c- g>SFrameTransformErrorEventInit</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit" id="ref-for-dictdef-eventinit"><c- n>EventInit</c-></a> {
-    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype" id="ref-for-enumdef-sframetransformerroreventtype①"><c- n>SFrameTransformErrorEventType</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEventInit" data-dfn-type="dict-member" data-export data-type="SFrameTransformErrorEventType " id="dom-sframetransformerroreventinit-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-sframetransformerroreventinit-type"></a></dfn>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype" id="ref-for-enumdef-sframetransformerroreventtype①"><c- n>SFrameTransformErrorEventType</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEventInit" data-dfn-type="dict-member" data-export data-type="SFrameTransformErrorEventType " id="dom-sframetransformerroreventinit-errortype"><code><c- g>errorType</c-></code><a class="self-link" href="#dom-sframetransformerroreventinit-errortype"></a></dfn>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any" id="ref-for-idl-any①"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEventInit" data-dfn-type="dict-member" data-export data-type="any " id="dom-sframetransformerroreventinit-frame"><code><c- g>frame</c-></code><a class="self-link" href="#dom-sframetransformerroreventinit-frame"></a></dfn>;
     <a data-link-type="idl-name" href="#typedefdef-cryptokeyid" id="ref-for-typedefdef-cryptokeyid②"><c- n>CryptoKeyID</c-></a>? <dfn class="idl-code" data-dfn-for="SFrameTransformErrorEventInit" data-dfn-type="dict-member" data-export data-type="CryptoKeyID? " id="dom-sframetransformerroreventinit-keyid"><code><c- g>keyID</c-></code><a class="self-link" href="#dom-sframetransformerroreventinit-keyid"></a></dfn>;
 };
@@ -926,14 +926,14 @@ Similarly, if a web application sets the transform synchronously at creation of 
      <ol>
       <li data-md>
        <p>If the processing fails on decryption side due to <var>data</var> not following the SFrame format, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror">error</a></code> at <var>sframe</var>,
-using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-type" id="ref-for-dom-sframetransformerrorevent-type">type</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-syntax" id="ref-for-dom-sframetransformerroreventtype-syntax">syntax</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame">frame</a></code> attribute set to <var>frame</var>.</p>
+using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-syntax" id="ref-for-dom-sframetransformerroreventtype-syntax">syntax</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame">frame</a></code> attribute set to <var>frame</var>.</p>
       <li data-md>
        <p>If the processing fails on decryption side due to the key identifier parsed in <var>data</var> being unknown, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire①">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror①">error</a></code> at <var>sframe</var>,
-using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent①">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-type" id="ref-for-dom-sframetransformerrorevent-type①">type</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-keyid" id="ref-for-dom-sframetransformerroreventtype-keyid">keyID</a></code>,
+using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent①">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype①">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-keyid" id="ref-for-dom-sframetransformerroreventtype-keyid">keyID</a></code>,
 its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame①">frame</a></code> attribute set to <var>frame</var> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-keyid" id="ref-for-dom-sframetransformerrorevent-keyid">keyID</a></code> attribute set to the keyID value parsed in the SFrame header.</p>
       <li data-md>
        <p>If the processing fails on decryption side due to validation of the authentication tag, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire②">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror②">error</a></code> at <var>sframe</var>,
-using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent②">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-type" id="ref-for-dom-sframetransformerrorevent-type②">type</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-authentication" id="ref-for-dom-sframetransformerroreventtype-authentication">authentication</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame②">frame</a></code> attribute set to <var>frame</var>.</p>
+using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent②">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype②">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-authentication" id="ref-for-dom-sframetransformerroreventtype-authentication">authentication</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame②">frame</a></code> attribute set to <var>frame</var>.</p>
       <li data-md>
        <p>Abort these steps.</p>
      </ol>
@@ -1155,122 +1155,122 @@ and may not be audited for reception of data from untrusted sources.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in §4</span>
-   <li><a href="#chain-transform-algorithm">chain transform algorithm</a><span>, in §3.2</span>
-   <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in §4</span>
-   <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in §4</span>
-   <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">constructor(type, eventInitDict)</a><span>, in §4</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker)</a><span>, in §5.1</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options)</a><span>, in §5.1</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options, transfer)</a><span>, in §5.1</span>
+   <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in § 4</span>
+   <li><a href="#chain-transform-algorithm">chain transform algorithm</a><span>, in § 3.2</span>
+   <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in § 4</span>
+   <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in § 4</span>
+   <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">constructor(type, eventInitDict)</a><span>, in § 4</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker)</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options)</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">constructor(worker, options, transfer)</a><span>, in § 5.1</span>
    <li>
     contributingSources
     <ul>
-     <li><a href="#dom-rtcencodedaudioframemetadata-contributingsources">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in §5</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-contributingsources">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in §5</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-contributingsources">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-contributingsources">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5</span>
     </ul>
-   <li><a href="#typedefdef-cryptokeyid">CryptoKeyID</a><span>, in §4</span>
+   <li><a href="#typedefdef-cryptokeyid">CryptoKeyID</a><span>, in § 4</span>
    <li>
     data
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in §5</span>
-     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in §5</span>
+     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in § 5</span>
+     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in § 5</span>
     </ul>
-   <li><a href="#dom-sframetransformrole-decrypt">"decrypt"</a><span>, in §4</span>
-   <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in §5</span>
-   <li><a href="#dom-rtcencodedvideoframemetadata-dependencies">dependencies</a><span>, in §5</span>
-   <li><a href="#dom-rtcencodedvideoframetype-empty">"empty"</a><span>, in §5</span>
-   <li><a href="#dom-sframetransformrole-encrypt">"encrypt"</a><span>, in §4</span>
+   <li><a href="#dom-sframetransformrole-decrypt">"decrypt"</a><span>, in § 4</span>
+   <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in § 5</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-dependencies">dependencies</a><span>, in § 5</span>
+   <li><a href="#dom-rtcencodedvideoframetype-empty">"empty"</a><span>, in § 5</span>
+   <li><a href="#dom-sframetransformrole-encrypt">"encrypt"</a><span>, in § 4</span>
+   <li>
+    errorType
+    <ul>
+     <li><a href="#dom-sframetransformerrorevent-errortype">attribute for SFrameTransformErrorEvent</a><span>, in § 4</span>
+     <li><a href="#dom-sframetransformerroreventinit-errortype">dict-member for SFrameTransformErrorEventInit</a><span>, in § 4</span>
+    </ul>
    <li>
     frame
     <ul>
-     <li><a href="#dom-sframetransformerrorevent-frame">attribute for SFrameTransformErrorEvent</a><span>, in §4</span>
-     <li><a href="#dom-sframetransformerroreventinit-frame">dict-member for SFrameTransformErrorEventInit</a><span>, in §4</span>
+     <li><a href="#dom-sframetransformerrorevent-frame">attribute for SFrameTransformErrorEvent</a><span>, in § 4</span>
+     <li><a href="#dom-sframetransformerroreventinit-frame">dict-member for SFrameTransformErrorEventInit</a><span>, in § 4</span>
     </ul>
-   <li><a href="#dom-rtcencodedvideoframemetadata-frameid">frameId</a><span>, in §5</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-frameid">frameId</a><span>, in § 5</span>
    <li>
     getMetadata()
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-getmetadata">method for RTCEncodedAudioFrame</a><span>, in §5</span>
-     <li><a href="#dom-rtcencodedvideoframe-getmetadata">method for RTCEncodedVideoFrame</a><span>, in §5</span>
+     <li><a href="#dom-rtcencodedaudioframe-getmetadata">method for RTCEncodedAudioFrame</a><span>, in § 5</span>
+     <li><a href="#dom-rtcencodedvideoframe-getmetadata">method for RTCEncodedVideoFrame</a><span>, in § 5</span>
     </ul>
-   <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in §5</span>
-   <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in §5</span>
-   <li><a href="#dom-sframetransformerroreventtype-keyid">"keyID"</a><span>, in §4</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in § 5</span>
+   <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in § 5</span>
+   <li><a href="#dom-sframetransformerroreventtype-keyid">"keyID"</a><span>, in § 4</span>
    <li>
     keyID
     <ul>
-     <li><a href="#dom-sframetransformerrorevent-keyid">attribute for SFrameTransformErrorEvent</a><span>, in §4</span>
-     <li><a href="#dom-sframetransformerroreventinit-keyid">dict-member for SFrameTransformErrorEventInit</a><span>, in §4</span>
+     <li><a href="#dom-sframetransformerrorevent-keyid">attribute for SFrameTransformErrorEvent</a><span>, in § 4</span>
+     <li><a href="#dom-sframetransformerroreventinit-keyid">dict-member for SFrameTransformErrorEventInit</a><span>, in § 4</span>
     </ul>
-   <li><a href="#dom-sframetransform-onerror">onerror</a><span>, in §4</span>
-   <li><a href="#dom-dedicatedworkerglobalscope-onrtctransform">onrtctransform</a><span>, in §5</span>
-   <li><a href="#dom-rtcrtpscripttransformer-options">options</a><span>, in §5.2</span>
+   <li><a href="#dom-sframetransform-onerror">onerror</a><span>, in § 4</span>
+   <li><a href="#dom-dedicatedworkerglobalscope-onrtctransform">onrtctransform</a><span>, in § 5</span>
+   <li><a href="#dom-rtcrtpscripttransformer-options">options</a><span>, in § 5.2</span>
    <li>
     readable
     <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-readable">attribute for RTCRtpScriptTransformer</a><span>, in §5.2</span>
-     <li><a href="#dom-rtcinsertablestreams-readable">dict-member for RTCInsertableStreams</a><span>, in §3</span>
+     <li><a href="#dom-rtcrtpscripttransformer-readable">attribute for RTCRtpScriptTransformer</a><span>, in § 5.2</span>
+     <li><a href="#dom-rtcinsertablestreams-readable">dict-member for RTCInsertableStreams</a><span>, in § 3</span>
     </ul>
-   <li><a href="#readencodeddata">readEncodedData</a><span>, in §3.1.2</span>
-   <li><a href="#dom-sframetransformoptions-role">role</a><span>, in §4</span>
-   <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in §5</span>
-   <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in §5</span>
-   <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in §5</span>
-   <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in §5</span>
-   <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in §5</span>
-   <li><a href="#dictdef-rtcinsertablestreams">RTCInsertableStreams</a><span>, in §3</span>
-   <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in §5</span>
-   <li><a href="#rtcrtpscripttransformer">RTCRtpScriptTransformer</a><span>, in §5</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in §5.1</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options)</a><span>, in §5.1</span>
-   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options, transfer)</a><span>, in §5.1</span>
-   <li><a href="#typedefdef-rtcrtptransform">RTCRtpTransform</a><span>, in §3</span>
-   <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in §5</span>
-   <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in §4.2</span>
-   <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key, keyID)</a><span>, in §4.2</span>
-   <li><a href="#sframetransform">SFrameTransform</a><span>, in §4</span>
-   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform()</a><span>, in §4</span>
-   <li><a href="#sframetransformerrorevent">SFrameTransformErrorEvent</a><span>, in §4</span>
-   <li><a href="#dictdef-sframetransformerroreventinit">SFrameTransformErrorEventInit</a><span>, in §4</span>
-   <li><a href="#enumdef-sframetransformerroreventtype">SFrameTransformErrorEventType</a><span>, in §4</span>
-   <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">SFrameTransformErrorEvent(type, eventInitDict)</a><span>, in §4</span>
-   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform(options)</a><span>, in §4</span>
-   <li><a href="#dictdef-sframetransformoptions">SFrameTransformOptions</a><span>, in §4</span>
-   <li><a href="#enumdef-sframetransformrole">SFrameTransformRole</a><span>, in §4</span>
-   <li><a href="#typedefdef-smallcryptokeyid">SmallCryptoKeyID</a><span>, in §4</span>
-   <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in §5</span>
+   <li><a href="#readencodeddata">readEncodedData</a><span>, in § 3.1.2</span>
+   <li><a href="#dom-sframetransformoptions-role">role</a><span>, in § 4</span>
+   <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in § 5</span>
+   <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in § 5</span>
+   <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in § 5</span>
+   <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in § 5</span>
+   <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in § 5</span>
+   <li><a href="#dictdef-rtcinsertablestreams">RTCInsertableStreams</a><span>, in § 3</span>
+   <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in § 5</span>
+   <li><a href="#rtcrtpscripttransformer">RTCRtpScriptTransformer</a><span>, in § 5</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options)</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options, transfer)</a><span>, in § 5.1</span>
+   <li><a href="#typedefdef-rtcrtptransform">RTCRtpTransform</a><span>, in § 3</span>
+   <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 5</span>
+   <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in § 4.2</span>
+   <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key, keyID)</a><span>, in § 4.2</span>
+   <li><a href="#sframetransform">SFrameTransform</a><span>, in § 4</span>
+   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform()</a><span>, in § 4</span>
+   <li><a href="#sframetransformerrorevent">SFrameTransformErrorEvent</a><span>, in § 4</span>
+   <li><a href="#dictdef-sframetransformerroreventinit">SFrameTransformErrorEventInit</a><span>, in § 4</span>
+   <li><a href="#enumdef-sframetransformerroreventtype">SFrameTransformErrorEventType</a><span>, in § 4</span>
+   <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">SFrameTransformErrorEvent(type, eventInitDict)</a><span>, in § 4</span>
+   <li><a href="#dom-sframetransform-sframetransform">SFrameTransform(options)</a><span>, in § 4</span>
+   <li><a href="#dictdef-sframetransformoptions">SFrameTransformOptions</a><span>, in § 4</span>
+   <li><a href="#enumdef-sframetransformrole">SFrameTransformRole</a><span>, in § 4</span>
+   <li><a href="#typedefdef-smallcryptokeyid">SmallCryptoKeyID</a><span>, in § 4</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in § 5</span>
    <li>
     synchronizationSource
     <ul>
-     <li><a href="#dom-rtcencodedaudioframemetadata-synchronizationsource">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in §5</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-synchronizationsource">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in §5</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-synchronizationsource">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-synchronizationsource">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5</span>
     </ul>
-   <li><a href="#dom-sframetransformerroreventtype-syntax">"syntax"</a><span>, in §4</span>
-   <li><a href="#dom-rtcencodedvideoframemetadata-temporalindex">temporalIndex</a><span>, in §5</span>
+   <li><a href="#dom-sframetransformerroreventtype-syntax">"syntax"</a><span>, in § 4</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-temporalindex">temporalIndex</a><span>, in § 5</span>
    <li>
     timestamp
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-timestamp">attribute for RTCEncodedAudioFrame</a><span>, in §5</span>
-     <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in §5</span>
+     <li><a href="#dom-rtcencodedaudioframe-timestamp">attribute for RTCEncodedAudioFrame</a><span>, in § 5</span>
+     <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in § 5</span>
     </ul>
-   <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in §3.2</span>
-   <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in §5</span>
-   <li>
-    type
-    <ul>
-     <li><a href="#dom-rtcencodedvideoframe-type">attribute for RTCEncodedVideoFrame</a><span>, in §5</span>
-     <li><a href="#dom-sframetransformerrorevent-type">attribute for SFrameTransformErrorEvent</a><span>, in §4</span>
-     <li><a href="#dom-sframetransformerroreventinit-type">dict-member for SFrameTransformErrorEventInit</a><span>, in §4</span>
-    </ul>
-   <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in §5</span>
+   <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 3.2</span>
+   <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 5</span>
+   <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 5</span>
+   <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 5</span>
    <li>
     writable
     <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-writable">attribute for RTCRtpScriptTransformer</a><span>, in §5.2</span>
-     <li><a href="#dom-rtcinsertablestreams-writable">dict-member for RTCInsertableStreams</a><span>, in §3</span>
+     <li><a href="#dom-rtcrtpscripttransformer-writable">attribute for RTCRtpScriptTransformer</a><span>, in § 5.2</span>
+     <li><a href="#dom-rtcinsertablestreams-writable">dict-member for RTCInsertableStreams</a><span>, in § 3</span>
     </ul>
-   <li><a href="#writeencodeddata">writeEncodedData</a><span>, in §3.1.2</span>
+   <li><a href="#writeencodeddata">writeEncodedData</a><span>, in § 3.1.2</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-abortcontroller">
    <a href="https://dom.spec.whatwg.org/#abortcontroller">https://dom.spec.whatwg.org/#abortcontroller</a><b>Referenced in:</b>
@@ -1728,30 +1728,30 @@ and may not be audited for reception of data from untrusted sources.</p>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-dom">[DOM]
-   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/">Media Capture and Streams</a>. 1 July 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 15 July 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
-   <dd>Adam Rice; Domenic Denicola; 吉野剛史 (Takeshi Yoshino). <a href="https://streams.spec.whatwg.org/">Streams Standard</a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
+   <dd>Adam Rice; et al. <a href="https://streams.spec.whatwg.org/"><cite>Streams Standard</cite></a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
    <dt id="biblio-webcryptoapi">[WebCryptoAPI]
-   <dd>Mark Watson. <a href="https://www.w3.org/TR/WebCryptoAPI/">Web Cryptography API</a>. 26 January 2017. REC. URL: <a href="https://www.w3.org/TR/WebCryptoAPI/">https://www.w3.org/TR/WebCryptoAPI/</a>
+   <dd>Mark Watson. <a href="https://www.w3.org/TR/WebCryptoAPI/"><cite>Web Cryptography API</cite></a>. 26 January 2017. REC. URL: <a href="https://www.w3.org/TR/WebCryptoAPI/">https://www.w3.org/TR/WebCryptoAPI/</a>
    <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
    <dt id="biblio-webrtc-1">[WEBRTC-1]
    <dd>WebRTC 1.0: Real-time Communication Between Browsers URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-web-codecs">[WEB-CODECS]
-   <dd><a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">Web Codecs explainer</a>. URL: <a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">https://github.com/WICG/web-codecs/blob/master/explainer.md</a>
+   <dd><a href="https://github.com/WICG/web-codecs/blob/master/explainer.md"><cite>Web Codecs explainer</cite></a>. URL: <a href="https://github.com/WICG/web-codecs/blob/master/explainer.md">https://github.com/WICG/web-codecs/blob/master/explainer.md</a>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
-   <dd>Cullen Jennings; Martin Thomson. <a href="https://www.w3.org/TR/webrtc-identity/">Identity for WebRTC 1.0</a>. 27 September 2018. CR. URL: <a href="https://www.w3.org/TR/webrtc-identity/">https://www.w3.org/TR/webrtc-identity/</a>
+   <dd>Cullen Jennings; Martin Thomson. <a href="https://www.w3.org/TR/webrtc-identity/"><cite>Identity for WebRTC 1.0</cite></a>. 27 September 2018. CR. URL: <a href="https://www.w3.org/TR/webrtc-identity/">https://www.w3.org/TR/webrtc-identity/</a>
    <dt id="biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]
-   <dd>Bernard Aboba. <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">WebRTC Next Version Use Cases</a>. 16 March 2021. WD. URL: <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">https://www.w3.org/TR/webrtc-nv-use-cases/</a>
+   <dd>Bernard Aboba. <a href="https://www.w3.org/TR/webrtc-nv-use-cases/"><cite>WebRTC Next Version Use Cases</cite></a>. 16 March 2021. WD. URL: <a href="https://www.w3.org/TR/webrtc-nv-use-cases/">https://www.w3.org/TR/webrtc-nv-use-cases/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def">// New dictionary
@@ -1781,7 +1781,7 @@ and may not be audited for reception of data from untrusted sources.</p>
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></a>;
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#idl-bigint"><c- n>bigint</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
+<c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-bigint"><c- b>bigint</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {
@@ -1801,13 +1801,13 @@ and may not be audited for reception of data from untrusted sources.</p>
 <c- b>interface</c-> <a href="#sframetransformerrorevent"><code><c- g>SFrameTransformErrorEvent</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
     <a href="#dom-sframetransformerrorevent-sframetransformerrorevent"><code><c- g>constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-type"><code><c- g>type</c-></code></a>, <a data-link-type="idl-name" href="#dictdef-sframetransformerroreventinit"><c- n>SFrameTransformErrorEventInit</c-></a> <a href="#dom-sframetransformerrorevent-sframetransformerrorevent-type-eventinitdict-eventinitdict"><code><c- g>eventInitDict</c-></code></a>);
 
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <a data-readonly data-type="SFrameTransformErrorEventType" href="#dom-sframetransformerrorevent-type"><code><c- g>type</c-></code></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <a data-readonly data-type="SFrameTransformErrorEventType" href="#dom-sframetransformerrorevent-errortype"><code><c- g>errorType</c-></code></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a>? <a data-readonly data-type="CryptoKeyID?" href="#dom-sframetransformerrorevent-keyid"><code><c- g>keyID</c-></code></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-readonly data-type="any" href="#dom-sframetransformerrorevent-frame"><code><c- g>frame</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-sframetransformerroreventinit"><code><c- g>SFrameTransformErrorEventInit</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit"><c- n>EventInit</c-></a> {
-    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <a data-type="SFrameTransformErrorEventType " href="#dom-sframetransformerroreventinit-type"><code><c- g>type</c-></code></a>;
+    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframetransformerroreventtype"><c- n>SFrameTransformErrorEventType</c-></a> <a data-type="SFrameTransformErrorEventType " href="#dom-sframetransformerroreventinit-errortype"><code><c- g>errorType</c-></code></a>;
     <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-any"><c- b>any</c-></a> <a data-type="any " href="#dom-sframetransformerroreventinit-frame"><code><c- g>frame</c-></code></a>;
     <a data-link-type="idl-name" href="#typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a>? <a data-type="CryptoKeyID? " href="#dom-sframetransformerroreventinit-keyid"><code><c- g>keyID</c-></code></a>;
 };
@@ -1983,10 +1983,10 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-sframetransformerrorevent">4.1. Algorithm</a> <a href="#ref-for-sframetransformerrorevent①">(2)</a> <a href="#ref-for-sframetransformerrorevent②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-type">
-   <b><a href="#dom-sframetransformerrorevent-type">#dom-sframetransformerrorevent-type</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-errortype">
+   <b><a href="#dom-sframetransformerrorevent-errortype">#dom-sframetransformerrorevent-errortype</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-sframetransformerrorevent-type">4.1. Algorithm</a> <a href="#ref-for-dom-sframetransformerrorevent-type①">(2)</a> <a href="#ref-for-dom-sframetransformerrorevent-type②">(3)</a>
+    <li><a href="#ref-for-dom-sframetransformerrorevent-errortype">4.1. Algorithm</a> <a href="#ref-for-dom-sframetransformerrorevent-errortype①">(2)</a> <a href="#ref-for-dom-sframetransformerrorevent-errortype②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-keyid">

@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet" type="text/css">
   <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://w3c.github.io/webrtc-encoded-transform/" rel="canonical">
-  <meta content="f8dc25b9da166c18a1f50dc89a6c5fb31df41648" name="document-revision">
+  <meta content="914eed4ce550f9f7914b9b33427eaa8fa7f5a612" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -568,7 +568,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-12">12 August 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2021-08-26">26 August 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -728,7 +728,8 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①">WritableStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm" id="ref-for-writablestream-set-up-sizealgorithm">sizeAlgorithm</a> to an algorithm that returns <code>0</code>.</p>
+     <p class="note" role="note">Chunk size is set to 0 to explictly disable streams backpressure on the write side.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://heycam.github.io/webidl/#this" id="ref-for-this⑦">this</a>.<code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
@@ -1446,6 +1447,12 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-writablestream-set-up">3.1.1. Stream creation</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-writablestream-set-up-sizealgorithm">
+   <a href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm">https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-writablestream-set-up-sizealgorithm">3.1.1. Stream creation</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-transformstream-set-up-transformalgorithm">
    <a href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm</a><b>Referenced in:</b>
    <ul>
@@ -1681,6 +1688,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-identity-transform-stream">identity transform stream</span>
      <li><span class="dfn-paneled" id="term-for-writablestreamdefaultwriter-release">release <small>(for WritableStreamDefaultWriter)</small></span>
      <li><span class="dfn-paneled" id="term-for-writablestream-set-up">set up <small>(for WritableStream)</small></span>
+     <li><span class="dfn-paneled" id="term-for-writablestream-set-up-sizealgorithm">sizealgorithm</span>
      <li><span class="dfn-paneled" id="term-for-transformstream-set-up-transformalgorithm">transformalgorithm</span>
      <li><span class="dfn-paneled" id="term-for-writablestream-set-up-writealgorithm">writealgorithm</span>
     </ul>
@@ -1732,7 +1740,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 15 July 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 19 August 2021. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]

@@ -282,6 +282,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     long spatialIndex;
     long temporalIndex;
     long synchronizationSource;
+    octet payloadType;
     sequence&lt;long&gt; contributingSources;
 };
 
@@ -297,6 +298,7 @@ interface RTCEncodedVideoFrame {
 
 dictionary RTCEncodedAudioFrameMetadata {
     long synchronizationSource;
+    octet payloadType;
     sequence&lt;long&gt; contributingSources;
 };
 

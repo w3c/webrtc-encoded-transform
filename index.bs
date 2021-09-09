@@ -173,7 +173,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 # SFrameTransform # {#sframe}
 
 <p class="note">
-The API presented in this section, represents a preliminary proposal
+The API presented in this section represents a preliminary proposal
 based on protocol proposals that have not yet been adopted by an IETF WG.
 As a result, both the API and underlying protocol are likely to change
 significantly going forward.

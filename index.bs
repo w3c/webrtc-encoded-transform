@@ -53,6 +53,13 @@ This iteration of the specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
 decoder part of a codec.
 
+<p class="note">
+The API presented in this specification, represents a preliminary proposal
+based on protocol proposals that have not yet been adopted by an IETF WG.
+As a result, both the API and underlying protocol are likely to change
+significantly going forward.
+</p>
+
 # Terminology # {#terminology}
 
 # Specification # {#specification}

@@ -25,6 +25,15 @@ spec:webidl; type:dfn; text:resolve
    }
 }
 </pre>
+<pre class=biblio>
+{
+  "RFC-5104": {
+     "href":
+     "https://www.rfc-editor.org/rfc/rfc5104",
+     "title": "RFC-5104"
+   }
+}
+</pre>
 <pre class=link-defaults>
 spec:streams; type:interface; text:ReadableStream
 </pre>
@@ -139,6 +148,8 @@ As [=writeEncodedData=] ensures that the transform cannot reorder frames, this w
 
 A RTCRtpTransform has two private slots called `[[readable]]` and `[[writable]]`.
 
+Each RTCRtpTransform has an <dfn>association steps</dfn> set, which is empty by default.
+
 The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter steps are:
 1. Return [=this=].`[[transform]]`.
 
@@ -154,6 +165,7 @@ The `transform` setter steps are:
 7. Else, run the [=chain transform algorithm=] steps.
 8. Set [=this=].`[[pipeToController]]` to |newPipeToController|.
 9. Set [=this=].`[[transform]]` to |transform|.
+10. Run the steps in the set of [=association steps=] of |transform| with [=this=].
 
 The <dfn>chain transform algorithm</dfn> steps are defined as:
 1. If |newPipeToController| is [=AbortSignal/aborted=], abort these steps.
@@ -331,6 +343,8 @@ interface RTCRtpScriptTransformer {
     readonly attribute ReadableStream readable;
     readonly attribute WritableStream writable;
     readonly attribute any options;
+    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
+    Promise&lt;undefined&gt; requestKeyFrame();
 };
 
 [Exposed=Window]
@@ -364,9 +378,30 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 
 // FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
 
+Each RTCRtpScriptTransform has the following set of [=association steps=], given |rtcObject|:
+1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [=association steps=].
+1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
+1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
+1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
+    1. Set |transformer|.`[[encoder]]` to |encoder|.
+    1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
+
+The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rids|)</dfn> method steps are:
+1. Let |promise| be a new promise.
+1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this|.`[[encoder]]` and |rids|.
+1. Return |promise|.
+
+The <dfn method for="RTCRtpScriptTransformer">requestKeyFrame()</dfn> method steps are:
+1. Let |promise| be a new promise.
+1. [=In parallel=], run the [=request key frame algorithm=] with |promise| and |this|.`[[depacketizer]]`.
+1. Return |promise|.
+
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
 
-A RTCRtpScriptTransformer has three private slots called `[[options]]`, `[[readable]]` and `[[writable]]`.
+A {{RTCRtpScriptTransformer}} has the following private slots called `[[depacketizer]]`, `[[encoder]]`, `[[options]]`, `[[readable]]` and `[[writable]]`.
+In addition, a {{RTCRtpScriptTransformer}} is always associated with its parent {{RTCRtpScriptTransform}} transform.
+This allows algorithms to go from an {{RTCRtpScriptTransformer}} object to its {{RTCRtpScriptTransform}} parent and vice versa.
 
 The <dfn attribute for="RTCRtpScriptTransformer">options</dfn> getter steps are:
 1. Return [=this=].`[[options]]`.
@@ -377,6 +412,44 @@ The <dfn attribute for="RTCRtpScriptTransformer">readable</dfn> getter steps are
 The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are:
 1. Return [=this=].`[[writable]]`.
 
+## KeyFrame Algorithms ## {#KeyFrame-algorithms}
+
+The <dfn>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rids|, is defined by running these steps:
+1. If |encoder| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |rids| is defined, validate each of the RID values in |rids|.
+    If any RID value is invalid, reject |promise| with {{NotAllowedError}} and abort these steps.
+1. Gather a list of video encoders, named |videoEncoders| from |encoder|.
+1. If |rids| is not empty, remove from |videoEncoders| any video encoder that does not match a value in |rids|.
+1. If |videoEncoders| is empty, reject |promise| with {{NotFoundError}} and abort these steps.
+    |videoEncoders| is expected to be empty if the corresponding {{RTCRtpSender}} is not active, or the corresponding {{RTCRtpSender}} track is ended.
+1. For each |videoEncoder| in |videoEncoders|, instruct |videoEncoder| to generate a key frame for the next provided video frame.
+1. Wait until a new video frame is provided to each |videoEncoder| in |videoEncoders|.
+1. [=Resolve=] |promise| with undefined.
+
+The <dfn>request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
+1. If |depacketizer| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.
+    Section 4.3.1 of [[RFC-5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.
+1. Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of [[RFC-5104]] and send it through |depacketizer|'s receiver.
+1. [=Resolve=] |promise| with undefined.
+
+# RTCRtpSender extension # {#rtcrtpsender-extension}
+
+An additional API on {{RTCRtpSender}} is added to complement the generation of key frame added to {{RTCRtpScriptTransformer}}.
+
+<pre class="idl">
+partial interface RTCRtpSender {
+    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
+};
+</pre>
+
+## Extension operation ## {#sender-operation}
+
+The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
+
+1. Let |promise| be a new promise.
+1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this|'s encoder and |rids|.
+1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}
 

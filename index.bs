@@ -156,7 +156,7 @@ The `transform` setter steps are:
 9. Set [=this=].`[[transform]]` to |transform|.
 
 The <dfn>chain transform algorithm</dfn> steps are defined as:
-1. If |newPipeToController|'s [=AbortSignal/aborted flag=] is true, abort these steps.
+1. If |newPipeToController| is [=AbortSignal/aborted=], abort these steps.
 2. [=ReadableStreamDefaultReader/Release=] |reader|.
 3. [=WritableStreamDefaultWriter/Release=] |writer|.
 4. Assert that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.

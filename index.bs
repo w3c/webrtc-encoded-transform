@@ -6,9 +6,9 @@ Status: ED
 Group: webrtc
 Repository: w3c/webrtc-encoded-transform
 URL: https://w3c.github.io/webrtc-encoded-transform/
-Editor: Harald Alvestrand, Google https://google.com, hta@google.com
-Editor: Guido Urdaneta, Google https://google.com, guidou@google.com
-Editor: Youenn Fablet, Apple https://www.apple.com, youenn@apple.com
+Editor: Harald Alvestrand, w3cid 24610 , Google https://google.com, hta@google.com
+Editor: Guido Urdaneta, w3cid 84810, Google https://google.com, guidou@google.com
+Editor: Youenn Fablet, w3cid 96458, Apple https://www.apple.com, youenn@apple.com
 Abstract: This API defines an API surface for manipulating the bits on
 Abstract: {{MediaStreamTrack}}s being sent via an {{RTCPeerConnection}}.
 Markup Shorthands: css no, markdown yes

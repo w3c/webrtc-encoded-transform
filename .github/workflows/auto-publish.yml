@@ -19,5 +19,5 @@ jobs:
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_NOTIFICATIONS_CC: dom@w3.org
           W3C_BUILD_OVERRIDE: |
-            shortname: webrtc-encoded-transform
+            TR: https://www.w3.org/TR/webrtc-encoded-transform/
             status: WD          

@@ -283,14 +283,14 @@ enum RTCEncodedVideoFrameType {
 };
 
 dictionary RTCEncodedVideoFrameMetadata {
-    long long frameId;
+    unsigned long long frameId;
     sequence&lt;long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
-    long spatialIndex;
-    long temporalIndex;
-    long synchronizationSource;
-    sequence&lt;long&gt; contributingSources;
+    unsigned long spatialIndex;
+    unsigned long temporalIndex;
+    unsigned long synchronizationSource;
+    sequence&lt;unsigned long&gt; contributingSources;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
@@ -304,8 +304,8 @@ interface RTCEncodedVideoFrame {
 };
 
 dictionary RTCEncodedAudioFrameMetadata {
-    long synchronizationSource;
-    sequence&lt;long&gt; contributingSources;
+    unsigned long synchronizationSource;
+    sequence&lt;unsigned long&gt; contributingSources;
 };
 
 [Exposed=(Window,DedicatedWorker)]

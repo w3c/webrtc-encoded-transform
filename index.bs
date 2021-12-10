@@ -336,7 +336,7 @@ interface RTCRtpScriptTransformer {
     readonly attribute WritableStream writable;
     readonly attribute any options;
     Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
-    Promise&lt;undefined&gt; requestKeyFrame();
+    Promise&lt;undefined&gt; sendKeyFrameRequest();
 };
 
 [Exposed=Window]
@@ -384,9 +384,9 @@ The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rids|)</dfn> met
 1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this|.`[[encoder]]` and |rids|.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptTransformer">requestKeyFrame()</dfn> method steps are:
+The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
-1. [=In parallel=], run the [=request key frame algorithm=] with |promise| and |this|.`[[depacketizer]]`.
+1. [=In parallel=], run the [=send request key frame algorithm=] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
 
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
@@ -418,7 +418,7 @@ The <dfn>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rid
 1. Wait until a new video frame is provided to each |videoEncoder| in |videoEncoders|.
 1. [=Resolve=] |promise| with undefined.
 
-The <dfn>request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
+The <dfn>send request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
 1. If |depacketizer| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.
     Section 4.3.1 of [[RFC5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.

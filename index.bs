@@ -26,7 +26,6 @@ spec:webidl; type:dfn; text:resolve
    }
 }
 </pre>
-</pre>
 <pre class=link-defaults>
 spec:streams; type:interface; text:ReadableStream
 </pre>

@@ -6,9 +6,9 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
+  <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="da20661402f4ec16acfec2c52d0d828c0dfe11ef" name="document-revision">
+  <meta content="5e54a2d6c652b9e512cb77f559652f844cb08210" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -579,7 +579,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-01-30">30 January 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-05-19">19 May 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1056,13 +1056,13 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream②"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any②"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence③"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rids), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rids-rids"><code><c- g>rids</c-></code><a class="self-link" href="#dom-rtcrtpscripttransformer-generatekeyframe-rids-rids"></a></dfn>);
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long③"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code><a class="self-link" href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"></a></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑥"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransform"><code><c- g>RTCRtpScriptTransform</c-></code></dfn> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any③"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"></a></dfn>, <c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence④"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-idl-object"><c- b>object</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"><code><c- g>transfer</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"></a></dfn>);
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform" id="ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"><code><c- g>worker</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"></a></dfn>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any③"><c- b>any</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"></a></dfn>, <c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence③"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object" id="ref-for-idl-object"><c- b>object</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options, transfer), RTCRtpScriptTransform/constructor(worker, options, transfer), RTCRtpScriptTransform/RTCRtpScriptTransform(worker, options), RTCRtpScriptTransform/constructor(worker, options), RTCRtpScriptTransform/RTCRtpScriptTransform(worker), RTCRtpScriptTransform/constructor(worker)" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"><code><c- g>transfer</c-></code><a class="self-link" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"></a></dfn>);
 };
 </pre>
    <h3 class="heading settled" data-level="5.1" id="RTCRtpScriptTransform-operations"><span class="secno">5.1. </span><span class="content">Operations</span><a class="self-link" href="#RTCRtpScriptTransform-operations"></a></h3>
@@ -1129,12 +1129,12 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
        <p>Set <var>transformer</var>.<code>[[depacketizer]]</code> to <var>depacketizer</var>.</p>
      </ol>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export data-lt="generateKeyFrame(rids)|generateKeyFrame()" id="dom-rtcrtpscripttransformer-generatekeyframe"><code>generateKeyFrame(<var>rids</var>)</code></dfn> method steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export data-lt="generateKeyFrame(rid)|generateKeyFrame()" id="dom-rtcrtpscripttransformer-generatekeyframe"><code>generateKeyFrame(<var>rid</var>)</code></dfn> method steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
     <li data-md>
-     <p>Run the <a data-link-type="dfn" href="#generate-key-frame-algorithm" id="ref-for-generate-key-frame-algorithm">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>.<code>[[encoder]]</code> and <var>rids</var>.</p>
+     <p>Run the <a data-link-type="dfn" href="#generate-key-frame-algorithm" id="ref-for-generate-key-frame-algorithm">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>.<code>[[encoder]]</code> and <var>rid</var>.</p>
     <li data-md>
      <p>Return <var>promise</var>.</p>
    </ol>
@@ -1167,40 +1167,39 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⑥">this</a>.<code>[[writable]]</code>.</p>
    </ol>
    <h3 class="heading settled" data-level="5.3" id="KeyFrame-algorithms"><span class="secno">5.3. </span><span class="content">KeyFrame Algorithms</span><a class="self-link" href="#KeyFrame-algorithms"></a></h3>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="generate-key-frame-algorithm">generate key frame algorithm</dfn>, given <var>promise</var>, <var>encoder</var> and <var>rids</var>, is defined by running these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="generate-key-frame-algorithm">generate key frame algorithm</dfn>, given <var>promise</var>, <var>encoder</var> and <var>rid</var>, is defined by running these steps:</p>
    <ol>
     <li data-md>
      <p>If <var>encoder</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
      <p>If <var>encoder</var> is not processing video frames, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
-     <p>If <var>rids</var> is defined, validate each of the RID values in <var>rids</var>.
-If any RID value is invalid, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> and abort these steps.</p>
+     <p>If <var>rid</var> is defined, validate its value. If invalid, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> and abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel③">In parallel</a>, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>Gather a list of video encoders, named <var>videoEncoders</var> from <var>encoder</var>.</p>
+       <p>Gather a list of video encoders, named <var>videoEncoders</var> from <var>encoder</var>, ordered according negotiated RIDs if any.</p>
       <li data-md>
-       <p>If <var>rids</var> is not empty, remove from <var>videoEncoders</var> any video encoder that does not match a value in <var>rids</var>.</p>
+       <p>If <var>rid</var> is defined, remove from <var>videoEncoders</var> any video encoder that does not match <var>rid</var>.</p>
+      <li data-md>
+       <p>If <var>rid</var> is undefined, remove from <var>videoEncoders</var> all video encoders except the first one.</p>
       <li data-md>
        <p>If <var>videoEncoders</var> is empty, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑨">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①⓪">RTCRtpSender</a></code> track is ended.</p>
       <li data-md>
-       <p>For each <var>rid</var> in <var>rids</var>, run the following substeps:</p>
-       <ol>
-        <li data-md>
-         <p>Create a pending key frame task called <var>task</var> with |<var>task</var>.<code>[[rid]]</code> set to rid and <var>task</var>.<code>[[promise]]</code>| set to <var>promise</var>.</p>
-        <li data-md>
-         <p>If <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> is undefined, initialize <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> to an empty set.</p>
-        <li data-md>
-         <p>If <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> contains a task which is matching <var>rid</var>, remove <var>rid</var> from <var>rids</var>.</p>
-        <li data-md>
-         <p>Add <var>task</var> to <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
-       </ol>
+       <p>Let <var>videoEncoder</var> be the first encoder in <var>videoEncoders</var>.</p>
       <li data-md>
-       <p>If <var>rids</var> is not empty, remove from <var>videoEncoders</var> any video encoder that does not match a value in <var>rids</var>.</p>
+       <p>If <var>rid</var> is undefined, set <var>rid</var> to the RID value corresponding to <var>videoEncoder</var>.</p>
       <li data-md>
-       <p>For each <var>videoEncoder</var> in <var>videoEncoders</var>, instruct <var>videoEncoder</var> to generate a key frame for the next provided video frame.</p>
+       <p>Create a pending key frame task called <var>task</var> with <var>task</var>.<code>[[rid]]</code> set to rid and <var>task</var>.<code>[[promise]]</code>| set to <var>promise</var>.</p>
+      <li data-md>
+       <p>If <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> is undefined, initialize <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> to an empty set.</p>
+      <li data-md>
+       <p>Let <var>shouldTriggerKeyFrame</var> be <code>true</code> if <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> contains a task whose <code>[[rid]]</code> value is equal to <var>rid</var>, and <code>false</code> otherwise.</p>
+      <li data-md>
+       <p>Add <var>task</var> to <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
+      <li data-md>
+       <p>If <var>shouldTriggerKeyFrame</var> is <code>true</code>, instruct <var>videoEncoder</var> to generate a key frame for the next provided video frame.</p>
      </ol>
    </ol>
    <p>For any <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑥">RTCRtpScriptTransformer</a></code> named <var>transformer</var>, the following steps are run just before any <var>frame</var> is enqueued in <var>transformer</var>.<code>[[readable]]</code>:</p>
@@ -1220,7 +1219,7 @@ If any RID value is invalid, reject <var>promise</var> with <code class="idl"><a
         <li data-md>
          <p>Remove <var>task</var> from <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
         <li data-md>
-         <p>Resolve <var>task</var>.<code>[[promise]]</code> with undefined.</p>
+         <p>Resolve <var>task</var>.<code>[[promise]]</code> with <var>frame</var>’s timestamp.</p>
        </ol>
      </ol>
    </ol>
@@ -1248,7 +1247,7 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104">[RFC5104]</a>
    <h2 class="heading settled" data-level="6" id="rtcrtpsender-extension"><span class="secno">6. </span><span class="content">RTCRtpSender extension</span><a class="self-link" href="#rtcrtpsender-extension"></a></h2>
    <p>An additional API on <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is added to complement the generation of key frame added to <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑧">RTCRtpScriptTransformer</a></code>.</p>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②"><c- g>RTCRtpSender</c-></a> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise③"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined③"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-generatekeyframe" id="ref-for-dom-rtcrtpsender-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence⑤"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpSender/generateKeyFrame(rids), RTCRtpSender/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpsender-generatekeyframe-rids-rids"><code><c- g>rids</c-></code><a class="self-link" href="#dom-rtcrtpsender-generatekeyframe-rids-rids"></a></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise③"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-generatekeyframe" id="ref-for-dom-rtcrtpsender-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence④"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpSender/generateKeyFrame(rids), RTCRtpSender/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpsender-generatekeyframe-rids-rids"><code><c- g>rids</c-></code><a class="self-link" href="#dom-rtcrtpsender-generatekeyframe-rids-rids"></a></dfn>);
 };
 </pre>
    <h3 class="heading settled" data-level="6.1" id="sender-operation"><span class="secno">6.1. </span><span class="content">Extension operation</span><a class="self-link" href="#sender-operation"></a></h3>
@@ -1369,12 +1368,8 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><a href="#dom-rtcrtpsender-generatekeyframe">method for RTCRtpSender</a><span>, in § 6.1</span>
     </ul>
    <li><a href="#generate-key-frame-algorithm">generate key frame algorithm</a><span>, in § 5.3</span>
-   <li>
-    generateKeyFrame(rids)
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">method for RTCRtpScriptTransformer</a><span>, in § 5.1</span>
-     <li><a href="#dom-rtcrtpsender-generatekeyframe">method for RTCRtpSender</a><span>, in § 6.1</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">generateKeyFrame(rid)</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcrtpsender-generatekeyframe">generateKeyFrame(rids)</a><span>, in § 6.1</span>
    <li>
     getMetadata()
     <ul>
@@ -1799,8 +1794,8 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-idl-sequence">
    <a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-sequence">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-sequence①">(2)</a> <a href="#ref-for-idl-sequence②">(3)</a> <a href="#ref-for-idl-sequence③">(4)</a> <a href="#ref-for-idl-sequence④">(5)</a>
-    <li><a href="#ref-for-idl-sequence⑤">6. RTCRtpSender extension</a>
+    <li><a href="#ref-for-idl-sequence">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-sequence①">(2)</a> <a href="#ref-for-idl-sequence②">(3)</a> <a href="#ref-for-idl-sequence③">(4)</a>
+    <li><a href="#ref-for-idl-sequence④">6. RTCRtpSender extension</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-this">
@@ -1816,15 +1811,15 @@ and may not be audited for reception of data from untrusted sources.</p>
    <a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-undefined">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-undefined①">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-undefined②">(2)</a>
-    <li><a href="#ref-for-idl-undefined③">6. RTCRtpSender extension</a>
+    <li><a href="#ref-for-idl-undefined①">5. RTCRtpScriptTransform</a>
+    <li><a href="#ref-for-idl-undefined②">6. RTCRtpSender extension</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
    <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long-long">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-unsigned-long-long①">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-unsigned-long-long②">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-long-long①">5. RTCRtpScriptTransform</a> <a href="#ref-for-idl-unsigned-long-long②">(2)</a> <a href="#ref-for-idl-unsigned-long-long③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
@@ -1970,7 +1965,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 20 January 2022. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 10 March 2022. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -2112,7 +2107,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-rtcrtpscripttransformer-generatekeyframe-rids-rids"><code><c- g>rids</c-></code></a>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code></a>);
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
 };
 

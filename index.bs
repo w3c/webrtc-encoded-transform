@@ -287,6 +287,8 @@ enum RTCEncodedVideoFrameType {
 
 dictionary RTCEncodedVideoFrameMetadata {
     long long frameId;
+    unsigned long rtpTimestamp; // RTP timestamp.
+    DOMHighResTimeStamp captureTime;
     sequence&lt;long long&gt; dependencies;
     unsigned short width;
     unsigned short height;

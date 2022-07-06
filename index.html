@@ -6,9 +6,9 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version fb1e763a4, updated Tue Mar 1 13:13:50 2022 -0800" name="generator">
+  <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="d5ef0b0be372cc62c3fd3580ac0e1a0a85e57b01" name="document-revision">
+  <meta content="ef682af3db450044eb20c79596ba9d9d0537b8bd" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -579,7 +579,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-05-19">19 May 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-07-06">6 July 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1044,7 +1044,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtctransformevent"><code><c- g>RTCTransformEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①"><c- n>Event</c-></a> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <dfn class="idl-code" data-dfn-for="RTCTransformEvent" data-dfn-type="attribute" data-export data-readonly data-type="RTCRtpScriptTransformer" id="dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code><a class="self-link" href="#dom-rtctransformevent-transformer"></a></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer"><c- n>RTCRtpScriptTransformer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCTransformEvent" data-dfn-type="attribute" data-export data-readonly data-type="RTCRtpScriptTransformer" id="dom-rtctransformevent-transformer"><code><c- g>transformer</c-></code></dfn>;
 };
 
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope" id="ref-for-dedicatedworkerglobalscope"><c- g>DedicatedWorkerGlobalScope</c-></a> {
@@ -1100,13 +1100,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
       <li data-md>
        <p>Set <var>transformer</var>.<code>[[writable]]</code> to <var>writable</var>.</p>
       <li data-md>
-       <p>Let <var>event</var> be the result of <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-create" id="ref-for-concept-event-create">creating an event</a> with <code class="idl"><a data-link-type="idl" href="#rtctransformevent" id="ref-for-rtctransformevent">RTCTransformEvent</a></code>.</p>
-      <li data-md>
-       <p>Set <var>event</var>.type attribute to "rtctransform".</p>
-      <li data-md>
-       <p>Set <var>event</var>.transformer to <var>transformer</var>.</p>
-      <li data-md>
-       <p>Dispatch <var>event</var> on <var>worker</var>’s global scope.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire③">Fire an event</a> named <dfn class="idl-code" data-dfn-for="DedicatedWorkerGlobalScope" data-dfn-type="event" data-export id="eventdef-dedicatedworkerglobalscope-rtctransform"><code>rtctransform</code><a class="self-link" href="#eventdef-dedicatedworkerglobalscope-rtctransform"></a></dfn> using <code class="idl"><a data-link-type="idl" href="#rtctransformevent" id="ref-for-rtctransformevent">RTCTransformEvent</a></code> with <code class="idl"><a data-link-type="idl" href="#dom-rtctransformevent-transformer" id="ref-for-dom-rtctransformevent-transformer">transformer</a></code> set to <var>transformer</var> on <var>worker</var>’s global scope.</p>
      </ol>
    </ol>
    <p>// FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).</p>
@@ -1301,7 +1295,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     and are set apart from the normative text
     with <code>class="note"</code>,
     like this: </p>
-   <p class="note" role="note">Note, this is an informative note. </p>
+   <p class="note" role="note">Note, this is an informative note.</p>
    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
@@ -1414,6 +1408,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options)</a><span>, in § 5.1</span>
    <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker, options, transfer)</a><span>, in § 5.1</span>
    <li><a href="#typedefdef-rtcrtptransform">RTCRtpTransform</a><span>, in § 3</span>
+   <li><a href="#eventdef-dedicatedworkerglobalscope-rtctransform">rtctransform</a><span>, in § 5.1</span>
    <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 5</span>
    <li><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">sendKeyFrameRequest()</a><span>, in § 5.1</span>
    <li><a href="#send-request-key-frame-algorithm">send request key frame algorithm</a><span>, in § 5.3</span>
@@ -1488,16 +1483,11 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-abortsignal-add">3.2. Extension attribute</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-event-create">
-   <a href="https://dom.spec.whatwg.org/#concept-event-create">https://dom.spec.whatwg.org/#concept-event-create</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-event-create">5.1. Operations</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-concept-event-fire">
    <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-concept-event-fire">4.1. Algorithm</a> <a href="#ref-for-concept-event-fire①">(2)</a> <a href="#ref-for-concept-event-fire②">(3)</a>
+    <li><a href="#ref-for-concept-event-fire③">5.1. Operations</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-abortsignal-signal-abort">
@@ -1881,7 +1871,6 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-dictdef-eventinit">EventInit</span>
      <li><span class="dfn-paneled" id="term-for-abortsignal-aborted">aborted</span>
      <li><span class="dfn-paneled" id="term-for-abortsignal-add">add</span>
-     <li><span class="dfn-paneled" id="term-for-concept-event-create">creating an event</span>
      <li><span class="dfn-paneled" id="term-for-concept-event-fire">fire an event</span>
      <li><span class="dfn-paneled" id="term-for-abortsignal-signal-abort">signal abort</span>
     </ul>
@@ -1972,7 +1961,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
-   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 10 March 2022. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
+   <dd>Cullen Jennings; et al. <a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. 30 June 2022. CR. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
@@ -2322,6 +2311,12 @@ and may not be audited for reception of data from untrusted sources.</p>
    <b><a href="#rtctransformevent">#rtctransformevent</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-rtctransformevent">5.1. Operations</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-rtctransformevent-transformer">
+   <b><a href="#dom-rtctransformevent-transformer">#dom-rtctransformevent-transformer</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-rtctransformevent-transformer">5.1. Operations</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="rtcrtpscripttransformer">

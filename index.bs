@@ -365,10 +365,7 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
     5. Set |transformer|.`[[options]]` to |transformerOptions|.
     6. Set |transformer|.`[[readable]]` to |readable|.
     7. Set |transformer|.`[[writable]]` to |writable|.
-    8. Let |event| be the result of [=creating an event=] with {{RTCTransformEvent}}.
-    9. Set |event|.type attribute to "rtctransform".
-    10. Set |event|.transformer to |transformer|.
-    11. Dispatch |event| on |worker|’s global scope.
+    8. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
 
 // FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
 

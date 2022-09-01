@@ -452,16 +452,16 @@ An additional API on {{RTCRtpSender}} is added to complement the generation of k
 
 <pre class="idl">
 partial interface RTCRtpSender {
-    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
+    Promise&lt;undefined&gt; generateKeyFrame(optional DOMString rid);
 };
 </pre>
 
 ## Extension operation ## {#sender-operation}
 
-The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
+The <dfn method for="RTCRtpSender">generateKeyFrame(|rid|)</dfn> method steps are:
 
 1. Let |promise| be a new promise.
-1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this|'s encoder and |rids|.
+1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this|'s encoder and |rid|.
 1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}

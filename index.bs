@@ -65,12 +65,6 @@ It uses an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
-// New dictionary
-dictionary RTCInsertableStreams {
-    ReadableStream readable;
-    WritableStream writable;
-};
-
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver

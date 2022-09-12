@@ -32,27 +32,19 @@ spec:streams; type:interface; text:ReadableStream
 
 # Introduction # {#introduction}
 
-The [[WEBRTC-NV-USE-CASES]] document describes several functions that
-can only be achieved by access to media (requirements N20-N22),
-including, but not limited to:
-* Funny Hats
-* Machine Learning
-* Virtual Reality Gaming
+The [[WEBRTC-NV-USE-CASES]] document describes the use-case of
+    * Untrusted JavaScript Cloud Conferencing
+which requires that the conferencing server does not have access
+to the cleartext media (requirement N27).
 
-These use cases further require that processing can be done in worker
-threads (requirement N23-N24).
-
-Furthermore, the "trusted JavaScript cloud conferencing" use case
-requires such processing to be done on encoded media, not just the raw
-media.
-
-This specification gives an interface inspired by [[WEB-CODECS]] to
-provide access to such functionality while retaining the setup flow of
-RTCPeerConnection.
-
-This iteration of the specification provides access to encoded media,
+This specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
-decoder part of a codec.
+decoder part of a codec which allows the user agent to apply encryption
+locally.
+
+The interface is inspired by [[WEB-CODECS]] to
+provide access to such functionality while retaining the setup flow of
+RTCPeerConnection
 
 # Terminology # {#terminology}
 

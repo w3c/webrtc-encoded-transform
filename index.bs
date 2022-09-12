@@ -23,6 +23,11 @@ spec:webidl; type:dfn; text:resolve
      "href":
      "https://github.com/WICG/web-codecs/blob/master/explainer.md",
      "title": "Web Codecs explainer"
+   },
+  "SFRAME": {
+     "href":
+     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-00.html",
+     "title": "Secure Frame (SFrame)"
    }
 }
 </pre>
@@ -176,11 +181,8 @@ Similarly, if a web application sets the transform synchronously at creation of 
 
 # SFrameTransform # {#sframe}
 
-<p class="note">
-The API presented in this section represents a preliminary proposal
-based on protocol proposals that have not yet been adopted by an IETF WG.
-As a result, both the API and underlying protocol are likely to change
-significantly going forward.
+<p>
+The API presented in this section allows applications to process SFrame data as defined in [[SFrame]].
 </p>
 
 <xmp class="idl">

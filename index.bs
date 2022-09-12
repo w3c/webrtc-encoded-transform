@@ -124,10 +124,11 @@ The <dfn>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter an
 1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
 1. If |frame|.`[[counter]]` is equal or smaller than |rtcObject|.`[[lastReceivedFrameCounter]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
 1. Set |rtcObject|.`[[lastReceivedFrameCounter]]` to |frame|`[[counter]]`.
-4. Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:
-    * If |rtcObject| is a {{RTCRtpSender}}, enqueue it to |rtcObject|'s packetizer, to be processed [=in parallel=].
-    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue it to |rtcObject|'s decoder, to be processed [=in parallel=].
-5. Return [=a promise resolved with=] undefined.
+1. Create |frameCopy| as a copy of |frame| by structure cloning |frame| with transferables set to an array containing |frame|.`[[data]]`.
+1. Enqueue |frameCopy| for processing as if it came directly from the encoded data source, by running one of the following steps:
+    * If |rtcObject| is a {{RTCRtpSender}}, enqueue |frameCopy| to |rtcObject|'s packetizer, to be processed [=in parallel=].
+    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue |frameCopy| it to |rtcObject|'s decoder, to be processed [=in parallel=].
+1. Return [=a promise resolved with=] undefined.
 
 On sender side, as part of [=readEncodedData=], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
 As [=writeEncodedData=] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.

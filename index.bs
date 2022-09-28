@@ -434,6 +434,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
+    short? sequenceNumber; // RTP sequence number on incoming frames.
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}

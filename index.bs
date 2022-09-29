@@ -294,13 +294,17 @@ interface RTCEncodedVideoFrame {
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
 };
+</pre>
 
+## <dfn>RTCEncodedAudioFrameMetadata</dfn> dictionary # {#RTCEncodedAudioFrameMetadata}
+<pre class="idl">
 dictionary RTCEncodedAudioFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
 };
 </pre>
+### Dictionary {{RTCEncodedAudioFrameMetadata}} Members # {#RTCEncodedAudioFrameMetadata-members}
 <dl data-link-for="RTCEncodedAudioFrameMetadata"
         data-dfn-for="RTCEncodedAudioFrameMetadata"
         class="dictionary-members">

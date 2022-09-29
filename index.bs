@@ -288,9 +288,9 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned short height;
     long spatialIndex;
     long temporalIndex;
-    long synchronizationSource;
+    unsigned long synchronizationSource;
     octet payloadType;
-    sequence&lt;long&gt; contributingSources;
+    sequence&lt;unsigned long&gt; contributingSources;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
@@ -304,9 +304,9 @@ interface RTCEncodedVideoFrame {
 };
 
 dictionary RTCEncodedAudioFrameMetadata {
-    long synchronizationSource;
+    unsigned long synchronizationSource;
     octet payloadType;
-    sequence&lt;long&gt; contributingSources;
+    sequence&lt;unsigned long&gt; contributingSources;
 };
 
 [Exposed=(Window,DedicatedWorker)]

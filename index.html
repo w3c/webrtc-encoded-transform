@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="535012655eea0f7ef5b87d0d1866def8ab7277d9" name="document-revision">
+  <meta content="5abcf5ce1104423b5e6bfc861884f56ef23f3814" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -715,13 +715,7 @@ decoder part of a codec.</p>
 This specification shows the IDL extensions for WebRTC.</p>
    <p>It uses an additional API on <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender">RTCRtpSender</a></code> and <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver">RTCRtpReceiver</a></code> to
 insert the processing into the pipeline.</p>
-<pre class="idl highlight def">// New dictionary
-<c- b>dictionary</c-> <dfn class="idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcinsertablestreams"><code><c- g>RTCInsertableStreams</c-></code><a class="self-link" href="#dictdef-rtcinsertablestreams"></a></dfn> {
-    <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream"><c- n>ReadableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="ReadableStream " id="dom-rtcinsertablestreams-readable"><code><c- g>readable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-readable"></a></dfn>;
-    <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream"><c- n>WritableStream</c-></a> <dfn class="idl-code" data-dfn-for="RTCInsertableStreams" data-dfn-type="dict-member" data-export data-type="WritableStream " id="dom-rtcinsertablestreams-writable"><code><c- g>writable</c-></code><a class="self-link" href="#dom-rtcinsertablestreams-writable"></a></dfn>;
-};
-
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></dfn>;
+<pre class="idl highlight def"><c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></dfn>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①"><c- g>RTCRtpSender</c-></a> {
@@ -741,13 +735,13 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.<code>[[transform]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>.<code>[[readable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①">ReadableStream</a></code>.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>.<code>[[readable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream">ReadableStream</a></code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[readable]]</code>. <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>.<code>[[readable]]</code> is provided frames using the <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>.<code>[[readable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①">WritableStream</a></code>.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream">WritableStream</a></code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm" id="ref-for-writablestream-set-up-sizealgorithm">sizeAlgorithm</a> to an algorithm that returns <code>0</code>.</p>
      <p class="note" role="note">Chunk size is set to 0 to explictly disable streams backpressure on the write side.</p>
@@ -1050,8 +1044,8 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream②"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any②"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code><a class="self-link" href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"></a></dfn>);
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
@@ -1385,12 +1379,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><a href="#dom-rtcencodedaudioframemetadata-payloadtype">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5</span>
      <li><a href="#dom-rtcencodedvideoframemetadata-payloadtype">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5</span>
     </ul>
-   <li>
-    readable
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-readable">attribute for RTCRtpScriptTransformer</a><span>, in § 5.2</span>
-     <li><a href="#dom-rtcinsertablestreams-readable">dict-member for RTCInsertableStreams</a><span>, in § 3</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-readable">readable</a><span>, in § 5.2</span>
    <li><a href="#readencodeddata">readEncodedData</a><span>, in § 3.1.2</span>
    <li><a href="#dom-sframetransformoptions-role">role</a><span>, in § 4</span>
    <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in § 5</span>
@@ -1398,7 +1387,6 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in § 5</span>
    <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in § 5</span>
    <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in § 5</span>
-   <li><a href="#dictdef-rtcinsertablestreams">RTCInsertableStreams</a><span>, in § 3</span>
    <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in § 5</span>
    <li><a href="#rtcrtpscripttransformer">RTCRtpScriptTransformer</a><span>, in § 5</span>
    <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in § 5.1</span>
@@ -1440,12 +1428,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 5</span>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 5</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 5</span>
-   <li>
-    writable
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-writable">attribute for RTCRtpScriptTransformer</a><span>, in § 5.2</span>
-     <li><a href="#dom-rtcinsertablestreams-writable">dict-member for RTCInsertableStreams</a><span>, in § 3</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-writable">writable</a><span>, in § 5.2</span>
    <li><a href="#writeencodeddata">writeEncodedData</a><span>, in § 3.1.2</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-abortcontroller">
@@ -1562,9 +1545,8 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-readablestream">
    <a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-readablestream">3. Specification</a>
-    <li><a href="#ref-for-readablestream①">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-readablestream②">5. RTCRtpScriptTransform</a>
+    <li><a href="#ref-for-readablestream">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-readablestream①">5. RTCRtpScriptTransform</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-transformstream">
@@ -1576,9 +1558,8 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-writablestream">
    <a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-writablestream">3. Specification</a>
-    <li><a href="#ref-for-writablestream①">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-writablestream②">5. RTCRtpScriptTransform</a>
+    <li><a href="#ref-for-writablestream">3.1.1. Stream creation</a>
+    <li><a href="#ref-for-writablestream①">5. RTCRtpScriptTransform</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-readablestream-enqueue">
@@ -1984,13 +1965,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Bernard Aboba. <a href="https://w3c.github.io/webrtc-nv-use-cases/"><cite>WebRTC Next Version Use Cases</cite></a>. URL: <a href="https://w3c.github.io/webrtc-nv-use-cases/">https://w3c.github.io/webrtc-nv-use-cases/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
-<pre class="idl highlight def">// New dictionary
-<c- b>dictionary</c-> <a href="#dictdef-rtcinsertablestreams"><code><c- g>RTCInsertableStreams</c-></code></a> {
-    <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a data-type="ReadableStream " href="#dom-rtcinsertablestreams-readable"><code><c- g>readable</c-></code></a>;
-    <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a data-type="WritableStream " href="#dom-rtcinsertablestreams-writable"><code><c- g>writable</c-></code></a>;
-};
-
-<c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <a href="#typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></a>;
+<pre class="idl highlight def"><c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <a href="#typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></a>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 <c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {

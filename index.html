@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="43cf96c03b8f91dbc79a391b8fa1e2411bddcf34" name="document-revision">
+  <meta content="f2797d72cc5ce2d5599a5659c23418c7fc884420" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -687,28 +687,20 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
-   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]</a> document describes several functions that
-can only be achieved by access to media (requirements N20-N22),
-including, but not limited to:</p>
+   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]</a> document describes the use-case of</p>
    <ul>
     <li data-md>
-     <p>Funny Hats</p>
-    <li data-md>
-     <p>Machine Learning</p>
-    <li data-md>
-     <p>Virtual Reality Gaming</p>
+     <p>Untrusted JavaScript Cloud Conferencing</p>
    </ul>
-   <p>These use cases further require that processing can be done in worker
-threads (requirement N23-N24).</p>
-   <p>Furthermore, the "trusted JavaScript cloud conferencing" use case
-requires such processing to be done on encoded media, not just the raw
-media.</p>
-   <p>This specification gives an interface inspired by <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
-provide access to such functionality while retaining the setup flow of
-RTCPeerConnection.</p>
-   <p>This iteration of the specification provides access to encoded media,
+   which requires that the conferencing server does not have access
+to the cleartext media (requirement N27). 
+   <p>This specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
-decoder part of a codec.</p>
+decoder part of a codec which allows the user agent to apply encryption
+locally.</p>
+   <p>The interface is inspired by <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
+provide access to such functionality while retaining the setup flow of
+RTCPeerConnection</p>
    <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <h2 class="heading settled" data-level="3" id="specification"><span class="secno">3. </span><span class="content">Specification</span><a class="self-link" href="#specification"></a></h2>
    <p>The Streams definition doesn’t use WebIDL much, but the WebRTC spec does.

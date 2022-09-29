@@ -300,7 +300,39 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
 };
-
+</pre>
+<dl data-link-for="RTCEncodedAudioFrameMetadata"
+        data-dfn-for="RTCEncodedAudioFrameMetadata"
+        class="dictionary-members">
+    <dt>
+        <dfn>synchronizationSource</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
+            used to identify the stream of RTP packets that the encoded frame object is describing.
+        </p>
+    </dd>
+    <dt>
+        <dfn>payloadType</dfn> of type <span class="idlMemberType">octet</span>
+    </dt>
+    <dd>
+        <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
+            that is used to describe the format of the RTP payload.
+        </p>
+    </dd>
+    <dt>
+        <dfn>contributingSources</dfn> of type <span class=
+            "idlMemberType">sequence&lt;unsigned long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+</dl>
+<pre class="idl">
 [Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long timestamp; // RTP timestamp.

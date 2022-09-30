@@ -296,7 +296,7 @@ interface RTCEncodedVideoFrame {
 };
 </pre>
 
-## <dfn>RTCEncodedAudioFrameMetadata</dfn> dictionary # {#RTCEncodedAudioFrameMetadata}
+## <dfn>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
 <pre class="idl">
 dictionary RTCEncodedAudioFrameMetadata {
     unsigned long synchronizationSource;

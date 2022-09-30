@@ -304,7 +304,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     sequence&lt;unsigned long&gt; contributingSources;
 };
 </pre>
-### Dictionary {{RTCEncodedAudioFrameMetadata}} Members # {#RTCEncodedAudioFrameMetadata-members}
+### Dictionary {{RTCEncodedAudioFrameMetadata}} Members ### {#RTCEncodedAudioFrameMetadata-members}
 <dl data-link-for="RTCEncodedAudioFrameMetadata"
         data-dfn-for="RTCEncodedAudioFrameMetadata"
         class="dictionary-members">

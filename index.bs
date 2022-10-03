@@ -276,7 +276,7 @@ enum RTCEncodedVideoFrameType {
 </pre>
 <table data-link-for="RTCEncodedVideoFrameType" data-dfn-for=
     "RTCEncodedVideoFrameType" class="simple">
-	<caption>{{RTCEncodedVideoFrameType}} Enumeration description</caption>
+	<caption>Enumeration description</caption>
     <thead>
         <tr>
             <th>Enum value</th><th>Description</th>

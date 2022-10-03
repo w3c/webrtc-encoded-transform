@@ -417,7 +417,7 @@ interface RTCEncodedVideoFrame {
         class="dictionary-members">
     <dt>
         <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method">getMetadata()</dfn>
-        returns the {{RTCEncodedVideoFrameMetadata}} associated with the frame.
+        returns the metadata associated with the frame.
     </dt>
 </dl>
 
@@ -501,7 +501,7 @@ interface RTCEncodedAudioFrame {
         class="dictionary-members">
     <dt>
         <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method">getMetadata()</dfn>
-        returns the {{RTCEncodedAudioFrameMetadata}} associated with the frame.
+        returns the metadata associated with the frame.
     </dt>
 </dl>
 

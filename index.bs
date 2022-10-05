@@ -23,6 +23,11 @@ spec:webidl; type:dfn; text:resolve
      "href":
      "https://github.com/WICG/web-codecs/blob/master/explainer.md",
      "title": "Web Codecs explainer"
+   },
+  "SFRAME": {
+     "href":
+     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-00.html",
+     "title": "Secure Frame (SFrame)"
    }
 }
 </pre>
@@ -32,27 +37,19 @@ spec:streams; type:interface; text:ReadableStream
 
 # Introduction # {#introduction}
 
-The [[WEBRTC-NV-USE-CASES]] document describes several functions that
-can only be achieved by access to media (requirements N20-N22),
-including, but not limited to:
-* Funny Hats
-* Machine Learning
-* Virtual Reality Gaming
+The [[WEBRTC-NV-USE-CASES]] document describes the use-case of
+    * Untrusted JavaScript Cloud Conferencing
+which requires that the conferencing server does not have access
+to the cleartext media (requirement N27).
 
-These use cases further require that processing can be done in worker
-threads (requirement N23-N24).
-
-Furthermore, the "trusted JavaScript cloud conferencing" use case
-requires such processing to be done on encoded media, not just the raw
-media.
-
-This specification gives an interface inspired by [[WEB-CODECS]] to
-provide access to such functionality while retaining the setup flow of
-RTCPeerConnection.
-
-This iteration of the specification provides access to encoded media,
+This specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
-decoder part of a codec.
+decoder part of a codec which allows the user agent to apply encryption
+locally.
+
+The interface is inspired by [[WEB-CODECS]] to
+provide access to such functionality while retaining the setup flow of
+RTCPeerConnection
 
 # Terminology # {#terminology}
 
@@ -65,12 +62,6 @@ It uses an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
-// New dictionary
-dictionary RTCInsertableStreams {
-    ReadableStream readable;
-    WritableStream writable;
-};
-
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
@@ -176,11 +167,8 @@ Similarly, if a web application sets the transform synchronously at creation of 
 
 # SFrameTransform # {#sframe}
 
-<p class="note">
-The API presented in this section represents a preliminary proposal
-based on protocol proposals that have not yet been adopted by an IETF WG.
-As a result, both the API and underlying protocol are likely to change
-significantly going forward.
+<p>
+The API presented in this section allows applications to process SFrame data as defined in [[SFrame]].
 </p>
 
 <xmp class="idl">
@@ -365,10 +353,7 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
     5. Set |transformer|.`[[options]]` to |transformerOptions|.
     6. Set |transformer|.`[[readable]]` to |readable|.
     7. Set |transformer|.`[[writable]]` to |writable|.
-    8. Let |event| be the result of [=creating an event=] with {{RTCTransformEvent}}.
-    9. Set |event|.type attribute to "rtctransform".
-    10. Set |event|.transformer to |transformer|.
-    11. Dispatch |event| on |worker|’s global scope.
+    8. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
 
 // FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
 

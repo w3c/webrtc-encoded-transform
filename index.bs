@@ -275,7 +275,7 @@ enum RTCEncodedVideoFrameType {
 
 dictionary RTCEncodedVideoFrameMetadata {
     unsigned long long frameId;
-    sequence&lt;long long&gt; dependencies;
+    sequence&lt;unsigned long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
     unsigned long spatialIndex;

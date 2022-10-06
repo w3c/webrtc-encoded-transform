@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 44af0bf3e, updated Fri Jul 29 17:05:16 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="f2797d72cc5ce2d5599a5659c23418c7fc884420" name="document-revision">
+  <meta content="7f8ae89f36e5ea4b2ca86c42b94e5378c59d11a1" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -579,7 +579,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-09-29">29 September 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-10-06">6 October 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -781,12 +781,18 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Set <var>rtcObject</var>.<code>[[lastReceivedFrameCounter]]</code> to <var>frame</var><code>[[counter]]</code>.</p>
     <li data-md>
-     <p>Enqueue the frame for processing as if it came directly from the encoded data source, by running one of the following steps:</p>
+     <p>Let <var>data</var> be <var>frame</var>.<code>[[data]]</code>.</p>
+    <li data-md>
+     <p>Let <var>serializedFrame</var> be <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer">StructuredSerializeWithTransfer</a>(<var>frame</var>, « <var>data</var> »).</p>
+    <li data-md>
+     <p>Let <var>frameCopy</var> be <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize">StructuredDeserialize</a>(<var>serializedFrame</var>, <var>frame</var>’s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm" id="ref-for-concept-relevant-realm">relevant realm</a>).</p>
+    <li data-md>
+     <p>Enqueue <var>frameCopy</var> for processing as if it came directly from the encoded data source, by running one of the following steps:</p>
      <ul>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue it to <var>rtcObject</var>’s packetizer, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue <var>frameCopy</var> to <var>rtcObject</var>’s packetizer, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>.</p>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue it to <var>rtcObject</var>’s decoder, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue <var>frameCopy</var> it to <var>rtcObject</var>’s decoder, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>.</p>
      </ul>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
@@ -1060,20 +1066,20 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <li data-md>
      <p>Set <var>this</var>.<code>[[readable]]</code> to <var>t2</var>.<code>[[readable]]</code>.</p>
     <li data-md>
-     <p>Let <var>serializedOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer">StructuredSerializeWithTransfer</a>(<var>options</var>, <var>transfer</var>).</p>
+     <p>Let <var>serializedOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer①">StructuredSerializeWithTransfer</a>(<var>options</var>, <var>transfer</var>).</p>
     <li data-md>
-     <p>Let <var>serializedReadable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer①">StructuredSerializeWithTransfer</a>(<var>t1</var>.<code>[[readable]]</code>, « <var>t1</var>.<code>[[readable]]</code> »).</p>
+     <p>Let <var>serializedReadable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer②">StructuredSerializeWithTransfer</a>(<var>t1</var>.<code>[[readable]]</code>, « <var>t1</var>.<code>[[readable]]</code> »).</p>
     <li data-md>
-     <p>Let <var>serializedWritable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer②">StructuredSerializeWithTransfer</a>(<var>t2</var>.<code>[[writable]]</code>, « <var>t2</var>.<code>[[writable]]</code> »).</p>
+     <p>Let <var>serializedWritable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer" id="ref-for-structuredserializewithtransfer③">StructuredSerializeWithTransfer</a>(<var>t2</var>.<code>[[writable]]</code>, « <var>t2</var>.<code>[[writable]]</code> »).</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task②">Queue a task</a> on the DOM manipulation <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#task-source" id="ref-for-task-source">task source</a> <var>worker</var>’s global scope to run the following steps:</p>
      <ol>
       <li data-md>
-       <p>Let <var>transformerOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize">StructuredDeserialize</a>(<var>serializedOptions</var>, the current Realm).</p>
+       <p>Let <var>transformerOptions</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize①">StructuredDeserialize</a>(<var>serializedOptions</var>, the current Realm).</p>
       <li data-md>
-       <p>Let <var>readable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize①">StructuredDeserialize</a>(<var>serializedReadable</var>, the current Realm).</p>
+       <p>Let <var>readable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize②">StructuredDeserialize</a>(<var>serializedReadable</var>, the current Realm).</p>
       <li data-md>
-       <p>Let <var>writable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize②">StructuredDeserialize</a>(<var>serializedWritable</var>, the current Realm).</p>
+       <p>Let <var>writable</var> be the result of <a data-link-type="abstract-op" href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize" id="ref-for-structureddeserialize③">StructuredDeserialize</a>(<var>serializedWritable</var>, the current Realm).</p>
       <li data-md>
        <p>Let <var>transformer</var> be a new <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer①">RTCRtpScriptTransformer</a></code>.</p>
       <li data-md>
@@ -1484,13 +1490,15 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-structureddeserialize">
    <a href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize">https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-structureddeserialize">5.1. Operations</a> <a href="#ref-for-structureddeserialize①">(2)</a> <a href="#ref-for-structureddeserialize②">(3)</a>
+    <li><a href="#ref-for-structureddeserialize">3.1.2. Stream processing</a>
+    <li><a href="#ref-for-structureddeserialize①">5.1. Operations</a> <a href="#ref-for-structureddeserialize②">(2)</a> <a href="#ref-for-structureddeserialize③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-structuredserializewithtransfer">
    <a href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer">https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-structuredserializewithtransfer">5.1. Operations</a> <a href="#ref-for-structuredserializewithtransfer①">(2)</a> <a href="#ref-for-structuredserializewithtransfer②">(3)</a>
+    <li><a href="#ref-for-structuredserializewithtransfer">3.1.2. Stream processing</a>
+    <li><a href="#ref-for-structuredserializewithtransfer①">5.1. Operations</a> <a href="#ref-for-structuredserializewithtransfer②">(2)</a> <a href="#ref-for-structuredserializewithtransfer③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-worker">
@@ -1514,6 +1522,12 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-queue-a-task">3.1.1. Stream creation</a>
     <li><a href="#ref-for-queue-a-task①">4.1. Algorithm</a>
     <li><a href="#ref-for-queue-a-task②">5.1. Operations</a> <a href="#ref-for-queue-a-task③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-relevant-realm">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-relevant-realm">3.1.2. Stream processing</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-task-source">
@@ -1854,6 +1868,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-worker">Worker</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
      <li><span class="dfn-paneled" id="term-for-queue-a-task">queue a task</span>
+     <li><span class="dfn-paneled" id="term-for-concept-relevant-realm">relevant realm</span>
      <li><span class="dfn-paneled" id="term-for-task-source">task source</span>
     </ul>
    <li>

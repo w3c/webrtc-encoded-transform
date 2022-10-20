@@ -267,6 +267,7 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 
 # RTCRtpScriptTransform # {#scriptTransform}
 
+## <dfn>RTCEncodedVideoFrameType</dfn> dictionary ## {#RTCEncodedVideoFrameType}
 <pre class="idl">
 // New enum for video frame types. Will eventually re-use the equivalent defined
 // by WebCodecs.
@@ -275,7 +276,51 @@ enum RTCEncodedVideoFrameType {
     "key",
     "delta",
 };
+</pre>
+<table data-link-for="RTCEncodedVideoFrameType" data-dfn-for=
+    "RTCEncodedVideoFrameType" class="simple">
+	<caption>Enumeration description</caption>
+    <thead>
+        <tr>
+            <th>Enum value</th><th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <dfn data-idl="">empty</dfn>
+            </td>
+            <td>
+                <p>
+                    This frame contains no data.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <dfn data-idl="">key</dfn>
+            </td>
+            <td>
+                <p>
+                    This frame can be decoded without reference to any other frames.
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <dfn data-idl="">delta</dfn>
+            </td>
+            <td>
+                <p>
+                    This frame references another frame and can not be decoded without that frame.
+                </p>
+            </td>
+        </tr>
+    </tbody>
+</table>
 
+## <dfn>RTCEncodedVideoFrameMetadata</dfn> dictionary ## {#RTCEncodedVideoFrameMetadata}
+<pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
     long long frameId;
     sequence&lt;long long&gt; dependencies;
@@ -287,33 +332,194 @@ dictionary RTCEncodedVideoFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
 };
+</pre>
 
+### Members ### {#RTCEncodedVideoFrameMetadata-members}
+<dl data-link-for="RTCEncodedVideoFrameMetadata"
+        data-dfn-for="RTCEncodedVideoFrameMetadata"
+        class="dictionary-members">
+    <dt>
+        <dfn>synchronizationSource</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
+            used to identify the stream of RTP packets that the encoded frame object is describing.
+        </p>
+    </dd>
+    <dt>
+        <dfn>payloadType</dfn> of type <span class="idlMemberType">octet</span>
+    </dt>
+    <dd>
+        <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
+            that is used to describe the format of the RTP payload.
+        </p>
+    </dd>
+    <dt>
+        <dfn>contributingSources</dfn> of type <span class=
+            "idlMemberType">sequence&lt;unsigned long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+</dl>
+
+
+## <dfn>RTCEncodedVideoFrame</dfn> interface ## {#RTCEncodedVideoFrame-interface}
+<pre class="idl">
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
-    readonly attribute unsigned long timestamp; // RTP timestamp.
+    readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
 };
+</pre>
 
+### Members ### {#RTCEncodedVideoFrame-members}
+<dl data-link-for="RTCEncodedVideoFrame"
+        data-dfn-for="RTCEncodedVideoFrame"
+        class="dictionary-members">
+    <dt>
+        <dfn>type</dfn> of type <span class="idlMemberType">RTCEncodedVideoFrameType</span>
+    </dt>
+    <dd>
+        <p>
+            The type attribute allows the application to determine when a key frame is being
+            sent or received.
+        </p>
+    </dd>
+
+    <dt>
+        <dfn>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
+    </dt>
+    <dd>
+        <p>
+            The encoded frame data.
+        </p>
+    </dd>
+</dl>
+
+### Methods ### {#RTCEncodedVideoFrame-methods}
+<dl data-link-for="RTCEncodedVideoFrame"
+        data-dfn-for="RTCEncodedVideoFrame"
+        class="dictionary-members">
+    <dt>
+        <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method">getMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Returns the metadata associated with the frame.
+        </p>
+    </dd>
+</dl>
+
+## <dfn>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
+<pre class="idl">
 dictionary RTCEncodedAudioFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
 };
+</pre>
+### Members ### {#RTCEncodedAudioFrameMetadata-members}
+<dl data-link-for="RTCEncodedAudioFrameMetadata"
+        data-dfn-for="RTCEncodedAudioFrameMetadata"
+        class="dictionary-members">
+    <dt>
+        <dfn>synchronizationSource</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
+            used to identify the stream of RTP packets that the encoded frame object is describing.
+        </p>
+    </dd>
+    <dt>
+        <dfn>payloadType</dfn> of type <span class="idlMemberType">octet</span>
+    </dt>
+    <dd>
+        <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
+            that is used to describe the format of the RTP payload.
+        </p>
+    </dd>
+    <dt>
+        <dfn>contributingSources</dfn> of type <span class=
+            "idlMemberType">sequence&lt;unsigned long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+</dl>
 
+## <dfn>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
+<pre class="idl">
 [Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedAudioFrame {
-    readonly attribute unsigned long timestamp; // RTP timestamp.
+    readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };
+</pre>
+
+### Members ### {#RTCEncodedAudioFrame-members}
+<dl data-link-for="RTCEncodedAudioFrame"
+        data-dfn-for="RTCEncodedAudioFrame"
+        class="dictionary-members">
+    <dt>
+        <dfn>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
+    </dt>
+    <dd>
+        <p>
+            The encoded frame data.
+        </p>
+    </dd>
+</dl>
+
+### Methods ### {#RTCEncodedAudioFrame-methods}
+<dl data-link-for="RTCEncodedAudioFrame"
+        data-dfn-for="RTCEncodedAudioFrame"
+        class="dictionary-members">
+    <dt>
+        <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method">getMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Returns the metadata associated with the frame.
+        </p>
+    </dd>
+</dl>
 
 
 // New interfaces to expose JavaScript-based transforms.
-
+##Interfaces
+<pre class="idl">
 [Exposed=DedicatedWorker]
 interface RTCTransformEvent : Event {
     readonly attribute RTCRtpScriptTransformer transformer;
@@ -418,7 +624,7 @@ The <dfn>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rid
 For any {{RTCRtpScriptTransformer}} named |transformer|, the following steps are run just before any |frame| is enqueued in |transformer|.`[[readable]]`:
 1. Let |encoder| be |transformer|.`[[encoder]]`.
 1. If |encoder| or |encoder|.`[[pendingKeyFrameTasks]]` is undefined, abort these steps.
-1. If |frame| is not a video key frame, abort these steps.
+1. If |frame| is not a video {{RTCEncodedVideoFrameType/"key"}} frame, abort these steps.
 1. For each |task| in |encoder|.`[[pendingKeyFrameTasks]]`, run the following steps:
     1. If |frame| was generated by a video encoder identified by |task|.`[[rid]]`, run the following steps:
         1. Remove |task| from |encoder|.`[[pendingKeyFrameTasks]]`.

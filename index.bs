@@ -323,6 +323,8 @@ enum RTCEncodedVideoFrameType {
 <pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
     long long frameId;
+    unsigned long rtpTimestamp;
+    DOMHighResTimeStamp captureTime;
     sequence&lt;long long&gt; dependencies;
     unsigned short width;
     unsigned short height;

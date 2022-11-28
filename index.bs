@@ -378,6 +378,7 @@ interface RTCEncodedVideoFrame {
     readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
+    RTCEncodedVideoFrame clone();
 };
 </pre>
 
@@ -412,6 +413,7 @@ interface RTCEncodedVideoFrame {
             The encoded frame data.
         </p>
     </dd>
+    <dt>
 </dl>
 
 ### Methods ### {#RTCEncodedVideoFrame-methods}
@@ -426,6 +428,13 @@ interface RTCEncodedVideoFrame {
             Returns the metadata associated with the frame.
         </p>
     </dd>
+    <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method">clone()</dfn>
+    </dt>
+    <dd>
+    <p>
+    Returns a copy of the frame. Subsequent modification of the copy will
+    not affect the original frame.
+    </p>
 </dl>
 
 ## <dfn>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
@@ -476,6 +485,7 @@ interface RTCEncodedAudioFrame {
     readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
+    RTCEncodedAudioFrame clone();
 };
 </pre>
 
@@ -513,6 +523,15 @@ interface RTCEncodedAudioFrame {
         <p>
             Returns the metadata associated with the frame.
         </p>
+    </dd>
+        </dd>
+    <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method">clone()</dfn>
+    </dt>
+    <dd>
+    <p>
+    Returns a copy of the frame. Subsequent modification of the copy will
+    not affect the original frame.
+    </p>
     </dd>
 </dl>
 

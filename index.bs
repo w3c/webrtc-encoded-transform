@@ -413,7 +413,6 @@ interface RTCEncodedVideoFrame {
             The encoded frame data.
         </p>
     </dd>
-    <dt>
 </dl>
 
 ### Methods ### {#RTCEncodedVideoFrame-methods}

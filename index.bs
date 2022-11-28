@@ -524,7 +524,7 @@ interface RTCEncodedAudioFrame {
             Returns the metadata associated with the frame.
         </p>
     </dd>
-        </dd>
+    <dt>
     <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method">clone()</dfn>
     </dt>
     <dd>

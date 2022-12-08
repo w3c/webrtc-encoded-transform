@@ -6,9 +6,9 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version b0de3432c, updated Thu Oct 13 09:16:59 2022 -0700" name="generator">
+  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="c85fc84a919339b6939abfb0779eaaaae2904daf" name="document-revision">
+  <meta content="8d2aff2f39a0b8202883aa3f71092f474f6e8569" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -297,6 +297,14 @@ a.self-link:hover {
 .heading > a.self-link {
     font-size: 83%;
 }
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
 }
@@ -579,7 +587,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-10-20">20 October 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-12-08">8 December 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1039,15 +1047,15 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    </table>
    <h3 class="heading settled" data-level="5.2" id="RTCEncodedVideoFrameMetadata"><span class="secno">5.2. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata<a class="self-link" href="#rtcencodedvideoframemetadata"></a></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></dfn> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long long " id="dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-frameid"></a></dfn>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long①"><c- b>long</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<long long> " id="dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-dependencies"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-frameid"></a></dfn>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long②"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long long> " id="dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-dependencies"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-width"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-height"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-spatialindex"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long" id="ref-for-idl-long①"><c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long " id="dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-temporalindex"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-synchronizationsource"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-spatialindex"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-temporalindex"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-synchronizationsource"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-payloadtype"></a></dfn>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
+  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
 };
 </pre>
    <h4 class="heading settled" data-level="5.2.1" id="RTCEncodedVideoFrameMetadata-members"><span class="secno">5.2.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata-members"></a></h4>
@@ -1068,7 +1076,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe①"><code><c- g>RTCEncodedVideoFrame</c-></code></dfn> {
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="RTCEncodedVideoFrameType" id="dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-type"></a></dfn>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-timestamp"></a></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-timestamp"></a></dfn>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code></dfn>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata" id="ref-for-dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
@@ -1094,9 +1102,9 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    </dl>
    <h3 class="heading settled" data-level="5.4" id="RTCEncodedAudioFrameMetadata"><span class="secno">5.4. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata<a class="self-link" href="#rtcencodedaudioframemetadata"></a></dfn> dictionary</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframemetadata"><code><c- g>RTCEncodedAudioFrameMetadata</c-></code></dfn> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-synchronizationsource"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-synchronizationsource"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedaudioframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-payloadtype"></a></dfn>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-contributingsources"></a></dfn>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-contributingsources"></a></dfn>;
 };
 </pre>
    <h4 class="heading settled" data-level="5.4.1" id="RTCEncodedAudioFrameMetadata-members"><span class="secno">5.4.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata-members"></a></h4>
@@ -1114,7 +1122,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    <h3 class="heading settled" data-level="5.5" id="RTCEncodedAudioFrame-interface"><span class="secno">5.5. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe">RTCEncodedAudioFrame<a class="self-link" href="#rtcencodedaudioframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe①"><code><c- g>RTCEncodedAudioFrame</c-></code></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-timestamp"></a></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑦"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-timestamp"></a></dfn>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②"><c- b>ArrayBuffer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedaudioframe-data"><code><c- g>data</c-></code></dfn>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata" id="ref-for-dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
@@ -1150,7 +1158,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream①"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream①"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any②"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code><a class="self-link" href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"></a></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long③"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code><a class="self-link" href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"></a></dfn>);
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
 };
 
@@ -1892,18 +1900,6 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-idl-bigint①">4.2. Methods</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-long">https://webidl.spec.whatwg.org/#idl-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-long">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-long①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-long-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-long-long">https://webidl.spec.whatwg.org/#idl-long-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-long-long">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-long-long①">(2)</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-object">
    <a href="https://webidl.spec.whatwg.org/#idl-object">https://webidl.spec.whatwg.org/#idl-object</a><b>Referenced in:</b>
    <ul>
@@ -1959,17 +1955,18 @@ and may not be audited for reception of data from untrusted sources.</p>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
    <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-unsigned-long">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long①">(2)</a>
-    <li><a href="#ref-for-idl-unsigned-long②">5.3. RTCEncodedVideoFrame interface</a>
-    <li><a href="#ref-for-idl-unsigned-long③">5.4. RTCEncodedAudioFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long④">(2)</a>
-    <li><a href="#ref-for-idl-unsigned-long⑤">5.5. RTCEncodedAudioFrame interface</a>
+    <li><a href="#ref-for-idl-unsigned-long">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long①">(2)</a> <a href="#ref-for-idl-unsigned-long②">(3)</a> <a href="#ref-for-idl-unsigned-long③">(4)</a>
+    <li><a href="#ref-for-idl-unsigned-long④">5.3. RTCEncodedVideoFrame interface</a>
+    <li><a href="#ref-for-idl-unsigned-long⑤">5.4. RTCEncodedAudioFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long⑥">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-long⑦">5.5. RTCEncodedAudioFrame interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
    <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-unsigned-long-long">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-unsigned-long-long①">5.5.2. Methods</a>
+    <li><a href="#ref-for-idl-unsigned-long-long①">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long-long②">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-long-long③">5.5.2. Methods</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
@@ -2088,8 +2085,6 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-a-promise-resolved-with">a promise resolved with</span>
      <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
      <li><span class="dfn-paneled" id="term-for-idl-bigint">bigint</span>
-     <li><span class="dfn-paneled" id="term-for-idl-long">long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-long-long">long long</span>
      <li><span class="dfn-paneled" id="term-for-idl-object">object</span>
      <li><span class="dfn-paneled" id="term-for-idl-octet">octet</span>
      <li><span class="dfn-paneled" id="term-for-reject">reject</span>
@@ -2207,15 +2202,15 @@ and may not be audited for reception of data from untrusted sources.</p>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></a> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a data-type="long long " href="#dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code></a>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a>> <a data-type="sequence<long long> " href="#dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-type="unsigned long long " href="#dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long long> " href="#dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long"><c- b>long</c-></a> <a data-type="long " href="#dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code></a>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually

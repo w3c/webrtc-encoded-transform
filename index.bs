@@ -322,15 +322,15 @@ enum RTCEncodedVideoFrameType {
 ## <dfn>RTCEncodedVideoFrameMetadata</dfn> dictionary ## {#RTCEncodedVideoFrameMetadata}
 <pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
-    long long frameId;
-    sequence&lt;long long&gt; dependencies;
+    unsigned long long frameId;
+    sequence&lt;unsigned long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
-    long spatialIndex;
-    long temporalIndex;
+    unsigned long spatialIndex;
+    unsigned long temporalIndex;
     unsigned long synchronizationSource;
     octet payloadType;
-    sequence&lt;unsigned long&gt; contributingSources;
+  sequence&lt;unsigned long&gt; contributingSources;
 };
 </pre>
 

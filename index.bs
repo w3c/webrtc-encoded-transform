@@ -534,7 +534,7 @@ interface RTCRtpScriptTransformer {
     readonly attribute ReadableStream readable;
     readonly attribute WritableStream writable;
     readonly attribute any options;
-    undefined generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
+    Promise&lt;undefined&gt; generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
 };
 
@@ -576,7 +576,9 @@ Each RTCRtpScriptTransform has the following set of [=association steps=], given
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
 
 The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rids|)</dfn> method steps are:
-1. Run the [=generate key frame algorithm=] with the {{RTCRtpSender}} associated with |this|.`[[encoder]]` and |rids|.
+1. Let |promise| be a new promise.
+1. Run the [=generate key frame algorithm=] with |promise|, the {{RTCRtpSender}} associated with |this|.`[[encoder]]` and |rids|.
+1. Return |promise|.
 
 The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
@@ -600,11 +602,12 @@ The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 
-The <dfn>generate key frame algorithm</dfn>, given |sender| and |rids|, is defined by running these steps:
-1. If the sender's transceiver kind is not `video`, return an {{OperationError}} and abort these steps.
+The <dfn>generate key frame algorithm</dfn>, given |promise|, |sender| and |rids|, is defined by running these steps:
+1. If the sender's transceiver kind is not `video`, reject |promise| with an {{OperationError}} and abort these steps.
 1. If |rids| is defined, for each |rid| in rids,
-    1. if |rid| is not associated with |sender|, return an {{InvalidAccessError}} and abort these steps.
+    1. if |rid| is not associated with |sender|, reject Promise with an {{InvalidAccessError}} and abort these steps.
 1. Instruct the encoder associated with |sender| to generate a key frame for |rids| or all layers when |rids| is empty.
+1. Resolve |promise| with `undefined`.
 
 The <dfn>send request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
 1. If |depacketizer| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
@@ -621,7 +624,7 @@ An additional API on {{RTCRtpSender}} is added to complement the generation of k
 
 <pre class="idl">
 partial interface RTCRtpSender {
-    undefined generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
+    Promise&lt;undefined&gt; generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
 };
 </pre>
 
@@ -629,7 +632,9 @@ partial interface RTCRtpSender {
 
 The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
 
-1. Run the [=generate key frame algorithm=] with |this| and |rids|.
+1. Let |promise| be a new promise.
+1. Run the [=generate key frame algorithm=] with |promise|, |this| and |rids|.
+1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}
 

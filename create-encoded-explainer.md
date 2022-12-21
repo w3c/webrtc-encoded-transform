@@ -25,7 +25,7 @@ focuses on the frame creation, cloning and manipulation functions.
 The approach proposed as a minimum viable API consists of 3 functions:
 
 * A constructor that takes encoded data + metadata and creates an encoded frame
-* A setter that is able to modify some of the values returned from the existing GetMetadata method
+* A setter that is able to modify some of the values returned from the existing getMetadata method
 * A clone operator that takes an existing encoded frame and creates a new, independent encoded frame
 
 The clone operator may be thought of as a convenient shorthand for the constructor:

@@ -577,12 +577,12 @@ Each RTCRtpScriptTransform has the following set of [=association steps=], given
 
 The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rids|)</dfn> method steps are:
 1. Let |promise| be a new promise.
-1. Run the [=generate key frame algorithm=] with |promise|, the {{RTCRtpSender}} associated with |this|.`[[encoder]]` and |rids|.
+1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, the {{RTCRtpSender}} associated with |this|.`[[encoder]]` and |rids|.
 1. Return |promise|.
 
 The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
-1. Run the [=send request key frame algorithm=] with |promise| and |this|.`[[depacketizer]]`.
+1. [=In parallel=], run the [=send request key frame algorithm=] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
 
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
@@ -633,7 +633,7 @@ partial interface RTCRtpSender {
 The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
 
 1. Let |promise| be a new promise.
-1. Run the [=generate key frame algorithm=] with |promise|, |this| and |rids|.
+1. [=In parallel=], run the [=generate key frame algorithm=] with |promise|, |this| and |rids|.
 1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}

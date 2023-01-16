@@ -476,6 +476,9 @@ dictionary RTCEncodedAudioFrameMetadata {
         <p>
             The RTP sequence number as defined in [[RFC3550]]. Only exists for incoming audio frames.
         </p>
+        <p class="note">
+            Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
+        </p>
     </dd>
 </dl>
 

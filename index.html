@@ -6,9 +6,9 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
+  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="8d2aff2f39a0b8202883aa3f71092f474f6e8569" name="document-revision">
+  <meta content="5c7ab84f4ce338f299172fa94af62ad3e2e7da74" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -587,7 +587,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2022-12-08">8 December 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-01-31">31 January 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -607,12 +607,12 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This API defines an API surface for manipulating the bits on <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#dom-mediastreamtrack" id="ref-for-dom-mediastreamtrack">MediaStreamTrack</a></code>s being sent via an <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection">RTCPeerConnection</a></code>.</p>
+   <p>This API defines an API surface for manipulating the bits on <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack" id="ref-for-dom-mediastreamtrack">MediaStreamTrack</a></code>s being sent via an <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection">RTCPeerConnection</a></code>.</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
@@ -718,7 +718,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
-   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]</a> document describes the use-case of</p>
+   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases" title="WebRTC Next Version Use Cases">[WEBRTC-NV-USE-CASES]</a> document describes the use-case of</p>
    <ul>
     <li data-md>
      <p>Untrusted JavaScript Cloud Conferencing</p>
@@ -729,31 +729,31 @@ to the cleartext media (requirement N27).
 which is the output of the encoder part of a codec and the input to the
 decoder part of a codec which allows the user agent to apply encryption
 locally.</p>
-   <p>The interface is inspired by <a data-link-type="biblio" href="#biblio-web-codecs">[WEB-CODECS]</a> to
+   <p>The interface is inspired by <a data-link-type="biblio" href="#biblio-web-codecs" title="Web Codecs explainer">[WEB-CODECS]</a> to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection</p>
    <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <h2 class="heading settled" data-level="3" id="specification"><span class="secno">3. </span><span class="content">Specification</span><a class="self-link" href="#specification"></a></h2>
    <p>The Streams definition doesn’t use WebIDL much, but the WebRTC spec does.
 This specification shows the IDL extensions for WebRTC.</p>
-   <p>It uses an additional API on <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender">RTCRtpSender</a></code> and <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver">RTCRtpReceiver</a></code> to
+   <p>It uses an additional API on <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender">RTCRtpSender</a></code> and <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver">RTCRtpReceiver</a></code> to
 insert the processing into the pipeline.</p>
 <pre class="idl highlight def"><c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform" id="ref-for-sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></dfn>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①"><c- g>RTCRtpSender</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①"><c- g>RTCRtpSender</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform" id="ref-for-dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①"><c- g>RTCRtpReceiver</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①"><c- g>RTCRtpReceiver</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform" id="ref-for-typedefdef-rtcrtptransform①"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform" id="ref-for-dom-rtcrtpsender-transform①"><c- g>transform</c-></a>;
 };
 </pre>
    <h3 class="heading settled" data-level="3.1" id="operation"><span class="secno">3.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
    <p>At the time when a codec is initialized as part of the encoder, and the
-corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
+corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
    <h4 class="heading settled" data-level="3.1.1" id="stream-creation"><span class="secno">3.1.1. </span><span class="content">Stream creation</span><a class="self-link" href="#stream-creation"></a></h4>
-   <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code>, run the following steps:</p>
+   <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code>, run the following steps:</p>
    <ol start="2">
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.<code>[[transform]]</code> to null.</p>
@@ -791,7 +791,7 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
    <ol>
     <li data-md>
-     <p>Wait for a frame to be produced by <var>rtcObject</var>’s encoder if it is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender③">RTCRtpSender</a></code> or <var>rtcObject</var>’s packetizer if it is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver③">RTCRtpReceiver</a></code>.</p>
+     <p>Wait for a frame to be produced by <var>rtcObject</var>’s encoder if it is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender③">RTCRtpSender</a></code> or <var>rtcObject</var>’s packetizer if it is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver③">RTCRtpReceiver</a></code>.</p>
     <li data-md>
      <p>Increment <var>rtcObject</var>.<code>[[lastEnqueuedFrameCounter]]</code> by <code>1</code>.</p>
     <li data-md>
@@ -821,9 +821,9 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
      <p>Enqueue <var>frameCopy</var> for processing as if it came directly from the encoded data source, by running one of the following steps:</p>
      <ul>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue <var>frameCopy</var> to <var>rtcObject</var>’s packetizer, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, enqueue <var>frameCopy</var> to <var>rtcObject</var>’s packetizer, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>.</p>
       <li data-md>
-       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue <var>frameCopy</var> it to <var>rtcObject</var>’s decoder, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>.</p>
+       <p>If <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>, enqueue <var>frameCopy</var> it to <var>rtcObject</var>’s decoder, to be processed <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>.</p>
      </ul>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
@@ -887,10 +887,10 @@ As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata
    </ol>
    <p>This algorithm is defined so that transforms can be updated dynamically.
 There is no guarantee on which frame will happen the switch from the previous transform to the new transform.</p>
-   <p>If a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑤">RTCRtpSender</a></code> (for instance when calling addTrack), the transform will receive the first frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑥">RTCRtpSender</a></code>'s encoder.
-Similarly, if a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑤">RTCRtpReceiver</a></code> (for instance when calling addTrack, or at track event handler), the transform will receive the first full frame generated by the <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑥">RTCRtpReceiver</a></code>'s packetizer.</p>
+   <p>If a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑤">RTCRtpSender</a></code> (for instance when calling addTrack), the transform will receive the first frame generated by the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑥">RTCRtpSender</a></code>'s encoder.
+Similarly, if a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑤">RTCRtpReceiver</a></code> (for instance when calling addTrack, or at track event handler), the transform will receive the first full frame generated by the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑥">RTCRtpReceiver</a></code>'s packetizer.</p>
    <h2 class="heading settled" data-level="4" id="sframe"><span class="secno">4. </span><span class="content">SFrameTransform</span><a class="self-link" href="#sframe"></a></h2>
-   <p> The API presented in this section allows applications to process SFrame data as defined in <a data-link-type="biblio" href="#biblio-sframe">[SFrame]</a>. </p>
+   <p> The API presented in this section allows applications to process SFrame data as defined in <a data-link-type="biblio" href="#biblio-sframe" title="Secure Frame (SFrame)">[SFrame]</a>. </p>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-sframetransformrole"><code><c- g>SFrameTransformRole</c-></code></dfn> {
     <dfn class="idl-code" data-dfn-for="SFrameTransformRole" data-dfn-type="enum-value" data-export id="dom-sframetransformrole-encrypt"><code><c- s>"encrypt"</c-></code><a class="self-link" href="#dom-sframetransformrole-encrypt"></a></dfn>,
     <dfn class="idl-code" data-dfn-for="SFrameTransformRole" data-dfn-type="enum-value" data-export id="dom-sframetransformrole-decrypt"><code><c- s>"decrypt"</c-></code><a class="self-link" href="#dom-sframetransformrole-decrypt"></a></dfn>
@@ -955,9 +955,9 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Let <var>role</var> be <var>sframe</var>.<code>[[role]]</code>.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
+     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code>, set <var>role</var> to 'encrypt'.</p>
     <li data-md>
-     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
+     <p>If <var>frame</var>.<code>[[owner]]</code> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code>, set <var>role</var> to 'decrypt'.</p>
     <li data-md>
      <p>Let <var>data</var> be undefined.</p>
     <li data-md>
@@ -1062,13 +1062,13 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    <dl class="dictionary-members">
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-synchronizationsource">synchronizationSource<a class="self-link" href="#rtcencodedvideoframemetadata-synchronizationsource"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
     <dd>
-     <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
+     <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-payloadtype">payloadType<a class="self-link" href="#rtcencodedvideoframemetadata-payloadtype"></a></dfn> of type <span class="idlMemberType">octet</span> 
     <dd>
-     <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
+     <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-contributingsources">contributingSources<a class="self-link" href="#rtcencodedvideoframemetadata-contributingsources"></a></dfn> of type <span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
-     <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a>. </p>
+     <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
    </dl>
    <h3 class="heading settled" data-level="5.3" id="RTCEncodedVideoFrame-interface"><span class="secno">5.3. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe">RTCEncodedVideoFrame<a class="self-link" href="#rtcencodedvideoframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
 <pre class="idl highlight def">// New interfaces to define encoded video and audio frames. Will eventually
@@ -1089,7 +1089,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
             sent or received. </p>
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe-timestamp">timestamp<a class="self-link" href="#rtcencodedvideoframe-timestamp"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
     <dd>
-     <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
+     <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe-data">data<a class="self-link" href="#rtcencodedvideoframe-data"></a></dfn> of type <span class="idlMemberType">ArrayBuffer</span> 
     <dd>
      <p> The encoded frame data. </p>
@@ -1105,19 +1105,24 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-synchronizationsource"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedaudioframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-payloadtype"></a></dfn>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-contributingsources"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="short " id="dom-rtcencodedaudioframemetadata-sequencenumber"><code><c- g>sequenceNumber</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-sequencenumber"></a></dfn>;
 };
 </pre>
    <h4 class="heading settled" data-level="5.4.1" id="RTCEncodedAudioFrameMetadata-members"><span class="secno">5.4.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
     <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-synchronizationsource">synchronizationSource<a class="self-link" href="#rtcencodedaudioframemetadata-synchronizationsource"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
     <dd>
-     <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
+     <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
     <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-payloadtype">payloadType<a class="self-link" href="#rtcencodedaudioframemetadata-payloadtype"></a></dfn> of type <span class="idlMemberType">octet</span> 
     <dd>
-     <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
+     <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
     <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-contributingsources">contributingSources<a class="self-link" href="#rtcencodedaudioframemetadata-contributingsources"></a></dfn> of type <span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
-     <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a>. </p>
+     <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
+    <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-sequencenumber">sequenceNumber<a class="self-link" href="#rtcencodedaudioframemetadata-sequencenumber"></a></dfn> of type <span class="idlMemberType">short</span> 
+    <dd>
+     <p> The RTP sequence number as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. Only exists for incoming audio frames. </p>
+     <p class="note" role="note"> Comparing two sequence numbers requires serial number arithmetic described in <a data-link-type="biblio" href="#biblio-rfc1982" title="Serial Number Arithmetic">[RFC1982]</a>. </p>
    </dl>
    <h3 class="heading settled" data-level="5.5" id="RTCEncodedAudioFrame-interface"><span class="secno">5.5. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe">RTCEncodedAudioFrame<a class="self-link" href="#rtcencodedaudioframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
@@ -1131,7 +1136,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
    <dl class="dictionary-members">
     <dt> <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe-timestamp">timestamp<a class="self-link" href="#rtcencodedaudioframe-timestamp"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
     <dd>
-     <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
+     <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
     <dt> <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe-data">data<a class="self-link" href="#rtcencodedaudioframe-data"></a></dfn> of type <span class="idlMemberType">ArrayBuffer</span> 
     <dd>
      <p> The encoded frame data. </p>
@@ -1211,9 +1216,9 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <li data-md>
      <p>Let <var>transform</var> be the <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform①">RTCRtpScriptTransform</a></code> object that owns the <a data-link-type="dfn" href="#association-steps" id="ref-for-association-steps②">association steps</a>.</p>
     <li data-md>
-     <p>Let <var>encoder</var> be <var>rtcObject</var>’s encoder if <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑧">RTCRtpSender</a></code> or undefined otherwise.</p>
+     <p>Let <var>encoder</var> be <var>rtcObject</var>’s encoder if <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑧">RTCRtpSender</a></code> or undefined otherwise.</p>
     <li data-md>
-     <p>Let <var>depacketizer</var> be <var>rtcObject</var>’s depacketizer if <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑧">RTCRtpReceiver</a></code> or undefined otherwise.</p>
+     <p>Let <var>depacketizer</var> be <var>rtcObject</var>’s depacketizer if <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑧">RTCRtpReceiver</a></code> or undefined otherwise.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task③">Queue a task</a> on the DOM manipulation <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#task-source" id="ref-for-task-source①">task source</a> <var>worker</var>’s global scope to run the following steps:</p>
      <ol>
@@ -1281,7 +1286,7 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
       <li data-md>
        <p>If <var>rid</var> is undefined, remove from <var>videoEncoders</var> all video encoders except the first one.</p>
       <li data-md>
-       <p>If <var>videoEncoders</var> is empty, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑨">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①⓪">RTCRtpSender</a></code> track is ended.</p>
+       <p>If <var>videoEncoders</var> is empty, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑨">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①⓪">RTCRtpSender</a></code> track is ended.</p>
       <li data-md>
        <p>Let <var>videoEncoder</var> be the first encoder in <var>videoEncoders</var>.</p>
       <li data-md>
@@ -1333,16 +1338,16 @@ If the promise is associated to several rid values, it will be resolved when the
      <ol>
       <li data-md>
        <p>If sending a Full Intra Request (FIR) by <var>depacketizer</var>’s receiver is not deemed appropriate, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①">resolve</a> <var>promise</var> with undefined and abort these steps.
-Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104">[RFC5104]</a> provides guidelines of how and when it is appropriate to sending a Full Intra Request.</p>
+Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> provides guidelines of how and when it is appropriate to sending a Full Intra Request.</p>
       <li data-md>
-       <p>Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104">[RFC5104]</a> and send it through <var>depacketizer</var>’s receiver.</p>
+       <p>Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> and send it through <var>depacketizer</var>’s receiver.</p>
       <li data-md>
        <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">Resolve</a> <var>promise</var> with undefined.</p>
      </ol>
    </ol>
    <h2 class="heading settled" data-level="6" id="rtcrtpsender-extension"><span class="secno">6. </span><span class="content">RTCRtpSender extension</span><a class="self-link" href="#rtcrtpsender-extension"></a></h2>
-   <p>An additional API on <code class="idl"><a data-link-type="idl" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is added to complement the generation of key frame added to <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑧">RTCRtpScriptTransformer</a></code>.</p>
-<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②"><c- g>RTCRtpSender</c-></a> {
+   <p>An additional API on <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is added to complement the generation of key frame added to <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑧">RTCRtpScriptTransformer</a></code>.</p>
+<pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②"><c- g>RTCRtpSender</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise③"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-generatekeyframe" id="ref-for-dom-rtcrtpsender-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence④"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a>> <dfn class="idl-code" data-dfn-for="RTCRtpSender/generateKeyFrame(rids), RTCRtpSender/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpsender-generatekeyframe-rids-rids"><code><c- g>rids</c-></code><a class="self-link" href="#dom-rtcrtpsender-generatekeyframe-rids-rids"></a></dfn>);
 };
 </pre>
@@ -1359,7 +1364,7 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104">[RFC5104]</a>
    <h2 class="heading settled" data-level="7" id="privacy"><span class="secno">7. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.</p>
-   <p>However, streams that are isolated (as specified in <a data-link-type="biblio" href="#biblio-webrtc-identity">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
+   <p>However, streams that are isolated (as specified in <a data-link-type="biblio" href="#biblio-webrtc-identity" title="Identity for WebRTC 1.0">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
 accessed using this API, since that would break the isolation rule.</p>
    <p>The API will allow access to some aspects of timing information that are
 otherwise unavailable, which allows some fingerprinting surface.</p>
@@ -1384,7 +1389,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     However, for readability,
     these words do not appear in all uppercase letters in this specification. </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
@@ -1542,6 +1547,12 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 5.5.2</span>
    <li><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">sendKeyFrameRequest()</a><span>, in § 5.6</span>
    <li><a href="#send-request-key-frame-algorithm">send request key frame algorithm</a><span>, in § 5.8</span>
+   <li>
+    sequenceNumber
+    <ul>
+     <li><a href="#rtcencodedaudioframemetadata-sequencenumber">dfn for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-sequencenumber">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
+    </ul>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in § 4.2</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key, keyID)</a><span>, in § 4.2</span>
    <li><a href="#sframetransform">SFrameTransform</a><span>, in § 4</span>
@@ -1693,7 +1704,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-mediastreamtrack">
-   <a href="https://www.w3.org/TR/mediacapture-streams/#dom-mediastreamtrack">https://www.w3.org/TR/mediacapture-streams/#dom-mediastreamtrack</a><b>Referenced in:</b>
+   <a href="https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack">https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-mediastreamtrack">Unnumbered Section</a>
    </ul>
@@ -1935,6 +1946,12 @@ and may not be audited for reception of data from untrusted sources.</p>
     <li><a href="#ref-for-idl-sequence④">6. RTCRtpSender extension</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-short">
+   <a href="https://webidl.spec.whatwg.org/#idl-short">https://webidl.spec.whatwg.org/#idl-short</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-short">5.4. RTCEncodedAudioFrameMetadata dictionary</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-this">
    <a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
    <ul>
@@ -1976,20 +1993,20 @@ and may not be audited for reception of data from untrusted sources.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcconfiguration">
-   <a href="https://www.w3.org/TR/webrtc/#dom-rtcconfiguration">https://www.w3.org/TR/webrtc/#dom-rtcconfiguration</a><b>Referenced in:</b>
+   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration">https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcconfiguration">3.1. Extension operation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcpeerconnection">
-   <a href="https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection">https://www.w3.org/TR/webrtc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
+   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection">https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcpeerconnection">Unnumbered Section</a>
     <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpreceiver">
-   <a href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver">https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver</a><b>Referenced in:</b>
+   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver">https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcrtpreceiver">3. Specification</a> <a href="#ref-for-dom-rtcrtpreceiver①">(2)</a>
     <li><a href="#ref-for-dom-rtcrtpreceiver②">3.1.1. Stream creation</a>
@@ -2000,7 +2017,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-dom-rtcrtpsender">
-   <a href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender">https://www.w3.org/TR/webrtc/#dom-rtcrtpsender</a><b>Referenced in:</b>
+   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender">https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-rtcrtpsender">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender①">(2)</a>
     <li><a href="#ref-for-dom-rtcrtpsender②">3.1.1. Stream creation</a>
@@ -2090,6 +2107,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-reject">reject</span>
      <li><span class="dfn-paneled" id="term-for-resolve">resolve</span>
      <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
+     <li><span class="dfn-paneled" id="term-for-idl-short">short</span>
      <li><span class="dfn-paneled" id="term-for-this">this</span>
      <li><span class="dfn-paneled" id="term-for-idl-undefined">undefined</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
@@ -2097,7 +2115,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-short">unsigned short</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[WEBRTC-1]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBRTC]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-dom-rtcconfiguration">RTCConfiguration</span>
      <li><span class="dfn-paneled" id="term-for-dom-rtcpeerconnection">RTCPeerConnection</span>
@@ -2122,11 +2140,13 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Mark Watson. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography API</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
-   <dt id="biblio-webrtc-1">[WEBRTC-1]
-   <dd>WebRTC 1.0: Real-time Communication Between Browsers URL: <a href="https://www.w3.org/TR/webrtc/">https://www.w3.org/TR/webrtc/</a>
+   <dt id="biblio-webrtc">[WEBRTC]
+   <dd>Cullen Jennings; Henrik Boström; Jan-Ivar Bruaroey. <a href="https://w3c.github.io/webrtc-pc/"><cite>WebRTC 1.0: Real-Time Communication Between Browsers</cite></a>. URL: <a href="https://w3c.github.io/webrtc-pc/">https://w3c.github.io/webrtc-pc/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
+   <dt id="biblio-rfc1982">[RFC1982]
+   <dd>R. Elz; R. Bush. <a href="https://www.rfc-editor.org/rfc/rfc1982"><cite>Serial Number Arithmetic</cite></a>. August 1996. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc1982">https://www.rfc-editor.org/rfc/rfc1982</a>
    <dt id="biblio-rfc3550">[RFC3550]
    <dd>H. Schulzrinne; et al. <a href="https://www.rfc-editor.org/rfc/rfc3550"><cite>RTP: A Transport Protocol for Real-Time Applications</cite></a>. July 2003. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc3550">https://www.rfc-editor.org/rfc/rfc3550</a>
    <dt id="biblio-rfc5104">[RFC5104]
@@ -2144,11 +2164,11 @@ and may not be audited for reception of data from untrusted sources.</p>
 <pre class="idl highlight def"><c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <a href="#typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></a>;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpreceiver"><c- g>RTCRtpReceiver</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"><c- g>RTCRtpReceiver</c-></a> {
     <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtptransform"><c- n>RTCRtpTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpTransform?" href="#dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
@@ -2227,6 +2247,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-rtcencodedaudioframemetadata-payloadtype"><code><c- g>payloadType</c-></code></a>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-rtcencodedaudioframemetadata-sequencenumber"><code><c- g>sequenceNumber</c-></code></a>;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
@@ -2259,7 +2280,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="constructor" href="#dom-rtcrtpscripttransform-rtcrtpscripttransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"><code><c- g>worker</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any"><c- b>any</c-></a> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"><code><c- g>options</c-></code></a>, <c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-object"><c- b>object</c-></a>> <a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"><code><c- g>transfer</c-></code></a>);
 };
 
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://www.w3.org/TR/webrtc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"><c- g>RTCRtpSender</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpsender-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a> &lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a>> <a href="#dom-rtcrtpsender-generatekeyframe-rids-rids"><code><c- g>rids</c-></code></a>);
 };
 

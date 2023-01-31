@@ -434,6 +434,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
+    short sequenceNumber;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -465,6 +466,18 @@ dictionary RTCEncodedAudioFrameMetadata {
     <dd>
         <p>
             The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+    <dt>
+        <dfn>sequenceNumber</dfn> of type <span class=
+            "idlMemberType">short</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP sequence number as defined in [[RFC3550]]. Only exists for incoming audio frames.
+        </p>
+        <p class="note">
+            Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
         </p>
     </dd>
 </dl>

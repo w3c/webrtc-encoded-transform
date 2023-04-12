@@ -373,8 +373,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             The media presentation timestamp (PTS) in microseconds of raw frame, matching the
-	    {{VideoFrame/timestamp}} for raw frames which correspond to this frame and the
-	    {{VideoFrameCallbackMetadata/mediaTime}} given if this frame is decoded and rendererd.
+	    {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
 </dl>

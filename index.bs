@@ -330,7 +330,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned long temporalIndex;
     unsigned long synchronizationSource;
     octet payloadType;
-  sequence&lt;unsigned long&gt; contributingSources;
+    sequence&lt;unsigned long&gt; contributingSources;
 };
 </pre>
 

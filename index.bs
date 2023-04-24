@@ -331,7 +331,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
-    long long presentationTimestamp;    // microseconds
+    long long timestamp;    // microseconds
 };
 </pre>
 
@@ -367,7 +367,7 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn>presentationTimestamp</dfn> of type <span class=
+        <dfn>timestamp</dfn> of type <span class=
             "idlMemberType">long long</span>
     </dt>
     <dd>

@@ -330,7 +330,8 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned long temporalIndex;
     unsigned long synchronizationSource;
     octet payloadType;
-  sequence&lt;unsigned long&gt; contributingSources;
+    sequence&lt;unsigned long&gt; contributingSources;
+    long long timestamp;    // microseconds
 };
 </pre>
 
@@ -363,6 +364,16 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+    <dt>
+        <dfn>timestamp</dfn> of type <span class=
+            "idlMemberType">long long</span>
+    </dt>
+    <dd>
+        <p>
+            The media presentation timestamp (PTS) in microseconds of raw frame, matching the
+	    {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
 </dl>

@@ -6,11 +6,10 @@
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 859efb4bd, updated Fri Jan 27 16:04:01 2023 -0800" name="generator">
+  <meta content="Bikeshed version bf22245b8, updated Tue Apr 18 15:53:37 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="5c7ab84f4ce338f299172fa94af62ad3e2e7da74" name="document-revision">
+  <meta content="442e4c25eff82f253a469bf6e79750a3bc4c0e75" name="document-revision">
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -70,7 +69,8 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -179,9 +179,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -208,9 +208,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -218,10 +218,9 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
+    width: 20em;
+    width: 300px;
     height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
-    max-width: 300px;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -229,6 +228,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -236,8 +236,15 @@ figcaption:not(.no-marker)::before {
 .dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0; }
-.dfn-panel li { list-style: inside; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
@@ -248,10 +255,9 @@ figcaption:not(.no-marker)::before {
     max-height: 30vh;
 }
 
-.dfn-paneled { cursor: pointer; }
+.dfn-paneled[role="button"] { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -261,7 +267,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -269,7 +274,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -506,6 +512,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --selflink-text: black;
@@ -520,6 +527,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         --dfnpanel-text: var(--text);
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
@@ -587,7 +595,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-01-31">31 January 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-04-27">27 April 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -718,7 +726,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   </nav>
   <main>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
-   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases" title="WebRTC Next Version Use Cases">[WEBRTC-NV-USE-CASES]</a> document describes the use-case of</p>
+   <p>The <a data-link-type="biblio" href="#biblio-webrtc-nv-use-cases" title="WebRTC Extended Use Cases">[WEBRTC-NV-USE-CASES]</a> document describes the use-case of</p>
    <ul>
     <li data-md>
      <p>Untrusted JavaScript Cloud Conferencing</p>
@@ -1055,7 +1063,8 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-temporalindex"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-synchronizationsource"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-payloadtype"></a></dfn>;
-  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long long " id="dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-timestamp"></a></dfn>;    // microseconds
 };
 </pre>
    <h4 class="heading settled" data-level="5.2.1" id="RTCEncodedVideoFrameMetadata-members"><span class="secno">5.2.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata-members"></a></h4>
@@ -1069,6 +1078,9 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-contributingsources">contributingSources<a class="self-link" href="#rtcencodedvideoframemetadata-contributingsources"></a></dfn> of type <span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
      <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
+    <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-timestamp">timestamp<a class="self-link" href="#rtcencodedvideoframemetadata-timestamp"></a></dfn> of type <span class="idlMemberType">long long</span> 
+    <dd>
+     <p> The media presentation timestamp (PTS) in microseconds of raw frame, matching the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcodecs/#dom-videoframe-timestamp" id="ref-for-dom-videoframe-timestamp">timestamp</a></code> for raw frames which correspond to this frame. </p>
    </dl>
    <h3 class="heading settled" data-level="5.3" id="RTCEncodedVideoFrame-interface"><span class="secno">5.3. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe">RTCEncodedVideoFrame<a class="self-link" href="#rtcencodedvideoframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
 <pre class="idl highlight def">// New interfaces to define encoded video and audio frames. Will eventually
@@ -1403,20 +1415,22 @@ and may not be audited for reception of data from untrusted sources.</p>
     with <code>class="note"</code>,
     like this: </p>
    <p class="note" role="note">Note, this is an informative note.</p>
-   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
-   <p>Requirements phrased in the imperative as part of algorithms
+   <section>
+    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
     or "return false and abort these steps")
     are to be interpreted with the meaning of the key word
     ("must", "should", "may", etc)
     used in introducing the algorithm. </p>
-   <p>Conformance requirements phrased as algorithms or specific steps
+    <p>Conformance requirements phrased as algorithms or specific steps
     can be implemented in any manner,
     so long as the end result is equivalent.
     In particular, the algorithms defined in this specification
     are intended to be easy to understand
     and are not intended to be performant.
     Implementers are encouraged to optimize. </p>
+   </section>
   </div>
 <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
@@ -1583,6 +1597,8 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3</span>
      <li><a href="#rtcencodedaudioframe-timestamp">dfn for RTCEncodedAudioFrame</a><span>, in § 5.5.1</span>
      <li><a href="#rtcencodedvideoframe-timestamp">dfn for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
+     <li><a href="#rtcencodedvideoframemetadata-timestamp">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-timestamp">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
     </ul>
    <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 3.2</span>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 5.5.2</span>
@@ -1596,531 +1612,104 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcrtpscripttransformer-writable">writable</a><span>, in § 5.7</span>
    <li><a href="#writeencodeddata">writeEncodedData</a><span>, in § 3.1.2</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-abortcontroller">
-   <a href="https://dom.spec.whatwg.org/#abortcontroller">https://dom.spec.whatwg.org/#abortcontroller</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-abortcontroller">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-abortcontroller①">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-event">
-   <a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event">4. SFrameTransform</a>
-    <li><a href="#ref-for-event①">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dictdef-eventinit">
-   <a href="https://dom.spec.whatwg.org/#dictdef-eventinit">https://dom.spec.whatwg.org/#dictdef-eventinit</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-eventinit">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-abortsignal-aborted">
-   <a href="https://dom.spec.whatwg.org/#abortsignal-aborted">https://dom.spec.whatwg.org/#abortsignal-aborted</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-abortsignal-aborted">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-abortsignal-add">
-   <a href="https://dom.spec.whatwg.org/#abortsignal-add">https://dom.spec.whatwg.org/#abortsignal-add</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-abortsignal-add">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-event-fire">
-   <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-event-fire">4.1. Algorithm</a> <a href="#ref-for-concept-event-fire①">(2)</a> <a href="#ref-for-concept-event-fire②">(3)</a>
-    <li><a href="#ref-for-concept-event-fire③">5.6. Operations</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-abortsignal-signal-abort">
-   <a href="https://dom.spec.whatwg.org/#abortsignal-signal-abort">https://dom.spec.whatwg.org/#abortsignal-signal-abort</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-abortsignal-signal-abort">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dedicatedworkerglobalscope">
-   <a href="https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope">https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dedicatedworkerglobalscope">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-eventhandler">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventhandler">4. SFrameTransform</a>
-    <li><a href="#ref-for-eventhandler①">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-structureddeserialize">
-   <a href="https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize">https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-structureddeserialize">3.1.2. Stream processing</a>
-    <li><a href="#ref-for-structureddeserialize①">5.6. Operations</a> <a href="#ref-for-structureddeserialize②">(2)</a> <a href="#ref-for-structureddeserialize③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-structuredserializewithtransfer">
-   <a href="https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer">https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-structuredserializewithtransfer">3.1.2. Stream processing</a>
-    <li><a href="#ref-for-structuredserializewithtransfer①">5.6. Operations</a> <a href="#ref-for-structuredserializewithtransfer②">(2)</a> <a href="#ref-for-structuredserializewithtransfer③">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-worker">
-   <a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-worker">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-in-parallel">
-   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-in-parallel">3.1.2. Stream processing</a> <a href="#ref-for-in-parallel①">(2)</a>
-    <li><a href="#ref-for-in-parallel②">4.2. Methods</a>
-    <li><a href="#ref-for-in-parallel③">5.8. KeyFrame Algorithms</a> <a href="#ref-for-in-parallel④">(2)</a>
-    <li><a href="#ref-for-in-parallel⑤">6.1. Extension operation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-queue-a-task">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-queue-a-task">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-queue-a-task①">4.1. Algorithm</a>
-    <li><a href="#ref-for-queue-a-task②">5.6. Operations</a> <a href="#ref-for-queue-a-task③">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-concept-relevant-realm">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm">https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-relevant-realm">3.1.2. Stream processing</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-task-source">
-   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#task-source">https://html.spec.whatwg.org/multipage/webappapis.html#task-source</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-task-source">5.6. Operations</a> <a href="#ref-for-task-source①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-mediastreamtrack">
-   <a href="https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack">https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-mediastreamtrack">Unnumbered Section</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-generictransformstream">
-   <a href="https://streams.spec.whatwg.org/#generictransformstream">https://streams.spec.whatwg.org/#generictransformstream</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-generictransformstream">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-readablestream">
-   <a href="https://streams.spec.whatwg.org/#readablestream">https://streams.spec.whatwg.org/#readablestream</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readablestream">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-readablestream①">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-transformstream">
-   <a href="https://streams.spec.whatwg.org/#transformstream">https://streams.spec.whatwg.org/#transformstream</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-transformstream">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestream">
-   <a href="https://streams.spec.whatwg.org/#writablestream">https://streams.spec.whatwg.org/#writablestream</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestream">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-writablestream①">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-readablestream-enqueue">
-   <a href="https://streams.spec.whatwg.org/#readablestream-enqueue">https://streams.spec.whatwg.org/#readablestream-enqueue</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readablestream-enqueue">3.1.2. Stream processing</a>
-    <li><a href="#ref-for-readablestream-enqueue①">4.1. Algorithm</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-readablestream-get-a-reader">
-   <a href="https://streams.spec.whatwg.org/#readablestream-get-a-reader">https://streams.spec.whatwg.org/#readablestream-get-a-reader</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readablestream-get-a-reader">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestream-get-a-writer">
-   <a href="https://streams.spec.whatwg.org/#writablestream-get-a-writer">https://streams.spec.whatwg.org/#writablestream-get-a-writer</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestream-get-a-writer">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-identity-transform-stream">
-   <a href="https://streams.spec.whatwg.org/#identity-transform-stream">https://streams.spec.whatwg.org/#identity-transform-stream</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-identity-transform-stream">3.2. Extension attribute</a>
-    <li><a href="#ref-for-identity-transform-stream①">5.6. Operations</a> <a href="#ref-for-identity-transform-stream②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-readablestreamdefaultreader-release">
-   <a href="https://streams.spec.whatwg.org/#readablestreamdefaultreader-release">https://streams.spec.whatwg.org/#readablestreamdefaultreader-release</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readablestreamdefaultreader-release">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestreamdefaultwriter-release">
-   <a href="https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release">https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestreamdefaultwriter-release">3.2. Extension attribute</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-readablestream-set-up">
-   <a href="https://streams.spec.whatwg.org/#readablestream-set-up">https://streams.spec.whatwg.org/#readablestream-set-up</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readablestream-set-up">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-readablestream-set-up①">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestream-set-up">
-   <a href="https://streams.spec.whatwg.org/#writablestream-set-up">https://streams.spec.whatwg.org/#writablestream-set-up</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestream-set-up">3.1.1. Stream creation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestream-set-up-sizealgorithm">
-   <a href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm">https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestream-set-up-sizealgorithm">3.1.1. Stream creation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-transformstream-set-up-transformalgorithm">
-   <a href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm">https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-transformstream-set-up-transformalgorithm">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-writablestream-set-up-writealgorithm">
-   <a href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm">https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writablestream-set-up-writealgorithm">3.1.1. Stream creation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dfn-CryptoKey">
-   <a href="https://w3c.github.io/webcrypto/#dfn-CryptoKey">https://w3c.github.io/webcrypto/#dfn-CryptoKey</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dfn-CryptoKey">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-ArrayBuffer">
-   <a href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer">https://webidl.spec.whatwg.org/#idl-ArrayBuffer</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-ArrayBuffer">4.1. Algorithm</a>
-    <li><a href="#ref-for-idl-ArrayBuffer①">5.3. RTCEncodedVideoFrame interface</a>
-    <li><a href="#ref-for-idl-ArrayBuffer②">5.5. RTCEncodedAudioFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-BufferSource">
-   <a href="https://webidl.spec.whatwg.org/#BufferSource">https://webidl.spec.whatwg.org/#BufferSource</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-BufferSource">4.1. Algorithm</a> <a href="#ref-for-BufferSource①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
-   <a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMString">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-DOMString①">5.5.2. Methods</a>
-    <li><a href="#ref-for-idl-DOMString②">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-EnforceRange">
-   <a href="https://webidl.spec.whatwg.org/#EnforceRange">https://webidl.spec.whatwg.org/#EnforceRange</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-EnforceRange">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-Exposed">
-   <a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-Exposed">4. SFrameTransform</a> <a href="#ref-for-Exposed①">(2)</a>
-    <li><a href="#ref-for-Exposed②">5.3. RTCEncodedVideoFrame interface</a>
-    <li><a href="#ref-for-Exposed③">5.5. RTCEncodedAudioFrame interface</a>
-    <li><a href="#ref-for-Exposed④">5.5.2. Methods</a> <a href="#ref-for-Exposed⑤">(2)</a> <a href="#ref-for-Exposed⑥">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-invalidmodificationerror">
-   <a href="https://webidl.spec.whatwg.org/#invalidmodificationerror">https://webidl.spec.whatwg.org/#invalidmodificationerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-invalidmodificationerror">4.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-invalidstateerror">
-   <a href="https://webidl.spec.whatwg.org/#invalidstateerror">https://webidl.spec.whatwg.org/#invalidstateerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-invalidstateerror">5.8. KeyFrame Algorithms</a> <a href="#ref-for-invalidstateerror①">(2)</a> <a href="#ref-for-invalidstateerror②">(3)</a> <a href="#ref-for-invalidstateerror③">(4)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-notallowederror">
-   <a href="https://webidl.spec.whatwg.org/#notallowederror">https://webidl.spec.whatwg.org/#notallowederror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notallowederror">5.8. KeyFrame Algorithms</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-notfounderror">
-   <a href="https://webidl.spec.whatwg.org/#notfounderror">https://webidl.spec.whatwg.org/#notfounderror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notfounderror">5.8. KeyFrame Algorithms</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-promise">
-   <a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-promise">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-promise①">5.5.2. Methods</a> <a href="#ref-for-idl-promise②">(2)</a>
-    <li><a href="#ref-for-idl-promise③">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-exceptiondef-rangeerror">
-   <a href="https://webidl.spec.whatwg.org/#exceptiondef-rangeerror">https://webidl.spec.whatwg.org/#exceptiondef-rangeerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-exceptiondef-rangeerror">4.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-a-new-promise">
-   <a href="https://webidl.spec.whatwg.org/#a-new-promise">https://webidl.spec.whatwg.org/#a-new-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-a-new-promise">4.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-a-promise-resolved-with">
-   <a href="https://webidl.spec.whatwg.org/#a-promise-resolved-with">https://webidl.spec.whatwg.org/#a-promise-resolved-with</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-a-promise-resolved-with">3.1.2. Stream processing</a> <a href="#ref-for-a-promise-resolved-with①">(2)</a> <a href="#ref-for-a-promise-resolved-with②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-any">
-   <a href="https://webidl.spec.whatwg.org/#idl-any">https://webidl.spec.whatwg.org/#idl-any</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-any">4. SFrameTransform</a> <a href="#ref-for-idl-any①">(2)</a>
-    <li><a href="#ref-for-idl-any②">5.5.2. Methods</a> <a href="#ref-for-idl-any③">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-bigint">
-   <a href="https://webidl.spec.whatwg.org/#idl-bigint">https://webidl.spec.whatwg.org/#idl-bigint</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-bigint">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-bigint①">4.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-object">
-   <a href="https://webidl.spec.whatwg.org/#idl-object">https://webidl.spec.whatwg.org/#idl-object</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-object">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-octet">
-   <a href="https://webidl.spec.whatwg.org/#idl-octet">https://webidl.spec.whatwg.org/#idl-octet</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-octet">5.2. RTCEncodedVideoFrameMetadata dictionary</a>
-    <li><a href="#ref-for-idl-octet①">5.4. RTCEncodedAudioFrameMetadata dictionary</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-reject">
-   <a href="https://webidl.spec.whatwg.org/#reject">https://webidl.spec.whatwg.org/#reject</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-reject">4.2. Methods</a> <a href="#ref-for-reject①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-resolve">
-   <a href="https://webidl.spec.whatwg.org/#resolve">https://webidl.spec.whatwg.org/#resolve</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-resolve">4.2. Methods</a>
-    <li><a href="#ref-for-resolve①">5.8. KeyFrame Algorithms</a> <a href="#ref-for-resolve②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-sequence">
-   <a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-sequence">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-sequence①">(2)</a>
-    <li><a href="#ref-for-idl-sequence②">5.4. RTCEncodedAudioFrameMetadata dictionary</a>
-    <li><a href="#ref-for-idl-sequence③">5.5.2. Methods</a>
-    <li><a href="#ref-for-idl-sequence④">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-short">
-   <a href="https://webidl.spec.whatwg.org/#idl-short">https://webidl.spec.whatwg.org/#idl-short</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-short">5.4. RTCEncodedAudioFrameMetadata dictionary</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-this">
-   <a href="https://webidl.spec.whatwg.org/#this">https://webidl.spec.whatwg.org/#this</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-this">3.1.1. Stream creation</a> <a href="#ref-for-this①">(2)</a> <a href="#ref-for-this②">(3)</a> <a href="#ref-for-this③">(4)</a> <a href="#ref-for-this④">(5)</a> <a href="#ref-for-this⑤">(6)</a> <a href="#ref-for-this⑥">(7)</a> <a href="#ref-for-this⑦">(8)</a> <a href="#ref-for-this⑧">(9)</a> <a href="#ref-for-this⑨">(10)</a> <a href="#ref-for-this①⓪">(11)</a> <a href="#ref-for-this①①">(12)</a> <a href="#ref-for-this①②">(13)</a> <a href="#ref-for-this①③">(14)</a> <a href="#ref-for-this①④">(15)</a> <a href="#ref-for-this①⑤">(16)</a>
-    <li><a href="#ref-for-this①⑥">3.2. Extension attribute</a> <a href="#ref-for-this①⑦">(2)</a> <a href="#ref-for-this①⑧">(3)</a> <a href="#ref-for-this①⑨">(4)</a> <a href="#ref-for-this②⓪">(5)</a> <a href="#ref-for-this②①">(6)</a> <a href="#ref-for-this②②">(7)</a>
-    <li><a href="#ref-for-this②③">4. SFrameTransform</a>
-    <li><a href="#ref-for-this②④">5.7. Attributes</a> <a href="#ref-for-this②⑤">(2)</a> <a href="#ref-for-this②⑥">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-undefined">
-   <a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-undefined">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-undefined①">5.5.2. Methods</a>
-    <li><a href="#ref-for-idl-undefined②">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-long">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long①">(2)</a> <a href="#ref-for-idl-unsigned-long②">(3)</a> <a href="#ref-for-idl-unsigned-long③">(4)</a>
-    <li><a href="#ref-for-idl-unsigned-long④">5.3. RTCEncodedVideoFrame interface</a>
-    <li><a href="#ref-for-idl-unsigned-long⑤">5.4. RTCEncodedAudioFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long⑥">(2)</a>
-    <li><a href="#ref-for-idl-unsigned-long⑦">5.5. RTCEncodedAudioFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long-long">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long">https://webidl.spec.whatwg.org/#idl-unsigned-long-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-long-long">4. SFrameTransform</a>
-    <li><a href="#ref-for-idl-unsigned-long-long①">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-long-long②">(2)</a>
-    <li><a href="#ref-for-idl-unsigned-long-long③">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
-   <a href="https://webidl.spec.whatwg.org/#idl-unsigned-short">https://webidl.spec.whatwg.org/#idl-unsigned-short</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-short">5.2. RTCEncodedVideoFrameMetadata dictionary</a> <a href="#ref-for-idl-unsigned-short①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-rtcconfiguration">
-   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration">https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcconfiguration">3.1. Extension operation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-rtcpeerconnection">
-   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection">https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcpeerconnection">Unnumbered Section</a>
-    <li><a href="#ref-for-dom-rtcpeerconnection①">3.1. Extension operation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-rtcrtpreceiver">
-   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver">https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpreceiver">3. Specification</a> <a href="#ref-for-dom-rtcrtpreceiver①">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver②">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver③">3.1.2. Stream processing</a> <a href="#ref-for-dom-rtcrtpreceiver④">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpreceiver⑥">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver⑦">4.1. Algorithm</a>
-    <li><a href="#ref-for-dom-rtcrtpreceiver⑧">5.6. Operations</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="term-for-dom-rtcrtpsender">
-   <a href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender">https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender①">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender②">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-dom-rtcrtpsender③">3.1.2. Stream processing</a> <a href="#ref-for-dom-rtcrtpsender④">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑤">3.2. Extension attribute</a> <a href="#ref-for-dom-rtcrtpsender⑥">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑦">4.1. Algorithm</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑧">5.6. Operations</a>
-    <li><a href="#ref-for-dom-rtcrtpsender⑨">5.8. KeyFrame Algorithms</a> <a href="#ref-for-dom-rtcrtpsender①⓪">(2)</a>
-    <li><a href="#ref-for-dom-rtcrtpsender①①">6. RTCRtpSender extension</a> <a href="#ref-for-dom-rtcrtpsender①②">(2)</a>
-   </ul>
-  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-abortcontroller">AbortController</span>
-     <li><span class="dfn-paneled" id="term-for-event">Event</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-eventinit">EventInit</span>
-     <li><span class="dfn-paneled" id="term-for-abortsignal-aborted">aborted</span>
-     <li><span class="dfn-paneled" id="term-for-abortsignal-add">add</span>
-     <li><span class="dfn-paneled" id="term-for-concept-event-fire">fire an event</span>
-     <li><span class="dfn-paneled" id="term-for-abortsignal-signal-abort">signal abort</span>
+     <li><span class="dfn-paneled" id="2e66eaf1">AbortController</span>
+     <li><span class="dfn-paneled" id="129bdae8">Event</span>
+     <li><span class="dfn-paneled" id="44a7708c">EventInit</span>
+     <li><span class="dfn-paneled" id="535dd335">aborted</span>
+     <li><span class="dfn-paneled" id="87bc23a5">add</span>
+     <li><span class="dfn-paneled" id="5fd23811">fire an event</span>
+     <li><span class="dfn-paneled" id="790f0b49">signal abort</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dedicatedworkerglobalscope">DedicatedWorkerGlobalScope</span>
-     <li><span class="dfn-paneled" id="term-for-eventhandler">EventHandler</span>
-     <li><span class="dfn-paneled" id="term-for-structureddeserialize">StructuredDeserialize</span>
-     <li><span class="dfn-paneled" id="term-for-structuredserializewithtransfer">StructuredSerializeWithTransfer</span>
-     <li><span class="dfn-paneled" id="term-for-worker">Worker</span>
-     <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
-     <li><span class="dfn-paneled" id="term-for-queue-a-task">queue a task</span>
-     <li><span class="dfn-paneled" id="term-for-concept-relevant-realm">relevant realm</span>
-     <li><span class="dfn-paneled" id="term-for-task-source">task source</span>
+     <li><span class="dfn-paneled" id="b8308563">DedicatedWorkerGlobalScope</span>
+     <li><span class="dfn-paneled" id="f0951476">EventHandler</span>
+     <li><span class="dfn-paneled" id="0800bdf4">StructuredDeserialize</span>
+     <li><span class="dfn-paneled" id="9da834a1">StructuredSerializeWithTransfer</span>
+     <li><span class="dfn-paneled" id="bfc1c271">Worker</span>
+     <li><span class="dfn-paneled" id="a72449dd">in parallel</span>
+     <li><span class="dfn-paneled" id="9a517a7d">queue a task</span>
+     <li><span class="dfn-paneled" id="5991ccfb">relevant realm</span>
+     <li><span class="dfn-paneled" id="c3b2d08c">task source</span>
     </ul>
    <li>
     <a data-link-type="biblio">[MEDIACAPTURE-STREAMS]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dom-mediastreamtrack">MediaStreamTrack</span>
+     <li><span class="dfn-paneled" id="bc1e4fa1">MediaStreamTrack</span>
     </ul>
    <li>
     <a data-link-type="biblio">[STREAMS]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-generictransformstream">GenericTransformStream</span>
-     <li><span class="dfn-paneled" id="term-for-readablestream">ReadableStream</span>
-     <li><span class="dfn-paneled" id="term-for-transformstream">TransformStream</span>
-     <li><span class="dfn-paneled" id="term-for-writablestream">WritableStream</span>
-     <li><span class="dfn-paneled" id="term-for-readablestream-enqueue">enqueue</span>
-     <li><span class="dfn-paneled" id="term-for-readablestream-get-a-reader">getting a reader</span>
-     <li><span class="dfn-paneled" id="term-for-writablestream-get-a-writer">getting a writer</span>
-     <li><span class="dfn-paneled" id="term-for-identity-transform-stream">identity transform stream</span>
-     <li><span class="dfn-paneled" id="term-for-readablestreamdefaultreader-release">release <small>(for ReadableStreamDefaultReader)</small></span>
-     <li><span class="dfn-paneled" id="term-for-writablestreamdefaultwriter-release">release <small>(for WritableStreamDefaultWriter)</small></span>
-     <li><span class="dfn-paneled" id="term-for-readablestream-set-up">set up <small>(for ReadableStream)</small></span>
-     <li><span class="dfn-paneled" id="term-for-writablestream-set-up">set up <small>(for WritableStream)</small></span>
-     <li><span class="dfn-paneled" id="term-for-writablestream-set-up-sizealgorithm">sizealgorithm</span>
-     <li><span class="dfn-paneled" id="term-for-transformstream-set-up-transformalgorithm">transformalgorithm</span>
-     <li><span class="dfn-paneled" id="term-for-writablestream-set-up-writealgorithm">writealgorithm</span>
+     <li><span class="dfn-paneled" id="d61c5cab">GenericTransformStream</span>
+     <li><span class="dfn-paneled" id="59ed4e57">ReadableStream</span>
+     <li><span class="dfn-paneled" id="47e93e3e">TransformStream</span>
+     <li><span class="dfn-paneled" id="59dc45b5">WritableStream</span>
+     <li><span class="dfn-paneled" id="6b6bb798">enqueue</span>
+     <li><span class="dfn-paneled" id="bf6531af">getting a reader</span>
+     <li><span class="dfn-paneled" id="f4acb816">getting a writer</span>
+     <li><span class="dfn-paneled" id="03c3f3ed">identity transform stream</span>
+     <li><span class="dfn-paneled" id="b21c2abd">release <small>(for ReadableStreamDefaultReader)</small></span>
+     <li><span class="dfn-paneled" id="a307241e">release <small>(for WritableStreamDefaultWriter)</small></span>
+     <li><span class="dfn-paneled" id="d438bc09">set up <small>(for ReadableStream)</small></span>
+     <li><span class="dfn-paneled" id="3dc81766">set up <small>(for WritableStream)</small></span>
+     <li><span class="dfn-paneled" id="5d7f2906">sizealgorithm</span>
+     <li><span class="dfn-paneled" id="c7574ff1">transformalgorithm</span>
+     <li><span class="dfn-paneled" id="d04a8309">writealgorithm</span>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WEBCODECS]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="93b563b6">timestamp</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebCryptoAPI]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dfn-CryptoKey">CryptoKey</span>
+     <li><span class="dfn-paneled" id="5fc623fc">CryptoKey</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-ArrayBuffer">ArrayBuffer</span>
-     <li><span class="dfn-paneled" id="term-for-BufferSource">BufferSource</span>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-EnforceRange">EnforceRange</span>
-     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
-     <li><span class="dfn-paneled" id="term-for-invalidmodificationerror">InvalidModificationError</span>
-     <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-notallowederror">NotAllowedError</span>
-     <li><span class="dfn-paneled" id="term-for-notfounderror">NotFoundError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
-     <li><span class="dfn-paneled" id="term-for-exceptiondef-rangeerror">RangeError</span>
-     <li><span class="dfn-paneled" id="term-for-a-new-promise">a new promise</span>
-     <li><span class="dfn-paneled" id="term-for-a-promise-resolved-with">a promise resolved with</span>
-     <li><span class="dfn-paneled" id="term-for-idl-any">any</span>
-     <li><span class="dfn-paneled" id="term-for-idl-bigint">bigint</span>
-     <li><span class="dfn-paneled" id="term-for-idl-object">object</span>
-     <li><span class="dfn-paneled" id="term-for-idl-octet">octet</span>
-     <li><span class="dfn-paneled" id="term-for-reject">reject</span>
-     <li><span class="dfn-paneled" id="term-for-resolve">resolve</span>
-     <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
-     <li><span class="dfn-paneled" id="term-for-idl-short">short</span>
-     <li><span class="dfn-paneled" id="term-for-this">this</span>
-     <li><span class="dfn-paneled" id="term-for-idl-undefined">undefined</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long-long">unsigned long long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short">unsigned short</span>
+     <li><span class="dfn-paneled" id="2f8afbfe">ArrayBuffer</span>
+     <li><span class="dfn-paneled" id="3aff2fb3">BufferSource</span>
+     <li><span class="dfn-paneled" id="8855a9aa">DOMString</span>
+     <li><span class="dfn-paneled" id="c01cbda0">EnforceRange</span>
+     <li><span class="dfn-paneled" id="889e932f">Exposed</span>
+     <li><span class="dfn-paneled" id="cae6bf57">InvalidModificationError</span>
+     <li><span class="dfn-paneled" id="797018a7">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="ba556545">NotAllowedError</span>
+     <li><span class="dfn-paneled" id="9eda9b58">NotFoundError</span>
+     <li><span class="dfn-paneled" id="bdbd19d1">Promise</span>
+     <li><span class="dfn-paneled" id="ec878a66">RangeError</span>
+     <li><span class="dfn-paneled" id="dacde8b5">a new promise</span>
+     <li><span class="dfn-paneled" id="8f5c2179">a promise resolved with</span>
+     <li><span class="dfn-paneled" id="6c6b1005">any</span>
+     <li><span class="dfn-paneled" id="bdcd112d">bigint</span>
+     <li><span class="dfn-paneled" id="9aeb0a82">long long</span>
+     <li><span class="dfn-paneled" id="efd1ec5d">object</span>
+     <li><span class="dfn-paneled" id="bc5645aa">octet</span>
+     <li><span class="dfn-paneled" id="b262501e">reject</span>
+     <li><span class="dfn-paneled" id="3b90bdcd">resolve</span>
+     <li><span class="dfn-paneled" id="9cce47fd">sequence</span>
+     <li><span class="dfn-paneled" id="47574099">short</span>
+     <li><span class="dfn-paneled" id="4013a022">this</span>
+     <li><span class="dfn-paneled" id="5f90bbfb">undefined</span>
+     <li><span class="dfn-paneled" id="e97a9688">unsigned long</span>
+     <li><span class="dfn-paneled" id="f14b47b8">unsigned long long</span>
+     <li><span class="dfn-paneled" id="450958f7">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBRTC]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-dom-rtcconfiguration">RTCConfiguration</span>
-     <li><span class="dfn-paneled" id="term-for-dom-rtcpeerconnection">RTCPeerConnection</span>
-     <li><span class="dfn-paneled" id="term-for-dom-rtcrtpreceiver">RTCRtpReceiver</span>
-     <li><span class="dfn-paneled" id="term-for-dom-rtcrtpsender">RTCRtpSender</span>
+     <li><span class="dfn-paneled" id="c891de74">RTCConfiguration</span>
+     <li><span class="dfn-paneled" id="7c983b6d">RTCPeerConnection</span>
+     <li><span class="dfn-paneled" id="e4db230f">RTCRtpReceiver</span>
+     <li><span class="dfn-paneled" id="b161d57f">RTCRtpSender</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2136,12 +1725,14 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-streams">[STREAMS]
    <dd>Adam Rice; et al. <a href="https://streams.spec.whatwg.org/"><cite>Streams Standard</cite></a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
+   <dt id="biblio-webcodecs">[WEBCODECS]
+   <dd>Paul Adenot; Bernard Aboba. <a href="https://w3c.github.io/webcodecs/"><cite>WebCodecs</cite></a>. URL: <a href="https://w3c.github.io/webcodecs/">https://w3c.github.io/webcodecs/</a>
    <dt id="biblio-webcryptoapi">[WebCryptoAPI]
    <dd>Mark Watson. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography API</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
    <dt id="biblio-webrtc">[WEBRTC]
-   <dd>Cullen Jennings; Henrik Boström; Jan-Ivar Bruaroey. <a href="https://w3c.github.io/webrtc-pc/"><cite>WebRTC 1.0: Real-Time Communication Between Browsers</cite></a>. URL: <a href="https://w3c.github.io/webrtc-pc/">https://w3c.github.io/webrtc-pc/</a>
+   <dd>Cullen Jennings; et al. <a href="https://w3c.github.io/webrtc-pc/"><cite>WebRTC: Real-Time Communication in Browsers</cite></a>. URL: <a href="https://w3c.github.io/webrtc-pc/">https://w3c.github.io/webrtc-pc/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -2158,7 +1749,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
    <dd>Cullen Jennings; Martin Thomson. <a href="https://w3c.github.io/webrtc-identity/"><cite>Identity for WebRTC 1.0</cite></a>. URL: <a href="https://w3c.github.io/webrtc-identity/">https://w3c.github.io/webrtc-identity/</a>
    <dt id="biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]
-   <dd>Bernard Aboba. <a href="https://w3c.github.io/webrtc-nv-use-cases/"><cite>WebRTC Next Version Use Cases</cite></a>. URL: <a href="https://w3c.github.io/webrtc-nv-use-cases/">https://w3c.github.io/webrtc-nv-use-cases/</a>
+   <dd>Bernard Aboba. <a href="https://w3c.github.io/webrtc-nv-use-cases/"><cite>WebRTC Extended Use Cases</cite></a>. URL: <a href="https://w3c.github.io/webrtc-nv-use-cases/">https://w3c.github.io/webrtc-nv-use-cases/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>typedef</c-> (<a data-link-type="idl-name" href="#sframetransform"><c- n>SFrameTransform</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="#rtcrtpscripttransform"><c- n>RTCRtpScriptTransform</c-></a>) <a href="#typedefdef-rtcrtptransform"><code><c- g>RTCRtpTransform</c-></code></a>;
@@ -2230,7 +1821,8 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code></a>;
-  <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a data-type="long long " href="#dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code></a>;    // microseconds
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
@@ -2285,352 +1877,465 @@ and may not be audited for reception of data from untrusted sources.</p>
 };
 
 </pre>
-  <aside class="dfn-panel" data-for="typedefdef-rtcrtptransform">
-   <b><a href="#typedefdef-rtcrtptransform">#typedefdef-rtcrtptransform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-typedefdef-rtcrtptransform">3. Specification</a> <a href="#ref-for-typedefdef-rtcrtptransform①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="readencodeddata">
-   <b><a href="#readencodeddata">#readencodeddata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-readencodeddata">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-readencodeddata①">3.1.2. Stream processing</a> <a href="#ref-for-readencodeddata②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="writeencodeddata">
-   <b><a href="#writeencodeddata">#writeencodeddata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-writeencodeddata">3.1.1. Stream creation</a>
-    <li><a href="#ref-for-writeencodeddata①">3.1.2. Stream processing</a> <a href="#ref-for-writeencodeddata②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="association-steps">
-   <b><a href="#association-steps">#association-steps</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-association-steps">3.2. Extension attribute</a>
-    <li><a href="#ref-for-association-steps①">5.6. Operations</a> <a href="#ref-for-association-steps②">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpsender-transform">
-   <b><a href="#dom-rtcrtpsender-transform">#dom-rtcrtpsender-transform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-transform">3. Specification</a> <a href="#ref-for-dom-rtcrtpsender-transform①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="chain-transform-algorithm">
-   <b><a href="#chain-transform-algorithm">#chain-transform-algorithm</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-chain-transform-algorithm">3.2. Extension attribute</a> <a href="#ref-for-chain-transform-algorithm①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="enumdef-sframetransformrole">
-   <b><a href="#enumdef-sframetransformrole">#enumdef-sframetransformrole</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-sframetransformrole">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-sframetransformoptions">
-   <b><a href="#dictdef-sframetransformoptions">#dictdef-sframetransformoptions</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-sframetransformoptions">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformoptions-role">
-   <b><a href="#dom-sframetransformoptions-role">#dom-sframetransformoptions-role</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformoptions-role">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="typedefdef-smallcryptokeyid">
-   <b><a href="#typedefdef-smallcryptokeyid">#typedefdef-smallcryptokeyid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-typedefdef-smallcryptokeyid">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="typedefdef-cryptokeyid">
-   <b><a href="#typedefdef-cryptokeyid">#typedefdef-cryptokeyid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-typedefdef-cryptokeyid">4. SFrameTransform</a> <a href="#ref-for-typedefdef-cryptokeyid①">(2)</a> <a href="#ref-for-typedefdef-cryptokeyid②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="sframetransform">
-   <b><a href="#sframetransform">#sframetransform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-sframetransform">3. Specification</a>
-    <li><a href="#ref-for-sframetransform①">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransform-onerror">
-   <b><a href="#dom-sframetransform-onerror">#dom-sframetransform-onerror</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransform-onerror">4.1. Algorithm</a> <a href="#ref-for-dom-sframetransform-onerror①">(2)</a> <a href="#ref-for-dom-sframetransform-onerror②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="enumdef-sframetransformerroreventtype">
-   <b><a href="#enumdef-sframetransformerroreventtype">#enumdef-sframetransformerroreventtype</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-sframetransformerroreventtype">4. SFrameTransform</a> <a href="#ref-for-enumdef-sframetransformerroreventtype①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerroreventtype-authentication">
-   <b><a href="#dom-sframetransformerroreventtype-authentication">#dom-sframetransformerroreventtype-authentication</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerroreventtype-authentication">4.1. Algorithm</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerroreventtype-keyid">
-   <b><a href="#dom-sframetransformerroreventtype-keyid">#dom-sframetransformerroreventtype-keyid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerroreventtype-keyid">4.1. Algorithm</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerroreventtype-syntax">
-   <b><a href="#dom-sframetransformerroreventtype-syntax">#dom-sframetransformerroreventtype-syntax</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerroreventtype-syntax">4.1. Algorithm</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="sframetransformerrorevent">
-   <b><a href="#sframetransformerrorevent">#sframetransformerrorevent</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-sframetransformerrorevent">4.1. Algorithm</a> <a href="#ref-for-sframetransformerrorevent①">(2)</a> <a href="#ref-for-sframetransformerrorevent②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-errortype">
-   <b><a href="#dom-sframetransformerrorevent-errortype">#dom-sframetransformerrorevent-errortype</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerrorevent-errortype">4.1. Algorithm</a> <a href="#ref-for-dom-sframetransformerrorevent-errortype①">(2)</a> <a href="#ref-for-dom-sframetransformerrorevent-errortype②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-keyid">
-   <b><a href="#dom-sframetransformerrorevent-keyid">#dom-sframetransformerrorevent-keyid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerrorevent-keyid">4.1. Algorithm</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransformerrorevent-frame">
-   <b><a href="#dom-sframetransformerrorevent-frame">#dom-sframetransformerrorevent-frame</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransformerrorevent-frame">4.1. Algorithm</a> <a href="#ref-for-dom-sframetransformerrorevent-frame①">(2)</a> <a href="#ref-for-dom-sframetransformerrorevent-frame②">(3)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-sframetransformerroreventinit">
-   <b><a href="#dictdef-sframetransformerroreventinit">#dictdef-sframetransformerroreventinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-sframetransformerroreventinit">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransform-sframetransform">
-   <b><a href="#dom-sframetransform-sframetransform">#dom-sframetransform-sframetransform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransform-sframetransform">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-sframetransform-setencryptionkey">
-   <b><a href="#dom-sframetransform-setencryptionkey">#dom-sframetransform-setencryptionkey</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-sframetransform-setencryptionkey">4. SFrameTransform</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="enumdef-rtcencodedvideoframetype">
-   <b><a href="#enumdef-rtcencodedvideoframetype">#enumdef-rtcencodedvideoframetype</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-rtcencodedvideoframetype">5.3. RTCEncodedVideoFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedvideoframetype-key">
-   <b><a href="#dom-rtcencodedvideoframetype-key">#dom-rtcencodedvideoframetype-key</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedvideoframetype-key">5.8. KeyFrame Algorithms</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-rtcencodedvideoframemetadata">
-   <b><a href="#dictdef-rtcencodedvideoframemetadata">#dictdef-rtcencodedvideoframemetadata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-rtcencodedvideoframemetadata">5.3. RTCEncodedVideoFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="rtcencodedvideoframe①">
-   <b><a href="#rtcencodedvideoframe①">#rtcencodedvideoframe①</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-rtcencodedvideoframe①">4.1. Algorithm</a> <a href="#ref-for-rtcencodedvideoframe①①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedvideoframe-data">
-   <b><a href="#dom-rtcencodedvideoframe-data">#dom-rtcencodedvideoframe-data</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedvideoframe-data">4.1. Algorithm</a> <a href="#ref-for-dom-rtcencodedvideoframe-data①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedvideoframe-getmetadata">
-   <b><a href="#dom-rtcencodedvideoframe-getmetadata">#dom-rtcencodedvideoframe-getmetadata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedvideoframe-getmetadata">5.3. RTCEncodedVideoFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-rtcencodedaudioframemetadata">
-   <b><a href="#dictdef-rtcencodedaudioframemetadata">#dictdef-rtcencodedaudioframemetadata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-rtcencodedaudioframemetadata">5.5. RTCEncodedAudioFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="rtcencodedaudioframe①">
-   <b><a href="#rtcencodedaudioframe①">#rtcencodedaudioframe①</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-rtcencodedaudioframe①">4.1. Algorithm</a> <a href="#ref-for-rtcencodedaudioframe①①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedaudioframe-data">
-   <b><a href="#dom-rtcencodedaudioframe-data">#dom-rtcencodedaudioframe-data</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedaudioframe-data">4.1. Algorithm</a> <a href="#ref-for-dom-rtcencodedaudioframe-data①">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcencodedaudioframe-getmetadata">
-   <b><a href="#dom-rtcencodedaudioframe-getmetadata">#dom-rtcencodedaudioframe-getmetadata</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcencodedaudioframe-getmetadata">5.5. RTCEncodedAudioFrame interface</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="rtctransformevent">
-   <b><a href="#rtctransformevent">#rtctransformevent</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-rtctransformevent">5.6. Operations</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtctransformevent-transformer">
-   <b><a href="#dom-rtctransformevent-transformer">#dom-rtctransformevent-transformer</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtctransformevent-transformer">5.6. Operations</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="rtcrtpscripttransformer">
-   <b><a href="#rtcrtpscripttransformer">#rtcrtpscripttransformer</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-rtcrtpscripttransformer">5.5.2. Methods</a>
-    <li><a href="#ref-for-rtcrtpscripttransformer①">5.6. Operations</a> <a href="#ref-for-rtcrtpscripttransformer②">(2)</a>
-    <li><a href="#ref-for-rtcrtpscripttransformer③">5.7. Attributes</a> <a href="#ref-for-rtcrtpscripttransformer④">(2)</a> <a href="#ref-for-rtcrtpscripttransformer⑤">(3)</a>
-    <li><a href="#ref-for-rtcrtpscripttransformer⑥">5.8. KeyFrame Algorithms</a> <a href="#ref-for-rtcrtpscripttransformer⑦">(2)</a>
-    <li><a href="#ref-for-rtcrtpscripttransformer⑧">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="rtcrtpscripttransform">
-   <b><a href="#rtcrtpscripttransform">#rtcrtpscripttransform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-rtcrtpscripttransform">3. Specification</a>
-    <li><a href="#ref-for-rtcrtpscripttransform①">5.6. Operations</a>
-    <li><a href="#ref-for-rtcrtpscripttransform②">5.7. Attributes</a> <a href="#ref-for-rtcrtpscripttransform③">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransform-rtcrtpscripttransform">
-   <b><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">#dom-rtcrtpscripttransform-rtcrtpscripttransform</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransformer-generatekeyframe">
-   <b><a href="#dom-rtcrtpscripttransformer-generatekeyframe">#dom-rtcrtpscripttransformer-generatekeyframe</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransformer-generatekeyframe">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransformer-sendkeyframerequest">
-   <b><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">#dom-rtcrtpscripttransformer-sendkeyframerequest</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransformer-options">
-   <b><a href="#dom-rtcrtpscripttransformer-options">#dom-rtcrtpscripttransformer-options</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransformer-options">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransformer-readable">
-   <b><a href="#dom-rtcrtpscripttransformer-readable">#dom-rtcrtpscripttransformer-readable</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransformer-readable">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpscripttransformer-writable">
-   <b><a href="#dom-rtcrtpscripttransformer-writable">#dom-rtcrtpscripttransformer-writable</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpscripttransformer-writable">5.5.2. Methods</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="generate-key-frame-algorithm">
-   <b><a href="#generate-key-frame-algorithm">#generate-key-frame-algorithm</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-generate-key-frame-algorithm">5.6. Operations</a>
-    <li><a href="#ref-for-generate-key-frame-algorithm①">6.1. Extension operation</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="send-request-key-frame-algorithm">
-   <b><a href="#send-request-key-frame-algorithm">#send-request-key-frame-algorithm</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-send-request-key-frame-algorithm">5.6. Operations</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-rtcrtpsender-generatekeyframe">
-   <b><a href="#dom-rtcrtpsender-generatekeyframe">#dom-rtcrtpsender-generatekeyframe</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-rtcrtpsender-generatekeyframe">6. RTCRtpSender extension</a>
-   </ul>
-  </aside>
 <script>/* script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
 
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
-    if(target != "dfn-panel") {
-        // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
             }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
         }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
     }
 
-});
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
 </script>
+<script>/* script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['2e66eaf1'] = {"dfnID": "2e66eaf1", "url": "https://dom.spec.whatwg.org/#abortcontroller", "dfnText": "AbortController", "refSections": [{"refs": [{"id": "ref-for-abortcontroller"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abortcontroller\u2460"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['129bdae8'] = {"dfnID": "129bdae8", "url": "https://dom.spec.whatwg.org/#event", "dfnText": "Event", "refSections": [{"refs": [{"id": "ref-for-event"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-event\u2460"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['44a7708c'] = {"dfnID": "44a7708c", "url": "https://dom.spec.whatwg.org/#dictdef-eventinit", "dfnText": "EventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-eventinit"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['535dd335'] = {"dfnID": "535dd335", "url": "https://dom.spec.whatwg.org/#abortsignal-aborted", "dfnText": "aborted", "refSections": [{"refs": [{"id": "ref-for-abortsignal-aborted"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['87bc23a5'] = {"dfnID": "87bc23a5", "url": "https://dom.spec.whatwg.org/#abortsignal-add", "dfnText": "add", "refSections": [{"refs": [{"id": "ref-for-abortsignal-add"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['5fd23811'] = {"dfnID": "5fd23811", "url": "https://dom.spec.whatwg.org/#concept-event-fire", "dfnText": "fire an event", "refSections": [{"refs": [{"id": "ref-for-concept-event-fire"}, {"id": "ref-for-concept-event-fire\u2460"}, {"id": "ref-for-concept-event-fire\u2461"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-concept-event-fire\u2462"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['790f0b49'] = {"dfnID": "790f0b49", "url": "https://dom.spec.whatwg.org/#abortsignal-signal-abort", "dfnText": "signal abort", "refSections": [{"refs": [{"id": "ref-for-abortsignal-signal-abort"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['b8308563'] = {"dfnID": "b8308563", "url": "https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope", "dfnText": "DedicatedWorkerGlobalScope", "refSections": [{"refs": [{"id": "ref-for-dedicatedworkerglobalscope"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['f0951476'] = {"dfnID": "f0951476", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler", "dfnText": "EventHandler", "refSections": [{"refs": [{"id": "ref-for-eventhandler"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-eventhandler\u2460"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['0800bdf4'] = {"dfnID": "0800bdf4", "url": "https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize", "dfnText": "StructuredDeserialize", "refSections": [{"refs": [{"id": "ref-for-structureddeserialize"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-structureddeserialize\u2460"}, {"id": "ref-for-structureddeserialize\u2461"}, {"id": "ref-for-structureddeserialize\u2462"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['9da834a1'] = {"dfnID": "9da834a1", "url": "https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer", "dfnText": "StructuredSerializeWithTransfer", "refSections": [{"refs": [{"id": "ref-for-structuredserializewithtransfer"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-structuredserializewithtransfer\u2460"}, {"id": "ref-for-structuredserializewithtransfer\u2461"}, {"id": "ref-for-structuredserializewithtransfer\u2462"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['bfc1c271'] = {"dfnID": "bfc1c271", "url": "https://html.spec.whatwg.org/multipage/workers.html#worker", "dfnText": "Worker", "refSections": [{"refs": [{"id": "ref-for-worker"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['a72449dd'] = {"dfnID": "a72449dd", "url": "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel", "dfnText": "in parallel", "refSections": [{"refs": [{"id": "ref-for-in-parallel"}, {"id": "ref-for-in-parallel\u2460"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-in-parallel\u2461"}], "title": "4.2. Methods"}, {"refs": [{"id": "ref-for-in-parallel\u2462"}, {"id": "ref-for-in-parallel\u2463"}], "title": "5.8. KeyFrame Algorithms"}, {"refs": [{"id": "ref-for-in-parallel\u2464"}], "title": "6.1. Extension operation"}], "external": true};
+window.dfnpanelData['9a517a7d'] = {"dfnID": "9a517a7d", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task", "dfnText": "queue a task", "refSections": [{"refs": [{"id": "ref-for-queue-a-task"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-queue-a-task\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-queue-a-task\u2461"}, {"id": "ref-for-queue-a-task\u2462"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['5991ccfb'] = {"dfnID": "5991ccfb", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-realm", "dfnText": "relevant realm", "refSections": [{"refs": [{"id": "ref-for-concept-relevant-realm"}], "title": "3.1.2. Stream processing"}], "external": true};
+window.dfnpanelData['c3b2d08c'] = {"dfnID": "c3b2d08c", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#task-source", "dfnText": "task source", "refSections": [{"refs": [{"id": "ref-for-task-source"}, {"id": "ref-for-task-source\u2460"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['bc1e4fa1'] = {"dfnID": "bc1e4fa1", "url": "https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack", "dfnText": "MediaStreamTrack", "refSections": [{"refs": [{"id": "ref-for-dom-mediastreamtrack"}], "title": "Unnumbered Section"}], "external": true};
+window.dfnpanelData['d61c5cab'] = {"dfnID": "d61c5cab", "url": "https://streams.spec.whatwg.org/#generictransformstream", "dfnText": "GenericTransformStream", "refSections": [{"refs": [{"id": "ref-for-generictransformstream"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['59ed4e57'] = {"dfnID": "59ed4e57", "url": "https://streams.spec.whatwg.org/#readablestream", "dfnText": "ReadableStream", "refSections": [{"refs": [{"id": "ref-for-readablestream"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-readablestream\u2460"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['47e93e3e'] = {"dfnID": "47e93e3e", "url": "https://streams.spec.whatwg.org/#transformstream", "dfnText": "TransformStream", "refSections": [{"refs": [{"id": "ref-for-transformstream"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['59dc45b5'] = {"dfnID": "59dc45b5", "url": "https://streams.spec.whatwg.org/#writablestream", "dfnText": "WritableStream", "refSections": [{"refs": [{"id": "ref-for-writablestream"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-writablestream\u2460"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['6b6bb798'] = {"dfnID": "6b6bb798", "url": "https://streams.spec.whatwg.org/#readablestream-enqueue", "dfnText": "enqueue", "refSections": [{"refs": [{"id": "ref-for-readablestream-enqueue"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-readablestream-enqueue\u2460"}], "title": "4.1. Algorithm"}], "external": true};
+window.dfnpanelData['bf6531af'] = {"dfnID": "bf6531af", "url": "https://streams.spec.whatwg.org/#readablestream-get-a-reader", "dfnText": "getting a reader", "refSections": [{"refs": [{"id": "ref-for-readablestream-get-a-reader"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['f4acb816'] = {"dfnID": "f4acb816", "url": "https://streams.spec.whatwg.org/#writablestream-get-a-writer", "dfnText": "getting a writer", "refSections": [{"refs": [{"id": "ref-for-writablestream-get-a-writer"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['03c3f3ed'] = {"dfnID": "03c3f3ed", "url": "https://streams.spec.whatwg.org/#identity-transform-stream", "dfnText": "identity transform stream", "refSections": [{"refs": [{"id": "ref-for-identity-transform-stream"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-identity-transform-stream\u2460"}, {"id": "ref-for-identity-transform-stream\u2461"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['b21c2abd'] = {"dfnID": "b21c2abd", "url": "https://streams.spec.whatwg.org/#readablestreamdefaultreader-release", "dfnText": "release (for ReadableStreamDefaultReader)", "refSections": [{"refs": [{"id": "ref-for-readablestreamdefaultreader-release"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['a307241e'] = {"dfnID": "a307241e", "url": "https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release", "dfnText": "release (for WritableStreamDefaultWriter)", "refSections": [{"refs": [{"id": "ref-for-writablestreamdefaultwriter-release"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['d438bc09'] = {"dfnID": "d438bc09", "url": "https://streams.spec.whatwg.org/#readablestream-set-up", "dfnText": "set up (for ReadableStream)", "refSections": [{"refs": [{"id": "ref-for-readablestream-set-up"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-readablestream-set-up\u2460"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['3dc81766'] = {"dfnID": "3dc81766", "url": "https://streams.spec.whatwg.org/#writablestream-set-up", "dfnText": "set up (for WritableStream)", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up"}], "title": "3.1.1. Stream creation"}], "external": true};
+window.dfnpanelData['5d7f2906'] = {"dfnID": "5d7f2906", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm", "dfnText": "sizealgorithm", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-sizealgorithm"}], "title": "3.1.1. Stream creation"}], "external": true};
+window.dfnpanelData['c7574ff1'] = {"dfnID": "c7574ff1", "url": "https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm", "dfnText": "transformalgorithm", "refSections": [{"refs": [{"id": "ref-for-transformstream-set-up-transformalgorithm"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['d04a8309'] = {"dfnID": "d04a8309", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm", "dfnText": "writealgorithm", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-writealgorithm"}], "title": "3.1.1. Stream creation"}], "external": true};
+window.dfnpanelData['93b563b6'] = {"dfnID": "93b563b6", "url": "https://w3c.github.io/webcodecs/#dom-videoframe-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-videoframe-timestamp"}], "title": "5.2.1. Members"}], "external": true};
+window.dfnpanelData['5fc623fc'] = {"dfnID": "5fc623fc", "url": "https://w3c.github.io/webcrypto/#dfn-CryptoKey", "dfnText": "CryptoKey", "refSections": [{"refs": [{"id": "ref-for-dfn-CryptoKey"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['2f8afbfe'] = {"dfnID": "2f8afbfe", "url": "https://webidl.spec.whatwg.org/#idl-ArrayBuffer", "dfnText": "ArrayBuffer", "refSections": [{"refs": [{"id": "ref-for-idl-ArrayBuffer"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2460"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2461"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": true};
+window.dfnpanelData['3aff2fb3'] = {"dfnID": "3aff2fb3", "url": "https://webidl.spec.whatwg.org/#BufferSource", "dfnText": "BufferSource", "refSections": [{"refs": [{"id": "ref-for-BufferSource"}, {"id": "ref-for-BufferSource\u2460"}], "title": "4.1. Algorithm"}], "external": true};
+window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-DOMString\u2460"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-DOMString\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
+window.dfnpanelData['c01cbda0'] = {"dfnID": "c01cbda0", "url": "https://webidl.spec.whatwg.org/#EnforceRange", "dfnText": "EnforceRange", "refSections": [{"refs": [{"id": "ref-for-EnforceRange"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['889e932f'] = {"dfnID": "889e932f", "url": "https://webidl.spec.whatwg.org/#Exposed", "dfnText": "Exposed", "refSections": [{"refs": [{"id": "ref-for-Exposed"}, {"id": "ref-for-Exposed\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-Exposed\u2461"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-Exposed\u2462"}], "title": "5.5. RTCEncodedAudioFrame interface"}, {"refs": [{"id": "ref-for-Exposed\u2463"}, {"id": "ref-for-Exposed\u2464"}, {"id": "ref-for-Exposed\u2465"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['cae6bf57'] = {"dfnID": "cae6bf57", "url": "https://webidl.spec.whatwg.org/#invalidmodificationerror", "dfnText": "InvalidModificationError", "refSections": [{"refs": [{"id": "ref-for-invalidmodificationerror"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['797018a7'] = {"dfnID": "797018a7", "url": "https://webidl.spec.whatwg.org/#invalidstateerror", "dfnText": "InvalidStateError", "refSections": [{"refs": [{"id": "ref-for-invalidstateerror"}, {"id": "ref-for-invalidstateerror\u2460"}, {"id": "ref-for-invalidstateerror\u2461"}, {"id": "ref-for-invalidstateerror\u2462"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
+window.dfnpanelData['ba556545'] = {"dfnID": "ba556545", "url": "https://webidl.spec.whatwg.org/#notallowederror", "dfnText": "NotAllowedError", "refSections": [{"refs": [{"id": "ref-for-notallowederror"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
+window.dfnpanelData['9eda9b58'] = {"dfnID": "9eda9b58", "url": "https://webidl.spec.whatwg.org/#notfounderror", "dfnText": "NotFoundError", "refSections": [{"refs": [{"id": "ref-for-notfounderror"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
+window.dfnpanelData['bdbd19d1'] = {"dfnID": "bdbd19d1", "url": "https://webidl.spec.whatwg.org/#idl-promise", "dfnText": "Promise", "refSections": [{"refs": [{"id": "ref-for-idl-promise"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-promise\u2460"}, {"id": "ref-for-idl-promise\u2461"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-promise\u2462"}], "title": "6. RTCRtpSender extension"}], "external": true};
+window.dfnpanelData['ec878a66'] = {"dfnID": "ec878a66", "url": "https://webidl.spec.whatwg.org/#exceptiondef-rangeerror", "dfnText": "RangeError", "refSections": [{"refs": [{"id": "ref-for-exceptiondef-rangeerror"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['dacde8b5'] = {"dfnID": "dacde8b5", "url": "https://webidl.spec.whatwg.org/#a-new-promise", "dfnText": "a new promise", "refSections": [{"refs": [{"id": "ref-for-a-new-promise"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['8f5c2179'] = {"dfnID": "8f5c2179", "url": "https://webidl.spec.whatwg.org/#a-promise-resolved-with", "dfnText": "a promise resolved with", "refSections": [{"refs": [{"id": "ref-for-a-promise-resolved-with"}, {"id": "ref-for-a-promise-resolved-with\u2460"}, {"id": "ref-for-a-promise-resolved-with\u2461"}], "title": "3.1.2. Stream processing"}], "external": true};
+window.dfnpanelData['6c6b1005'] = {"dfnID": "6c6b1005", "url": "https://webidl.spec.whatwg.org/#idl-any", "dfnText": "any", "refSections": [{"refs": [{"id": "ref-for-idl-any"}, {"id": "ref-for-idl-any\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-any\u2461"}, {"id": "ref-for-idl-any\u2462"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['bdcd112d'] = {"dfnID": "bdcd112d", "url": "https://webidl.spec.whatwg.org/#idl-bigint", "dfnText": "bigint", "refSections": [{"refs": [{"id": "ref-for-idl-bigint"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-bigint\u2460"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['9aeb0a82'] = {"dfnID": "9aeb0a82", "url": "https://webidl.spec.whatwg.org/#idl-long-long", "dfnText": "long long", "refSections": [{"refs": [{"id": "ref-for-idl-long-long"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['efd1ec5d'] = {"dfnID": "efd1ec5d", "url": "https://webidl.spec.whatwg.org/#idl-object", "dfnText": "object", "refSections": [{"refs": [{"id": "ref-for-idl-object"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['bc5645aa'] = {"dfnID": "bc5645aa", "url": "https://webidl.spec.whatwg.org/#idl-octet", "dfnText": "octet", "refSections": [{"refs": [{"id": "ref-for-idl-octet"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2460"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['b262501e'] = {"dfnID": "b262501e", "url": "https://webidl.spec.whatwg.org/#reject", "dfnText": "reject", "refSections": [{"refs": [{"id": "ref-for-reject"}, {"id": "ref-for-reject\u2460"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['3b90bdcd'] = {"dfnID": "3b90bdcd", "url": "https://webidl.spec.whatwg.org/#resolve", "dfnText": "resolve", "refSections": [{"refs": [{"id": "ref-for-resolve"}], "title": "4.2. Methods"}, {"refs": [{"id": "ref-for-resolve\u2460"}, {"id": "ref-for-resolve\u2461"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
+window.dfnpanelData['9cce47fd'] = {"dfnID": "9cce47fd", "url": "https://webidl.spec.whatwg.org/#idl-sequence", "dfnText": "sequence", "refSections": [{"refs": [{"id": "ref-for-idl-sequence"}, {"id": "ref-for-idl-sequence\u2460"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2461"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2462"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-sequence\u2463"}], "title": "6. RTCRtpSender extension"}], "external": true};
+window.dfnpanelData['47574099'] = {"dfnID": "47574099", "url": "https://webidl.spec.whatwg.org/#idl-short", "dfnText": "short", "refSections": [{"refs": [{"id": "ref-for-idl-short"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}, {"id": "ref-for-this\u2460\u2460"}, {"id": "ref-for-this\u2460\u2461"}, {"id": "ref-for-this\u2460\u2462"}, {"id": "ref-for-this\u2460\u2463"}, {"id": "ref-for-this\u2460\u2464"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-this\u2460\u2465"}, {"id": "ref-for-this\u2460\u2466"}, {"id": "ref-for-this\u2460\u2467"}, {"id": "ref-for-this\u2460\u2468"}, {"id": "ref-for-this\u2461\u24ea"}, {"id": "ref-for-this\u2461\u2460"}, {"id": "ref-for-this\u2461\u2461"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-this\u2461\u2462"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-this\u2461\u2463"}, {"id": "ref-for-this\u2461\u2464"}, {"id": "ref-for-this\u2461\u2465"}], "title": "5.7. Attributes"}], "external": true};
+window.dfnpanelData['5f90bbfb'] = {"dfnID": "5f90bbfb", "url": "https://webidl.spec.whatwg.org/#idl-undefined", "dfnText": "undefined", "refSections": [{"refs": [{"id": "ref-for-idl-undefined"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-undefined\u2460"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-undefined\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
+window.dfnpanelData['e97a9688'] = {"dfnID": "e97a9688", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long", "dfnText": "unsigned long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long"}, {"id": "ref-for-idl-unsigned-long\u2460"}, {"id": "ref-for-idl-unsigned-long\u2461"}, {"id": "ref-for-idl-unsigned-long\u2462"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2463"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2464"}, {"id": "ref-for-idl-unsigned-long\u2465"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2466"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": true};
+window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2460"}, {"id": "ref-for-idl-unsigned-long-long\u2461"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2462"}], "title": "5.5.2. Methods"}], "external": true};
+window.dfnpanelData['450958f7'] = {"dfnID": "450958f7", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-short", "dfnText": "unsigned short", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-short"}, {"id": "ref-for-idl-unsigned-short\u2460"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['c891de74'] = {"dfnID": "c891de74", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration", "dfnText": "RTCConfiguration", "refSections": [{"refs": [{"id": "ref-for-dom-rtcconfiguration"}], "title": "3.1. Extension operation"}], "external": true};
+window.dfnpanelData['7c983b6d'] = {"dfnID": "7c983b6d", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection", "dfnText": "RTCPeerConnection", "refSections": [{"refs": [{"id": "ref-for-dom-rtcpeerconnection"}], "title": "Unnumbered Section"}, {"refs": [{"id": "ref-for-dom-rtcpeerconnection\u2460"}], "title": "3.1. Extension operation"}], "external": true};
+window.dfnpanelData['e4db230f'] = {"dfnID": "e4db230f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver", "dfnText": "RTCRtpReceiver", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpreceiver"}, {"id": "ref-for-dom-rtcrtpreceiver\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2462"}, {"id": "ref-for-dom-rtcrtpreceiver\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2464"}, {"id": "ref-for-dom-rtcrtpreceiver\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2467"}], "title": "5.6. Operations"}], "external": true};
+window.dfnpanelData['b161d57f'] = {"dfnID": "b161d57f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender", "dfnText": "RTCRtpSender", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender"}, {"id": "ref-for-dom-rtcrtpsender\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2462"}, {"id": "ref-for-dom-rtcrtpsender\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2464"}, {"id": "ref-for-dom-rtcrtpsender\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2467"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2468"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u24ea"}], "title": "5.8. KeyFrame Algorithms"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2460\u2460"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
+window.dfnpanelData['typedefdef-rtcrtptransform'] = {"dfnID": "typedefdef-rtcrtptransform", "url": "#typedefdef-rtcrtptransform", "dfnText": "RTCRtpTransform", "refSections": [{"refs": [{"id": "ref-for-typedefdef-rtcrtptransform"}, {"id": "ref-for-typedefdef-rtcrtptransform\u2460"}], "title": "3. Specification"}], "external": false};
+window.dfnpanelData['readencodeddata'] = {"dfnID": "readencodeddata", "url": "#readencodeddata", "dfnText": "readEncodedData", "refSections": [{"refs": [{"id": "ref-for-readencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-readencodeddata\u2460"}, {"id": "ref-for-readencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
+window.dfnpanelData['writeencodeddata'] = {"dfnID": "writeencodeddata", "url": "#writeencodeddata", "dfnText": "writeEncodedData", "refSections": [{"refs": [{"id": "ref-for-writeencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-writeencodeddata\u2460"}, {"id": "ref-for-writeencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
+window.dfnpanelData['association-steps'] = {"dfnID": "association-steps", "url": "#association-steps", "dfnText": "association steps", "refSections": [{"refs": [{"id": "ref-for-association-steps"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-association-steps\u2460"}, {"id": "ref-for-association-steps\u2461"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['dom-rtcrtpsender-transform'] = {"dfnID": "dom-rtcrtpsender-transform", "url": "#dom-rtcrtpsender-transform", "dfnText": "transform", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender-transform"}, {"id": "ref-for-dom-rtcrtpsender-transform\u2460"}], "title": "3. Specification"}], "external": false};
+window.dfnpanelData['chain-transform-algorithm'] = {"dfnID": "chain-transform-algorithm", "url": "#chain-transform-algorithm", "dfnText": "chain transform algorithm", "refSections": [{"refs": [{"id": "ref-for-chain-transform-algorithm"}, {"id": "ref-for-chain-transform-algorithm\u2460"}], "title": "3.2. Extension attribute"}], "external": false};
+window.dfnpanelData['enumdef-sframetransformrole'] = {"dfnID": "enumdef-sframetransformrole", "url": "#enumdef-sframetransformrole", "dfnText": "SFrameTransformRole", "refSections": [{"refs": [{"id": "ref-for-enumdef-sframetransformrole"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dictdef-sframetransformoptions'] = {"dfnID": "dictdef-sframetransformoptions", "url": "#dictdef-sframetransformoptions", "dfnText": "SFrameTransformOptions", "refSections": [{"refs": [{"id": "ref-for-dictdef-sframetransformoptions"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dom-sframetransformoptions-role'] = {"dfnID": "dom-sframetransformoptions-role", "url": "#dom-sframetransformoptions-role", "dfnText": "role", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformoptions-role"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['typedefdef-smallcryptokeyid'] = {"dfnID": "typedefdef-smallcryptokeyid", "url": "#typedefdef-smallcryptokeyid", "dfnText": "SmallCryptoKeyID", "refSections": [{"refs": [{"id": "ref-for-typedefdef-smallcryptokeyid"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['typedefdef-cryptokeyid'] = {"dfnID": "typedefdef-cryptokeyid", "url": "#typedefdef-cryptokeyid", "dfnText": "CryptoKeyID", "refSections": [{"refs": [{"id": "ref-for-typedefdef-cryptokeyid"}, {"id": "ref-for-typedefdef-cryptokeyid\u2460"}, {"id": "ref-for-typedefdef-cryptokeyid\u2461"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['sframetransform'] = {"dfnID": "sframetransform", "url": "#sframetransform", "dfnText": "SFrameTransform", "refSections": [{"refs": [{"id": "ref-for-sframetransform"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-sframetransform\u2460"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dom-sframetransform-onerror'] = {"dfnID": "dom-sframetransform-onerror", "url": "#dom-sframetransform-onerror", "dfnText": "onerror", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransform-onerror"}, {"id": "ref-for-dom-sframetransform-onerror\u2460"}, {"id": "ref-for-dom-sframetransform-onerror\u2461"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['enumdef-sframetransformerroreventtype'] = {"dfnID": "enumdef-sframetransformerroreventtype", "url": "#enumdef-sframetransformerroreventtype", "dfnText": "SFrameTransformErrorEventType", "refSections": [{"refs": [{"id": "ref-for-enumdef-sframetransformerroreventtype"}, {"id": "ref-for-enumdef-sframetransformerroreventtype\u2460"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dom-sframetransformerroreventtype-authentication'] = {"dfnID": "dom-sframetransformerroreventtype-authentication", "url": "#dom-sframetransformerroreventtype-authentication", "dfnText": "\"authentication\"", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerroreventtype-authentication"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-sframetransformerroreventtype-keyid'] = {"dfnID": "dom-sframetransformerroreventtype-keyid", "url": "#dom-sframetransformerroreventtype-keyid", "dfnText": "\"keyID\"", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerroreventtype-keyid"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-sframetransformerroreventtype-syntax'] = {"dfnID": "dom-sframetransformerroreventtype-syntax", "url": "#dom-sframetransformerroreventtype-syntax", "dfnText": "\"syntax\"", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerroreventtype-syntax"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['sframetransformerrorevent'] = {"dfnID": "sframetransformerrorevent", "url": "#sframetransformerrorevent", "dfnText": "SFrameTransformErrorEvent", "refSections": [{"refs": [{"id": "ref-for-sframetransformerrorevent"}, {"id": "ref-for-sframetransformerrorevent\u2460"}, {"id": "ref-for-sframetransformerrorevent\u2461"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-sframetransformerrorevent-errortype'] = {"dfnID": "dom-sframetransformerrorevent-errortype", "url": "#dom-sframetransformerrorevent-errortype", "dfnText": "errorType", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerrorevent-errortype"}, {"id": "ref-for-dom-sframetransformerrorevent-errortype\u2460"}, {"id": "ref-for-dom-sframetransformerrorevent-errortype\u2461"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-sframetransformerrorevent-keyid'] = {"dfnID": "dom-sframetransformerrorevent-keyid", "url": "#dom-sframetransformerrorevent-keyid", "dfnText": "keyID", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerrorevent-keyid"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-sframetransformerrorevent-frame'] = {"dfnID": "dom-sframetransformerrorevent-frame", "url": "#dom-sframetransformerrorevent-frame", "dfnText": "frame", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformerrorevent-frame"}, {"id": "ref-for-dom-sframetransformerrorevent-frame\u2460"}, {"id": "ref-for-dom-sframetransformerrorevent-frame\u2461"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dictdef-sframetransformerroreventinit'] = {"dfnID": "dictdef-sframetransformerroreventinit", "url": "#dictdef-sframetransformerroreventinit", "dfnText": "SFrameTransformErrorEventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-sframetransformerroreventinit"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dom-sframetransform-sframetransform'] = {"dfnID": "dom-sframetransform-sframetransform", "url": "#dom-sframetransform-sframetransform", "dfnText": "new SFrameTransform(options)", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransform-sframetransform"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['dom-sframetransform-setencryptionkey'] = {"dfnID": "dom-sframetransform-setencryptionkey", "url": "#dom-sframetransform-setencryptionkey", "dfnText": "setEncryptionKey(key, keyID)", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransform-setencryptionkey"}], "title": "4. SFrameTransform"}], "external": false};
+window.dfnpanelData['enumdef-rtcencodedvideoframetype'] = {"dfnID": "enumdef-rtcencodedvideoframetype", "url": "#enumdef-rtcencodedvideoframetype", "dfnText": "RTCEncodedVideoFrameType", "refSections": [{"refs": [{"id": "ref-for-enumdef-rtcencodedvideoframetype"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframetype-key'] = {"dfnID": "dom-rtcencodedvideoframetype-key", "url": "#dom-rtcencodedvideoframetype-key", "dfnText": "\"key\"", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-key"}], "title": "5.8. KeyFrame Algorithms"}], "external": false};
+window.dfnpanelData['dictdef-rtcencodedvideoframemetadata'] = {"dfnID": "dictdef-rtcencodedvideoframemetadata", "url": "#dictdef-rtcencodedvideoframemetadata", "dfnText": "RTCEncodedVideoFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedvideoframemetadata"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['rtcencodedvideoframe①'] = {"dfnID": "rtcencodedvideoframe\u2460", "url": "#rtcencodedvideoframe\u2460", "dfnText": "RTCEncodedVideoFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedvideoframe\u2460"}, {"id": "ref-for-rtcencodedvideoframe\u2460\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframe-data'] = {"dfnID": "dom-rtcencodedvideoframe-data", "url": "#dom-rtcencodedvideoframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data"}, {"id": "ref-for-dom-rtcencodedvideoframe-data\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframe-getmetadata'] = {"dfnID": "dom-rtcencodedvideoframe-getmetadata", "url": "#dom-rtcencodedvideoframe-getmetadata", "dfnText": "getMetadata()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-getmetadata"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dictdef-rtcencodedaudioframemetadata'] = {"dfnID": "dictdef-rtcencodedaudioframemetadata", "url": "#dictdef-rtcencodedaudioframemetadata", "dfnText": "RTCEncodedAudioFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedaudioframemetadata"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
+window.dfnpanelData['rtcencodedaudioframe①'] = {"dfnID": "rtcencodedaudioframe\u2460", "url": "#rtcencodedaudioframe\u2460", "dfnText": "RTCEncodedAudioFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedaudioframe\u2460"}, {"id": "ref-for-rtcencodedaudioframe\u2460\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframe-data'] = {"dfnID": "dom-rtcencodedaudioframe-data", "url": "#dom-rtcencodedaudioframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data"}, {"id": "ref-for-dom-rtcencodedaudioframe-data\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframe-getmetadata'] = {"dfnID": "dom-rtcencodedaudioframe-getmetadata", "url": "#dom-rtcencodedaudioframe-getmetadata", "dfnText": "getMetadata()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-getmetadata"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
+window.dfnpanelData['rtctransformevent'] = {"dfnID": "rtctransformevent", "url": "#rtctransformevent", "dfnText": "RTCTransformEvent", "refSections": [{"refs": [{"id": "ref-for-rtctransformevent"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['dom-rtctransformevent-transformer'] = {"dfnID": "dom-rtctransformevent-transformer", "url": "#dom-rtctransformevent-transformer", "dfnText": "transformer", "refSections": [{"refs": [{"id": "ref-for-dom-rtctransformevent-transformer"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['rtcrtpscripttransformer'] = {"dfnID": "rtcrtpscripttransformer", "url": "#rtcrtpscripttransformer", "dfnText": "RTCRtpScriptTransformer", "refSections": [{"refs": [{"id": "ref-for-rtcrtpscripttransformer"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-rtcrtpscripttransformer\u2460"}, {"id": "ref-for-rtcrtpscripttransformer\u2461"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-rtcrtpscripttransformer\u2462"}, {"id": "ref-for-rtcrtpscripttransformer\u2463"}, {"id": "ref-for-rtcrtpscripttransformer\u2464"}], "title": "5.7. Attributes"}, {"refs": [{"id": "ref-for-rtcrtpscripttransformer\u2465"}, {"id": "ref-for-rtcrtpscripttransformer\u2466"}], "title": "5.8. KeyFrame Algorithms"}, {"refs": [{"id": "ref-for-rtcrtpscripttransformer\u2467"}], "title": "6. RTCRtpSender extension"}], "external": false};
+window.dfnpanelData['rtcrtpscripttransform'] = {"dfnID": "rtcrtpscripttransform", "url": "#rtcrtpscripttransform", "dfnText": "RTCRtpScriptTransform", "refSections": [{"refs": [{"id": "ref-for-rtcrtpscripttransform"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-rtcrtpscripttransform\u2460"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-rtcrtpscripttransform\u2461"}, {"id": "ref-for-rtcrtpscripttransform\u2462"}], "title": "5.7. Attributes"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransform-rtcrtpscripttransform'] = {"dfnID": "dom-rtcrtpscripttransform-rtcrtpscripttransform", "url": "#dom-rtcrtpscripttransform-rtcrtpscripttransform", "dfnText": "new RTCRtpScriptTransform(worker, options, transfer)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransformer-generatekeyframe'] = {"dfnID": "dom-rtcrtpscripttransformer-generatekeyframe", "url": "#dom-rtcrtpscripttransformer-generatekeyframe", "dfnText": "generateKeyFrame(rid)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-generatekeyframe"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransformer-sendkeyframerequest'] = {"dfnID": "dom-rtcrtpscripttransformer-sendkeyframerequest", "url": "#dom-rtcrtpscripttransformer-sendkeyframerequest", "dfnText": "sendKeyFrameRequest()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransformer-options'] = {"dfnID": "dom-rtcrtpscripttransformer-options", "url": "#dom-rtcrtpscripttransformer-options", "dfnText": "options", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-options"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransformer-readable'] = {"dfnID": "dom-rtcrtpscripttransformer-readable", "url": "#dom-rtcrtpscripttransformer-readable", "dfnText": "readable", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-readable"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['dom-rtcrtpscripttransformer-writable'] = {"dfnID": "dom-rtcrtpscripttransformer-writable", "url": "#dom-rtcrtpscripttransformer-writable", "dfnText": "writable", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-writable"}], "title": "5.5.2. Methods"}], "external": false};
+window.dfnpanelData['generate-key-frame-algorithm'] = {"dfnID": "generate-key-frame-algorithm", "url": "#generate-key-frame-algorithm", "dfnText": "generate key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-generate-key-frame-algorithm"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-generate-key-frame-algorithm\u2460"}], "title": "6.1. Extension operation"}], "external": false};
+window.dfnpanelData['send-request-key-frame-algorithm'] = {"dfnID": "send-request-key-frame-algorithm", "url": "#send-request-key-frame-algorithm", "dfnText": "send request key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-send-request-key-frame-algorithm"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['dom-rtcrtpsender-generatekeyframe'] = {"dfnID": "dom-rtcrtpsender-generatekeyframe", "url": "#dom-rtcrtpsender-generatekeyframe", "dfnText": "generateKeyFrame(rids)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender-generatekeyframe"}], "title": "6. RTCRtpSender extension"}], "external": false};</script>
+<script>/* script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}</script>

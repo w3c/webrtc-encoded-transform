@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version bf22245b8, updated Tue Apr 18 15:53:37 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="442e4c25eff82f253a469bf6e79750a3bc4c0e75" name="document-revision">
+  <meta content="915870d0085f5229d7feeeb6bb72502a864a77f7" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -595,7 +595,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-04-27">27 April 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-04-28">28 April 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -669,25 +669,25 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <li>
      <a href="#scriptTransform"><span class="secno">5</span> <span class="content">RTCRtpScriptTransform</span></a>
      <ol class="toc">
-      <li><a href="#RTCEncodedVideoFrameType"><span class="secno">5.1</span> <span class="content"><span>RTCEncodedVideoFrameType</span> dictionary</span></a>
+      <li><a href="#RTCEncodedVideoFrameType"><span class="secno">5.1</span> <span class="content"><span><code>RTCEncodedVideoFrameType</code></span> dictionary</span></a>
       <li>
-       <a href="#RTCEncodedVideoFrameMetadata"><span class="secno">5.2</span> <span class="content"><span>RTCEncodedVideoFrameMetadata</span> dictionary</span></a>
+       <a href="#RTCEncodedVideoFrameMetadata"><span class="secno">5.2</span> <span class="content"><span><code>RTCEncodedVideoFrameMetadata</code></span> dictionary</span></a>
        <ol class="toc">
         <li><a href="#RTCEncodedVideoFrameMetadata-members"><span class="secno">5.2.1</span> <span class="content">Members</span></a>
        </ol>
       <li>
-       <a href="#RTCEncodedVideoFrame-interface"><span class="secno">5.3</span> <span class="content"><span>RTCEncodedVideoFrame</span> interface</span></a>
+       <a href="#RTCEncodedVideoFrame-interface"><span class="secno">5.3</span> <span class="content"><span><code>RTCEncodedVideoFrame</code></span> interface</span></a>
        <ol class="toc">
         <li><a href="#RTCEncodedVideoFrame-members"><span class="secno">5.3.1</span> <span class="content">Members</span></a>
         <li><a href="#RTCEncodedVideoFrame-methods"><span class="secno">5.3.2</span> <span class="content">Methods</span></a>
        </ol>
       <li>
-       <a href="#RTCEncodedAudioFrameMetadata"><span class="secno">5.4</span> <span class="content"><span>RTCEncodedAudioFrameMetadata</span> dictionary</span></a>
+       <a href="#RTCEncodedAudioFrameMetadata"><span class="secno">5.4</span> <span class="content"><span><code>RTCEncodedAudioFrameMetadata</code></span> dictionary</span></a>
        <ol class="toc">
         <li><a href="#RTCEncodedAudioFrameMetadata-members"><span class="secno">5.4.1</span> <span class="content">Members</span></a>
        </ol>
       <li>
-       <a href="#RTCEncodedAudioFrame-interface"><span class="secno">5.5</span> <span class="content"><span>RTCEncodedAudioFrame</span> interface</span></a>
+       <a href="#RTCEncodedAudioFrame-interface"><span class="secno">5.5</span> <span class="content"><span><code>RTCEncodedAudioFrame</code></span> interface</span></a>
        <ol class="toc">
         <li><a href="#RTCEncodedAudioFrame-members"><span class="secno">5.5.1</span> <span class="content">Members</span></a>
         <li><a href="#RTCEncodedAudioFrame-methods"><span class="secno">5.5.2</span> <span class="content">Methods</span></a>
@@ -768,13 +768,13 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>.<code>[[readable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream">ReadableStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[readable]]</code>. <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>.<code>[[readable]]</code> is provided frames using the <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[readable]]</code>. <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>.<code>[[readable]]</code> is provided frames using the <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>.<code>[[readable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream">WritableStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm" id="ref-for-writablestream-set-up-sizealgorithm">sizeAlgorithm</a> to an algorithm that returns <code>0</code>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm" id="ref-for-writablestream-set-up-sizealgorithm">sizeAlgorithm</a> to an algorithm that returns <code>0</code>.</p>
      <p class="note" role="note">Chunk size is set to 0 to explictly disable streams backpressure on the write side.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.<code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
@@ -796,7 +796,7 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
      </ol>
    </ol>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
    <ol>
     <li data-md>
      <p>Wait for a frame to be produced by <var>rtcObject</var>’s encoder if it is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender③">RTCRtpSender</a></code> or <var>rtcObject</var>’s packetizer if it is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver③">RTCRtpReceiver</a></code>.</p>
@@ -811,7 +811,7 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue">Enqueue</a> <var>frame</var> in <var>rtcObject</var>.<code>[[readable]]</code>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="writeencodeddata">writeEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter and a <var>frame</var> as input. It is defined by running the following steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-writeencodeddata">writeEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter and a <var>frame</var> as input. It is defined by running the following steps:</p>
    <ol>
     <li data-md>
      <p>If <var>frame</var>.<code>[[owner]]</code> is not equal to <var>rtcObject</var>, abort these steps and return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with">a promise resolved with</a> undefined. A processor cannot create frames, or move frames between streams.</p>
@@ -836,14 +836,14 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
    </ol>
-   <p>On sender side, as part of <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata①">readEncodedData</a>, frames produced by <var>rtcObject</var>’s encoder MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the encoder’s output order.
-As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata①">writeEncodedData</a> ensures that the transform cannot reorder frames, the encoder’s output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.</p>
-   <p>On receiver side, as part of <a data-link-type="dfn" href="#readencodeddata" id="ref-for-readencodeddata②">readEncodedData</a>, frames produced by <var>rtcObject</var>’s packetizer MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the same encoder’s output order.
+   <p>On sender side, as part of <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata①">readEncodedData</a>, frames produced by <var>rtcObject</var>’s encoder MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the encoder’s output order.
+As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata①">writeEncodedData</a> ensures that the transform cannot reorder frames, the encoder’s output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.</p>
+   <p>On receiver side, as part of <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata②">readEncodedData</a>, frames produced by <var>rtcObject</var>’s packetizer MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the same encoder’s output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in <var>rtcObject</var>.<code>[[readable]]</code>.
-As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata②">writeEncodedData</a> ensures that the transform cannot reorder frames, this will be the order expected by <var>rtcObject</var>’s decoder.</p>
+As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata②">writeEncodedData</a> ensures that the transform cannot reorder frames, this will be the order expected by <var>rtcObject</var>’s decoder.</p>
    <h3 class="heading settled" data-level="3.2" id="attribute"><span class="secno">3.2. </span><span class="content">Extension attribute</span><a class="self-link" href="#attribute"></a></h3>
    <p>A RTCRtpTransform has two private slots called <code>[[readable]]</code> and <code>[[writable]]</code>.</p>
-   <p>Each RTCRtpTransform has an <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="association-steps">association steps</dfn> set, which is empty by default.</p>
+   <p>Each RTCRtpTransform has an <dfn class="dfn-paneled" data-dfn-for="RTCRtpTransform" data-dfn-type="abstract-op" data-export id="abstract-opdef-rtcrtptransform-association-steps">association steps</dfn> set, which is empty by default.</p>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender,RTCRtpReceiver" data-dfn-type="attribute" data-export id="dom-rtcrtpsender-transform"><code>transform</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
@@ -865,20 +865,20 @@ As <a data-link-type="dfn" href="#writeencodeddata" id="ref-for-writeencodeddata
      <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑦">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
      <ol>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
       <li data-md>
        <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-signal-abort" id="ref-for-abortsignal-signal-abort">signal abort</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
     <li data-md>
-     <p>Else, run the <a data-link-type="dfn" href="#chain-transform-algorithm" id="ref-for-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
+     <p>Else, run the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⓪">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
     <li data-md>
-     <p>Run the steps in the set of <a data-link-type="dfn" href="#association-steps" id="ref-for-association-steps">association steps</a> of <var>transform</var> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②②">this</a>.</p>
+     <p>Run the steps in the set of <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-steps" id="ref-for-abstract-opdef-rtcrtptransform-association-steps">association steps</a> of <var>transform</var> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②②">this</a>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
    <ol>
     <li data-md>
      <p>If <var>newPipeToController</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-abortsignal-aborted">aborted</a>, abort these steps.</p>
@@ -971,9 +971,9 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource">BufferSource</a></code>, set <var>data</var> to <var>frame</var>.</p>
     <li data-md>
-     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe①" id="ref-for-rtcencodedaudioframe①">RTCEncodedAudioFrame</a></code>, set <var>data</var> to <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data">data</a></code></p>
+     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe">RTCEncodedAudioFrame</a></code>, set <var>data</var> to <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data">data</a></code></p>
     <li data-md>
-     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe①" id="ref-for-rtcencodedvideoframe①">RTCEncodedVideoFrame</a></code>, set <var>data</var> to <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data">data</a></code></p>
+     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe">RTCEncodedVideoFrame</a></code>, set <var>data</var> to <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data">data</a></code></p>
     <li data-md>
      <p>If <var>data</var> is undefined, abort these steps.</p>
     <li data-md>
@@ -997,9 +997,9 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <li data-md>
      <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①">BufferSource</a></code>, set <var>frame</var> to <var>buffer</var>.</p>
     <li data-md>
-     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe①" id="ref-for-rtcencodedaudioframe①①">RTCEncodedAudioFrame</a></code>, set <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data①">data</a></code> to <var>buffer</var>.</p>
+     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe①">RTCEncodedAudioFrame</a></code>, set <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data①">data</a></code> to <var>buffer</var>.</p>
     <li data-md>
-     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe①" id="ref-for-rtcencodedvideoframe①①">RTCEncodedVideoFrame</a></code>, set <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data①">data</a></code> to <var>buffer</var>.</p>
+     <p>If <var>frame</var> is a <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe①">RTCEncodedVideoFrame</a></code>, set <var>frame</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data①">data</a></code> to <var>buffer</var>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue①">Enqueue</a> <var>frame</var> in <var>sframe</var>.<code>[[transform]]</code>.</p>
    </ol>
@@ -1024,13 +1024,13 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
      <p>Return <var>promise</var>.</p>
    </ol>
    <h2 class="heading settled" data-level="5" id="scriptTransform"><span class="secno">5. </span><span class="content">RTCRtpScriptTransform</span><a class="self-link" href="#scriptTransform"></a></h2>
-   <h3 class="heading settled" data-level="5.1" id="RTCEncodedVideoFrameType"><span class="secno">5.1. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframetype">RTCEncodedVideoFrameType<a class="self-link" href="#rtcencodedvideoframetype"></a></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameType"></a></h3>
+   <h3 class="heading settled" data-level="5.1" id="RTCEncodedVideoFrameType"><span class="secno">5.1. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-rtcencodedvideoframetype"><code>RTCEncodedVideoFrameType</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameType"></a></h3>
 <pre class="idl highlight def">// New enum for video frame types. Will eventually re-use the equivalent defined
 // by WebCodecs.
-<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-rtcencodedvideoframetype"><code><c- g>RTCEncodedVideoFrameType</c-></code></dfn> {
-    <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export id="dom-rtcencodedvideoframetype-empty"><code><c- s>"empty"</c-></code><a class="self-link" href="#dom-rtcencodedvideoframetype-empty"></a></dfn>,
-    <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export id="dom-rtcencodedvideoframetype-key"><code><c- s>"key"</c-></code></dfn>,
-    <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export id="dom-rtcencodedvideoframetype-delta"><code><c- s>"delta"</c-></code><a class="self-link" href="#dom-rtcencodedvideoframetype-delta"></a></dfn>,
+<c- b>enum</c-> <a class="idl-code" data-link-type="enum" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype"><c- g>RTCEncodedVideoFrameType</c-></a> {
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-empty" id="ref-for-dom-rtcencodedvideoframetype-empty"><c- s>"empty"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-key" id="ref-for-dom-rtcencodedvideoframetype-key"><c- s>"key"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-delta" id="ref-for-dom-rtcencodedvideoframetype-delta"><c- s>"delta"</c-></a>,
 };
 </pre>
    <table class="simple">
@@ -1041,68 +1041,68 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
       <th>Description
     <tbody>
      <tr>
-      <td> <dfn data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="dfn" data-idl data-noexport id="rtcencodedvideoframetype-empty">empty<a class="self-link" href="#rtcencodedvideoframetype-empty"></a></dfn> 
+      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;empty&quot;|empty" id="dom-rtcencodedvideoframetype-empty"><code>empty</code></dfn> 
       <td>
        <p> This frame contains no data. </p>
      <tr>
-      <td> <dfn data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="dfn" data-idl data-noexport id="rtcencodedvideoframetype-key">key<a class="self-link" href="#rtcencodedvideoframetype-key"></a></dfn> 
+      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;key&quot;|key" id="dom-rtcencodedvideoframetype-key"><code>key</code></dfn> 
       <td>
        <p> This frame can be decoded without reference to any other frames. </p>
      <tr>
-      <td> <dfn data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="dfn" data-idl data-noexport id="rtcencodedvideoframetype-delta">delta<a class="self-link" href="#rtcencodedvideoframetype-delta"></a></dfn> 
+      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;delta&quot;|delta" id="dom-rtcencodedvideoframetype-delta"><code>delta</code></dfn> 
       <td>
        <p> This frame references another frame and can not be decoded without that frame. </p>
    </table>
-   <h3 class="heading settled" data-level="5.2" id="RTCEncodedVideoFrameMetadata"><span class="secno">5.2. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata<a class="self-link" href="#rtcencodedvideoframemetadata"></a></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></dfn> {
+   <h3 class="heading settled" data-level="5.2" id="RTCEncodedVideoFrameMetadata"><span class="secno">5.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframemetadata"><code>RTCEncodedVideoFrameMetadata</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- g>RTCEncodedVideoFrameMetadata</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long①"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long long " id="dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-frameid"></a></dfn>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long②"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long long> " id="dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-dependencies"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-width"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-height"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-spatialindex"></a></dfn>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-temporalindex"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-synchronizationsource"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-payloadtype"></a></dfn>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-contributingsources"></a></dfn>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource" id="ref-for-dom-rtcencodedvideoframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype" id="ref-for-dom-rtcencodedvideoframemetadata-payloadtype"><c- g>payloadType</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources" id="ref-for-dom-rtcencodedvideoframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long long " id="dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-timestamp"></a></dfn>;    // microseconds
 };
 </pre>
    <h4 class="heading settled" data-level="5.2.1" id="RTCEncodedVideoFrameMetadata-members"><span class="secno">5.2.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-synchronizationsource">synchronizationSource<a class="self-link" href="#rtcencodedvideoframemetadata-synchronizationsource"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code>synchronizationSource</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
     <dd>
      <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-payloadtype">payloadType<a class="self-link" href="#rtcencodedvideoframemetadata-payloadtype"></a></dfn> of type <span class="idlMemberType">octet</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-payloadtype"><code>payloadType</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①">octet</a></span><span class="idlMemberType">octet</span> 
     <dd>
      <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-contributingsources">contributingSources<a class="self-link" href="#rtcencodedvideoframemetadata-contributingsources"></a></dfn> of type <span class="idlMemberType">sequence&lt;unsigned long></span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-contributingsources"><code>contributingSources</code></dfn> of type , <span> of type <code class="idl-code">sequence&lt;unsigned long></code></span><span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
      <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
     <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-timestamp">timestamp<a class="self-link" href="#rtcencodedvideoframemetadata-timestamp"></a></dfn> of type <span class="idlMemberType">long long</span> 
     <dd>
      <p> The media presentation timestamp (PTS) in microseconds of raw frame, matching the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcodecs/#dom-videoframe-timestamp" id="ref-for-dom-videoframe-timestamp">timestamp</a></code> for raw frames which correspond to this frame. </p>
    </dl>
-   <h3 class="heading settled" data-level="5.3" id="RTCEncodedVideoFrame-interface"><span class="secno">5.3. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe">RTCEncodedVideoFrame<a class="self-link" href="#rtcencodedvideoframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
+   <h3 class="heading settled" data-level="5.3" id="RTCEncodedVideoFrame-interface"><span class="secno">5.3. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe"><code>RTCEncodedVideoFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
 <pre class="idl highlight def">// New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe①"><code><c- g>RTCEncodedVideoFrame</c-></code></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="RTCEncodedVideoFrameType" id="dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-type"></a></dfn>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframe-timestamp"></a></dfn>;
-    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code></dfn>;
-    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata" id="ref-for-dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
+<c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe②"><c- g>RTCEncodedVideoFrame</c-></a> {
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype①"><c- n>RTCEncodedVideoFrameType</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type"><c- g>type</c-></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp"><c- g>timestamp</c-></a>;
+    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data②"><c- g>data</c-></a>;
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata①"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata" id="ref-for-dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 </pre>
    <h4 class="heading settled" data-level="5.3.1" id="RTCEncodedVideoFrame-members"><span class="secno">5.3.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrame-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe-type">type<a class="self-link" href="#rtcencodedvideoframe-type"></a></dfn> of type <span class="idlMemberType">RTCEncodedVideoFrameType</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-type"><code>type</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype②">RTCEncodedVideoFrameType</a>, readonly</span><span class="idlMemberType">RTCEncodedVideoFrameType</span> 
     <dd>
      <p> The type attribute allows the application to determine when a key frame is being
             sent or received. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe-timestamp">timestamp<a class="self-link" href="#rtcencodedvideoframe-timestamp"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-timestamp"><code>timestamp</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥">unsigned long</a>, readonly</span><span class="idlMemberType">unsigned long</span> 
     <dd>
      <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframe-data">data<a class="self-link" href="#rtcencodedvideoframe-data"></a></dfn> of type <span class="idlMemberType">ArrayBuffer</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-data"><code>data</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
     <dd>
      <p> The encoded frame data. </p>
    </dl>
@@ -1112,44 +1112,44 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <dd>
      <p> Returns the metadata associated with the frame. </p>
    </dl>
-   <h3 class="heading settled" data-level="5.4" id="RTCEncodedAudioFrameMetadata"><span class="secno">5.4. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata<a class="self-link" href="#rtcencodedaudioframemetadata"></a></dfn> dictionary</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata"></a></h3>
-<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframemetadata"><code><c- g>RTCEncodedAudioFrameMetadata</c-></code></dfn> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-synchronizationsource"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="octet " id="dom-rtcencodedaudioframemetadata-payloadtype"><code><c- g>payloadType</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-payloadtype"></a></dfn>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="sequence<unsigned long> " id="dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-contributingsources"></a></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export data-type="short " id="dom-rtcencodedaudioframemetadata-sequencenumber"><code><c- g>sequenceNumber</c-></code><a class="self-link" href="#dom-rtcencodedaudioframemetadata-sequencenumber"></a></dfn>;
+   <h3 class="heading settled" data-level="5.4" id="RTCEncodedAudioFrameMetadata"><span class="secno">5.4. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframemetadata"><code>RTCEncodedAudioFrameMetadata</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata"></a></h3>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata"><c- g>RTCEncodedAudioFrameMetadata</c-></a> {
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑦"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedaudioframemetadata-synchronizationsource" id="ref-for-dom-rtcencodedaudioframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedaudioframemetadata-payloadtype" id="ref-for-dom-rtcencodedaudioframemetadata-payloadtype"><c- g>payloadType</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑧"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedaudioframemetadata-contributingsources" id="ref-for-dom-rtcencodedaudioframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="short " href="#dom-rtcencodedaudioframemetadata-sequencenumber" id="ref-for-dom-rtcencodedaudioframemetadata-sequencenumber"><c- g>sequenceNumber</c-></a>;
 };
 </pre>
    <h4 class="heading settled" data-level="5.4.1" id="RTCEncodedAudioFrameMetadata-members"><span class="secno">5.4.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-synchronizationsource">synchronizationSource<a class="self-link" href="#rtcencodedaudioframemetadata-synchronizationsource"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-synchronizationsource"><code>synchronizationSource</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑨">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
     <dd>
      <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-payloadtype">payloadType<a class="self-link" href="#rtcencodedaudioframemetadata-payloadtype"></a></dfn> of type <span class="idlMemberType">octet</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-payloadtype"><code>payloadType</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet③">octet</a></span><span class="idlMemberType">octet</span> 
     <dd>
      <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-contributingsources">contributingSources<a class="self-link" href="#rtcencodedaudioframemetadata-contributingsources"></a></dfn> of type <span class="idlMemberType">sequence&lt;unsigned long></span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-contributingsources"><code>contributingSources</code></dfn> of type , <span> of type <code class="idl-code">sequence&lt;unsigned long></code></span><span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
      <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframemetadata-sequencenumber">sequenceNumber<a class="self-link" href="#rtcencodedaudioframemetadata-sequencenumber"></a></dfn> of type <span class="idlMemberType">short</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-sequencenumber"><code>sequenceNumber</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short①">short</a></span><span class="idlMemberType">short</span> 
     <dd>
      <p> The RTP sequence number as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. Only exists for incoming audio frames. </p>
      <p class="note" role="note"> Comparing two sequence numbers requires serial number arithmetic described in <a data-link-type="biblio" href="#biblio-rfc1982" title="Serial Number Arithmetic">[RFC1982]</a>. </p>
    </dl>
-   <h3 class="heading settled" data-level="5.5" id="RTCEncodedAudioFrame-interface"><span class="secno">5.5. </span><span class="content"><dfn data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe">RTCEncodedAudioFrame<a class="self-link" href="#rtcencodedaudioframe"></a></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
+   <h3 class="heading settled" data-level="5.5" id="RTCEncodedAudioFrame-interface"><span class="secno">5.5. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe"><code>RTCEncodedAudioFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe①"><code><c- g>RTCEncodedAudioFrame</c-></code></dfn> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑦"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-readonly data-type="unsigned long" id="dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedaudioframe-timestamp"></a></dfn>;
-    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②"><c- b>ArrayBuffer</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export data-type="ArrayBuffer" id="dom-rtcencodedaudioframe-data"><code><c- g>data</c-></code></dfn>;
-    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata" id="ref-for-dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
+<c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe②"><c- g>RTCEncodedAudioFrame</c-></a> {
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①⓪"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-rtcencodedaudioframe-timestamp" id="ref-for-dom-rtcencodedaudioframe-timestamp"><c- g>timestamp</c-></a>;
+    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer③"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data②"><c- g>data</c-></a>;
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata①"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata" id="ref-for-dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 </pre>
    <h4 class="heading settled" data-level="5.5.1" id="RTCEncodedAudioFrame-members"><span class="secno">5.5.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrame-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe-timestamp">timestamp<a class="self-link" href="#rtcencodedaudioframe-timestamp"></a></dfn> of type <span class="idlMemberType">unsigned long</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-timestamp"><code>timestamp</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①①">unsigned long</a>, readonly</span><span class="idlMemberType">unsigned long</span> 
     <dd>
      <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="dfn" data-noexport id="rtcencodedaudioframe-data">data<a class="self-link" href="#rtcencodedaudioframe-data"></a></dfn> of type <span class="idlMemberType">ArrayBuffer</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-data"><code>data</code></dfn> of type , <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer④">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
     <dd>
      <p> The encoded frame data. </p>
    </dl>
@@ -1223,10 +1223,10 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
      </ol>
    </ol>
    <p>// FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).</p>
-   <p>Each RTCRtpScriptTransform has the following set of <a data-link-type="dfn" href="#association-steps" id="ref-for-association-steps①">association steps</a>, given <var>rtcObject</var>:</p>
+   <p>Each RTCRtpScriptTransform has the following set of <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-steps" id="ref-for-abstract-opdef-rtcrtptransform-association-steps①">association steps</a>, given <var>rtcObject</var>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>transform</var> be the <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform①">RTCRtpScriptTransform</a></code> object that owns the <a data-link-type="dfn" href="#association-steps" id="ref-for-association-steps②">association steps</a>.</p>
+     <p>Let <var>transform</var> be the <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransform" id="ref-for-rtcrtpscripttransform①">RTCRtpScriptTransform</a></code> object that owns the <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-steps" id="ref-for-abstract-opdef-rtcrtptransform-association-steps②">association steps</a>.</p>
     <li data-md>
      <p>Let <var>encoder</var> be <var>rtcObject</var>’s encoder if <var>rtcObject</var> is a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑧">RTCRtpSender</a></code> or undefined otherwise.</p>
     <li data-md>
@@ -1247,7 +1247,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
     <li data-md>
-     <p>Run the <a data-link-type="dfn" href="#generate-key-frame-algorithm" id="ref-for-generate-key-frame-algorithm">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>.<code>[[encoder]]</code> and <var>rid</var>.</p>
+     <p>Run the <a data-link-type="abstract-op" href="#abstract-opdef-generate-key-frame-algorithm" id="ref-for-abstract-opdef-generate-key-frame-algorithm">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>.<code>[[encoder]]</code> and <var>rid</var>.</p>
     <li data-md>
      <p>Return <var>promise</var>.</p>
    </ol>
@@ -1256,7 +1256,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
     <li data-md>
-     <p>Run the <a data-link-type="dfn" href="#send-request-key-frame-algorithm" id="ref-for-send-request-key-frame-algorithm">send request key frame algorithm</a> with <var>promise</var> and <var>this</var>.<code>[[depacketizer]]</code>.</p>
+     <p>Run the <a data-link-type="abstract-op" href="#abstract-opdef-send-request-key-frame-algorithm" id="ref-for-abstract-opdef-send-request-key-frame-algorithm">send request key frame algorithm</a> with <var>promise</var> and <var>this</var>.<code>[[depacketizer]]</code>.</p>
     <li data-md>
      <p>Return <var>promise</var>.</p>
    </ol>
@@ -1280,7 +1280,7 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⑥">this</a>.<code>[[writable]]</code>.</p>
    </ol>
    <h3 class="heading settled" data-level="5.8" id="KeyFrame-algorithms"><span class="secno">5.8. </span><span class="content">KeyFrame Algorithms</span><a class="self-link" href="#KeyFrame-algorithms"></a></h3>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="generate-key-frame-algorithm">generate key frame algorithm</dfn>, given <var>promise</var>, <var>encoder</var> and <var>rid</var>, is defined by running these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-generate-key-frame-algorithm">generate key frame algorithm</dfn>, given <var>promise</var>, <var>encoder</var> and <var>rid</var>, is defined by running these steps:</p>
    <ol>
     <li data-md>
      <p>If <var>encoder</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code>, abort these steps.</p>
@@ -1322,7 +1322,7 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
     <li data-md>
      <p>If <var>encoder</var> or <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> is undefined, abort these steps.</p>
     <li data-md>
-     <p>If <var>frame</var> is not a video <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframetype-key" id="ref-for-dom-rtcencodedvideoframetype-key">"key"</a></code> frame, abort these steps.</p>
+     <p>If <var>frame</var> is not a video <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframetype-key" id="ref-for-dom-rtcencodedvideoframetype-key①">"key"</a></code> frame, abort these steps.</p>
     <li data-md>
      <p>For each <var>task</var> in <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>, run the following steps:</p>
      <ol>
@@ -1339,7 +1339,7 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
    <p>By resolving the promises just before enqueuing the corresponding key frame in a <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑦">RTCRtpScriptTransformer</a></code>'s readable,
 the resolution callbacks of the promises are always executed just before the corresponding key frame is exposed.
 If the promise is associated to several rid values, it will be resolved when the first key frame corresponding to one the rid value is enqueued.</p>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-request-key-frame-algorithm">send request key frame algorithm</dfn>, given <var>promise</var> and <var>depacketizer</var>, is defined by running these steps:</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-send-request-key-frame-algorithm">send request key frame algorithm</dfn>, given <var>promise</var> and <var>depacketizer</var>, is defined by running these steps:</p>
    <ol>
     <li data-md>
      <p>If <var>depacketizer</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code>, abort these steps.</p>
@@ -1369,7 +1369,7 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec 
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">In parallel</a>, run the <a data-link-type="dfn" href="#generate-key-frame-algorithm" id="ref-for-generate-key-frame-algorithm①">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>’s encoder and <var>rids</var>.</p>
+     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">In parallel</a>, run the <a data-link-type="abstract-op" href="#abstract-opdef-generate-key-frame-algorithm" id="ref-for-abstract-opdef-generate-key-frame-algorithm①">generate key frame algorithm</a> with <var>promise</var>, <var>this</var>’s encoder and <var>rids</var>.</p>
     <li data-md>
      <p>Return <var>promise</var>.</p>
    </ol>
@@ -1436,9 +1436,9 @@ and may not be audited for reception of data from untrusted sources.</p>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#association-steps">association steps</a><span>, in § 3.2</span>
+   <li><a href="#abstract-opdef-rtcrtptransform-association-steps">association steps</a><span>, in § 3.2</span>
    <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in § 4</span>
-   <li><a href="#chain-transform-algorithm">chain transform algorithm</a><span>, in § 3.2</span>
+   <li><a href="#abstract-opdef-chain-transform-algorithm">chain transform algorithm</a><span>, in § 3.2</span>
    <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in § 4</span>
    <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in § 4</span>
    <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">constructor(type, eventInitDict)</a><span>, in § 4</span>
@@ -1448,26 +1448,22 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     contributingSources
     <ul>
-     <li><a href="#rtcencodedaudioframemetadata-contributingsources">dfn for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
-     <li><a href="#rtcencodedvideoframemetadata-contributingsources">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
-     <li><a href="#dom-rtcencodedaudioframemetadata-contributingsources">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-contributingsources">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-contributingsources">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-contributingsources">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
     </ul>
    <li><a href="#typedefdef-cryptokeyid">CryptoKeyID</a><span>, in § 4</span>
    <li>
     data
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in § 5.5</span>
-     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3</span>
-     <li><a href="#rtcencodedaudioframe-data">dfn for RTCEncodedAudioFrame</a><span>, in § 5.5.1</span>
-     <li><a href="#rtcencodedvideoframe-data">dfn for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
+     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in § 5.5.1</span>
+     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
     </ul>
    <li><a href="#dom-sframetransformrole-decrypt">"decrypt"</a><span>, in § 4</span>
    <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in § 5.1</span>
-   <li><a href="#rtcencodedvideoframetype-delta">delta</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcencodedvideoframetype-delta">delta</a><span>, in § 5.1</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-dependencies">dependencies</a><span>, in § 5.2</span>
    <li><a href="#dom-rtcencodedvideoframetype-empty">"empty"</a><span>, in § 5.1</span>
-   <li><a href="#rtcencodedvideoframetype-empty">empty</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcencodedvideoframetype-empty">empty</a><span>, in § 5.1</span>
    <li><a href="#dom-sframetransformrole-encrypt">"encrypt"</a><span>, in § 4</span>
    <li>
     errorType
@@ -1488,7 +1484,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">method for RTCRtpScriptTransformer</a><span>, in § 5.6</span>
      <li><a href="#dom-rtcrtpsender-generatekeyframe">method for RTCRtpSender</a><span>, in § 6.1</span>
     </ul>
-   <li><a href="#generate-key-frame-algorithm">generate key frame algorithm</a><span>, in § 5.8</span>
+   <li><a href="#abstract-opdef-generate-key-frame-algorithm">generate key frame algorithm</a><span>, in § 5.8</span>
    <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">generateKeyFrame(rid)</a><span>, in § 5.6</span>
    <li><a href="#dom-rtcrtpsender-generatekeyframe">generateKeyFrame(rids)</a><span>, in § 6.1</span>
    <li>
@@ -1499,7 +1495,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     </ul>
    <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in § 5.2</span>
    <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in § 5.1</span>
-   <li><a href="#rtcencodedvideoframetype-key">key</a><span>, in § 5.1</span>
+   <li><a href="#dom-rtcencodedvideoframetype-key">key</a><span>, in § 5.1</span>
    <li><a href="#dom-sframetransformerroreventtype-keyid">"keyID"</a><span>, in § 4</span>
    <li>
     keyID
@@ -1513,44 +1509,17 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     payloadType
     <ul>
-     <li><a href="#rtcencodedaudioframemetadata-payloadtype">dfn for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
-     <li><a href="#rtcencodedvideoframemetadata-payloadtype">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
-     <li><a href="#dom-rtcencodedaudioframemetadata-payloadtype">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-payloadtype">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-payloadtype">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-payloadtype">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
     </ul>
    <li><a href="#dom-rtcrtpscripttransformer-readable">readable</a><span>, in § 5.7</span>
-   <li><a href="#readencodeddata">readEncodedData</a><span>, in § 3.1.2</span>
+   <li><a href="#abstract-opdef-readencodeddata">readEncodedData</a><span>, in § 3.1.2</span>
    <li><a href="#dom-sframetransformoptions-role">role</a><span>, in § 4</span>
-   <li>
-    RTCEncodedAudioFrame
-    <ul>
-     <li><a href="#rtcencodedaudioframe①">(interface)</a><span>, in § 5.5</span>
-     <li><a href="#rtcencodedaudioframe">definition of</a><span>, in § 5.5</span>
-    </ul>
-   <li>
-    RTCEncodedAudioFrameMetadata
-    <ul>
-     <li><a href="#dictdef-rtcencodedaudioframemetadata">(dictionary)</a><span>, in § 5.4</span>
-     <li><a href="#rtcencodedaudioframemetadata">definition of</a><span>, in § 5.4</span>
-    </ul>
-   <li>
-    RTCEncodedVideoFrame
-    <ul>
-     <li><a href="#rtcencodedvideoframe①">(interface)</a><span>, in § 5.3</span>
-     <li><a href="#rtcencodedvideoframe">definition of</a><span>, in § 5.3</span>
-    </ul>
-   <li>
-    RTCEncodedVideoFrameMetadata
-    <ul>
-     <li><a href="#dictdef-rtcencodedvideoframemetadata">(dictionary)</a><span>, in § 5.2</span>
-     <li><a href="#rtcencodedvideoframemetadata">definition of</a><span>, in § 5.2</span>
-    </ul>
-   <li>
-    RTCEncodedVideoFrameType
-    <ul>
-     <li><a href="#enumdef-rtcencodedvideoframetype">(enum)</a><span>, in § 5.1</span>
-     <li><a href="#rtcencodedvideoframetype">definition of</a><span>, in § 5.1</span>
-    </ul>
+   <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in § 5.5</span>
+   <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
+   <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in § 5.3</span>
+   <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
+   <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in § 5.1</span>
    <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in § 5.5.2</span>
    <li><a href="#rtcrtpscripttransformer">RTCRtpScriptTransformer</a><span>, in § 5.5.2</span>
    <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(worker)</a><span>, in § 5.6</span>
@@ -1560,13 +1529,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#eventdef-dedicatedworkerglobalscope-rtctransform">rtctransform</a><span>, in § 5.6</span>
    <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 5.5.2</span>
    <li><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">sendKeyFrameRequest()</a><span>, in § 5.6</span>
-   <li><a href="#send-request-key-frame-algorithm">send request key frame algorithm</a><span>, in § 5.8</span>
-   <li>
-    sequenceNumber
-    <ul>
-     <li><a href="#rtcencodedaudioframemetadata-sequencenumber">dfn for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
-     <li><a href="#dom-rtcencodedaudioframemetadata-sequencenumber">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
-    </ul>
+   <li><a href="#abstract-opdef-send-request-key-frame-algorithm">send request key frame algorithm</a><span>, in § 5.8</span>
+   <li><a href="#dom-rtcencodedaudioframemetadata-sequencenumber">sequenceNumber</a><span>, in § 5.4.1</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in § 4.2</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key, keyID)</a><span>, in § 4.2</span>
    <li><a href="#sframetransform">SFrameTransform</a><span>, in § 4</span>
@@ -1583,34 +1547,25 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     synchronizationSource
     <ul>
-     <li><a href="#rtcencodedaudioframemetadata-synchronizationsource">dfn for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
-     <li><a href="#rtcencodedvideoframemetadata-synchronizationsource">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
-     <li><a href="#dom-rtcencodedaudioframemetadata-synchronizationsource">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-synchronizationsource">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
+     <li><a href="#dom-rtcencodedaudioframemetadata-synchronizationsource">dict-member for RTCEncodedAudioFrameMetadata</a><span>, in § 5.4.1</span>
+     <li><a href="#dom-rtcencodedvideoframemetadata-synchronizationsource">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
     </ul>
    <li><a href="#dom-sframetransformerroreventtype-syntax">"syntax"</a><span>, in § 4</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-temporalindex">temporalIndex</a><span>, in § 5.2</span>
    <li>
     timestamp
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-timestamp">attribute for RTCEncodedAudioFrame</a><span>, in § 5.5</span>
-     <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3</span>
-     <li><a href="#rtcencodedaudioframe-timestamp">dfn for RTCEncodedAudioFrame</a><span>, in § 5.5.1</span>
-     <li><a href="#rtcencodedvideoframe-timestamp">dfn for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
+     <li><a href="#dom-rtcencodedaudioframe-timestamp">attribute for RTCEncodedAudioFrame</a><span>, in § 5.5.1</span>
+     <li><a href="#dom-rtcencodedvideoframe-timestamp">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
      <li><a href="#rtcencodedvideoframemetadata-timestamp">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
      <li><a href="#dom-rtcencodedvideoframemetadata-timestamp">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
     </ul>
    <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 3.2</span>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 5.5.2</span>
-   <li>
-    type
-    <ul>
-     <li><a href="#dom-rtcencodedvideoframe-type">attribute for RTCEncodedVideoFrame</a><span>, in § 5.3</span>
-     <li><a href="#rtcencodedvideoframe-type">dfn for RTCEncodedVideoFrame</a><span>, in § 5.3.1</span>
-    </ul>
+   <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 5.3.1</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 5.2</span>
    <li><a href="#dom-rtcrtpscripttransformer-writable">writable</a><span>, in § 5.7</span>
-   <li><a href="#writeencodeddata">writeEncodedData</a><span>, in § 3.1.2</span>
+   <li><a href="#abstract-opdef-writeencodeddata">writeEncodedData</a><span>, in § 3.1.2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
@@ -1806,46 +1761,46 @@ and may not be audited for reception of data from untrusted sources.</p>
 
 // New enum for video frame types. Will eventually re-use the equivalent defined
 // by WebCodecs.
-<c- b>enum</c-> <a href="#enumdef-rtcencodedvideoframetype"><code><c- g>RTCEncodedVideoFrameType</c-></code></a> {
-    <a href="#dom-rtcencodedvideoframetype-empty"><code><c- s>"empty"</c-></code></a>,
-    <a href="#dom-rtcencodedvideoframetype-key"><code><c- s>"key"</c-></code></a>,
-    <a href="#dom-rtcencodedvideoframetype-delta"><code><c- s>"delta"</c-></code></a>,
+<c- b>enum</c-> <a class="idl-code" data-link-type="enum" href="#enumdef-rtcencodedvideoframetype"><c- g>RTCEncodedVideoFrameType</c-></a> {
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-empty"><c- s>"empty"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-key"><c- s>"key"</c-></a>,
+    <a class="idl-code" data-link-type="enum-value" href="#dom-rtcencodedvideoframetype-delta"><c- s>"delta"</c-></a>,
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-rtcencodedvideoframemetadata"><code><c- g>RTCEncodedVideoFrameMetadata</c-></code></a> {
+<c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedvideoframemetadata"><c- g>RTCEncodedVideoFrameMetadata</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a data-type="unsigned long long " href="#dom-rtcencodedvideoframemetadata-frameid"><code><c- g>frameId</c-></code></a>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long long> " href="#dom-rtcencodedvideoframemetadata-dependencies"><code><c- g>dependencies</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-width"><code><c- g>width</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-rtcencodedvideoframemetadata-height"><code><c- g>height</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-spatialindex"><code><c- g>spatialIndex</c-></code></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-temporalindex"><code><c- g>temporalIndex</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype"><code><c- g>payloadType</c-></code></a>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype"><c- g>payloadType</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a data-type="long long " href="#dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code></a>;    // microseconds
 };
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <a href="#rtcencodedvideoframe①"><code><c- g>RTCEncodedVideoFrame</c-></code></a> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <a data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type"><code><c- g>type</c-></code></a>;
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-rtcencodedvideoframe-timestamp"><code><c- g>timestamp</c-></code></a>;
-    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data"><code><c- g>data</c-></code></a>;
+<c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedvideoframe"><c- g>RTCEncodedVideoFrame</c-></a> {
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type"><c- g>type</c-></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-rtcencodedvideoframe-timestamp"><c- g>timestamp</c-></a>;
+    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data"><c- g>data</c-></a>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-rtcencodedaudioframemetadata"><code><c- g>RTCEncodedAudioFrameMetadata</c-></code></a> {
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-rtcencodedaudioframemetadata-synchronizationsource"><code><c- g>synchronizationSource</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-rtcencodedaudioframemetadata-payloadtype"><code><c- g>payloadType</c-></code></a>;
-    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a data-type="sequence<unsigned long> " href="#dom-rtcencodedaudioframemetadata-contributingsources"><code><c- g>contributingSources</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a data-type="short " href="#dom-rtcencodedaudioframemetadata-sequencenumber"><code><c- g>sequenceNumber</c-></code></a>;
+<c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedaudioframemetadata"><c- g>RTCEncodedAudioFrameMetadata</c-></a> {
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedaudioframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedaudioframemetadata-payloadtype"><c- g>payloadType</c-></a>;
+    <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedaudioframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short"><c- b>short</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="short " href="#dom-rtcencodedaudioframemetadata-sequencenumber"><c- g>sequenceNumber</c-></a>;
 };
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <a href="#rtcencodedaudioframe①"><code><c- g>RTCEncodedAudioFrame</c-></code></a> {
-    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-rtcencodedaudioframe-timestamp"><code><c- g>timestamp</c-></code></a>;
-    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data"><code><c- g>data</c-></code></a>;
+<c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedaudioframe"><c- g>RTCEncodedAudioFrame</c-></a> {
+    <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="unsigned long" href="#dom-rtcencodedaudioframe-timestamp"><c- g>timestamp</c-></a>;
+    <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data"><c- g>data</c-></a>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 
@@ -2066,7 +2021,7 @@ window.dfnpanelData['c7574ff1'] = {"dfnID": "c7574ff1", "url": "https://streams.
 window.dfnpanelData['d04a8309'] = {"dfnID": "d04a8309", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm", "dfnText": "writealgorithm", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-writealgorithm"}], "title": "3.1.1. Stream creation"}], "external": true};
 window.dfnpanelData['93b563b6'] = {"dfnID": "93b563b6", "url": "https://w3c.github.io/webcodecs/#dom-videoframe-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-videoframe-timestamp"}], "title": "5.2.1. Members"}], "external": true};
 window.dfnpanelData['5fc623fc'] = {"dfnID": "5fc623fc", "url": "https://w3c.github.io/webcrypto/#dfn-CryptoKey", "dfnText": "CryptoKey", "refSections": [{"refs": [{"id": "ref-for-dfn-CryptoKey"}], "title": "4. SFrameTransform"}], "external": true};
-window.dfnpanelData['2f8afbfe'] = {"dfnID": "2f8afbfe", "url": "https://webidl.spec.whatwg.org/#idl-ArrayBuffer", "dfnText": "ArrayBuffer", "refSections": [{"refs": [{"id": "ref-for-idl-ArrayBuffer"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2460"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2461"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": true};
+window.dfnpanelData['2f8afbfe'] = {"dfnID": "2f8afbfe", "url": "https://webidl.spec.whatwg.org/#idl-ArrayBuffer", "dfnText": "ArrayBuffer", "refSections": [{"refs": [{"id": "ref-for-idl-ArrayBuffer"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2460"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2461"}], "title": "5.3.1. Members"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2462"}], "title": "5.5. RTCEncodedAudioFrame interface"}, {"refs": [{"id": "ref-for-idl-ArrayBuffer\u2463"}], "title": "5.5.1. Members"}], "external": true};
 window.dfnpanelData['3aff2fb3'] = {"dfnID": "3aff2fb3", "url": "https://webidl.spec.whatwg.org/#BufferSource", "dfnText": "BufferSource", "refSections": [{"refs": [{"id": "ref-for-BufferSource"}, {"id": "ref-for-BufferSource\u2460"}], "title": "4.1. Algorithm"}], "external": true};
 window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-DOMString\u2460"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-DOMString\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
 window.dfnpanelData['c01cbda0'] = {"dfnID": "c01cbda0", "url": "https://webidl.spec.whatwg.org/#EnforceRange", "dfnText": "EnforceRange", "refSections": [{"refs": [{"id": "ref-for-EnforceRange"}], "title": "4. SFrameTransform"}], "external": true};
@@ -2083,14 +2038,14 @@ window.dfnpanelData['6c6b1005'] = {"dfnID": "6c6b1005", "url": "https://webidl.s
 window.dfnpanelData['bdcd112d'] = {"dfnID": "bdcd112d", "url": "https://webidl.spec.whatwg.org/#idl-bigint", "dfnText": "bigint", "refSections": [{"refs": [{"id": "ref-for-idl-bigint"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-bigint\u2460"}], "title": "4.2. Methods"}], "external": true};
 window.dfnpanelData['9aeb0a82'] = {"dfnID": "9aeb0a82", "url": "https://webidl.spec.whatwg.org/#idl-long-long", "dfnText": "long long", "refSections": [{"refs": [{"id": "ref-for-idl-long-long"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": true};
 window.dfnpanelData['efd1ec5d'] = {"dfnID": "efd1ec5d", "url": "https://webidl.spec.whatwg.org/#idl-object", "dfnText": "object", "refSections": [{"refs": [{"id": "ref-for-idl-object"}], "title": "5.5.2. Methods"}], "external": true};
-window.dfnpanelData['bc5645aa'] = {"dfnID": "bc5645aa", "url": "https://webidl.spec.whatwg.org/#idl-octet", "dfnText": "octet", "refSections": [{"refs": [{"id": "ref-for-idl-octet"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2460"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['bc5645aa'] = {"dfnID": "bc5645aa", "url": "https://webidl.spec.whatwg.org/#idl-octet", "dfnText": "octet", "refSections": [{"refs": [{"id": "ref-for-idl-octet"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2460"}], "title": "5.2.1. Members"}, {"refs": [{"id": "ref-for-idl-octet\u2461"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2462"}], "title": "5.4.1. Members"}], "external": true};
 window.dfnpanelData['b262501e'] = {"dfnID": "b262501e", "url": "https://webidl.spec.whatwg.org/#reject", "dfnText": "reject", "refSections": [{"refs": [{"id": "ref-for-reject"}, {"id": "ref-for-reject\u2460"}], "title": "4.2. Methods"}], "external": true};
 window.dfnpanelData['3b90bdcd'] = {"dfnID": "3b90bdcd", "url": "https://webidl.spec.whatwg.org/#resolve", "dfnText": "resolve", "refSections": [{"refs": [{"id": "ref-for-resolve"}], "title": "4.2. Methods"}, {"refs": [{"id": "ref-for-resolve\u2460"}, {"id": "ref-for-resolve\u2461"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
 window.dfnpanelData['9cce47fd'] = {"dfnID": "9cce47fd", "url": "https://webidl.spec.whatwg.org/#idl-sequence", "dfnText": "sequence", "refSections": [{"refs": [{"id": "ref-for-idl-sequence"}, {"id": "ref-for-idl-sequence\u2460"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2461"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2462"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-sequence\u2463"}], "title": "6. RTCRtpSender extension"}], "external": true};
-window.dfnpanelData['47574099'] = {"dfnID": "47574099", "url": "https://webidl.spec.whatwg.org/#idl-short", "dfnText": "short", "refSections": [{"refs": [{"id": "ref-for-idl-short"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['47574099'] = {"dfnID": "47574099", "url": "https://webidl.spec.whatwg.org/#idl-short", "dfnText": "short", "refSections": [{"refs": [{"id": "ref-for-idl-short"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-short\u2460"}], "title": "5.4.1. Members"}], "external": true};
 window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}, {"id": "ref-for-this\u2460\u2460"}, {"id": "ref-for-this\u2460\u2461"}, {"id": "ref-for-this\u2460\u2462"}, {"id": "ref-for-this\u2460\u2463"}, {"id": "ref-for-this\u2460\u2464"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-this\u2460\u2465"}, {"id": "ref-for-this\u2460\u2466"}, {"id": "ref-for-this\u2460\u2467"}, {"id": "ref-for-this\u2460\u2468"}, {"id": "ref-for-this\u2461\u24ea"}, {"id": "ref-for-this\u2461\u2460"}, {"id": "ref-for-this\u2461\u2461"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-this\u2461\u2462"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-this\u2461\u2463"}, {"id": "ref-for-this\u2461\u2464"}, {"id": "ref-for-this\u2461\u2465"}], "title": "5.7. Attributes"}], "external": true};
 window.dfnpanelData['5f90bbfb'] = {"dfnID": "5f90bbfb", "url": "https://webidl.spec.whatwg.org/#idl-undefined", "dfnText": "undefined", "refSections": [{"refs": [{"id": "ref-for-idl-undefined"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-undefined\u2460"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-undefined\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
-window.dfnpanelData['e97a9688'] = {"dfnID": "e97a9688", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long", "dfnText": "unsigned long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long"}, {"id": "ref-for-idl-unsigned-long\u2460"}, {"id": "ref-for-idl-unsigned-long\u2461"}, {"id": "ref-for-idl-unsigned-long\u2462"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2463"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2464"}, {"id": "ref-for-idl-unsigned-long\u2465"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2466"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": true};
+window.dfnpanelData['e97a9688'] = {"dfnID": "e97a9688", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long", "dfnText": "unsigned long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long"}, {"id": "ref-for-idl-unsigned-long\u2460"}, {"id": "ref-for-idl-unsigned-long\u2461"}, {"id": "ref-for-idl-unsigned-long\u2462"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2463"}], "title": "5.2.1. Members"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2464"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2465"}], "title": "5.3.1. Members"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2466"}, {"id": "ref-for-idl-unsigned-long\u2467"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2468"}], "title": "5.4.1. Members"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2460\u24ea"}], "title": "5.5. RTCEncodedAudioFrame interface"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2460\u2460"}], "title": "5.5.1. Members"}], "external": true};
 window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2460"}, {"id": "ref-for-idl-unsigned-long-long\u2461"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2462"}], "title": "5.5.2. Methods"}], "external": true};
 window.dfnpanelData['450958f7'] = {"dfnID": "450958f7", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-short", "dfnText": "unsigned short", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-short"}, {"id": "ref-for-idl-unsigned-short\u2460"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": true};
 window.dfnpanelData['c891de74'] = {"dfnID": "c891de74", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration", "dfnText": "RTCConfiguration", "refSections": [{"refs": [{"id": "ref-for-dom-rtcconfiguration"}], "title": "3.1. Extension operation"}], "external": true};
@@ -2098,11 +2053,11 @@ window.dfnpanelData['7c983b6d'] = {"dfnID": "7c983b6d", "url": "https://w3c.gith
 window.dfnpanelData['e4db230f'] = {"dfnID": "e4db230f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver", "dfnText": "RTCRtpReceiver", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpreceiver"}, {"id": "ref-for-dom-rtcrtpreceiver\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2462"}, {"id": "ref-for-dom-rtcrtpreceiver\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2464"}, {"id": "ref-for-dom-rtcrtpreceiver\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2467"}], "title": "5.6. Operations"}], "external": true};
 window.dfnpanelData['b161d57f'] = {"dfnID": "b161d57f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender", "dfnText": "RTCRtpSender", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender"}, {"id": "ref-for-dom-rtcrtpsender\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2462"}, {"id": "ref-for-dom-rtcrtpsender\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2464"}, {"id": "ref-for-dom-rtcrtpsender\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2467"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2468"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u24ea"}], "title": "5.8. KeyFrame Algorithms"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2460\u2460"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
 window.dfnpanelData['typedefdef-rtcrtptransform'] = {"dfnID": "typedefdef-rtcrtptransform", "url": "#typedefdef-rtcrtptransform", "dfnText": "RTCRtpTransform", "refSections": [{"refs": [{"id": "ref-for-typedefdef-rtcrtptransform"}, {"id": "ref-for-typedefdef-rtcrtptransform\u2460"}], "title": "3. Specification"}], "external": false};
-window.dfnpanelData['readencodeddata'] = {"dfnID": "readencodeddata", "url": "#readencodeddata", "dfnText": "readEncodedData", "refSections": [{"refs": [{"id": "ref-for-readencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-readencodeddata\u2460"}, {"id": "ref-for-readencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
-window.dfnpanelData['writeencodeddata'] = {"dfnID": "writeencodeddata", "url": "#writeencodeddata", "dfnText": "writeEncodedData", "refSections": [{"refs": [{"id": "ref-for-writeencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-writeencodeddata\u2460"}, {"id": "ref-for-writeencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
-window.dfnpanelData['association-steps'] = {"dfnID": "association-steps", "url": "#association-steps", "dfnText": "association steps", "refSections": [{"refs": [{"id": "ref-for-association-steps"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-association-steps\u2460"}, {"id": "ref-for-association-steps\u2461"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['abstract-opdef-readencodeddata'] = {"dfnID": "abstract-opdef-readencodeddata", "url": "#abstract-opdef-readencodeddata", "dfnText": "readEncodedData", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-readencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abstract-opdef-readencodeddata\u2460"}, {"id": "ref-for-abstract-opdef-readencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
+window.dfnpanelData['abstract-opdef-writeencodeddata'] = {"dfnID": "abstract-opdef-writeencodeddata", "url": "#abstract-opdef-writeencodeddata", "dfnText": "writeEncodedData", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-writeencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abstract-opdef-writeencodeddata\u2460"}, {"id": "ref-for-abstract-opdef-writeencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
+window.dfnpanelData['abstract-opdef-rtcrtptransform-association-steps'] = {"dfnID": "abstract-opdef-rtcrtptransform-association-steps", "url": "#abstract-opdef-rtcrtptransform-association-steps", "dfnText": "association steps", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-rtcrtptransform-association-steps"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-abstract-opdef-rtcrtptransform-association-steps\u2460"}, {"id": "ref-for-abstract-opdef-rtcrtptransform-association-steps\u2461"}], "title": "5.6. Operations"}], "external": false};
 window.dfnpanelData['dom-rtcrtpsender-transform'] = {"dfnID": "dom-rtcrtpsender-transform", "url": "#dom-rtcrtpsender-transform", "dfnText": "transform", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender-transform"}, {"id": "ref-for-dom-rtcrtpsender-transform\u2460"}], "title": "3. Specification"}], "external": false};
-window.dfnpanelData['chain-transform-algorithm'] = {"dfnID": "chain-transform-algorithm", "url": "#chain-transform-algorithm", "dfnText": "chain transform algorithm", "refSections": [{"refs": [{"id": "ref-for-chain-transform-algorithm"}, {"id": "ref-for-chain-transform-algorithm\u2460"}], "title": "3.2. Extension attribute"}], "external": false};
+window.dfnpanelData['abstract-opdef-chain-transform-algorithm'] = {"dfnID": "abstract-opdef-chain-transform-algorithm", "url": "#abstract-opdef-chain-transform-algorithm", "dfnText": "chain transform algorithm", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-chain-transform-algorithm"}, {"id": "ref-for-abstract-opdef-chain-transform-algorithm\u2460"}], "title": "3.2. Extension attribute"}], "external": false};
 window.dfnpanelData['enumdef-sframetransformrole'] = {"dfnID": "enumdef-sframetransformrole", "url": "#enumdef-sframetransformrole", "dfnText": "SFrameTransformRole", "refSections": [{"refs": [{"id": "ref-for-enumdef-sframetransformrole"}], "title": "4. SFrameTransform"}], "external": false};
 window.dfnpanelData['dictdef-sframetransformoptions'] = {"dfnID": "dictdef-sframetransformoptions", "url": "#dictdef-sframetransformoptions", "dfnText": "SFrameTransformOptions", "refSections": [{"refs": [{"id": "ref-for-dictdef-sframetransformoptions"}], "title": "4. SFrameTransform"}], "external": false};
 window.dfnpanelData['dom-sframetransformoptions-role'] = {"dfnID": "dom-sframetransformoptions-role", "url": "#dom-sframetransformoptions-role", "dfnText": "role", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransformoptions-role"}], "title": "4. SFrameTransform"}], "external": false};
@@ -2121,15 +2076,27 @@ window.dfnpanelData['dom-sframetransformerrorevent-frame'] = {"dfnID": "dom-sfra
 window.dfnpanelData['dictdef-sframetransformerroreventinit'] = {"dfnID": "dictdef-sframetransformerroreventinit", "url": "#dictdef-sframetransformerroreventinit", "dfnText": "SFrameTransformErrorEventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-sframetransformerroreventinit"}], "title": "4. SFrameTransform"}], "external": false};
 window.dfnpanelData['dom-sframetransform-sframetransform'] = {"dfnID": "dom-sframetransform-sframetransform", "url": "#dom-sframetransform-sframetransform", "dfnText": "new SFrameTransform(options)", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransform-sframetransform"}], "title": "4. SFrameTransform"}], "external": false};
 window.dfnpanelData['dom-sframetransform-setencryptionkey'] = {"dfnID": "dom-sframetransform-setencryptionkey", "url": "#dom-sframetransform-setencryptionkey", "dfnText": "setEncryptionKey(key, keyID)", "refSections": [{"refs": [{"id": "ref-for-dom-sframetransform-setencryptionkey"}], "title": "4. SFrameTransform"}], "external": false};
-window.dfnpanelData['enumdef-rtcencodedvideoframetype'] = {"dfnID": "enumdef-rtcencodedvideoframetype", "url": "#enumdef-rtcencodedvideoframetype", "dfnText": "RTCEncodedVideoFrameType", "refSections": [{"refs": [{"id": "ref-for-enumdef-rtcencodedvideoframetype"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
-window.dfnpanelData['dom-rtcencodedvideoframetype-key'] = {"dfnID": "dom-rtcencodedvideoframetype-key", "url": "#dom-rtcencodedvideoframetype-key", "dfnText": "\"key\"", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-key"}], "title": "5.8. KeyFrame Algorithms"}], "external": false};
-window.dfnpanelData['dictdef-rtcencodedvideoframemetadata'] = {"dfnID": "dictdef-rtcencodedvideoframemetadata", "url": "#dictdef-rtcencodedvideoframemetadata", "dfnText": "RTCEncodedVideoFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedvideoframemetadata"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
-window.dfnpanelData['rtcencodedvideoframe①'] = {"dfnID": "rtcencodedvideoframe\u2460", "url": "#rtcencodedvideoframe\u2460", "dfnText": "RTCEncodedVideoFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedvideoframe\u2460"}, {"id": "ref-for-rtcencodedvideoframe\u2460\u2460"}], "title": "4.1. Algorithm"}], "external": false};
-window.dfnpanelData['dom-rtcencodedvideoframe-data'] = {"dfnID": "dom-rtcencodedvideoframe-data", "url": "#dom-rtcencodedvideoframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data"}, {"id": "ref-for-dom-rtcencodedvideoframe-data\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['enumdef-rtcencodedvideoframetype'] = {"dfnID": "enumdef-rtcencodedvideoframetype", "url": "#enumdef-rtcencodedvideoframetype", "dfnText": "RTCEncodedVideoFrameType", "refSections": [{"refs": [{"id": "ref-for-enumdef-rtcencodedvideoframetype"}], "title": "5.1. RTCEncodedVideoFrameType dictionary"}, {"refs": [{"id": "ref-for-enumdef-rtcencodedvideoframetype\u2460"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-enumdef-rtcencodedvideoframetype\u2461"}], "title": "5.3.1. Members"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframetype-empty'] = {"dfnID": "dom-rtcencodedvideoframetype-empty", "url": "#dom-rtcencodedvideoframetype-empty", "dfnText": "empty", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-empty"}], "title": "5.1. RTCEncodedVideoFrameType dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframetype-key'] = {"dfnID": "dom-rtcencodedvideoframetype-key", "url": "#dom-rtcencodedvideoframetype-key", "dfnText": "key", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-key"}], "title": "5.1. RTCEncodedVideoFrameType dictionary"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-key\u2460"}], "title": "5.8. KeyFrame Algorithms"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframetype-delta'] = {"dfnID": "dom-rtcencodedvideoframetype-delta", "url": "#dom-rtcencodedvideoframetype-delta", "dfnText": "delta", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframetype-delta"}], "title": "5.1. RTCEncodedVideoFrameType dictionary"}], "external": false};
+window.dfnpanelData['dictdef-rtcencodedvideoframemetadata'] = {"dfnID": "dictdef-rtcencodedvideoframemetadata", "url": "#dictdef-rtcencodedvideoframemetadata", "dfnText": "RTCEncodedVideoFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedvideoframemetadata"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-dictdef-rtcencodedvideoframemetadata\u2460"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframemetadata-synchronizationsource'] = {"dfnID": "dom-rtcencodedvideoframemetadata-synchronizationsource", "url": "#dom-rtcencodedvideoframemetadata-synchronizationsource", "dfnText": "synchronizationSource", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-synchronizationsource"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframemetadata-payloadtype'] = {"dfnID": "dom-rtcencodedvideoframemetadata-payloadtype", "url": "#dom-rtcencodedvideoframemetadata-payloadtype", "dfnText": "payloadType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-payloadtype"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframemetadata-contributingsources'] = {"dfnID": "dom-rtcencodedvideoframemetadata-contributingsources", "url": "#dom-rtcencodedvideoframemetadata-contributingsources", "dfnText": "contributingSources", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-contributingsources"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['rtcencodedvideoframe'] = {"dfnID": "rtcencodedvideoframe", "url": "#rtcencodedvideoframe", "dfnText": "RTCEncodedVideoFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedvideoframe"}, {"id": "ref-for-rtcencodedvideoframe\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-rtcencodedvideoframe\u2461"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframe-type'] = {"dfnID": "dom-rtcencodedvideoframe-type", "url": "#dom-rtcencodedvideoframe-type", "dfnText": "type", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-type"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframe-timestamp'] = {"dfnID": "dom-rtcencodedvideoframe-timestamp", "url": "#dom-rtcencodedvideoframe-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-timestamp"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframe-data'] = {"dfnID": "dom-rtcencodedvideoframe-data", "url": "#dom-rtcencodedvideoframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data"}, {"id": "ref-for-dom-rtcencodedvideoframe-data\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data\u2461"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframe-getmetadata'] = {"dfnID": "dom-rtcencodedvideoframe-getmetadata", "url": "#dom-rtcencodedvideoframe-getmetadata", "dfnText": "getMetadata()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-getmetadata"}], "title": "5.3. RTCEncodedVideoFrame interface"}], "external": false};
-window.dfnpanelData['dictdef-rtcencodedaudioframemetadata'] = {"dfnID": "dictdef-rtcencodedaudioframemetadata", "url": "#dictdef-rtcencodedaudioframemetadata", "dfnText": "RTCEncodedAudioFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedaudioframemetadata"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
-window.dfnpanelData['rtcencodedaudioframe①'] = {"dfnID": "rtcencodedaudioframe\u2460", "url": "#rtcencodedaudioframe\u2460", "dfnText": "RTCEncodedAudioFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedaudioframe\u2460"}, {"id": "ref-for-rtcencodedaudioframe\u2460\u2460"}], "title": "4.1. Algorithm"}], "external": false};
-window.dfnpanelData['dom-rtcencodedaudioframe-data'] = {"dfnID": "dom-rtcencodedaudioframe-data", "url": "#dom-rtcencodedaudioframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data"}, {"id": "ref-for-dom-rtcencodedaudioframe-data\u2460"}], "title": "4.1. Algorithm"}], "external": false};
+window.dfnpanelData['dictdef-rtcencodedaudioframemetadata'] = {"dfnID": "dictdef-rtcencodedaudioframemetadata", "url": "#dictdef-rtcencodedaudioframemetadata", "dfnText": "RTCEncodedAudioFrameMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-rtcencodedaudioframemetadata"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-dictdef-rtcencodedaudioframemetadata\u2460"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframemetadata-synchronizationsource'] = {"dfnID": "dom-rtcencodedaudioframemetadata-synchronizationsource", "url": "#dom-rtcencodedaudioframemetadata-synchronizationsource", "dfnText": "synchronizationSource", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-synchronizationsource"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframemetadata-payloadtype'] = {"dfnID": "dom-rtcencodedaudioframemetadata-payloadtype", "url": "#dom-rtcencodedaudioframemetadata-payloadtype", "dfnText": "payloadType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-payloadtype"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframemetadata-contributingsources'] = {"dfnID": "dom-rtcencodedaudioframemetadata-contributingsources", "url": "#dom-rtcencodedaudioframemetadata-contributingsources", "dfnText": "contributingSources", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-contributingsources"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframemetadata-sequencenumber'] = {"dfnID": "dom-rtcencodedaudioframemetadata-sequencenumber", "url": "#dom-rtcencodedaudioframemetadata-sequencenumber", "dfnText": "sequenceNumber", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-sequencenumber"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['rtcencodedaudioframe'] = {"dfnID": "rtcencodedaudioframe", "url": "#rtcencodedaudioframe", "dfnText": "RTCEncodedAudioFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedaudioframe"}, {"id": "ref-for-rtcencodedaudioframe\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-rtcencodedaudioframe\u2461"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframe-timestamp'] = {"dfnID": "dom-rtcencodedaudioframe-timestamp", "url": "#dom-rtcencodedaudioframe-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-timestamp"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframe-data'] = {"dfnID": "dom-rtcencodedaudioframe-data", "url": "#dom-rtcencodedaudioframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data"}, {"id": "ref-for-dom-rtcencodedaudioframe-data\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data\u2461"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
 window.dfnpanelData['dom-rtcencodedaudioframe-getmetadata'] = {"dfnID": "dom-rtcencodedaudioframe-getmetadata", "url": "#dom-rtcencodedaudioframe-getmetadata", "dfnText": "getMetadata()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-getmetadata"}], "title": "5.5. RTCEncodedAudioFrame interface"}], "external": false};
 window.dfnpanelData['rtctransformevent'] = {"dfnID": "rtctransformevent", "url": "#rtctransformevent", "dfnText": "RTCTransformEvent", "refSections": [{"refs": [{"id": "ref-for-rtctransformevent"}], "title": "5.6. Operations"}], "external": false};
 window.dfnpanelData['dom-rtctransformevent-transformer'] = {"dfnID": "dom-rtctransformevent-transformer", "url": "#dom-rtctransformevent-transformer", "dfnText": "transformer", "refSections": [{"refs": [{"id": "ref-for-dom-rtctransformevent-transformer"}], "title": "5.6. Operations"}], "external": false};
@@ -2141,8 +2108,8 @@ window.dfnpanelData['dom-rtcrtpscripttransformer-sendkeyframerequest'] = {"dfnID
 window.dfnpanelData['dom-rtcrtpscripttransformer-options'] = {"dfnID": "dom-rtcrtpscripttransformer-options", "url": "#dom-rtcrtpscripttransformer-options", "dfnText": "options", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-options"}], "title": "5.5.2. Methods"}], "external": false};
 window.dfnpanelData['dom-rtcrtpscripttransformer-readable'] = {"dfnID": "dom-rtcrtpscripttransformer-readable", "url": "#dom-rtcrtpscripttransformer-readable", "dfnText": "readable", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-readable"}], "title": "5.5.2. Methods"}], "external": false};
 window.dfnpanelData['dom-rtcrtpscripttransformer-writable'] = {"dfnID": "dom-rtcrtpscripttransformer-writable", "url": "#dom-rtcrtpscripttransformer-writable", "dfnText": "writable", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpscripttransformer-writable"}], "title": "5.5.2. Methods"}], "external": false};
-window.dfnpanelData['generate-key-frame-algorithm'] = {"dfnID": "generate-key-frame-algorithm", "url": "#generate-key-frame-algorithm", "dfnText": "generate key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-generate-key-frame-algorithm"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-generate-key-frame-algorithm\u2460"}], "title": "6.1. Extension operation"}], "external": false};
-window.dfnpanelData['send-request-key-frame-algorithm'] = {"dfnID": "send-request-key-frame-algorithm", "url": "#send-request-key-frame-algorithm", "dfnText": "send request key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-send-request-key-frame-algorithm"}], "title": "5.6. Operations"}], "external": false};
+window.dfnpanelData['abstract-opdef-generate-key-frame-algorithm'] = {"dfnID": "abstract-opdef-generate-key-frame-algorithm", "url": "#abstract-opdef-generate-key-frame-algorithm", "dfnText": "generate key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-generate-key-frame-algorithm"}], "title": "5.6. Operations"}, {"refs": [{"id": "ref-for-abstract-opdef-generate-key-frame-algorithm\u2460"}], "title": "6.1. Extension operation"}], "external": false};
+window.dfnpanelData['abstract-opdef-send-request-key-frame-algorithm'] = {"dfnID": "abstract-opdef-send-request-key-frame-algorithm", "url": "#abstract-opdef-send-request-key-frame-algorithm", "dfnText": "send request key frame algorithm", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-send-request-key-frame-algorithm"}], "title": "5.6. Operations"}], "external": false};
 window.dfnpanelData['dom-rtcrtpsender-generatekeyframe'] = {"dfnID": "dom-rtcrtpsender-generatekeyframe", "url": "#dom-rtcrtpsender-generatekeyframe", "dfnText": "generateKeyFrame(rids)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender-generatekeyframe"}], "title": "6. RTCRtpSender extension"}], "external": false};</script>
 <script>/* script-dom-helper */
 function query(sel) { return document.querySelector(sel); }

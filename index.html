@@ -9,7 +9,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="53eb0d323eda530cc74a241d60922dd860cbfa65" name="document-revision">
+  <meta content="f2ae0f5382b915be49e8495a7b8b0de6d2ce3422" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -868,7 +868,7 @@ As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="r
       <li data-md>
        <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-signal-abort" id="ref-for-abortsignal-signal-abort">signal abort</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortcontroller-signal-abort" id="ref-for-abortcontroller-signal-abort">signal abort</a> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code>.</p>
      </ol>
     <li data-md>
      <p>Else, run the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
@@ -882,7 +882,7 @@ As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="r
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
    <ol>
     <li data-md>
-     <p>If <var>newPipeToController</var> is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-abortsignal-aborted">aborted</a>, abort these steps.</p>
+     <p>If <var>newPipeToController</var>.signal is <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-aborted" id="ref-for-abortsignal-aborted">aborted</a>, abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestreamdefaultreader-release" id="ref-for-readablestreamdefaultreader-release">Release</a> <var>reader</var>.</p>
     <li data-md>
@@ -1580,7 +1580,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="535dd335">aborted</span>
      <li><span class="dfn-paneled" id="87bc23a5">add</span>
      <li><span class="dfn-paneled" id="5fd23811">fire an event</span>
-     <li><span class="dfn-paneled" id="790f0b49">signal abort</span>
+     <li><span class="dfn-paneled" id="2296404c">signal abort</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -1996,7 +1996,7 @@ window.dfnpanelData['2bc0cdf4'] = {"dfnID": "2bc0cdf4", "url": "https://dom.spec
 window.dfnpanelData['535dd335'] = {"dfnID": "535dd335", "url": "https://dom.spec.whatwg.org/#abortsignal-aborted", "dfnText": "aborted", "refSections": [{"refs": [{"id": "ref-for-abortsignal-aborted"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['87bc23a5'] = {"dfnID": "87bc23a5", "url": "https://dom.spec.whatwg.org/#abortsignal-add", "dfnText": "add", "refSections": [{"refs": [{"id": "ref-for-abortsignal-add"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['5fd23811'] = {"dfnID": "5fd23811", "url": "https://dom.spec.whatwg.org/#concept-event-fire", "dfnText": "fire an event", "refSections": [{"refs": [{"id": "ref-for-concept-event-fire"}, {"id": "ref-for-concept-event-fire\u2460"}, {"id": "ref-for-concept-event-fire\u2461"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-concept-event-fire\u2462"}], "title": "5.6. Operations"}], "external": true};
-window.dfnpanelData['790f0b49'] = {"dfnID": "790f0b49", "url": "https://dom.spec.whatwg.org/#abortsignal-signal-abort", "dfnText": "signal abort", "refSections": [{"refs": [{"id": "ref-for-abortsignal-signal-abort"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['2296404c'] = {"dfnID": "2296404c", "url": "https://dom.spec.whatwg.org/#abortcontroller-signal-abort", "dfnText": "signal abort", "refSections": [{"refs": [{"id": "ref-for-abortcontroller-signal-abort"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['b8308563'] = {"dfnID": "b8308563", "url": "https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope", "dfnText": "DedicatedWorkerGlobalScope", "refSections": [{"refs": [{"id": "ref-for-dedicatedworkerglobalscope"}], "title": "5.5.2. Methods"}], "external": true};
 window.dfnpanelData['f0951476'] = {"dfnID": "f0951476", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler", "dfnText": "EventHandler", "refSections": [{"refs": [{"id": "ref-for-eventhandler"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-eventhandler\u2460"}], "title": "5.5.2. Methods"}], "external": true};
 window.dfnpanelData['0800bdf4'] = {"dfnID": "0800bdf4", "url": "https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserialize", "dfnText": "StructuredDeserialize", "refSections": [{"refs": [{"id": "ref-for-structureddeserialize"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-structureddeserialize\u2460"}, {"id": "ref-for-structureddeserialize\u2461"}, {"id": "ref-for-structureddeserialize\u2462"}], "title": "5.6. Operations"}], "external": true};

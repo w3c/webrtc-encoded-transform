@@ -5,10 +5,11 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
+  <link href="https://www.w3.org/StyleSheets/TR/2016/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version bf22245b8, updated Tue Apr 18 15:53:37 2023 -0700" name="generator">
+  <meta content="Bikeshed version 3383f409d, updated Fri Apr 28 15:49:22 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="915870d0085f5229d7feeeb6bb72502a864a77f7" name="document-revision">
+  <meta content="53eb0d323eda530cc74a241d60922dd860cbfa65" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -595,7 +596,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-04-28">28 April 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-05-25">25 May 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -912,7 +913,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-bigint" id="ref-for-idl-bigint"><c- b>bigint</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> {
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframetransform"><code><c- g>SFrameTransform</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform" id="ref-for-dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/SFrameTransform(options), SFrameTransform/constructor(options), SFrameTransform/SFrameTransform(), SFrameTransform/constructor()" data-dfn-type="argument" data-export id="dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code><a class="self-link" href="#dom-sframetransform-sframetransform-options-options"></a></dfn> = {});
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey" id="ref-for-dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey" id="ref-for-dfn-CryptoKey"><c- n>CryptoKey</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-key"></a></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid" id="ref-for-typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a> <dfn class="idl-code" data-dfn-for="SFrameTransform/setEncryptionKey(key, keyID), SFrameTransform/setEncryptionKey(key)" data-dfn-type="argument" data-export id="dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code><a class="self-link" href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"></a></dfn>);
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransform" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-sframetransform-onerror"><code><c- g>onerror</c-></code></dfn>;
@@ -1575,6 +1576,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="2e66eaf1">AbortController</span>
      <li><span class="dfn-paneled" id="129bdae8">Event</span>
      <li><span class="dfn-paneled" id="44a7708c">EventInit</span>
+     <li><span class="dfn-paneled" id="2bc0cdf4">EventTarget</span>
      <li><span class="dfn-paneled" id="535dd335">aborted</span>
      <li><span class="dfn-paneled" id="87bc23a5">add</span>
      <li><span class="dfn-paneled" id="5fd23811">fire an event</span>
@@ -1731,7 +1733,7 @@ and may not be audited for reception of data from untrusted sources.</p>
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-bigint"><c- b>bigint</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
-<c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> {
+<c- b>interface</c-> <a href="#sframetransform"><code><c- g>SFrameTransform</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
     <a class="idl-code" data-link-type="constructor" href="#dom-sframetransform-sframetransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframetransform-sframetransform-options-options"><code><c- g>options</c-></code></a> = {});
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-sframetransform-setencryptionkey"><c- g>setEncryptionKey</c-></a>(<a data-link-type="idl-name" href="https://w3c.github.io/webcrypto/#dfn-CryptoKey"><c- n>CryptoKey</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-key"><code><c- g>key</c-></code></a>, <c- b>optional</c-> <a data-link-type="idl-name" href="#typedefdef-cryptokeyid"><c- n>CryptoKeyID</c-></a> <a href="#dom-sframetransform-setencryptionkey-key-keyid-keyid"><code><c- g>keyID</c-></code></a>);
     <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-sframetransform-onerror"><code><c- g>onerror</c-></code></a>;
@@ -1990,6 +1992,7 @@ window.dfnpanelData = {};
 window.dfnpanelData['2e66eaf1'] = {"dfnID": "2e66eaf1", "url": "https://dom.spec.whatwg.org/#abortcontroller", "dfnText": "AbortController", "refSections": [{"refs": [{"id": "ref-for-abortcontroller"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abortcontroller\u2460"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['129bdae8'] = {"dfnID": "129bdae8", "url": "https://dom.spec.whatwg.org/#event", "dfnText": "Event", "refSections": [{"refs": [{"id": "ref-for-event"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-event\u2460"}], "title": "5.5.2. Methods"}], "external": true};
 window.dfnpanelData['44a7708c'] = {"dfnID": "44a7708c", "url": "https://dom.spec.whatwg.org/#dictdef-eventinit", "dfnText": "EventInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-eventinit"}], "title": "4. SFrameTransform"}], "external": true};
+window.dfnpanelData['2bc0cdf4'] = {"dfnID": "2bc0cdf4", "url": "https://dom.spec.whatwg.org/#eventtarget", "dfnText": "EventTarget", "refSections": [{"refs": [{"id": "ref-for-eventtarget"}], "title": "4. SFrameTransform"}], "external": true};
 window.dfnpanelData['535dd335'] = {"dfnID": "535dd335", "url": "https://dom.spec.whatwg.org/#abortsignal-aborted", "dfnText": "aborted", "refSections": [{"refs": [{"id": "ref-for-abortsignal-aborted"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['87bc23a5'] = {"dfnID": "87bc23a5", "url": "https://dom.spec.whatwg.org/#abortsignal-add", "dfnText": "add", "refSections": [{"refs": [{"id": "ref-for-abortsignal-add"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['5fd23811'] = {"dfnID": "5fd23811", "url": "https://dom.spec.whatwg.org/#concept-event-fire", "dfnText": "fire an event", "refSections": [{"refs": [{"id": "ref-for-concept-event-fire"}, {"id": "ref-for-concept-event-fire\u2460"}, {"id": "ref-for-concept-event-fire\u2461"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-concept-event-fire\u2462"}], "title": "5.6. Operations"}], "external": true};

@@ -31,12 +31,12 @@ When a codec capability is added, the SDP machinery will negotiate these codecs 
 
 ## For SDP negotiation
 ```
-PeerConneciton.AddSendCodecCapability(DOMString kind, CodecCapability capability)
+PeerConnection.AddSendCodecCapability(DOMString kind, CodecCapability capability)
 PeerConnection.AddReceiveCodecCapability(DOMString kind, CodecCapability capability)
 ```
 These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to GetParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
 
-NOTE: The codecs will not show up on the global GetCapaiblity functions, since these functions can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
+NOTE: The codecs will not show up on the global GetCapability functions, since these functions can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
 
 ## For sending
 The RTCRtpSender’s encoder (if present) will be configured to use a specific codec from CodecCapabilities by a new call:
@@ -79,7 +79,7 @@ customCodec = {
 RTCRtpSender.AddCodecCapability(customCodec);
 sender = pc.AddTrack(videotrack);
 // Negotiate as usual
-for (codec in sender.getParameters(‘video’).codecs) {
+for (codec in sender.getParameters().codecs) {
    if (codec.mimeType == “application/x-encrypted”) {
       encryptedPT = codec.payloadType;
    }
@@ -100,18 +100,18 @@ readable.pipeThrough(new TransformStream(
 RTCRtpReceiver.AddCodecCapability(customCodec);
 pc.ontrack = (receiver) => {
 
-   for (codec in receiver.getParameters.codecs) {
+   for (codec in receiver.getParameters().codecs) {
       if (codec.mimeType == “application/x-encrypted”) {
          encryptedPT = codec.payloadType;
       }
    }
-   receiver.addDecodeCapability({mimeType: video/vp8, payloadType=208});
+   receiver.addDecodeCapability({mimeType: video/vp8, payloadType=encryptedPT});
    (readable, writable) = receiver.getEncodedStreams();
    readable.pipeThrough(new TransformStream(
       transform: (frame) => {
          decryptBody(frame);
          metadata = frame.metadata();
-         metadata.payloadType = 208;
+         metadata.payloadType = encryptedPT;
          writable.write(frame);
        }
    }).pipeTo(writable);

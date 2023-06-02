@@ -167,6 +167,7 @@ const videoSender = pc.addTrack(track, stream);
 videoSender.transform = new RTCRtpScriptTransform(worker, { name: "senderTransform" });
 
 // Do ICE and offer/answer exchange.
+</pre>
 
 4. Do the corresponding operations on the receiver side.
 

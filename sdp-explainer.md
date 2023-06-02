@@ -63,7 +63,7 @@ On seeing a custom codec in the PT for an incoming frame, if the frame is to be 
 
 ## Existing APIs that will be used together with the new APIs
 - Basic establishing of EncodedTransform
-- 
+- getParameters() to get results of codec negotiation
 
 # Example code
 (This is incomplete)
@@ -96,7 +96,8 @@ readable.pipeThrough(new TransformStream(
    }
 }).pipeTo(writable);
 
-// At receiver side
+// At receiver side.
+const decryptedPT = 208; // Can be negotiated PT or locally-valid
 RTCRtpReceiver.AddCodecCapability(customCodec);
 pc.ontrack = (receiver) => {
 
@@ -105,13 +106,16 @@ pc.ontrack = (receiver) => {
          encryptedPT = codec.payloadType;
       }
    }
-   receiver.addDecodeCapability({mimeType: video/vp8, payloadType=encryptedPT});
+   receiver.addDecodeCapability({mimeType: video/vp8, payloadType=decryptedPT});
    (readable, writable) = receiver.getEncodedStreams();
    readable.pipeThrough(new TransformStream(
       transform: (frame) => {
+         if (frame.metadata().payloadType != encryptedPT) {
+           continue;  // Ignore all frames for the wrong payload.
+         }
          decryptBody(frame);
          metadata = frame.metadata();
-         metadata.payloadType = encryptedPT;
+         metadata.payloadType = decryptedPT;
          writable.write(frame);
        }
    }).pipeTo(writable);

@@ -524,7 +524,7 @@ interface RTCEncodedAudioFrame {
         </p>
     </dd>
     <dt>
-    <dfn data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method">clone()</dfn>
+    <dfn method for="RTCEncodedAudioFrame">clone()</dfn>
     </dt>
     <dd>
     <p>

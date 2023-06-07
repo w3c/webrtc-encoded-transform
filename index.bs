@@ -427,7 +427,7 @@ interface RTCEncodedVideoFrame {
             Returns the metadata associated with the frame.
         </p>
     </dd>
-    <dfn data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method">clone()</dfn>
+    <dt><dfn method for="RTCEncodedVideoFrame" >clone()</dfn>
     </dt>
     <dd>
     <p>

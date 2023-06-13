@@ -61,21 +61,87 @@ This specification shows the IDL extensions for WebRTC.
 It uses an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
+## RTCPeerConnection extensions ## {#rtcpeerconnection-extensions}
+In order to correctly identify the transformed content to the other end
+of the connection, new interfaces are added on {{RTCPeerConnection}} to
+allow the declaration and negotiation of new media types.
+
 <pre class="idl">
+// New methods for RTCPeerConnection
+partial interface RTCPeerConnection {
+   undefined AddSendCodecCapability(DOMString kind,
+                                    RTCRtpCodecCapability capability);
+   undefined AddReceiveCodecCapability(DOMString kind,
+                                    RTCRtpCodecCapability capability);
+};
+</pre>
+
+In addition, add two new internal slots to the RTCPeerConnection, called
+"CustomSendCodecs" and "CustomReceiveCodecs", initially empty.
+
+### Methods ### {#rtcpeerconnection-methods}
+
+#### AddSendCodecCapability #### {#add-send-codec-capability}
+
+1. Let 'capability' be the "capability" argument
+1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
+1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
+1. Add 'capability' to the PeerConnections's [[ CustomSendCodecs]] internal slot.
+
+#### AddReceiveCodecCapability #### {#add-receive-codec-capability}
+
+1. Let 'capability' be the "capability" argument
+1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
+1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
+1. Add 'capability' to the PeerConnections's [[ CustomReceiveCodecs]] internal slot.
+
+## RTCRtpCodecCapability extensions ## {#rtc-rtp-codec-capability-extensions}
+
+<pre class="idl">
+partial dictionary RTCRtpCodecCapability {
+  DOMString packetizationMode;
+};
+</pre>
+
+### Attributes ### {#rtc-rtp-codec-capability-attributes}
+#### packetizationMode #### {#packetization-mode}
+Defines the packetization mode to use for the frame being packetized or depacketized. MUST be the name of a codec known to the browser implementation.
+
+
+## Extensions to RTCRtpSender and RTCRtpReceiver ## {#sender-receiver-extensions}
+<pre class="idl">
+
 typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 
-// New methods for RTCRtpSender and RTCRtpReceiver
+// New methods and attributes for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
     attribute RTCRtpTransform? transform;
+    undefined SetEncodingCodec(RTCRtpCodecParameters parameters);
 };
 
 partial interface RTCRtpReceiver {
     attribute RTCRtpTransform? transform;
+    undefined AddDecodingCodec(RTCRtpCodecParameters parameters);
 };
 </pre>
 
 ## Extension operation ## {#operation}
 
+### Media type negotiation ### {#sdp-negotiation}
+The following modifications are applied to the session negotation procedure:
+
+1. The CustomSendCodecs is included in the list of codecs which the user agent
+    is currently prepared to send; the CustomReceiveCodecs is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
+
+1. In the final steps to create an offer, step 2.2 is changed to filter the list of codecs against
+    the union of the list of implemented send codecs and the [[ CustomSendCodecs]] slot, and step 2.3 is changed to filter against the union of the list of implemented receive codecs and the [[ CustomReceiveCodecs]] slot.
+
+1. In the final steps to create an answer, the same modification is done to the filtering in steps 1.2 and 1.3.
+
+
+
+
+### Codec initialization  ### {#codec-initialization}
 At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the {{RTCPeerConnection}}'s {{RTCConfiguration}}
 argument, ensure that the codec is disabled and produces no output.

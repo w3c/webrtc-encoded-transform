@@ -86,15 +86,15 @@ initially empty.
 #### AddSendCodecCapability #### {#add-send-codec-capability}
 
 1. Let 'capability' be the "capability" argument
-1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
-1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
+1. If 'capability' is a known codec, throw an IllegalModification error.
+1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomSendCodecs]]}} internal slot.
 
 #### AddReceiveCodecCapability #### {#add-receive-codec-capability}
 
 1. Let 'capability' be the "capability" argument
-1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
-1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
+1. If 'capability' is a known codec, throw an IllegalModification error.
+1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomReceiveCodecs]]}} internal slot.
 
 ## RTCRtpCodecCapability extensions ## {#rtc-rtp-codec-capability-extensions}
@@ -108,7 +108,6 @@ partial dictionary RTCRtpCodecCapability {
 ### Attributes ### {#rtc-rtp-codec-capability-attributes}
 #### packetizationMode #### {#packetization-mode}
 Defines the packetization mode to use for the frame being packetized or depacketized. MUST be the name of a codec known to the browser implementation.
-
 
 ## Extensions to RTCRtpSender and RTCRtpReceiver ## {#sender-receiver-extensions}
 <pre class="idl">

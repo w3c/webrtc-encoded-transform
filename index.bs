@@ -77,7 +77,8 @@ partial interface RTCPeerConnection {
 </pre>
 
 In addition, add two new internal slots to the RTCPeerConnection, called
-<dfn>`[[CustomSendCodecs]]`</dfn> and <dfn>`[[CustomReceiveCodecs]]`</dfn>,
+<dfn class="data" dfn-for="RTCPeerConnection"dfn-type="attribute">{{RTCPeerConnection/[[CustomSendCodecs]]}}</dfn>
+and <dfn class="data" dfn-for="RTCPeerConnection"dfn-type="attribute">{{RTCPeerConnection/[[CustomReceiveCodecs]]}}</dfn>,
 initially empty.
 
 ### Methods ### {#rtcpeerconnection-methods}
@@ -87,14 +88,14 @@ initially empty.
 1. Let 'capability' be the "capability" argument
 1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
 1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
-1. Add 'capability' to the PeerConnections's {{[[CustomSendCodecs]]}} internal slot.
+1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomSendCodecs]]}} internal slot.
 
 #### AddReceiveCodecCapability #### {#add-receive-codec-capability}
 
 1. Let 'capability' be the "capability" argument
 1. If 'capability' is a known codec, throw an AlreadyDefined DOMError.
 1. If 'packetizationMode' is defined, and is not a known codec, throw an IllegalArgument DOMError.
-1. Add 'capability' to the PeerConnections's {{[[CustomReceiveCodecs]]}} internal slot.
+1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomReceiveCodecs]]}} internal slot.
 
 ## RTCRtpCodecCapability extensions ## {#rtc-rtp-codec-capability-extensions}
 
@@ -131,11 +132,11 @@ partial interface RTCRtpReceiver {
 ### Media type negotiation ### {#sdp-negotiation}
 The following modifications are applied to the session negotation procedure:
 
-1. The {{[[CustomSendCodecs]]}} is included in the list of codecs which the user agent
-    is currently prepared to send; the {{[[CustomReceiveCodecs]]}} is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
+1. The {{RTCPeerConnection/[[CustomSendCodecs]]}} is included in the list of codecs which the user agent
+    is currently prepared to send; the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
 
 1. In the final steps to create an offer, step 2.2 is changed to filter the list of codecs against
-    the union of the list of implemented send codecs and the {{[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the list of implemented receive codecs and the {{[[CustomReceiveCodecs]]}} slot.
+    the union of the list of implemented send codecs and the {{RTCPeerConnection/[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the list of implemented receive codecs and the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} slot.
 
 1. In the final steps to create an answer, the same modification is done to the filtering in steps 1.2 and 1.3.
 

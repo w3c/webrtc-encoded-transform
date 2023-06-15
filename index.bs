@@ -117,14 +117,26 @@ typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 // New methods and attributes for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
     attribute RTCRtpTransform? transform;
-    undefined SetEncodingCodec(RTCRtpCodecParameters parameters);
+    undefined setEncodingCodec(RTCRtpCodecParameters parameters);
 };
 
 partial interface RTCRtpReceiver {
     attribute RTCRtpTransform? transform;
-    undefined AddDecodingCodec(RTCRtpCodecParameters parameters);
+    undefined addDecodingCodec(RTCRtpCodecParameters parameters);
 };
 </pre>
+
+### New methods ### {#sender-receiver-new-methods}
+<dl>
+<dt>setEncodingCodec</dt>
+<dd>
+When called, switch the encoder in the RTCRtpSender to produce frames in the format indicated by the `parameters` argument.
+</dd>
+<dt>addDecodingCodec</dt>
+<dd>
+When called, initialize a decoder in the RTCRtpReceiver to handle the format indicated by the `parameters` argument, and initialize the demultiplexer part of the RTCRtpReceiver to forward frames with the payload type identical to `parameters.payloadType` to this decoder.
+</dd>
+</dl>
 
 ## Extension operation ## {#operation}
 
@@ -132,12 +144,12 @@ partial interface RTCRtpReceiver {
 The following modifications are applied to the session negotation procedure:
 
 1. The {{RTCPeerConnection/[[CustomSendCodecs]]}} is included in the list of codecs which the user agent
-    is currently prepared to send; the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
+    is currently capable of sending; the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
 
-1. In the final steps to create an offer, step 2.2 is changed to filter the list of codecs against
-    the union of the list of implemented send codecs and the {{RTCPeerConnection/[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the list of implemented receive codecs and the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} slot.
+1. In the [=final steps to create an offer=], step 2.2 is changed to filter the list of codecs against
+    the union of the [=RTCRtpSender/list of implemented send codecs=] and the {{RTCPeerConnection/[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the [=RTCRtpReceiver/list of implemented receive codecs=] and the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} slot.
 
-1. In the final steps to create an answer, the same modification is done to the filtering in steps 1.2 and 1.3.
+1. In the [=final steps to create an answer=], the same modification is done to the filtering in steps 1.2 and 1.3.
 
 
 

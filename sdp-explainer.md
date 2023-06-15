@@ -31,8 +31,8 @@ When a codec capability is added, the SDP machinery will negotiate these codecs 
 
 ## For SDP negotiation
 ```
-PeerConnection.AddSendCodecCapability(DOMString kind, CodecCapability capability)
-PeerConnection.AddReceiveCodecCapability(DOMString kind, CodecCapability capability)
+pc.addSendCodecCapability(DOMString kind, CodecCapability capability)
+pc.addReceiveCodecCapability(DOMString kind, CodecCapability capability)
 ```
 These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to GetParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
 
@@ -41,7 +41,7 @@ NOTE: The codecs will not show up on the global GetCapability functions, since t
 ## For sending
 The RTCRtpSender’s encoder (if present) will be configured to use a specific codec from CodecCapabilities by a new call:
 ```
-RTCRtpSender.SetEncodingCodec(RTCCodecParameters parameters)
+sender.setEncodingCodec(RTCCodecParameters parameters)
 ```
 This sets the MIME type of the codec to encode to, and the payload type that will be put on frames produced by that encoder. This codec must be one supported by the platform (not the “novel” codec), and the PT does not need to be one negotiated in the SDP offer/answer.
 
@@ -50,12 +50,13 @@ When configuring the transform post negotiation, the app MUST retrieve the PTs n
 When transforming frames, the transformer configured MUST, in addition to modifying the payload, modify the metadata to have the negotiated PT for the custom codec.
 
 The packetizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured. (This assumes that packetization is independent of FMTP)
+
 ## For receiving
 The depacketizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured.
 
 The decoder can be configured to accept a given PT as indicating a given codec format by the new API call:
 ```
-AddDecodingCodec(CodecParameters parameters)
+receiver.addDecodingCodec(CodecParameters parameters)
 ```
 This does not alter the handling of any otherwise-configured PT, but adds a handler for this specific PT.
 
@@ -69,21 +70,24 @@ On seeing a custom codec in the PT for an incoming frame, if the frame is to be 
 (This is incomplete)
 ```
 customCodec = {
-   mimeType: “application/x-encrypted”,
+   mimeType: “video/x-encrypted”,
    clockRate: 90000,
    fmtp = “encapsulated-codec=vp8”,
    packetizationMode = “video/vp8”,
 };
 
 // At sender side
-RTCRtpSender.AddCodecCapability(customCodec);
+pc.addSendCodecCapability('video', customCodec);
 sender = pc.AddTrack(videotrack);
 // Negotiate as usual
 for (codec in sender.getParameters().codecs) {
-   if (codec.mimeType == “application/x-encrypted”) {
+   if (codec.mimeType == “video/x-encrypted”) {
       encryptedPT = codec.payloadType;
+   } else if (codec.mimeType == 'video/vp8') {
+      encodingCodec = codec;
    }
 }
+sender.setEncodingCodec(encodingCodec);
 (readable, writable) = sender.getEncodedStreams();
 
 readable.pipeThrough(new TransformStream(
@@ -98,7 +102,7 @@ readable.pipeThrough(new TransformStream(
 
 // At receiver side.
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
-RTCRtpReceiver.AddCodecCapability(customCodec);
+pc.addReceiveCodecCapability('video', customCodec);
 pc.ontrack = (receiver) => {
 
    for (codec in receiver.getParameters().codecs) {
@@ -106,7 +110,7 @@ pc.ontrack = (receiver) => {
          encryptedPT = codec.payloadType;
       }
    }
-   receiver.addDecodeCapability({mimeType: video/vp8, payloadType=decryptedPT});
+   receiver.addDecodingCodec({mimeType: 'video/vp8', payloadType: decryptedPT});
    (readable, writable) = receiver.getEncodedStreams();
    readable.pipeThrough(new TransformStream(
       transform: (frame) => {

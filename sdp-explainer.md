@@ -47,7 +47,7 @@ This sets the MIME type of the codec to encode to, and the payload type that wil
 
 When configuring the transform post negotiation, the app MUST retrieve the PTs negotiated for the connection, and identify the PT for the custom codec.
 
-When transforming frames, the transformer configured MUST, in addition to modifying the payload, modify the metadata to have the negotiated PT for the custom codec.
+When transforming frames, the transformer configured MUST, in addition to modifying the payload, modify the metadata to have the negotiated payload type for the custom codec.
 
 The packetizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured. (This assumes that packetization is independent of FMTP)
 

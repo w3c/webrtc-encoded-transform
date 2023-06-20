@@ -34,7 +34,7 @@ When a codec capability is added, the SDP machinery will negotiate these codecs 
 pc.addSendCodecCapability(DOMString kind, CodecCapability capability)
 pc.addReceiveCodecCapability(DOMString kind, CodecCapability capability)
 ```
-These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to GetParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
+These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to getParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
 
 NOTE: The codecs will not show up on the global GetCapability functions, since these functions can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
 

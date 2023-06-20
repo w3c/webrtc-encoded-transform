@@ -36,7 +36,7 @@ pc.addReceiveCodecCapability(DOMString kind, CodecCapability capability)
 ```
 These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to getParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
 
-NOTE: The codecs will not show up on the global GetCapability functions, since these functions can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
+NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
 
 ## For sending
 The RTCRtpSender’s encoder (if present) will be configured to use a specific codec from CodecCapabilities by a new call:

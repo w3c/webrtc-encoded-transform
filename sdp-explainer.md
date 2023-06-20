@@ -104,7 +104,6 @@ readable.pipeThrough(new TransformStream(
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
 pc.addReceiveCodecCapability('video', customCodec);
 pc.ontrack = (receiver) => {
-
    for (codec in receiver.getParameters().codecs) {
       if (codec.mimeType == “application/x-encrypted”) {
          encryptedPT = codec.payloadType;

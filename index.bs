@@ -618,8 +618,8 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
 1. If |encoder| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |encoder| is not processing video frames, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |rid| is defined, but does not conform to the grammar requirements specified
-   in Section 10 of [[!RFC8851]], then reject |promise| with {{TypeError}} and abort
-   these steps.
+    in Section 10 of [[!RFC8851]], then reject |promise| with {{TypeError}} and abort
+    these steps.
 1. [=In parallel=], run the following steps:
     1. Gather a list of video encoders, named |videoEncoders| from |encoder|, ordered according negotiated RIDs if any.
     1. If |rid| is defined, remove from |videoEncoders| any video encoder that does not match |rid|.

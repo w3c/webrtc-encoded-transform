@@ -5,10 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 5fcd28d6d, updated Tue May 30 13:12:11 2023 -0700" name="generator">
+  <meta content="Bikeshed version 5edf5e459, updated Thu Jun 22 11:28:01 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="49f981b4c0d694289d9b9efae51501ffa342e9db" name="document-revision">
+  <meta content="4bd0792b02d626e56714c245c615808497311252" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -515,7 +514,7 @@ a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
-<style>/* Boilerplate: style-style-syntax-highlighting */
+<style>/* Boilerplate: style-syntax-highlighting */
 
             pre.idl.highlight {
                 background: var(--borderedblock-bg, var(--def-bg));
@@ -649,7 +648,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-06-02">2 June 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-06-29">29 June 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -669,7 +668,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-software" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -1341,7 +1340,9 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
     <li data-md>
      <p>If <var>encoder</var> is not processing video frames, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
-     <p>If <var>rid</var> is defined, validate its value. If invalid, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notallowederror" id="ref-for-notallowederror">NotAllowedError</a></code> and abort these steps.</p>
+     <p>If <var>rid</var> is defined, but does not conform to the grammar requirements specified
+in Section 10 of <a data-link-type="biblio" href="#biblio-rfc8851" title="RTP Payload Format Restrictions">[RFC8851]</a>, then reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code> and abort
+these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel③">In parallel</a>, run the following steps:</p>
      <ol>
@@ -1692,10 +1693,10 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="889e932f">Exposed</span>
      <li><span class="dfn-paneled" id="cae6bf57">InvalidModificationError</span>
      <li><span class="dfn-paneled" id="797018a7">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="ba556545">NotAllowedError</span>
      <li><span class="dfn-paneled" id="9eda9b58">NotFoundError</span>
      <li><span class="dfn-paneled" id="bdbd19d1">Promise</span>
      <li><span class="dfn-paneled" id="ec878a66">RangeError</span>
+     <li><span class="dfn-paneled" id="82ca3efc">TypeError</span>
      <li><span class="dfn-paneled" id="dacde8b5">a new promise</span>
      <li><span class="dfn-paneled" id="8f5c2179">a promise resolved with</span>
      <li><span class="dfn-paneled" id="6c6b1005">any</span>
@@ -1733,6 +1734,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Cullen Jennings; et al. <a href="https://w3c.github.io/mediacapture-main/"><cite>Media Capture and Streams</cite></a>. URL: <a href="https://w3c.github.io/mediacapture-main/">https://w3c.github.io/mediacapture-main/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-rfc8851">[RFC8851]
+   <dd>A.B. Roach, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc8851"><cite>RTP Payload Format Restrictions</cite></a>. January 2021. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8851">https://www.rfc-editor.org/rfc/rfc8851</a>
    <dt id="biblio-streams">[STREAMS]
    <dd>Adam Rice; et al. <a href="https://streams.spec.whatwg.org/"><cite>Streams Standard</cite></a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
    <dt id="biblio-webcodecs">[WEBCODECS]
@@ -2237,10 +2240,10 @@ window.dfnpanelData['c01cbda0'] = {"dfnID": "c01cbda0", "url": "https://webidl.s
 window.dfnpanelData['889e932f'] = {"dfnID": "889e932f", "url": "https://webidl.spec.whatwg.org/#Exposed", "dfnText": "Exposed", "refSections": [{"refs": [{"id": "ref-for-Exposed"}, {"id": "ref-for-Exposed\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-Exposed\u2461"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-Exposed\u2462"}], "title": "5.5. RTCEncodedAudioFrame interface"}, {"refs": [{"id": "ref-for-Exposed\u2463"}, {"id": "ref-for-Exposed\u2464"}, {"id": "ref-for-Exposed\u2465"}], "title": "5.5.2. Methods"}], "external": true};
 window.dfnpanelData['cae6bf57'] = {"dfnID": "cae6bf57", "url": "https://webidl.spec.whatwg.org/#invalidmodificationerror", "dfnText": "InvalidModificationError", "refSections": [{"refs": [{"id": "ref-for-invalidmodificationerror"}], "title": "4.2. Methods"}], "external": true};
 window.dfnpanelData['797018a7'] = {"dfnID": "797018a7", "url": "https://webidl.spec.whatwg.org/#invalidstateerror", "dfnText": "InvalidStateError", "refSections": [{"refs": [{"id": "ref-for-invalidstateerror"}, {"id": "ref-for-invalidstateerror\u2460"}, {"id": "ref-for-invalidstateerror\u2461"}, {"id": "ref-for-invalidstateerror\u2462"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
-window.dfnpanelData['ba556545'] = {"dfnID": "ba556545", "url": "https://webidl.spec.whatwg.org/#notallowederror", "dfnText": "NotAllowedError", "refSections": [{"refs": [{"id": "ref-for-notallowederror"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
 window.dfnpanelData['9eda9b58'] = {"dfnID": "9eda9b58", "url": "https://webidl.spec.whatwg.org/#notfounderror", "dfnText": "NotFoundError", "refSections": [{"refs": [{"id": "ref-for-notfounderror"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
 window.dfnpanelData['bdbd19d1'] = {"dfnID": "bdbd19d1", "url": "https://webidl.spec.whatwg.org/#idl-promise", "dfnText": "Promise", "refSections": [{"refs": [{"id": "ref-for-idl-promise"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-promise\u2460"}, {"id": "ref-for-idl-promise\u2461"}], "title": "5.5.2. Methods"}, {"refs": [{"id": "ref-for-idl-promise\u2462"}], "title": "6. RTCRtpSender extension"}], "external": true};
 window.dfnpanelData['ec878a66'] = {"dfnID": "ec878a66", "url": "https://webidl.spec.whatwg.org/#exceptiondef-rangeerror", "dfnText": "RangeError", "refSections": [{"refs": [{"id": "ref-for-exceptiondef-rangeerror"}], "title": "4.2. Methods"}], "external": true};
+window.dfnpanelData['82ca3efc'] = {"dfnID": "82ca3efc", "url": "https://webidl.spec.whatwg.org/#exceptiondef-typeerror", "dfnText": "TypeError", "refSections": [{"refs": [{"id": "ref-for-exceptiondef-typeerror"}], "title": "5.8. KeyFrame Algorithms"}], "external": true};
 window.dfnpanelData['dacde8b5'] = {"dfnID": "dacde8b5", "url": "https://webidl.spec.whatwg.org/#a-new-promise", "dfnText": "a new promise", "refSections": [{"refs": [{"id": "ref-for-a-new-promise"}], "title": "4.2. Methods"}], "external": true};
 window.dfnpanelData['8f5c2179'] = {"dfnID": "8f5c2179", "url": "https://webidl.spec.whatwg.org/#a-promise-resolved-with", "dfnText": "a promise resolved with", "refSections": [{"refs": [{"id": "ref-for-a-promise-resolved-with"}, {"id": "ref-for-a-promise-resolved-with\u2460"}, {"id": "ref-for-a-promise-resolved-with\u2461"}], "title": "3.1.2. Stream processing"}], "external": true};
 window.dfnpanelData['6c6b1005'] = {"dfnID": "6c6b1005", "url": "https://webidl.spec.whatwg.org/#idl-any", "dfnText": "any", "refSections": [{"refs": [{"id": "ref-for-idl-any"}, {"id": "ref-for-idl-any\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-any\u2461"}, {"id": "ref-for-idl-any\u2462"}], "title": "5.5.2. Methods"}], "external": true};

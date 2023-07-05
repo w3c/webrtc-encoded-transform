@@ -630,8 +630,8 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
     1. If |rid| is undefined, set |rid| to the RID value corresponding to |videoEncoder|.
     1. Create a pending key frame task called |task| with |task|.`[[rid]]` set to rid and |task|.`[[promise]]`| set to |promise|.
     1. If |encoder|.`[[pendingKeyFrameTasks]]` is undefined, initialize |encoder|.`[[pendingKeyFrameTasks]]` to an empty set.
-    1. Let |shouldTriggerKeyFrame| be <code>true</code> if |encoder|.`[[pendingKeyFrameTasks]]` contains a task whose `[[rid]]`
-        value is equal to |rid|, and <code>false</code> otherwise.
+    1. Let |shouldTriggerKeyFrame| be <code>false</code> if |encoder|.`[[pendingKeyFrameTasks]]` contains a task whose `[[rid]]`
+        value is equal to |rid|, and <code>true</code> otherwise.
     1. Add |task| to |encoder|.`[[pendingKeyFrameTasks]]`.
     1. If |shouldTriggerKeyFrame| is <code>true</code>, instruct |videoEncoder| to generate a key frame for the next provided video frame.
 

@@ -5,9 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version b06c00b8e, updated Tue Jul 11 13:41:16 2023 -0700" name="generator">
+  <meta content="Bikeshed version d29f71adb, updated Wed Jul 19 11:08:56 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="296c9b11e0dc9023a7f0ccbcfc914986c14abd6a" name="document-revision">
+  <meta content="c18f6aeca6d45d3917c090136d58409a3053284f" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -648,7 +648,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-07-13">13 July 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-07-27">27 July 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -693,7 +693,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 	W3C maintains a <a href="https://www.w3.org/2004/01/pp-impl/47318/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group;
 	that page also includes instructions for disclosing a patent.
 	An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/2021/Process-20211102/" id="w3c_process_revision">2 November 2021 W3C Process Document</a>. </p>
+   <p> This document is governed by the <a href="https://www.w3.org/2023/Process-20230612/" id="w3c_process_revision">12 June 2023 W3C Process Document</a>. </p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -827,8 +827,8 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream">WritableStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm" id="ref-for-writablestream-set-up-sizealgorithm">sizeAlgorithm</a> to an algorithm that returns <code>0</code>.</p>
-     <p class="note" role="note">Chunk size is set to 0 to explictly disable streams backpressure on the write side.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-highwatermark" id="ref-for-writablestream-set-up-highwatermark">highWaterMark</a> set to <code>Infinity</code>.</p>
+     <p class="note" role="note">highWaterMark is set to Infinity to explicitly disable backpressure.</p>
     <li data-md>
      <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.<code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
     <li data-md>
@@ -848,6 +848,12 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
        <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①④">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑤">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
    </ol>
+   <p class="note" role="note"> Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
+This proves useful in contexts where reliability is essential and latency is less of a concern.
+On the other hand, WebRTC media pipelines favour low latency over reliability, for instance by allowing to drop frames at various places and by using recovery mechanisms.
+Buffering within a transform would add latency without allowing web applications to adapt much.
+The User Agent is responsible for doing these adaptations, especially since it controls both ends of the transform.
+For those reasons, streams backpressure is disabled in WebRTC encoded transforms. </p>
    <h4 class="heading settled" data-level="3.1.2" id="stream-processing"><span class="secno">3.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
    <ol>
@@ -1664,12 +1670,12 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="6b6bb798">enqueue</span>
      <li><span class="dfn-paneled" id="bf6531af">getting a reader</span>
      <li><span class="dfn-paneled" id="f4acb816">getting a writer</span>
+     <li><span class="dfn-paneled" id="5958fe2e">highwatermark</span>
      <li><span class="dfn-paneled" id="03c3f3ed">identity transform stream</span>
      <li><span class="dfn-paneled" id="b21c2abd">release <small>(for ReadableStreamDefaultReader)</small></span>
      <li><span class="dfn-paneled" id="a307241e">release <small>(for WritableStreamDefaultWriter)</small></span>
      <li><span class="dfn-paneled" id="d438bc09">set up <small>(for ReadableStream)</small></span>
      <li><span class="dfn-paneled" id="3dc81766">set up <small>(for WritableStream)</small></span>
-     <li><span class="dfn-paneled" id="5d7f2906">sizealgorithm</span>
      <li><span class="dfn-paneled" id="c7574ff1">transformalgorithm</span>
      <li><span class="dfn-paneled" id="d04a8309">writealgorithm</span>
     </ul>
@@ -2223,12 +2229,12 @@ window.dfnpanelData['59dc45b5'] = {"dfnID": "59dc45b5", "url": "https://streams.
 window.dfnpanelData['6b6bb798'] = {"dfnID": "6b6bb798", "url": "https://streams.spec.whatwg.org/#readablestream-enqueue", "dfnText": "enqueue", "refSections": [{"refs": [{"id": "ref-for-readablestream-enqueue"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-readablestream-enqueue\u2460"}], "title": "4.1. Algorithm"}], "external": true};
 window.dfnpanelData['bf6531af'] = {"dfnID": "bf6531af", "url": "https://streams.spec.whatwg.org/#readablestream-get-a-reader", "dfnText": "getting a reader", "refSections": [{"refs": [{"id": "ref-for-readablestream-get-a-reader"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['f4acb816'] = {"dfnID": "f4acb816", "url": "https://streams.spec.whatwg.org/#writablestream-get-a-writer", "dfnText": "getting a writer", "refSections": [{"refs": [{"id": "ref-for-writablestream-get-a-writer"}], "title": "3.2. Extension attribute"}], "external": true};
+window.dfnpanelData['5958fe2e'] = {"dfnID": "5958fe2e", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-highwatermark", "dfnText": "highwatermark", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-highwatermark"}], "title": "3.1.1. Stream creation"}], "external": true};
 window.dfnpanelData['03c3f3ed'] = {"dfnID": "03c3f3ed", "url": "https://streams.spec.whatwg.org/#identity-transform-stream", "dfnText": "identity transform stream", "refSections": [{"refs": [{"id": "ref-for-identity-transform-stream"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-identity-transform-stream\u2460"}, {"id": "ref-for-identity-transform-stream\u2461"}], "title": "5.6. Operations"}], "external": true};
 window.dfnpanelData['b21c2abd'] = {"dfnID": "b21c2abd", "url": "https://streams.spec.whatwg.org/#readablestreamdefaultreader-release", "dfnText": "release (for ReadableStreamDefaultReader)", "refSections": [{"refs": [{"id": "ref-for-readablestreamdefaultreader-release"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['a307241e'] = {"dfnID": "a307241e", "url": "https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release", "dfnText": "release (for WritableStreamDefaultWriter)", "refSections": [{"refs": [{"id": "ref-for-writablestreamdefaultwriter-release"}], "title": "3.2. Extension attribute"}], "external": true};
 window.dfnpanelData['d438bc09'] = {"dfnID": "d438bc09", "url": "https://streams.spec.whatwg.org/#readablestream-set-up", "dfnText": "set up (for ReadableStream)", "refSections": [{"refs": [{"id": "ref-for-readablestream-set-up"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-readablestream-set-up\u2460"}], "title": "4. SFrameTransform"}], "external": true};
 window.dfnpanelData['3dc81766'] = {"dfnID": "3dc81766", "url": "https://streams.spec.whatwg.org/#writablestream-set-up", "dfnText": "set up (for WritableStream)", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up"}], "title": "3.1.1. Stream creation"}], "external": true};
-window.dfnpanelData['5d7f2906'] = {"dfnID": "5d7f2906", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-sizealgorithm", "dfnText": "sizealgorithm", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-sizealgorithm"}], "title": "3.1.1. Stream creation"}], "external": true};
 window.dfnpanelData['c7574ff1'] = {"dfnID": "c7574ff1", "url": "https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm", "dfnText": "transformalgorithm", "refSections": [{"refs": [{"id": "ref-for-transformstream-set-up-transformalgorithm"}], "title": "4. SFrameTransform"}], "external": true};
 window.dfnpanelData['d04a8309'] = {"dfnID": "d04a8309", "url": "https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm", "dfnText": "writealgorithm", "refSections": [{"refs": [{"id": "ref-for-writablestream-set-up-writealgorithm"}], "title": "3.1.1. Stream creation"}], "external": true};
 window.dfnpanelData['93b563b6'] = {"dfnID": "93b563b6", "url": "https://w3c.github.io/webcodecs/#dom-videoframe-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-videoframe-timestamp"}], "title": "5.2.1. Members"}], "external": true};

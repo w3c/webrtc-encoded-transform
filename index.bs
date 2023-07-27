@@ -105,7 +105,7 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
 This proves useful in contexts where reliability is essential and latency is less of a concern.
 On the other hand, WebRTC media pipelines favour low latency over reliability, for instance by allowing to drop frames at various places and by using recovery mechanisms.
-Buffering within WebRTC encoded transform would add latency without allowing web applications to adapt much.
+Buffering within a transform would add latency without allowing web applications to adapt much.
 The User Agent is responsible to do these adaptations, especially since it controls both ends of the transform.
 For those reasons, streams backpressure is disabled in WebRTC encoded transforms.
 </p>

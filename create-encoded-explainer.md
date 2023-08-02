@@ -48,3 +48,30 @@ This may include the need for a number of signals and appropriate treatment ther
 * If the source is capable of producing I-frames on demand, the handler taking data from it must be able to make those requests appropriately
 
 It is harmful to the model if there are couplings between the source of encoded data and the sink for encoded data that are not exposed to the handler.
+
+
+## Sample code
+
+Let's take a scenario where P2P relays are used to forward frames. Depending solely on a local peer for the stream is not very reliable in this setup. For consistent, glitch-free, low latency streaming, a redundant PeerConnection delivering the same stream is also setup(`recvPc1` and `recvPc2`). A peer can then relay the stream to the next peer in the network (`relayPc`). We pass the readable stream of the incoming PeerConnections to  `transferFrames` function which reads the frames and modifies the frame's metadata such that two frames with the same payload have the same metadata. We then write one of these frames to the `relayPcWriter`.
+
+```
+// Let recvPc1, recvPc2 be the receiving PCs. 
+recvPc{1|2}.ontrack = evt => {
+  transferFrames(evt.receiver.createEncodedStreams().readable.getReader());
+};
+
+// Let relayPc be the PC used to relay frames to the next peer.
+relayPcWriter = relayPc.sender.createEncodedStreams().writable.getWriter();
+
+async function transferFrames(reader) {
+    while (true) {
+        const {frame, done} = await reader.read();
+        if (done) return;
+
+        frame.setMetadata(getUnifiedMetadata(frame));
+        if(!isDuplicate(frame)) {
+            relayPcWriter.write(frame);
+        }
+    }
+}
+```

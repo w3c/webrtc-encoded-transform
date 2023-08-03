@@ -339,7 +339,8 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
-    long long timestamp;    // microseconds
+    unsigned long rtpTimestamp;
+    long long presentationTimestamp;    // microseconds
 };
 </pre>
 
@@ -373,8 +374,19 @@ dictionary RTCEncodedVideoFrameMetadata {
             The list of contribution sources (csrc list) as defined in [[RFC3550]].
         </p>
     </dd>
+
     <dt>
-        <dfn>timestamp</dfn> of type <span class=
+        <dfn attribute>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+
+    <dt>
+        <dfn>presentationTimestamp</dfn> of type <span class=
             "idlMemberType">long long</span>
     </dt>
     <dd>
@@ -393,9 +405,9 @@ dictionary RTCEncodedVideoFrameMetadata {
 [Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
-    readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
+    void setMetadata(RTCEncodedVideoFrameMetadata metadata);
 };
 </pre>
 
@@ -411,15 +423,6 @@ interface RTCEncodedVideoFrame {
         </p>
     </dd>
 
-    <dt>
-        <dfn attribute>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
-            that reflects the sampling instant of the first octet in the RTP data packet.
-        </p>
-    </dd>
     <dt>
         <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
     </dt>
@@ -438,6 +441,14 @@ interface RTCEncodedVideoFrame {
     <dd>
         <p>
             Returns the metadata associated with the frame.
+        </p>
+    </dd>
+    <dt>
+        <dfn for="RTCEncodedVideoFrame" method>setMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Sets a new metadata that would be associated with the frame.
         </p>
     </dd>
 </dl>
@@ -498,7 +509,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 <pre class="idl">
 [Exposed=(Window,DedicatedWorker)]
 interface RTCEncodedAudioFrame {
-    readonly attribute unsigned long timestamp;
+    attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };

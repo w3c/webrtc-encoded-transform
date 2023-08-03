@@ -52,7 +52,7 @@ It is harmful to the model if there are couplings between the source of encoded 
 
 ## Sample code
 
-Let's take a scenario where P2P relays are used to forward frames. Depending solely on a local peer for the stream is not very reliable in this setup. For consistent, glitch-free, low latency streaming, a redundant PeerConnection delivering the same stream is also setup(`recvPc1` and `recvPc2`). A peer can then relay the stream to the next peer in the network (`relayPc`). We pass the readable stream of the incoming PeerConnections to  `transferFrames` function which reads the frames and modifies the frame's metadata such that two frames with the same payload have the same metadata. We then write one of these frames to the `relayPcWriter`.
+Let's take a scenario where P2P relays are used to forward frames. Depending solely on a local peer for the stream is not very reliable in this setup. For consistent, glitch-free, low latency streaming, a redundant PeerConnection delivering the same stream is also setup(`recvPc1` and `recvPc2`). A peer can then choose to relay this stream to the next peer in the network (`relayPc`). We pass the readable stream of the incoming PeerConnections to  `transferFrames` function which reads the frames and modifies the frame's metadata such that two frames with the same payload have the same metadata (`getUnifiedMetadata`). We then write one of these frames(`isDuplicate`) to the `relayPcWriter`. `getUnifiedMetadata` and `isDuplicate` are application-specific functions.
 
 ```
 // Let recvPc1, recvPc2 be the receiving PCs. 

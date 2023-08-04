@@ -121,7 +121,7 @@ The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as p
 1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
 
 The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
-1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
+1. If |frame|.`[[owner]]` is not equal to |rtcObject|, skip to step 4. In this case, either frames were created or moved between streams.
 1. If |frame|.`[[counter]]` is equal or smaller than |rtcObject|.`[[lastReceivedFrameCounter]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
 1. Set |rtcObject|.`[[lastReceivedFrameCounter]]` to |frame|`[[counter]]`.
 1. Let |data| be |frame|.`[[data]]`.
@@ -448,7 +448,9 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            Sets a new metadata that would be associated with the frame.
+            Sets a new metadata that would be associated with the frame. Only allowed to change the fields
+	    frameId, dependencies and rtpTimetsamp in the RTCEncodedVideoFrameMetadata. All other changes
+	    are not allowed and should return an error.
         </p>
     </dd>
 </dl>

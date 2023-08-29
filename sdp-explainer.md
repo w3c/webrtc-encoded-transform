@@ -8,6 +8,10 @@ This creates a problem, in that when an encoded transform is applied on the send
 
 This problem is even more acute when the Encoded Transform is used to add support for payload types not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to demultiplex the incoming packets correctly and route them to the right decoder.
 
+For example, it's been proposed to add [Lyra](https://github.com/google/lyra) to WebRTC using an implementation in WASM
+- a working example using SDP munging can be found on the
+[Meetecho blog](https://www.meetecho.com/blog/playing-with-lyra/).
+
 # Requirements for an SDP negotiation API
 The following things need to be available on such an API:
 1. Before SDP negotiation, the application must be able to specify one or more new media types that one wants to negotiate for. As a point of illustration, this document uses the type "video/new-codec".
@@ -52,7 +56,8 @@ When transforming frames, the transformer configured MUST, in addition to modify
 The packetizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured. (This assumes that packetization is independent of FMTP)
 
 ## For receiving
-The depacketizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured.
+The depacketizer will use the rules for the MIME type associated with the payload type. If the payload type is associated
+with an RtpCodecCapability that has a packetizationMode parameter, that packetization mode will be used.
 
 The decoder can be configured to accept a given PT as indicating a given codec format by the new API call:
 ```
@@ -78,49 +83,54 @@ customCodec = {
 
 // At sender side
 pc.addSendCodecCapability('video', customCodec);
-sender = pc.AddTrack(videotrack);
-// Negotiate as usual
-for (codec in sender.getParameters().codecs) {
-   if (codec.mimeType == “video/x-encrypted”) {
-      encryptedPT = codec.payloadType;
-   } else if (codec.mimeType == 'video/vp8') {
-      encodingCodec = codec;
-   }
-}
-sender.setEncodingCodec(encodingCodec);
-(readable, writable) = sender.getEncodedStreams();
 
-readable.pipeThrough(new TransformStream(
-   transform: (frame) => {
-       encryptBody(frame);
-       metadata = frame.metadata();
-       metadata.pt = encryptedPT;
-       frame.setMetadata(metadata);
-       writable.write(frame);
-   }
-}).pipeTo(writable);
+// ...after negotiation
+
+const {codecs} = sender.getParameters();
+const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
+
+const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
+sender.transform = new RTCRtpScriptTransform(worker, {payloadType});
+
+function work() {
+  onrtctransform = async ({transformer: {readable, writable, options}}) =>
+    await readable.pipeThrough(new TransformStream({transform})).pipeTo(writable);
+
+  function transform(frame, controller) {
+    // transform chunk
+    let metadata = frame.metadata();
+    encryptBody(frame);
+    metadata = frame.metadata();
+    metadata.pt = options.payloadType;
+    frame.setMetadata(metadata);
+    controller.enqueue(frame);
+  }
+}
 
 // At receiver side.
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
 pc.addReceiveCodecCapability('video', customCodec);
 pc.ontrack = (receiver) => {
-   for (codec in receiver.getParameters().codecs) {
-      if (codec.mimeType == “application/x-encrypted”) {
-         encryptedPT = codec.payloadType;
-      }
-   }
+  const {codecs} = sender.getParameters();
+  const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
+   
    receiver.addDecodingCodec({mimeType: 'video/vp8', payloadType: decryptedPT});
-   (readable, writable) = receiver.getEncodedStreams();
-   readable.pipeThrough(new TransformStream(
-      transform: (frame) => {
+   const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
+   receiver.transform = new RTCRtpScriptTransform(worker, {payloadType});
+
+  function work() {
+   transform = new TransformStream(
+      transform: (frame, controller) => {
          if (frame.metadata().payloadType != encryptedPT) {
            continue;  // Ignore all frames for the wrong payload.
          }
          decryptBody(frame);
          metadata = frame.metadata();
          metadata.payloadType = decryptedPT;
-         writable.write(frame);
+         controller.enqueue(frame);
        }
-   }).pipeTo(writable);
+   });
+   onrtctransform = async({transformer: {readable, writable, options}}) =>
+     await readable.pipeThrough(transform).pipeTo(writable);
 };
 ```

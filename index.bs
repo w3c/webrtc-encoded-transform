@@ -69,10 +69,8 @@ allow the declaration and negotiation of new media types.
 <pre class="idl">
 // New methods for RTCPeerConnection
 partial interface RTCPeerConnection {
-   undefined AddSendCodecCapability(DOMString kind,
-                                    RTCRtpCodecCapability capability);
-   undefined AddReceiveCodecCapability(DOMString kind,
-                                    RTCRtpCodecCapability capability);
+   undefined AddSendCodecCapability(RTCRtpCodecCapability capability);
+   undefined AddReceiveCodecCapability(RTCRtpCodecCapability capability);
 };
 </pre>
 
@@ -86,14 +84,16 @@ initially empty.
 #### AddSendCodecCapability #### {#add-send-codec-capability}
 
 1. Let 'capability' be the "capability" argument
-1. If 'capability' is a known codec, throw an IllegalModification error.
+1. If 'capability' is identical to the capability describing a previously configured codec,
+    throw an IllegalModification error.
 1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomSendCodecs]]}} internal slot.
 
 #### AddReceiveCodecCapability #### {#add-receive-codec-capability}
 
 1. Let 'capability' be the "capability" argument
-1. If 'capability' is a known codec, throw an IllegalModification error.
+1. If 'capability' is identical to the capability describing a previously configured codec,
+    throw an IllegalModification error.
 1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomReceiveCodecs]]}} internal slot.
 
@@ -107,7 +107,9 @@ partial dictionary RTCRtpCodecCapability {
 
 ### Attributes ### {#rtc-rtp-codec-capability-attributes}
 #### packetizationMode #### {#packetization-mode}
-Defines the packetization mode to use for the frame being packetized or depacketized. MUST be the name of a codec known to the browser implementation.
+Defines the packetization mode to use for the frame being packetized or depacketized. MUST be the mimeType from
+the capability describing a codec in the [=list of implemented send codecs=] (for packetizing) or the
+[=list of implemented receive codecs=] (for depacketizing).
 
 ## Extensions to RTCRtpSender and RTCRtpReceiver ## {#sender-receiver-extensions}
 <pre class="idl">
@@ -122,8 +124,7 @@ partial interface RTCRtpSender {
 
 partial interface RTCRtpReceiver {
     attribute RTCRtpTransform? transform;
-    undefined addDecodingCodec(RTCRtpCodecParameters parameters);
-};
+    undefined addDecodingCodec(RTCRtpCodecParameters parameters);};
 </pre>
 
 ### New methods ### {#sender-receiver-new-methods}
@@ -134,9 +135,17 @@ When called, switch the encoder in the RTCRtpSender to produce frames in the for
 </dd>
 <dt>addDecodingCodec</dt>
 <dd>
-When called, initialize a decoder in the RTCRtpReceiver to handle the format indicated by the `parameters` argument, and initialize the demultiplexer part of the RTCRtpReceiver to forward frames with the payload type identical to `parameters.payloadType` to this decoder.
+When called, initialize a decoder in the RTCRtpReceiver to handle the format indicated by the `parameters` argument, and initialize the demultiplexer part of the RTCRtpReceiver that follows the transform step to forward frames with the payload type identical to `parameters.payloadType` to this decoder.
 </dd>
 </dl>
+
+<p class="note">
+setEncodingCodec may be the same thing as setting encoder in RTCRtpEncodingParameters, but I'm not sure of that; the
+two may have different effects on the packetizer. Also the "codec" is an RTCRtpCodec, while this uses RTCRtpCodecParameters
+(which includes the payload type).
+<br/>
+setEncodingParameters() does not affect decoding, so addDecodingCodec is needed.
+</p>
 
 ## Extension operation ## {#operation}
 

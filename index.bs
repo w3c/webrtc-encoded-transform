@@ -374,7 +374,6 @@ dictionary RTCEncodedVideoFrameMetadata {
             The list of contribution sources (csrc list) as defined in [[RFC3550]].
         </p>
     </dd>
-
     <dt>
         <dfn dict-member>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
     </dt>
@@ -384,7 +383,6 @@ dictionary RTCEncodedVideoFrameMetadata {
             that reflects the sampling instant of the first octet in the RTP data packet.
         </p>
     </dd>
-
     <dt>
         <dfn dict-member>presentationTimestamp</dfn> of type <span class=
             "idlMemberType">long long</span>
@@ -462,7 +460,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
-    attribute unsigned long rtpTimestamp;
+    unsigned long rtpTimestamp;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -507,7 +505,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn attribute>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn dict-member>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -549,8 +547,6 @@ interface RTCEncodedAudioFrame {
             Returns the metadata associated with the frame.
         </p>
     </dd>
-</dl>
-
     <dt>
         <dfn for="RTCEncodedAudioFrame" method>setMetadata()</dfn>
     </dt>
@@ -561,6 +557,8 @@ interface RTCEncodedAudioFrame {
 	    not allowed and should return an error.
         </p>
     </dd>
+</dl>
+
 
 // New interfaces to expose JavaScript-based transforms.
 ##Interfaces

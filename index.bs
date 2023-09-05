@@ -462,6 +462,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
+    attribute unsigned long rtpTimestamp;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -505,22 +506,8 @@ dictionary RTCEncodedAudioFrameMetadata {
             Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
         </p>
     </dd>
-</dl>
-
-## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
-<pre class="idl">
-[Exposed=(Window,DedicatedWorker)]
-interface RTCEncodedAudioFrame {
-    attribute unsigned long timestamp;
-    attribute ArrayBuffer data;
-    RTCEncodedAudioFrameMetadata getMetadata();
-};
-</pre>
-
-### Members ### {#RTCEncodedAudioFrame-members}
-<dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn attribute>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -528,6 +515,20 @@ interface RTCEncodedAudioFrame {
             that reflects the sampling instant of the first octet in the RTP data packet.
         </p>
     </dd>
+</dl>
+
+## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
+<pre class="idl">
+[Exposed=(Window,DedicatedWorker)]
+interface RTCEncodedAudioFrame {
+    attribute ArrayBuffer data;
+    RTCEncodedAudioFrameMetadata getMetadata();
+    void setMetadata(RTCEncodedAudioFrameMetadata metadata);
+};
+</pre>
+
+### Members ### {#RTCEncodedAudioFrame-members}
+<dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
         <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
     </dt>
@@ -550,6 +551,16 @@ interface RTCEncodedAudioFrame {
     </dd>
 </dl>
 
+    <dt>
+        <dfn for="RTCEncodedAudioFrame" method>setMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Sets a new metadata that would be associated with the frame. Only allowed to change
+	    the rtpTimetsamp field in the RTCEncodedAudioFrameMetadata. All other changes are
+	    not allowed and should return an error.
+        </p>
+    </dd>
 
 // New interfaces to expose JavaScript-based transforms.
 ##Interfaces

@@ -340,6 +340,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
+    unsigned long rtpTimestamp;
 };
 </pre>
 
@@ -383,6 +384,16 @@ dictionary RTCEncodedVideoFrameMetadata {
       {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
+    <dt>
+        <dfn dict-member>rtpTimestamp</dfn> <span class=
+            "idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
 </dl>
 
 
@@ -393,7 +404,6 @@ dictionary RTCEncodedVideoFrameMetadata {
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
-    readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
 };
@@ -408,16 +418,6 @@ interface RTCEncodedVideoFrame {
         <p>
             The type attribute allows the application to determine when a key frame is being
             sent or received.
-        </p>
-    </dd>
-
-    <dt>
-        <dfn attribute>timestamp</dfn> <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
-            that reflects the sampling instant of the first octet in the RTP data packet.
         </p>
     </dd>
     <dt>
@@ -474,6 +474,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
+    unsigned long rtpTimestamp;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -517,22 +518,8 @@ dictionary RTCEncodedAudioFrameMetadata {
             Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
         </p>
     </dd>
-</dl>
-
-## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
-<pre class="idl">
-[Exposed=(Window,DedicatedWorker), Serializable]
-interface RTCEncodedAudioFrame {
-    readonly attribute unsigned long timestamp;
-    attribute ArrayBuffer data;
-    RTCEncodedAudioFrameMetadata getMetadata();
-};
-</pre>
-
-### Members ### {#RTCEncodedAudioFrame-members}
-<dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>timestamp</dfn> <span class="idlMemberType">unsigned long</span>
+        <dfn dict-member>rtpTimestamp</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -540,6 +527,19 @@ interface RTCEncodedAudioFrame {
             that reflects the sampling instant of the first octet in the RTP data packet.
         </p>
     </dd>
+</dl>
+
+## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
+<pre class="idl">
+[Exposed=(Window,DedicatedWorker), Serializable]
+interface RTCEncodedAudioFrame {
+    attribute ArrayBuffer data;
+    RTCEncodedAudioFrameMetadata getMetadata();
+};
+</pre>
+
+### Members ### {#RTCEncodedAudioFrame-members}
+<dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
         <dfn attribute>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
     </dt>

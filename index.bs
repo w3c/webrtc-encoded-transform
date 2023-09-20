@@ -278,7 +278,7 @@ enum RTCEncodedVideoFrameType {
 };
 </pre>
 <table dfn-for="RTCEncodedVideoFrameType" class="simple">
-	<caption>Enumeration description</caption>
+  <caption>Enumeration description</caption>
     <thead>
         <tr>
             <th>Enum value</th><th>Description</th>
@@ -371,7 +371,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             The media presentation timestamp (PTS) in microseconds of raw frame, matching the
-	    {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
+      {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
 </dl>
@@ -432,6 +432,27 @@ interface RTCEncodedVideoFrame {
         </p>
     </dd>
 </dl>
+
+### Serialization ### {#RTCEncodedVideoFrame-serialization}
+
+{{RTCEncodedVideoFrame}} objects are serializable objects [[HTML]].
+Their serialization steps, given |value|, |serialized|, and |forStorage|, are:
+
+1. If |forStorage| is true, then throw a "DataCloneError" DOMException.
+1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+
+Their deserialization steps, given |serialized|, |value| and |realm|, are:
+
+1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
+1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
+
+<p class="note">
+The internal form of a serialized RTCEncodedVideoFrame is not observable;
+it is defined chiefly so that it can be used with frame cloning in the
+[$writeEncodedData$] algortihm and in the StructuredClone operation.
+An implementation is therefore free to choose whatever method works best.
+</p>
 
 ## <dfn dictionary>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
 <pre class="idl">
@@ -528,6 +549,20 @@ interface RTCEncodedAudioFrame {
     </dd>
 </dl>
 
+
+### Serialization ### {#RTCEncodedAudioFrame-serialization}
+
+{{RTCEncodedAudioFrame}} objects are serializable objects [[HTML]].
+Their serialization steps, given |value|, |serialized|, and |forStorage|, are:
+
+1. If |forStorage| is true, then throw a "DataCloneError" DOMException.
+1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+
+Their deserialization steps, given |serialized|, |value| and |realm|, are:
+
+1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
+1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
 
 // New interfaces to expose JavaScript-based transforms.
 ##Interfaces

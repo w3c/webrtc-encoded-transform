@@ -564,8 +564,7 @@ Their deserialization steps, given |serialized|, |value| and |realm|, are:
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
 
-// New interfaces to expose JavaScript-based transforms.
-##Interfaces
+## Interfaces ## {#RTCRtpScriptTransformer-interfaces}
 <pre class="idl">
 [Exposed=DedicatedWorker]
 interface RTCTransformEvent : Event {

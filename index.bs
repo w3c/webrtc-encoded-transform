@@ -287,7 +287,7 @@ enum RTCEncodedVideoFrameType {
 };
 </pre>
 <table dfn-for="RTCEncodedVideoFrameType" class="simple">
-	<caption>Enumeration description</caption>
+  <caption>Enumeration description</caption>
     <thead>
         <tr>
             <th>Enum value</th><th>Description</th>
@@ -347,7 +347,7 @@ dictionary RTCEncodedVideoFrameMetadata {
 
 <dl dfn-for="RTCEncodedVideoFrameMetadata" class="dictionary-members">
     <dt>
-        <dfn dict-member>synchronizationSource</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -356,7 +356,7 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>payloadType</dfn> of type <span class="idlMemberType">octet</span>
+        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
     </dt>
     <dd>
         <p>
@@ -365,7 +365,7 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>contributingSources</dfn> of type <span class=
+        <dfn dict-member>contributingSources</dfn> <span class=
             "idlMemberType">sequence&lt;unsigned long&gt;</span>
     </dt>
     <dd>
@@ -374,13 +374,13 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn>timestamp</dfn> of type <span class=
+        <dfn>timestamp</dfn> <span class=
             "idlMemberType">long long</span>
     </dt>
     <dd>
         <p>
             The media presentation timestamp (PTS) in microseconds of raw frame, matching the
-	    {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
+      {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
 </dl>
@@ -390,7 +390,7 @@ dictionary RTCEncodedVideoFrameMetadata {
 <pre class="idl">
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-[Exposed=(Window,DedicatedWorker)]
+[Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     readonly attribute unsigned long timestamp;
@@ -402,7 +402,7 @@ interface RTCEncodedVideoFrame {
 ### Members ### {#RTCEncodedVideoFrame-members}
 <dl dfn-for="RTCEncodedVideoFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>type</dfn> of type <span class="idlMemberType">RTCEncodedVideoFrameType</span>
+        <dfn attribute>type</dfn> <span class="idlMemberType">RTCEncodedVideoFrameType</span>
     </dt>
     <dd>
         <p>
@@ -412,7 +412,7 @@ interface RTCEncodedVideoFrame {
     </dd>
 
     <dt>
-        <dfn attribute>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn attribute>timestamp</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -421,7 +421,7 @@ interface RTCEncodedVideoFrame {
         </p>
     </dd>
     <dt>
-        <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
+        <dfn attribute>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
     </dt>
     <dd>
         <p>
@@ -442,6 +442,31 @@ interface RTCEncodedVideoFrame {
     </dd>
 </dl>
 
+### Serialization ### {#RTCEncodedVideoFrame-serialization}
+
+{{RTCEncodedVideoFrame}} objects are serializable objects [[HTML]].
+Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
+
+1. If |forStorage| is true, then throw a {{DataCloneError}}.
+1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}
+1. Set |serialized|.`[[timestamp]]` to the value of |value|.{{RTCEncodedVideoFrame/timestamp}}
+1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+
+Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
+
+1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`
+1. Set |value|.{{RTCEncodedVideoFrame/timestamp}} to |serialized|.`[[timestamp]]`
+1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
+1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
+
+<p class="note">
+The internal form of a serialized RTCEncodedVideoFrame is not observable;
+it is defined chiefly so that it can be used with frame cloning in the
+[$writeEncodedData$] algorithm and in the {{WindowOrWorkerGlobalScope/structuredClone()}} operation.
+An implementation is therefore free to choose whatever method works best.
+</p>
+
 ## <dfn dictionary>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
 <pre class="idl">
 dictionary RTCEncodedAudioFrameMetadata {
@@ -454,7 +479,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
 <dl dfn-for="RTCEncodedAudioFrameMetadata" class="dictionary-members">
     <dt>
-        <dfn dict-member>synchronizationSource</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -463,7 +488,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>payloadType</dfn> of type <span class="idlMemberType">octet</span>
+        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
     </dt>
     <dd>
         <p>
@@ -472,7 +497,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>contributingSources</dfn> of type <span class=
+        <dfn dict-member>contributingSources</dfn> <span class=
             "idlMemberType">sequence&lt;unsigned long&gt;</span>
     </dt>
     <dd>
@@ -481,7 +506,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>sequenceNumber</dfn> of type <span class=
+        <dfn dict-member>sequenceNumber</dfn> <span class=
             "idlMemberType">short</span>
     </dt>
     <dd>
@@ -496,7 +521,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 
 ## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
 <pre class="idl">
-[Exposed=(Window,DedicatedWorker)]
+[Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedAudioFrame {
     readonly attribute unsigned long timestamp;
     attribute ArrayBuffer data;
@@ -507,7 +532,7 @@ interface RTCEncodedAudioFrame {
 ### Members ### {#RTCEncodedAudioFrame-members}
 <dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>timestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn attribute>timestamp</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -516,7 +541,7 @@ interface RTCEncodedAudioFrame {
         </p>
     </dd>
     <dt>
-        <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
+        <dfn attribute>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
     </dt>
     <dd>
         <p>
@@ -538,8 +563,23 @@ interface RTCEncodedAudioFrame {
 </dl>
 
 
-// New interfaces to expose JavaScript-based transforms.
-##Interfaces
+### Serialization ### {#RTCEncodedAudioFrame-serialization}
+
+{{RTCEncodedAudioFrame}} objects are serializable objects [[HTML]].
+Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
+
+1. If |forStorage| is true, then throw a {{DataCloneError}}.
+1. Set |serialized|.`[[timestamp]]` to the value of |value|.{{RTCEncodedAudioFrame/timestamp}}
+1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+
+Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
+
+1. Set |value|.{{RTCEncodedAudioFrame/timestamp}} to |serialized|.`[[timestamp]]`
+1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
+1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
+
+## Interfaces ## {#RTCRtpScriptTransformer-interfaces}
 <pre class="idl">
 [Exposed=DedicatedWorker]
 interface RTCTransformEvent : Event {

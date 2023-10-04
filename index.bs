@@ -619,6 +619,16 @@ RTCRtpScriptTransformer includes RTCRtpScriptSink;
 interface RTCRtpScriptTransform {
     constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
 };
+
+interface BandwidthEstimateEvent : Event {
+  constructor(DOMString type, BandwidthInfo info);
+  readonly attribute BandwidthInfo bandwidthInfo;
+};
+
+interface KeyFrameRequestEvent : Event {
+  constructor(DOMString type, optional DOMString rid);
+  readonly attribute DOMString? rid;
+};
 </pre>
 
 ## Operations ## {#RTCRtpScriptTransform-operations}
@@ -652,15 +662,18 @@ Each RTCRtpScriptTransform has the following set of [$association steps$], given
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
 
-The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
+The <dfn method for="RTCRtpScriptSource">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
+The <dfn method for="RTCRtpScriptSource">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
+
+The <dfn method for="RTCRtpScriptSource">bandwidthEstimate()</dfn> method step are:
+1. Configure the upstream source with the new bandwidth information.
 
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
 
@@ -671,11 +684,24 @@ This allows algorithms to go from an {{RTCRtpScriptTransformer}} object to its {
 The <dfn attribute for="RTCRtpScriptTransformer">options</dfn> getter steps are:
 1. Return [=this=].`[[options]]`.
 
-The <dfn attribute for="RTCRtpScriptTransformer">readable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptSource">readable</dfn> getter steps are:
 1. Return [=this=].`[[readable]]`.
 
-The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptSink">writable</dfn> getter steps are:
 1. Return [=this=].`[[writable]]`.
+
+The <dfn attribute for="RTCRtpScriptSink">onbandwidthestimate</dfn> EventHandler has type bandwidthestimate.
+
+The <dfn attribute for="RTCRtpScriptSink">onkeyframerequest</dfn> EventHandler has type keyframerequest.
+
+## Events ##
+
+The following events fire on an RTCRtpScriptTransform:
+
+* bandwidthestimate of type {{BandwidthEstimateEvent}} - fired when the sink determines that the bandwidth estimate has changed significantly from what has been previously signalled. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the bandwidthEstimate() function had been called.
+
+* keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested. In the context of {{RTCRtpScriptTransform, if the event is not cancelled, the information will be passed to the source as if the generateKeyFrame() function had been called. <!-- NOTE IN DRAFT: generateKeyFrame() and requestKeyFrame() should merge -->
+
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 

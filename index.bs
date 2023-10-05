@@ -599,7 +599,7 @@ interface mixin RTCRtpScriptSource {
     readonly attribute ReadableStream readable;
     Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
-    undefined bandwidthEstimate(BandwidthInfo info);
+    undefined sendBandwidthEstimate(BandwidthInfo info);
 };
 
 interface mixin RTCRtpScriptSink {
@@ -672,7 +672,7 @@ The <dfn method for="RTCRtpScriptSource">sendKeyFrameRequest()</dfn> method step
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptSource">bandwidthEstimate()</dfn> method step are:
+The <dfn method for="RTCRtpScriptSource">sendBandwidthEstimate()</dfn> method step are:
 1. Configure the upstream source with the new bandwidth information.
 
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
@@ -698,9 +698,9 @@ The <dfn attribute for="RTCRtpScriptSink">onkeyframerequest</dfn> EventHandler h
 
 The following events fire on an RTCRtpScriptTransform:
 
-* bandwidthestimate of type {{BandwidthEstimateEvent}} - fired when the sink determines that the bandwidth estimate has changed significantly from what has been previously signalled. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the bandwidthEstimate() function had been called.
+* bandwidthestimate of type {{BandwidthEstimateEvent}} - fired when the sink determines that the bandwidth estimate has changed significantly from what has been previously signalled. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the sendBandwidthEstimate() function had been called.
 
-* keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested. In the context of {{RTCRtpScriptTransform, if the event is not cancelled, the information will be passed to the source as if the generateKeyFrame() function had been called. <!-- NOTE IN DRAFT: generateKeyFrame() and requestKeyFrame() should merge -->
+* keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the generateKeyFrame() function had been called. <!-- NOTE IN DRAFT: generateKeyFrame() and requestKeyFrame() should merge -->
 
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}

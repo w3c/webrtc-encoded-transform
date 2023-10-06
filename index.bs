@@ -339,8 +339,8 @@ dictionary RTCEncodedVideoFrameMetadata {
     unsigned long synchronizationSource;
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
+    long long timestamp;    // microseconds
     unsigned long rtpTimestamp;
-    long long presentationTimestamp;    // microseconds
 };
 </pre>
 
@@ -393,6 +393,16 @@ dictionary RTCEncodedVideoFrameMetadata {
       {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
+    <dt>
+        <dfn dict-member>rtpTimestamp</dfn> <span class=
+            "idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
 </dl>
 
 
@@ -420,10 +430,8 @@ interface RTCEncodedVideoFrame {
             sent or received.
         </p>
     </dd>
-
     <dt>
-        <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
-
+        <dfn attribute>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
     </dt>
     <dd>
         <p>
@@ -531,7 +539,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
+        <dfn dict-member>rtpTimestamp</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>
         <p>
@@ -554,7 +562,7 @@ interface RTCEncodedAudioFrame {
 ### Members ### {#RTCEncodedAudioFrame-members}
 <dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>data</dfn> of type <span class="idlMemberType">ArrayBuffer</span>
+        <dfn attribute>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
     </dt>
     <dd>
         <p>

@@ -567,13 +567,11 @@ interface RTCEncodedAudioFrame {
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
-1. Set |serialized|.`[[timestamp]]` to the value of |value|.{{RTCEncodedAudioFrame/timestamp}}
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
-1. Set |value|.{{RTCEncodedAudioFrame/timestamp}} to |serialized|.`[[timestamp]]`
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
 

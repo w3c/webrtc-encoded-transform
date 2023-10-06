@@ -122,7 +122,7 @@ enqueued on the sender with the indicated payload type should be packetized
 according to the rules of the codec indicated.<br>
 It is up to the transform to ensure that all data and metadata conforms
 to the format required by the packetizer; the sender may drop frames that
-do not conform. {{RTCRtpOutboundRtpStreamStats/framesSent}} is not incremented
+do not conform. {{RTCOutboundRtpStreamStats/framesSent}} is not incremented
 when a frame is dropped.
 </dd>
 <dt>setDepacketizer</dt>
@@ -140,8 +140,8 @@ When called, initialize a decoder in the RTCRtpReceiver to handle the format ind
 <p class="note">
 The expected mode of operation is that the sender transform will transform
 the frame and change its `payloadType` to the negotiated value for the
-transformed content. The receiver will receive the `payloadType`, transform
-it and set the `payloadType` to the value that corresponds to the format
+transformed content. The receiver transform will receive the `payloadType`,
+transform it, and set the `payloadType` to the value that corresponds to the format
 of the decoded frame, thus ensuring that it is decoded using the correct
 decoder.
 </p>

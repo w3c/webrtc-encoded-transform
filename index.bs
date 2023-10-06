@@ -86,7 +86,6 @@ initially empty.
 1. Let 'capability' be the "capability" argument
 1. If 'capability' is identical to the capability describing a previously configured codec,
     throw an IllegalModification error.
-1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomSendCodecs]]}} internal slot.
 
 #### AddReceiveCodecCapability #### {#add-receive-codec-capability}
@@ -94,22 +93,7 @@ initially empty.
 1. Let 'capability' be the "capability" argument
 1. If 'capability' is identical to the capability describing a previously configured codec,
     throw an IllegalModification error.
-1. If 'packetizationMode' is defined, and is not a known codec, throw a SyntaxError DOMException.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomReceiveCodecs]]}} internal slot.
-
-## RTCRtpCodecCapability extensions ## {#rtc-rtp-codec-capability-extensions}
-
-<pre class="idl">
-partial dictionary RTCRtpCodecCapability {
-  DOMString packetizationMode;
-};
-</pre>
-
-### Attributes ### {#rtc-rtp-codec-capability-attributes}
-#### packetizationMode #### {#packetization-mode}
-Defines the packetization mode to use for the frame being packetized or depacketized. MUST be the mimeType from
-the capability describing a codec in the [=list of implemented send codecs=] (for packetizing) or the
-[=list of implemented receive codecs=] (for depacketizing).
 
 ## Extensions to RTCRtpSender and RTCRtpReceiver ## {#sender-receiver-extensions}
 <pre class="idl">
@@ -119,32 +103,47 @@ typedef (SFrameTransform or RTCRtpScriptTransform) RTCRtpTransform;
 // New methods and attributes for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
     attribute RTCRtpTransform? transform;
-    undefined setEncodingCodec(RTCRtpCodecParameters parameters);
+    undefined setPacketizer(octet payloadType, RTCRtpCodec packetizer);
 };
 
 partial interface RTCRtpReceiver {
     attribute RTCRtpTransform? transform;
-    undefined addDecodingCodec(RTCRtpCodecParameters parameters);};
+    undefined setDepacketizer(octet payloadType, RTCRtpCodec depacketizer);
+    undefined addDecodingCodec(octet payloadType, RTCRtpCodec parameters);
+};
 </pre>
 
 ### New methods ### {#sender-receiver-new-methods}
 <dl>
-<dt>setEncodingCodec</dt>
+<dt>setPacketizer</dt>
 <dd>
-When called, switch the encoder in the RTCRtpSender to produce frames in the format indicated by the `parameters` argument.
+When called, indicate that the packetizer should behave as if frames
+enqueued on the sender with the indicated payload type should be packetized
+according to the rules of the codec indicated.<br>
+It is up to the transform to ensure that all data and metadata conforms
+to the format required by the packetizer; the sender may drop frames that
+do not conform. {{RTCRtpOutboundRtpStreamStats/framesSent}} is not incremented
+when a frame is dropped.
+</dd>
+<dt>setDepacketizer</dt>
+<dd>
+When called, indicate that incoming packets with the `payloadType` value in
+their PT field should be routed to a depacketizer that will perform
+depacketization according to the rules of `depacketizer`.
 </dd>
 <dt>addDecodingCodec</dt>
 <dd>
-When called, initialize a decoder in the RTCRtpReceiver to handle the format indicated by the `parameters` argument, and initialize the demultiplexer part of the RTCRtpReceiver that follows the transform step to forward frames with the payload type identical to `parameters.payloadType` to this decoder.
+When called, initialize a decoder in the RTCRtpReceiver to handle the format indicated by the `parameters` argument.
 </dd>
 </dl>
 
 <p class="note">
-setEncodingCodec may be the same thing as setting encoder in RTCRtpEncodingParameters, but I'm not sure of that; the
-two may have different effects on the packetizer. Also the "codec" is an RTCRtpCodec, while this uses RTCRtpCodecParameters
-(which includes the payload type).
-<br/>
-setEncodingParameters() does not affect decoding, so addDecodingCodec is needed.
+The expected mode of operation is that the sender transform will transform
+the frame and change its `payloadType` to the negotiated value for the
+transformed content. The receiver will receive the `payloadType`, transform
+it and set the `payloadType` to the value that corresponds to the format
+of the decoded frame, thus ensuring that it is decoded using the correct
+decoder.
 </p>
 
 ## Extension operation ## {#operation}

@@ -75,8 +75,8 @@ partial interface RTCPeerConnection {
 </pre>
 
 In addition, add two new internal slots to the RTCPeerConnection, called
-<dfn class="data" dfn-for="RTCPeerConnection" dfn-type="attribute">{{RTCPeerConnection/[[CustomSendCodecs]]}}</dfn>
-and <dfn class="data" dfn-for="RTCPeerConnection"dfn-type="attribute">{{RTCPeerConnection/[[CustomReceiveCodecs]]}}</dfn>,
+<dfn attribute dfn-for="RTCPeerConnection">\[[CustomSendCodecs]]</dfn>
+and <dfn attribute dfn-for="RTCPeerConnection">\[[CustomReceiveCodecs]]</dfn>,
 initially empty.
 
 ### Methods ### {#rtcpeerconnection-methods}

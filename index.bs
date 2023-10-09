@@ -154,10 +154,10 @@ The following modifications are applied to the session negotation procedure:
 1. The {{RTCPeerConnection/[[CustomSendCodecs]]}} is included in the list of codecs which the user agent
     is currently capable of sending; the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} is included in the list of codecs which the user agent is currently prepared to receive, as referenced in "set a session description" steps.
 
-1. In the [=final steps to create an offer=], step 2.2 is changed to filter the list of codecs against
-    the union of the [=RTCRtpSender/list of implemented send codecs=] and the {{RTCPeerConnection/[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the [=RTCRtpReceiver/list of implemented receive codecs=] and the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} slot.
+1. In the [$final steps to create an offer$], step 2.2 is changed to filter the list of codecs against
+    the union of the [=RTCRtpSender/list of implemented send codecs=] and the {{RTCPeerConnection/[[CustomSendCodecs]]}} slot, and step 2.3 is changed to filter against the union of the [=list of implemented receive codecs=] and the {{RTCPeerConnection/[[CustomReceiveCodecs]]}} slot.
 
-1. In the [=final steps to create an answer=], the same modification is done to the filtering in steps 1.2 and 1.3.
+1. In the [$final steps to create an answer$], the same modification is done to the filtering in steps 1.2 and 1.3.
 
 
 

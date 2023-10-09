@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="e258de12a71c64bb56730647ae8b23cf27ce6891" name="document-revision">
+  <meta content="7721c15eb0d224838f4cd448afa589cf48e6a638" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -648,7 +648,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-10-04">4 October 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-10-09">9 October 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1126,7 +1126,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource" id="ref-for-dom-rtcencodedvideoframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype" id="ref-for-dom-rtcencodedvideoframemetadata-payloadtype"><c- g>payloadType</c-></a>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources" id="ref-for-dom-rtcencodedvideoframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export data-type="long long " id="dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code><a class="self-link" href="#dom-rtcencodedvideoframemetadata-timestamp"></a></dfn>;    // microseconds
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="long long " href="#dom-rtcencodedvideoframemetadata-timestamp" id="ref-for-dom-rtcencodedvideoframemetadata-timestamp"><c- g>timestamp</c-></a>;    // microseconds
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-rtptimestamp" id="ref-for-dom-rtcencodedvideoframemetadata-rtptimestamp"><c- g>rtpTimestamp</c-></a>;
 };
 </pre>
@@ -1141,7 +1141,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-contributingsources"><code>contributingSources</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long></code></span><span class="idlMemberType">sequence&lt;unsigned long></span> 
     <dd>
      <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
-    <dt> <dfn data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dfn" data-noexport id="rtcencodedvideoframemetadata-timestamp">timestamp<a class="self-link" href="#rtcencodedvideoframemetadata-timestamp"></a></dfn> <span class="idlMemberType">long long</span> 
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-timestamp"><code>timestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long①">long long</a></span><span class="idlMemberType">long long</span> 
     <dd>
      <p> The media presentation timestamp (PTS) in microseconds of raw frame, matching the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcodecs/#dom-videoframe-timestamp" id="ref-for-dom-videoframe-timestamp">timestamp</a></code> for raw frames which correspond to this frame. </p>
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-rtptimestamp"><code>rtpTimestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
@@ -1183,8 +1183,6 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
     <li data-md>
      <p>Set <var>serialized</var>.<code>[[type]]</code> to the value of <var>value</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type①">type</a></code></p>
     <li data-md>
-     <p>Set <var>serialized</var>.<code>[[timestamp]]</code> to the value of <var>value</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp">timestamp</a></code></p>
-    <li data-md>
      <p>Set <var>serialized</var>.<code>[[metadata]]</code> to an internal representation of <var>value</var>’s metadata.</p>
     <li data-md>
      <p>Set <var>serialized</var>.<code>[[data]]</code> to <var>value</var>.<code>[[data]]</code></p>
@@ -1193,8 +1191,6 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
    <ol>
     <li data-md>
      <p>Set <var>value</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type②">type</a></code> to <var>serialized</var>.<code>[[type]]</code></p>
-    <li data-md>
-     <p>Set <var>value</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedvideoframe-timestamp" id="ref-for-dom-rtcencodedvideoframe-timestamp①">timestamp</a></code> to <var>serialized</var>.<code>[[timestamp]]</code></p>
     <li data-md>
      <p>Set <var>value</var>’s metadata to the platform object representation of <var>serialized</var>.<code>[[metadata]]</code></p>
     <li data-md>
@@ -1257,16 +1253,12 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
     <li data-md>
      <p>If <var>forStorage</var> is true, then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#datacloneerror" id="ref-for-datacloneerror①">DataCloneError</a></code>.</p>
     <li data-md>
-     <p>Set <var>serialized</var>.<code>[[timestamp]]</code> to the value of <var>value</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedaudioframe-timestamp" id="ref-for-dom-rtcencodedaudioframe-timestamp">timestamp</a></code></p>
-    <li data-md>
      <p>Set <var>serialized</var>.<code>[[metadata]]</code> to an internal representation of <var>value</var>’s metadata.</p>
     <li data-md>
      <p>Set <var>serialized</var>.<code>[[data]]</code> to <var>value</var>.<code>[[data]]</code></p>
    </ol>
    <p>Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#deserialization-steps" id="ref-for-deserialization-steps①">deserialization steps</a>, given <var>serialized</var>, <var>value</var> and <var>realm</var>, are:</p>
    <ol>
-    <li data-md>
-     <p>Set <var>value</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedaudioframe-timestamp" id="ref-for-dom-rtcencodedaudioframe-timestamp①">timestamp</a></code> to <var>serialized</var>.<code>[[timestamp]]</code></p>
     <li data-md>
      <p>Set <var>value</var>’s metadata to the platform object representation of <var>serialized</var>.<code>[[metadata]]</code></p>
     <li data-md>
@@ -1672,12 +1664,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     </ul>
    <li><a href="#dom-sframetransformerroreventtype-syntax">"syntax"</a><span>, in § 4</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-temporalindex">temporalIndex</a><span>, in § 5.2</span>
-   <li>
-    timestamp
-    <ul>
-     <li><a href="#rtcencodedvideoframemetadata-timestamp">dfn for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2.1</span>
-     <li><a href="#dom-rtcencodedvideoframemetadata-timestamp">dict-member for RTCEncodedVideoFrameMetadata</a><span>, in § 5.2</span>
-    </ul>
+   <li><a href="#dom-rtcencodedvideoframemetadata-timestamp">timestamp</a><span>, in § 5.2.1</span>
    <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 3.2</span>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 5.6</span>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 5.3.1</span>
@@ -1790,12 +1777,6 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="e4db230f">RTCRtpReceiver</span>
      <li><span class="dfn-paneled" id="b161d57f">RTCRtpSender</span>
     </ul>
-   <li>
-    <a data-link-type="biblio">[WEBRTC-ENCODED-TRANSFORM]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="a73f3297">timestamp <small>(for RTCEncodedAudioFrame)</small></span>
-     <li><span class="dfn-paneled" id="615fcf82">timestamp <small>(for RTCEncodedVideoFrame)</small></span>
-    </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -1820,8 +1801,6 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
    <dt id="biblio-webrtc">[WEBRTC]
    <dd>Cullen Jennings; et al. <a href="https://w3c.github.io/webrtc-pc/"><cite>WebRTC: Real-Time Communication in Browsers</cite></a>. URL: <a href="https://w3c.github.io/webrtc-pc/">https://w3c.github.io/webrtc-pc/</a>
-   <dt id="biblio-webrtc-encoded-transform">[WEBRTC-ENCODED-TRANSFORM]
-   <dd>Harald Alvestrand; Guido Urdaneta; youenn fablet. <a href="https://w3c.github.io/webrtc-encoded-transform/"><cite>WebRTC Encoded Transform</cite></a>. URL: <a href="https://w3c.github.io/webrtc-encoded-transform/">https://w3c.github.io/webrtc-encoded-transform/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
@@ -1911,7 +1890,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-synchronizationsource"><c- g>synchronizationSource</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="octet " href="#dom-rtcencodedvideoframemetadata-payloadtype"><c- g>payloadType</c-></a>;
     <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="sequence<unsigned long> " href="#dom-rtcencodedvideoframemetadata-contributingsources"><c- g>contributingSources</c-></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a data-type="long long " href="#dom-rtcencodedvideoframemetadata-timestamp"><code><c- g>timestamp</c-></code></a>;    // microseconds
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-long-long"><c- b>long</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="long long " href="#dom-rtcencodedvideoframemetadata-timestamp"><c- g>timestamp</c-></a>;    // microseconds
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="unsigned long " href="#dom-rtcencodedvideoframemetadata-rtptimestamp"><c- g>rtpTimestamp</c-></a>;
 };
 
@@ -2329,7 +2308,7 @@ window.dfnpanelData['dacde8b5'] = {"dfnID": "dacde8b5", "url": "https://webidl.s
 window.dfnpanelData['8f5c2179'] = {"dfnID": "8f5c2179", "url": "https://webidl.spec.whatwg.org/#a-promise-resolved-with", "dfnText": "a promise resolved with", "refSections": [{"refs": [{"id": "ref-for-a-promise-resolved-with"}, {"id": "ref-for-a-promise-resolved-with\u2460"}, {"id": "ref-for-a-promise-resolved-with\u2461"}], "title": "3.1.2. Stream processing"}], "external": true};
 window.dfnpanelData['6c6b1005'] = {"dfnID": "6c6b1005", "url": "https://webidl.spec.whatwg.org/#idl-any", "dfnText": "any", "refSections": [{"refs": [{"id": "ref-for-idl-any"}, {"id": "ref-for-idl-any\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-any\u2461"}, {"id": "ref-for-idl-any\u2462"}], "title": "5.6. Interfaces"}], "external": true};
 window.dfnpanelData['bdcd112d'] = {"dfnID": "bdcd112d", "url": "https://webidl.spec.whatwg.org/#idl-bigint", "dfnText": "bigint", "refSections": [{"refs": [{"id": "ref-for-idl-bigint"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-bigint\u2460"}], "title": "4.2. Methods"}], "external": true};
-window.dfnpanelData['9aeb0a82'] = {"dfnID": "9aeb0a82", "url": "https://webidl.spec.whatwg.org/#idl-long-long", "dfnText": "long long", "refSections": [{"refs": [{"id": "ref-for-idl-long-long"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": true};
+window.dfnpanelData['9aeb0a82'] = {"dfnID": "9aeb0a82", "url": "https://webidl.spec.whatwg.org/#idl-long-long", "dfnText": "long long", "refSections": [{"refs": [{"id": "ref-for-idl-long-long"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-long-long\u2460"}], "title": "5.2.1. Members"}], "external": true};
 window.dfnpanelData['efd1ec5d'] = {"dfnID": "efd1ec5d", "url": "https://webidl.spec.whatwg.org/#idl-object", "dfnText": "object", "refSections": [{"refs": [{"id": "ref-for-idl-object"}], "title": "5.6. Interfaces"}], "external": true};
 window.dfnpanelData['bc5645aa'] = {"dfnID": "bc5645aa", "url": "https://webidl.spec.whatwg.org/#idl-octet", "dfnText": "octet", "refSections": [{"refs": [{"id": "ref-for-idl-octet"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2460"}], "title": "5.2.1. Members"}, {"refs": [{"id": "ref-for-idl-octet\u2461"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-octet\u2462"}], "title": "5.4.1. Members"}], "external": true};
 window.dfnpanelData['b262501e'] = {"dfnID": "b262501e", "url": "https://webidl.spec.whatwg.org/#reject", "dfnText": "reject", "refSections": [{"refs": [{"id": "ref-for-reject"}, {"id": "ref-for-reject\u2460"}], "title": "4.2. Methods"}], "external": true};
@@ -2345,8 +2324,6 @@ window.dfnpanelData['c891de74'] = {"dfnID": "c891de74", "url": "https://w3c.gith
 window.dfnpanelData['7c983b6d'] = {"dfnID": "7c983b6d", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection", "dfnText": "RTCPeerConnection", "refSections": [{"refs": [{"id": "ref-for-dom-rtcpeerconnection"}], "title": "Unnumbered Section"}, {"refs": [{"id": "ref-for-dom-rtcpeerconnection\u2460"}], "title": "3.1. Extension operation"}], "external": true};
 window.dfnpanelData['e4db230f'] = {"dfnID": "e4db230f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver", "dfnText": "RTCRtpReceiver", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpreceiver"}, {"id": "ref-for-dom-rtcrtpreceiver\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2462"}, {"id": "ref-for-dom-rtcrtpreceiver\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2464"}, {"id": "ref-for-dom-rtcrtpreceiver\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpreceiver\u2467"}], "title": "5.7. Operations"}], "external": true};
 window.dfnpanelData['b161d57f'] = {"dfnID": "b161d57f", "url": "https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender", "dfnText": "RTCRtpSender", "refSections": [{"refs": [{"id": "ref-for-dom-rtcrtpsender"}, {"id": "ref-for-dom-rtcrtpsender\u2460"}], "title": "3. Specification"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2461"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2462"}, {"id": "ref-for-dom-rtcrtpsender\u2463"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2464"}, {"id": "ref-for-dom-rtcrtpsender\u2465"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2466"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2467"}], "title": "5.7. Operations"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2468"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u24ea"}], "title": "5.9. KeyFrame Algorithms"}, {"refs": [{"id": "ref-for-dom-rtcrtpsender\u2460\u2460"}, {"id": "ref-for-dom-rtcrtpsender\u2460\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
-window.dfnpanelData['a73f3297'] = {"dfnID": "a73f3297", "url": "https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedaudioframe-timestamp", "dfnText": "timestamp (for RTCEncodedAudioFrame)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-timestamp"}, {"id": "ref-for-dom-rtcencodedaudioframe-timestamp\u2460"}], "title": "5.5.3. Serialization"}], "external": true};
-window.dfnpanelData['615fcf82'] = {"dfnID": "615fcf82", "url": "https://w3c.github.io/webrtc-encoded-transform/#dom-rtcencodedvideoframe-timestamp", "dfnText": "timestamp (for RTCEncodedVideoFrame)", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-timestamp"}, {"id": "ref-for-dom-rtcencodedvideoframe-timestamp\u2460"}], "title": "5.3.3. Serialization"}], "external": true};
 window.dfnpanelData['typedefdef-rtcrtptransform'] = {"dfnID": "typedefdef-rtcrtptransform", "url": "#typedefdef-rtcrtptransform", "dfnText": "RTCRtpTransform", "refSections": [{"refs": [{"id": "ref-for-typedefdef-rtcrtptransform"}, {"id": "ref-for-typedefdef-rtcrtptransform\u2460"}], "title": "3. Specification"}], "external": false};
 window.dfnpanelData['abstract-opdef-readencodeddata'] = {"dfnID": "abstract-opdef-readencodeddata", "url": "#abstract-opdef-readencodeddata", "dfnText": "readEncodedData", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-readencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abstract-opdef-readencodeddata\u2460"}, {"id": "ref-for-abstract-opdef-readencodeddata\u2461"}], "title": "3.1.2. Stream processing"}], "external": false};
 window.dfnpanelData['abstract-opdef-writeencodeddata'] = {"dfnID": "abstract-opdef-writeencodeddata", "url": "#abstract-opdef-writeencodeddata", "dfnText": "writeEncodedData", "refSections": [{"refs": [{"id": "ref-for-abstract-opdef-writeencodeddata"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-abstract-opdef-writeencodeddata\u2460"}, {"id": "ref-for-abstract-opdef-writeencodeddata\u2461"}], "title": "3.1.2. Stream processing"}, {"refs": [{"id": "ref-for-abstract-opdef-writeencodeddata\u2462"}], "title": "5.3.3. Serialization"}], "external": false};
@@ -2379,6 +2356,7 @@ window.dfnpanelData['dictdef-rtcencodedvideoframemetadata'] = {"dfnID": "dictdef
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-synchronizationsource'] = {"dfnID": "dom-rtcencodedvideoframemetadata-synchronizationsource", "url": "#dom-rtcencodedvideoframemetadata-synchronizationsource", "dfnText": "synchronizationSource", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-synchronizationsource"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-payloadtype'] = {"dfnID": "dom-rtcencodedvideoframemetadata-payloadtype", "url": "#dom-rtcencodedvideoframemetadata-payloadtype", "dfnText": "payloadType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-payloadtype"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-contributingsources'] = {"dfnID": "dom-rtcencodedvideoframemetadata-contributingsources", "url": "#dom-rtcencodedvideoframemetadata-contributingsources", "dfnText": "contributingSources", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-contributingsources"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframemetadata-timestamp'] = {"dfnID": "dom-rtcencodedvideoframemetadata-timestamp", "url": "#dom-rtcencodedvideoframemetadata-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-timestamp"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-rtptimestamp'] = {"dfnID": "dom-rtcencodedvideoframemetadata-rtptimestamp", "url": "#dom-rtcencodedvideoframemetadata-rtptimestamp", "dfnText": "rtpTimestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-rtptimestamp"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['rtcencodedvideoframe'] = {"dfnID": "rtcencodedvideoframe", "url": "#rtcencodedvideoframe", "dfnText": "RTCEncodedVideoFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedvideoframe"}, {"id": "ref-for-rtcencodedvideoframe\u2460"}], "title": "4.1. Algorithm"}, {"refs": [{"id": "ref-for-rtcencodedvideoframe\u2461"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-rtcencodedvideoframe\u2462"}], "title": "5.3.3. Serialization"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframe-type'] = {"dfnID": "dom-rtcencodedvideoframe-type", "url": "#dom-rtcencodedvideoframe-type", "dfnText": "type", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-type"}], "title": "5.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-type\u2460"}, {"id": "ref-for-dom-rtcencodedvideoframe-type\u2461"}], "title": "5.3.3. Serialization"}], "external": false};

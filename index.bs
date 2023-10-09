@@ -375,7 +375,7 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn>timestamp</dfn> <span class=
+        <dfn dict-member>timestamp</dfn> <span class=
             "idlMemberType">long long</span>
     </dt>
     <dd>

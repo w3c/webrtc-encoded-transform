@@ -375,16 +375,7 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>rtpTimestamp</dfn> of type <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
-            that reflects the sampling instant of the first octet in the RTP data packet.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>presentationTimestamp</dfn> of type <span class=
+        <dfn dict-member>timestamp</dfn> <span class=
             "idlMemberType">long long</span>
     </dt>
     <dd>
@@ -469,14 +460,12 @@ Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, ar
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
 1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}
-1. Set |serialized|.`[[timestamp]]` to the value of |value|.{{RTCEncodedVideoFrame/timestamp}}
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
 1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`
-1. Set |value|.{{RTCEncodedVideoFrame/timestamp}} to |serialized|.`[[timestamp]]`
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
 
@@ -600,13 +589,11 @@ interface RTCEncodedAudioFrame {
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
-1. Set |serialized|.`[[timestamp]]` to the value of |value|.{{RTCEncodedAudioFrame/timestamp}}
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
-1. Set |value|.{{RTCEncodedAudioFrame/timestamp}} to |serialized|.`[[timestamp]]`
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
 

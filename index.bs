@@ -406,7 +406,7 @@ interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
-    undefined setMetadata(RTCEncodedVideoFrameMetadata metadata);
+    undefined setMetadata(required RTCEncodedVideoFrameMetadata metadata);
 };
 </pre>
 
@@ -544,7 +544,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 interface RTCEncodedAudioFrame {
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
-    undefined setMetadata(RTCEncodedAudioFrameMetadata metadata);
+    undefined setMetadata(required RTCEncodedAudioFrameMetadata metadata);
 };
 </pre>
 

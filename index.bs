@@ -330,8 +330,8 @@ enum RTCEncodedVideoFrameType {
 ## <dfn dictionary>RTCEncodedVideoFrameMetadata</dfn> dictionary ## {#RTCEncodedVideoFrameMetadata}
 <pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
-    unsigned long long frameId;
-    sequence&lt;unsigned long long&gt; dependencies;
+    required unsigned long long frameId;
+    required sequence&lt;unsigned long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
     unsigned long spatialIndex;
@@ -340,7 +340,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
-    unsigned long rtpTimestamp;
+    required unsigned long rtpTimestamp;
 };
 </pre>
 
@@ -483,7 +483,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
-    unsigned long rtpTimestamp;
+    required unsigned long rtpTimestamp;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}

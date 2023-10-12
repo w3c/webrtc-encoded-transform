@@ -330,8 +330,8 @@ enum RTCEncodedVideoFrameType {
 ## <dfn dictionary>RTCEncodedVideoFrameMetadata</dfn> dictionary ## {#RTCEncodedVideoFrameMetadata}
 <pre class="idl">
 dictionary RTCEncodedVideoFrameMetadata {
-    required unsigned long long frameId;
-    required sequence&lt;unsigned long long&gt; dependencies;
+    unsigned long long frameId;
+    sequence&lt;unsigned long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
     unsigned long spatialIndex;
@@ -340,7 +340,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
-    required unsigned long rtpTimestamp;
+    unsigned long rtpTimestamp;
 };
 </pre>
 
@@ -406,7 +406,7 @@ interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
-    undefined setMetadata(required RTCEncodedVideoFrameMetadata metadata);
+    undefined setMetadata(optional RTCEncodedVideoFrameMetadata metadata = {});
 };
 </pre>
 
@@ -483,7 +483,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     octet payloadType;
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
-    required unsigned long rtpTimestamp;
+    unsigned long rtpTimestamp;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -544,7 +544,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 interface RTCEncodedAudioFrame {
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
-    undefined setMetadata(required RTCEncodedAudioFrameMetadata metadata);
+    undefined setMetadata(optional RTCEncodedAudioFrameMetadata metadata = {});
 };
 </pre>
 

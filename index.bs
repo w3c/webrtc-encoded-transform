@@ -341,6 +341,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
     unsigned long rtpTimestamp;
+    DOMString mimeType;
 };
 </pre>
 
@@ -381,7 +382,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             The media presentation timestamp (PTS) in microseconds of raw frame, matching the
-      {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
+            {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
         </p>
     </dd>
     <dt>
@@ -392,6 +393,15 @@ dictionary RTCEncodedVideoFrameMetadata {
         <p>
             The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
             that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
+    </dt>
+    <dd>
+        <p>
+            The codec MIME media type/subtype defined in the IANA media types registry
+            [[!IANA-MEDIA-TYPES]], e.g. video/VP8.
         </p>
     </dd>
 </dl>
@@ -473,6 +483,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
     unsigned long rtpTimestamp;
+    DOMString mimeType;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -523,6 +534,15 @@ dictionary RTCEncodedAudioFrameMetadata {
         <p>
             The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
             that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
+    </dt>
+    <dd>
+        <p>
+            The codec MIME media type/subtype defined in the IANA media types registry
+            [[!IANA-MEDIA-TYPES]], e.g. audio/opus.
         </p>
     </dd>
 </dl>

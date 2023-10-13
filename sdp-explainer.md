@@ -130,13 +130,17 @@ pc.ontrack = (receiver) => {
 # Frequently asked questions
 
 1.  Q: Why is the SDP negotiation interface on PeerConnection and not on Sender/Receiver or on the Transform?
+
     A: WebRTC connections go through three phases: SDP negotiation, ICE/DTLS transport setup, and sending/receiving media. In the SDP negotiation phase, the ICE/DTLS transport does not exist.
 
 1.  Q: Why are the packetizer controllers on the Sender/Receiver and not on the Transform?
+
     A: The Transform API is agnostic as to what direction the packets are destined for. The packetizer control only makes sense if the destination for the frames is something that will packetize the frames for sending across an ICE transport.
     
 1.  Q: My application wants to send frames with multiple packetizers. How do I accomplish that?
+
     A: Use multiple payload types. Each will be assigned a payload type. Mark each frame with the payload type they need to be packetized as.
 
 1.  Q: What is the relationship between this proposal and the IETF standard for SFrame?
+
     A: This proposal is intended to make it possible to implement the IETF standard for SFrame in Javascript, with only the packetizer/depacketizer being updated to support the SFrame packetization rules. It is also intended to make it possible to perform other forms of transform, including the ones that are presently deployed in the field, while marking the SDP with a truthful statement of its content.

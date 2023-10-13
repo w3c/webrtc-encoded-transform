@@ -24,11 +24,10 @@ The following things need to be available on such an API:
 # API description
 
 ## Codec description
-For codec description, we reuse the dictionary RTCRtpCodecCapability, but add a DOMString that identifies the packetization mode.
+For codec description, we reuse the dictionary RTCRtpCodecCapability.
 
 The requirements on the parameters are:
 - either mimetype or fmtp parameters must be different from any existing capability
-- if the mimetype is not a known codec, the packetizationMode member MUST be given, and be the mimetype of a known codec.
 
 When a codec capability is added, the SDP machinery will negotiate these codecs as normal, and the resulting payload type will be visible in RTCRtp{Sender,Receiver}.getCapabilities().
 
@@ -45,23 +44,15 @@ NOTE: The codecs will not show up on the static sender/receiver getCapabilities 
 ## For sending
 The RTCRtpSender’s encoder (if present) will be configured to use a specific codec from CodecCapabilities by a new call:
 ```
-sender.setEncodingCodec(RTCCodecParameters parameters)
+sender.setPacketizer(payloadType, RTCCodecParameters parameters)
 ```
-This sets the MIME type of the codec to encode to, and the payload type that will be put on frames produced by that encoder. This codec must be one supported by the platform (not the “novel” codec), and the PT does not need to be one negotiated in the SDP offer/answer.
-
-When configuring the transform post negotiation, the app MUST retrieve the PTs negotiated for the connection, and identify the PT for the custom codec.
-
-When transforming frames, the transformer configured MUST, in addition to modifying the payload, modify the metadata to have the negotiated payload type for the custom codec.
-
-The packetizer will use the rules for the MIME type configured, or the MIME type on the packetizationMode if configured. (This assumes that packetization is independent of FMTP)
+This tells the sender that when packetizing a frame for transmission, it should use the rules described in the documentation for the codec indicated.
 
 ## For receiving
-The depacketizer will use the rules for the MIME type associated with the payload type. If the payload type is associated
-with an RtpCodecCapability that has a packetizationMode parameter, that packetization mode will be used.
-
-The decoder can be configured to accept a given PT as indicating a given codec format by the new API call:
+The depacketizer will use the rules for the MIME type associated with the payload type.
+If the MIME type associated with the payload type has been added using addReceiveCodecCapability, the decoder must be configured to accept a given PT as indicating a given codec format by the new API call:
 ```
-receiver.addDecodingCodec(CodecParameters parameters)
+receiver.setDepacketizer(payloadType, CodecParameters parameters)
 ```
 This does not alter the handling of any otherwise-configured PT, but adds a handler for this specific PT.
 
@@ -70,6 +61,7 @@ On seeing a custom codec in the PT for an incoming frame, if the frame is to be 
 ## Existing APIs that will be used together with the new APIs
 - Basic establishing of EncodedTransform
 - getParameters() to get results of codec negotiation
+- encoded frame SetMetadata, to set the payload type for processed frames
 
 # Example code
 (This is incomplete)
@@ -78,7 +70,6 @@ customCodec = {
    mimeType: “video/x-encrypted”,
    clockRate: 90000,
    fmtp = “encapsulated-codec=vp8”,
-   packetizationMode = “video/vp8”,
 };
 
 // At sender side
@@ -88,6 +79,7 @@ pc.addSendCodecCapability('video', customCodec);
 
 const {codecs} = sender.getParameters();
 const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
+sender.setPacketizer(encryptingCodec.payloadType, {mimeType: "video/vp8"});
 
 const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
 sender.transform = new RTCRtpScriptTransform(worker, {payloadType});
@@ -112,8 +104,8 @@ const decryptedPT = 208; // Can be negotiated PT or locally-valid
 pc.addReceiveCodecCapability('video', customCodec);
 pc.ontrack = (receiver) => {
   const {codecs} = sender.getParameters();
-  const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
-   
+  const encryptingCodec = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
+   receiver.setDepacketizer(encryptingCodec.payloadType, {mimeType: "video/vp8"});
    receiver.addDecodingCodec({mimeType: 'video/vp8', payloadType: decryptedPT});
    const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
    receiver.transform = new RTCRtpScriptTransform(worker, {payloadType});
@@ -134,3 +126,17 @@ pc.ontrack = (receiver) => {
      await readable.pipeThrough(transform).pipeTo(writable);
 };
 ```
+
+# Frequently asked questions
+
+1.  Q: Why is the SDP negotiation interface on PeerConnection and not on Sender/Receiver or on the Transform?
+    A: WebRTC connections go through three phases: SDP negotiation, ICE/DTLS transport setup, and sending/receiving media. In the SDP negotiation phase, the ICE/DTLS transport does not exist.
+
+1.  Q: Why are the packetizer controllers on the Sender/Receiver and not on the Transform?
+    A: The Transform API is agnostic as to what direction the packets are destined for. The packetizer control only makes sense if the destination for the frames is something that will packetize the frames for sending across an ICE transport.
+    
+1.  Q: My application wants to send frames with multiple packetizers. How do I accomplish that?
+    A: Use multiple payload types. Each will be assigned a payload type. Mark each frame with the payload type they need to be packetized as.
+
+1.  Q: What is the relationship between this proposal and the IETF standard for SFrame?
+    A: This proposal is intended to make it possible to implement the IETF standard for SFrame in Javascript, with only the packetizer/depacketizer being updated to support the SFrame packetization rules. It is also intended to make it possible to perform other forms of transform, including the ones that are presently deployed in the field, while marking the SDP with a truthful statement of its content.

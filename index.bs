@@ -86,7 +86,8 @@ argument, ensure that the codec is disabled and produces no output.
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
 2. Initialize [=this=].`[[transform]]` to null.
 3. Initialize [=this=].`[[readable]]` to a new {{ReadableStream}}.
-4. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]`. [=this=].`[[readable]]` is provided frames using the [$readEncodedData$] algorithm given |this| as parameter.
+4. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]` with its [=ReadableStream/set up/pullAlgorithm=] set to [$readEncodedData$] given |this| as parameter and its [=ReadableStream/set up/highWaterMark=] set to <code>Infinity</code>.
+    <p class="note">highWaterMark is set to Infinity to explicitly disable backpressure. The goal is to limit buffering as much as possible.</p>
 5. Set [=this=].`[[readable]]`.`[[owner]]` to |this|.
 6. Initialize [=this=].`[[writable]]` to a new {{WritableStream}}.
 7. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [$writeEncodedData$] given |this| as parameter and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
@@ -113,12 +114,16 @@ For those reasons, streams backpressure is disabled in WebRTC encoded transforms
 ### Stream processing ### {#stream-processing}
 
 The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as parameter. It is defined by running the following steps:
-1. Wait for a frame to be produced by |rtcObject|'s encoder if it is a {{RTCRtpSender}} or |rtcObject|'s packetizer if it is a {{RTCRtpReceiver}}.
-1. Increment |rtcObject|.`[[lastEnqueuedFrameCounter]]` by <code>1</code>.
-1. Let |frame| be the newly produced frame.
-1. Set |frame|.`[[owner]]` to |rtcObject|.
-1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
-1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
+1. Let |p| be a new promise.
+1. Run the following steps in parallel:
+    1. Wait for a frame to be produced by |rtcObject|'s encoder if it is a {{RTCRtpSender}} or |rtcObject|'s packetizer if it is a {{RTCRtpReceiver}}.
+    1. Increment |rtcObject|.`[[lastEnqueuedFrameCounter]]` by <code>1</code>.
+    1. Let |frame| be the newly produced frame.
+    1. Set |frame|.`[[owner]]` to |rtcObject|.
+    1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
+    1. [=ReadableStream/Enqueue=] |frame| into |rtcObject|.`[[readable]]`.
+    1. Resolve |p| with <code>undefined</code>.
+1. return |p|.
 
 The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
 1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.

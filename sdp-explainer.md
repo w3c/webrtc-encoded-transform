@@ -33,30 +33,30 @@ When a codec capability is added, the SDP machinery will negotiate these codecs 
 
 
 ## For SDP negotiation
+SDP negotiation is inherently an SDP property, and the proper target for that is therefore the RTCRtpTransceiver object.
+
+The transceiver will always be available before an offer or answer is created (either because of AddTrack or AddTransceiver on the sender side,
+or in the ontrack event on the side that receives the offer). At that time, the additional codecs to negotiate must be set:
+
 ```
-pc.addSendCodecCapability(DOMString kind, CodecCapability capability)
-pc.addReceiveCodecCapability(DOMString kind, CodecCapability capability)
+transceiver.addCodec(RTCRtpCodec codec, RTCRtpCodec packetizationMode)
 ```
-These calls will add to the lists of codecs being negotiated in SDP, and returned by the calls to getParameters. (Given the rules for generating SDP, the effect on sendonly/recvonly/sendrecv sections in the SDP will be different. Read those rules with care.)
+This will add the described codec to the list of codecs to be offered in createOffer/createAnswer. On successful negotiation
+of the codec, it will appear in the negotiated codec list returned from setParameters().
+
+Furthermore, the call will instruct the sender to packetize, and the receiver to depacketize, in accordance with the rules for the
+codec being given as the packetizationMode argument.
+
+Because it is sometimes inconvenient to intercept every call that creates transceivers, a convenience method is offered on the PC level:
+
+```
+pc.addCodecCapability(DOMString kind, RTCRtpCodec codec, RTCRtpCodec packetizationMode)
+```
+These calls will act as if the addCodec() call had been invoked on every transceiver created of the associated "kind".
 
 NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
 
-## For sending
-The RTCRtpSender’s encoder (if present) will be configured to use a specific codec from CodecCapabilities by a new call:
-```
-sender.setPacketizer(payloadType, RTCCodecParameters parameters)
-```
-This tells the sender that when packetizing a frame for transmission, it should use the rules described in the documentation for the codec indicated.
 
-## For receiving
-The depacketizer will use the rules for the MIME type associated with the payload type.
-If the MIME type associated with the payload type has been added using addReceiveCodecCapability, the decoder must be configured to accept a given PT as indicating a given codec format by the new API call:
-```
-receiver.setDepacketizer(payloadType, CodecParameters parameters)
-```
-This does not alter the handling of any otherwise-configured PT, but adds a handler for this specific PT.
-
-On seeing a custom codec in the PT for an incoming frame, if the frame is to be delivered to the corresponding decoder, the encoded frame transform MUST, in addition to transforming the payload, set the PT for the frame to a PT that is understood by the decoder - either by being negotiated or by having been added by AddDecodingCodec.
 
 ## Existing APIs that will be used together with the new APIs
 - Basic establishing of EncodedTransform
@@ -73,13 +73,12 @@ customCodec = {
 };
 
 // At sender side
-pc.addSendCodecCapability('video', customCodec);
+pc.addCodecCapability('video', customCodec, {mimeType: "video/vp8"});
 
 // ...after negotiation
 
 const {codecs} = sender.getParameters();
 const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
-sender.setPacketizer(encryptingCodec.payloadType, {mimeType: "video/vp8"});
 
 const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
 sender.transform = new RTCRtpScriptTransform(worker, {payloadType});
@@ -101,7 +100,7 @@ function work() {
 
 // At receiver side.
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
-pc.addReceiveCodecCapability('video', customCodec);
+pc.addCodecCapability('video', customCodec, {mimeType: "video/vp8"});
 pc.ontrack = (receiver) => {
   const {codecs} = sender.getParameters();
   const encryptingCodec = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
@@ -129,14 +128,6 @@ pc.ontrack = (receiver) => {
 
 # Frequently asked questions
 
-1.  Q: Why is the SDP negotiation interface on PeerConnection and not on Sender/Receiver or on the Transform?
-
-    A: WebRTC connections go through three phases: SDP negotiation, ICE/DTLS transport setup, and sending/receiving media. In the SDP negotiation phase, the ICE/DTLS transport does not exist.
-
-1.  Q: Why are the packetizer controllers on the Sender/Receiver and not on the Transform?
-
-    A: The Transform API is agnostic as to what direction the packets are destined for. The packetizer control only makes sense if the destination for the frames is something that will packetize the frames for sending across an ICE transport.
-    
 1.  Q: My application wants to send frames with multiple packetizers. How do I accomplish that?
 
     A: Use multiple payload types. Each will be assigned a payload type. Mark each frame with the payload type they need to be packetized as.

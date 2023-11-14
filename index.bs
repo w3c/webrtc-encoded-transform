@@ -35,9 +35,9 @@ spec:webidl; type:dfn; text:resolve
     "title": "VP9 Bitstream & Decoding Process Specification",
     "publisher": "The WebM Project"
    },
-   "ITU-T-REC-H.265": {
-    "href": "https://www.itu.int/rec/T-REC-H.265",
-    "title": "H.265 : High efficiency video coding",
+   "ITU-T-REC-H.264": {
+    "href": "https://www.itu.int/rec/T-REC-H.264",
+    "title": "H.264 : Advanced video coding for generic audiovisual services",
     "publisher": "ITU"
    },
    "ITU-G.711": {
@@ -47,7 +47,7 @@ spec:webidl; type:dfn; text:resolve
    },
    "ITU-G.722": {
     "href": "https://www.itu.int/rec/T-REC-G.722/",
-    "title": "G.722: 7 kHz audio-coding within 64 kbit/s",
+    "title": "G.722 : 7 kHz audio-coding within 64 kbit/s",
     "publisher": "ITU"
    }
 }
@@ -496,7 +496,7 @@ interface RTCEncodedVideoFrame {
                     </td>
                     <td>
                         The data is a series of NAL units in Annex B format,
-                        as defined in [[ITU-T-REC-H.265]] Annex B.
+                        as defined in [[ITU-T-REC-H.264]] Annex B.
                     </td>
                 </tr>
                 <tr>

@@ -2,7 +2,7 @@
 
 The original definition of encoded transform did not consider negotation; the frames on the "transformed" side went out stamped with the payload type of the frame that came in on the "non-transformed" side (and vice versa for the receiver).
 
-This creates a problem, in that when an encoded transform is applied on the sending side, the bits on the wire do not correspond to what the SDP negotiation has declared that particular type to be used for. When only talking to another instance of the same application, that is not an issue, but it is an issue as soon as we want two different applications to interoperate - for instance when exchanging Sframe encrypted media between two endpoints from different application providers, or when exchanging Sframe encrypted content via an SFU that expects to be able to decode or modify the media.
+This creates a problem, in that when an encoded transform is applied on the sending side, the bits on the wire may not correspond to what the SDP negotiation has declared that particular type to be used for. When only talking to another instance of the same application, that is not an issue, but it is an issue as soon as we want two different applications to interoperate - for instance when exchanging SFrame encrypted media between two endpoints from different application providers, or when exchanging SFrame encrypted content via an SFU that expects to be able to decode or modify the media.
 
 (The latter is exactly what Sframe is designed to prevent, but it is better for the intermediary to fail clean than to engage in possibly random behavior due to attempting to decode a stream that does not conform to the description it expects.)
 

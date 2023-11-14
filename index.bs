@@ -19,14 +19,9 @@ spec:webidl; type:dfn; text:resolve
 </pre>
 <pre class=biblio>
 {
-  "WEB-CODECS": {
-     "href":
-     "https://github.com/WICG/web-codecs/blob/master/explainer.md",
-     "title": "Web Codecs explainer"
-   },
   "SFRAME": {
      "href":
-     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-00.html",
+     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html",
      "title": "Secure Frame (SFrame)"
    }
 }
@@ -47,11 +42,9 @@ which is the output of the encoder part of a codec and the input to the
 decoder part of a codec which allows the user agent to apply encryption
 locally.
 
-The interface is inspired by [[WEB-CODECS]] to
+The interface is inspired by [[WEBCODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection
-
-# Terminology # {#terminology}
 
 # Specification # {#specification}
 

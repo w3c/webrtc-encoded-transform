@@ -155,6 +155,7 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as 
 
 On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
+The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codecs.
 
 On receiver side, as part of [$readEncodedData$], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
@@ -457,9 +458,9 @@ interface RTCEncodedVideoFrame {
     <dd>
         <p>
             The encoded frame data. The format of the data depends on the video codec that is
-            used to encode the frame which can be determined by looking at the
-            {{RTCEncodedVideoFrameMetadata/mimeType}}. The following table defines this for
-            a number of codecs.
+            used to encode/decode the frame which can be determined by looking at the
+            {{RTCEncodedVideoFrameMetadata/mimeType}}.
+            The following table defines this for a number of codecs.
         </p>
         <table class="simple">
             <thead>
@@ -640,9 +641,9 @@ interface RTCEncodedAudioFrame {
     <dd>
         <p>
             The encoded frame data. The format of the data depends on the audio codec that is
-            used to encode the frame which can be determined by looking at the
-            {{RTCEncodedAudioFrameMetadata/mimeType}}. The following table defines this for
-            a number of codecs.
+            used to encode/decode the frame which can be determined by looking at the
+            {{RTCEncodedAudioFrameMetadata/mimeType}}.
+            The following table defines this for a number of codecs.
         </p>
         <table class="simple">
             <thead>
@@ -657,8 +658,8 @@ interface RTCEncodedAudioFrame {
                     </td>
                     <td>
                         The data is Opus packets, as described in
-                        <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3">section 3</a>
-                        of [[RFC6716]].
+                        <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3">
+                        section 3</a> of [[RFC6716]].
                     </td>
                 </tr>
                 <tr>
@@ -689,10 +690,21 @@ interface RTCEncodedAudioFrame {
                 </tr>
                 <tr>
                     <td>
+                        audio/RED
+                    </td>
+                    <td>
+                        The data is Redundant Audio Data as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc2198#section-3">
+                        section 3</a> of [[RFC2198]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         audio/CN
                     </td>
                     <td>
-                        The data is Comfort Noise as described in <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3">
+                        The data is Comfort Noise as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3">
                         section 3</a> of [[RFC3389]].
                     </td>
                 </tr>

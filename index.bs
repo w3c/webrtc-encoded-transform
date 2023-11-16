@@ -460,7 +460,14 @@ interface RTCEncodedVideoFrame {
             The encoded frame data. The format of the data depends on the video codec that is
             used to encode/decode the frame which can be determined by looking at the
             {{RTCEncodedVideoFrameMetadata/mimeType}}.
-            The following table defines this for a number of codecs.
+            For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
+            is transformed separately.
+            <p class="note">
+              Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
+              the input to an receive-side transform may be different from the output of
+              a send-side transform.
+            </p>
+            The following table gives a number of examples:
         </p>
         <table class="simple">
             <thead>
@@ -486,8 +493,8 @@ interface RTCEncodedVideoFrame {
                         video/VP9
                     </td>
                     <td>
-                        The data is a frame as described in Section 6 of [[VP9]]. The
-                        <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2">
+                        The data is a frame as described in Section 6 of [[VP9]].
+                        The <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2">
                         VP9 payload descriptor</a> is not accessible.
                     </td>
                 </tr>
@@ -643,7 +650,7 @@ interface RTCEncodedAudioFrame {
             The encoded frame data. The format of the data depends on the audio codec that is
             used to encode/decode the frame which can be determined by looking at the
             {{RTCEncodedAudioFrameMetadata/mimeType}}.
-            The following table defines this for a number of codecs.
+            The following table gives a number of examples:
         </p>
         <table class="simple">
             <thead>

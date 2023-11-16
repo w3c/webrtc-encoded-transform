@@ -6,7 +6,7 @@ This creates a problem, in that when an encoded transform is applied on the send
 
 (The latter is exactly what Sframe is designed to prevent, but it is better for the intermediary to fail clean than to engage in possibly random behavior due to attempting to decode a stream that does not conform to the description it expects.)
 
-This problem is even more acute when the Encoded Transform is used to add support for payload types not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to demultiplex the incoming packets correctly and route them to the right decoder.
+This problem is even more acute when the Encoded Transform is used to add support for codecs not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to associate the payload type of incoming packets with the right decoder.
 
 For example, it's been proposed to add [Lyra](https://github.com/google/lyra) to WebRTC using an implementation in WASM
 - a working example using SDP munging can be found on the

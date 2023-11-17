@@ -29,7 +29,7 @@ For codec description, we reuse the dictionary RTCRtpCodecCapability.
 The requirements on the parameters are:
 - either mimetype or fmtp parameters must be different from any existing capability
 
-When a codec capability is added, the SDP machinery will negotiate these codecs as normal, and the resulting payload type will be visible in RTCRtp{Sender,Receiver}.getCapabilities().
+When a codec capability is added, the SDP machinery will negotiate these codecs as normal, and the resulting payload type will be visible in RTCRtp{Sender,Receiver}.getParameters().
 
 
 ## For SDP negotiation

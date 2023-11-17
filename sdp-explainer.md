@@ -101,7 +101,7 @@ function work() {
 // At receiver side.
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
 pc.addCodecCapability('video', customCodec, {mimeType: "video/vp8"});
-pc.ontrack = (receiver) => {
+pc.ontrack = ({receiver}) => {
   const {codecs} = sender.getParameters();
   const encryptingCodec = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
    receiver.setDepacketizer(encryptingCodec.payloadType, {mimeType: "video/vp8"});

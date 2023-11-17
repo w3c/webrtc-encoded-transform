@@ -54,7 +54,7 @@ pc.addCodecCapability(DOMString kind, RTCRtpCodec codec, RTCRtpCodec packetizati
 ```
 These calls will act as if the addCodec() call had been invoked on every transceiver created of the associated "kind".
 
-NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in getParameters(), so they’re available for selection or deselection.
+NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in RTCRtp{Sender,Receiver}.getParameters(), so they’re available to the RTCRtpSender for selection or deselection.
 
 
 

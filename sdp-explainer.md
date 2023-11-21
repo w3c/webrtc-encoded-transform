@@ -110,19 +110,20 @@ pc.ontrack = ({receiver}) => {
    receiver.transform = new RTCRtpScriptTransform(worker, {payloadType});
 
   function work() {
-   transform = new TransformStream(
+    transform = new TransformStream({
       transform: (frame, controller) => {
          if (frame.metadata().payloadType != encryptedPT) {
-           continue;  // Ignore all frames for the wrong payload.
+           return;  // Ignore all frames for the wrong payload.         
          }
          decryptBody(frame);
          metadata = frame.metadata();
          metadata.payloadType = decryptedPT;
          controller.enqueue(frame);
        }
-   });
-   onrtctransform = async({transformer: {readable, writable, options}}) =>
-     await readable.pipeThrough(transform).pipeTo(writable);
+     });
+     onrtctransform = async({transformer: {readable, writable, options}}) =>
+       await readable.pipeThrough(transform).pipeTo(writable);
+  }
 };
 ```
 

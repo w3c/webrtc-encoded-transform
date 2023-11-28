@@ -614,6 +614,7 @@ interface RTCRtpScriptTransform {
     constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
 };
 
+[Exposed=DedicatedWorker]
 interface KeyFrameRequestEvent : Event {
   constructor(DOMString type, optional DOMString rid);
   readonly attribute DOMString? rid;

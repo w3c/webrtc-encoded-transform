@@ -586,12 +586,6 @@ interface RTCTransformEvent : Event {
     readonly attribute RTCRtpScriptTransformer transformer;
 };
 
-interface BandwidthInfo {
-    readonly attribute long allocatedBitrate;  // bits per second
-    readonly attribute long availableOutgoingBitrate;
-    readonly attribute boolean writable;
-};
-
 partial interface DedicatedWorkerGlobalScope {
     attribute EventHandler onrtctransform;
 };
@@ -600,13 +594,10 @@ interface mixin RTCRtpScriptSource {
     readonly attribute ReadableStream readable;
     Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
-    undefined sendBandwidthEstimate(BandwidthInfo info);
 };
 
 interface mixin RTCRtpScriptSink {
     readonly attribute WritableStream writable;
-    attribute BandwidthInfo bandwidthInfo;
-    attribute EventHandler onbandwidthestimate;
     attribute EventHandler onkeyframerequest;
 };
 
@@ -614,6 +605,7 @@ interface mixin RTCRtpScriptSink {
 interface RTCRtpScriptTransformer {
     readonly attribute any options;
 };
+
 RTCRtpScriptTransformer includes RTCRtpScriptSource;
 RTCRtpScriptTransformer includes RTCRtpScriptSink;
 
@@ -669,9 +661,6 @@ The <dfn method for="RTCRtpScriptSource">sendKeyFrameRequest()</dfn> method step
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptSource">sendBandwidthEstimate()</dfn> method step are:
-1. Configure the upstream source with the new bandwidth information.
-
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
 
 A {{RTCRtpScriptTransformer}} has the following private slots called `[[depacketizer]]`, `[[encoder]]`, `[[options]]`, `[[readable]]` and `[[writable]]`.
@@ -691,25 +680,11 @@ The <dfn attribute for="RTCRtpScriptSink">onbandwidthestimate</dfn> EventHandler
 
 The <dfn attribute for="RTCRtpScriptSink">onkeyframerequest</dfn> EventHandler has type keyframerequest.
 
-## Attributes of BandwidthInfo ## {#BandwidthEstimate-attributes}
-The <dfn attribute for="BandwidthEstimate">allocatedBitrate</dfn> attribute represents the bandwith that the downstream
-entity recommends to be allocated for media from this source. If this number is exceeded, the downstream entity
-can drop frames to stay within the allocated bandwidth limit.
-
-The <dfn attribute for="BandwidthEstimate">availableOutgoingBitrate</dfn> attribute represents the overall bandwidth estimate
-of the downstream entity - for an {{RTCRtpSender}}, this is the same number as the {{RTCIceCandidatePairStats/availableOutgoingBitrate}} of the {{RTCIceCandidatePair}} object that is currently supporting the transport.
-
-The <dfn attribute for="BandwidthEstimate">writable</dfn> attribute is true whenever it is possible to enqueue a
-frame for processing without it being immediately discarded. Note that delivery is not guaranteed under any circumstance.
-
 ## Events ## {#RTCRtpScriptTransformer-events}
 
 The following events fire on an {{RTCRtpScriptTransformer}}:
 
-* bandwidthestimate of type {{Event}} - fired when the sink determines that the bandwidth estimate has changed significantly from what has been previously signalled. Significant changes include a change to the "writable" attribute, a decrease of the "allocatedBitrate" attribute, or an increase of more than 10% of the "allocatedBitrate" attribute. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the sendBandwidthEstimate() function had been called.
-
 * keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested. In the context of {{RTCRtpScriptTransform}}, if the event is not cancelled, the information will be passed to the source as if the generateKeyFrame() function had been called. <!-- NOTE IN DRAFT: generateKeyFrame() and requestKeyFrame() should merge -->
-
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 

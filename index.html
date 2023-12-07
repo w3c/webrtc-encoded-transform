@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="1839134bad3478122a6e75a1d675a0e0537697b6" name="document-revision">
+  <meta content="12fa1cd3ea50eef1272ee4ed3598474a37183064" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -893,7 +893,8 @@ For those reasons, streams backpressure is disabled in WebRTC encoded transforms
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-promise-resolved-with" id="ref-for-a-promise-resolved-with②">a promise resolved with</a> undefined.</p>
    </ol>
    <p>On sender side, as part of <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata①">readEncodedData</a>, frames produced by <var>rtcObject</var>’s encoder MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the encoder’s output order.
-As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata①">writeEncodedData</a> ensures that the transform cannot reorder frames, the encoder’s output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.</p>
+As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata①">writeEncodedData</a> ensures that the transform cannot reorder frames, the encoder’s output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
+The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.</p>
    <p>On receiver side, as part of <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata②">readEncodedData</a>, frames produced by <var>rtcObject</var>’s packetizer MUST be enqueued in <var>rtcObject</var>.<code>[[readable]]</code> in the same encoder’s output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in <var>rtcObject</var>.<code>[[readable]]</code>.
 As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata②">writeEncodedData</a> ensures that the transform cannot reorder frames, this will be the order expected by <var>rtcObject</var>’s decoder.</p>
@@ -1164,7 +1165,38 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
             sent or received. </p>
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
     <dd>
-     <p> The encoded frame data. </p>
+     <p> The encoded frame data. The format of the data depends on the video codec that is
+            used to encode/decode the frame which can be determined by looking at the <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframemetadata-mimetype" id="ref-for-dom-rtcencodedvideoframemetadata-mimetype①">mimeType</a></code>.
+            For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
+            is transformed separately. </p>
+     <p class="note" role="note"> Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
+              the input to an receive-side transform may be different from the output of
+              a send-side transform. </p>
+      The following table gives a number of examples: 
+     <p></p>
+     <table class="simple">
+      <thead>
+       <tr>
+        <th>mimeType
+        <th>Data format
+      <tbody>
+       <tr>
+        <td> video/VP8 
+        <td> The data starts with the "uncompressed data chunk" defined in <a href="https://datatracker.ietf.org/doc/html/rfc6386#section-9.1"> section 9.1</a> of <a data-link-type="biblio" href="#biblio-rfc6386" title="VP8 Data Format and Decoding Guide">[RFC6386]</a> and is followed by the rest of the
+                        frame data. The <a href="https://www.rfc-editor.org/rfc/rfc7741#section-4.1"> VP8 payload descriptor</a> is not accessible. 
+       <tr>
+        <td> video/VP9 
+        <td> The data is a frame as described in Section 6 of <a data-link-type="biblio" href="#biblio-vp9" title="VP9 Bitstream &amp; Decoding Process Specification">[VP9]</a>.
+                        The <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2"> VP9 payload descriptor</a> is not accessible. 
+       <tr>
+        <td> video/H264 
+        <td> The data is a series of NAL units in Annex B format,
+                        as defined in <a data-link-type="biblio" href="#biblio-itu-t-rec-h264" title="H.264 : Advanced video coding for generic audiovisual services">[ITU-T-REC-H.264]</a> Annex B. 
+       <tr>
+        <td> video/AV1 
+        <td> The data is a series of OBUs compliant to the <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format"> low-overhead bitstream format</a> as described in Section 5 of <a data-link-type="biblio" href="#biblio-av1" title="AV1 Bitstream &amp; Decoding Process Specification">[AV1]</a>.
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage"> AV1 aggregation header</a> is not accessible. 
+     </table>
    </dl>
    <h4 class="heading settled" data-level="4.3.2" id="RTCEncodedVideoFrame-methods"><span class="secno">4.3.2. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedVideoFrame-methods"></a></h4>
    <dl class="dictionary-members">
@@ -1240,7 +1272,36 @@ An implementation is therefore free to choose whatever method works best. </p>
    <dl class="dictionary-members">
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer④">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
     <dd>
-     <p> The encoded frame data. </p>
+     <p> The encoded frame data. The format of the data depends on the audio codec that is
+            used to encode/decode the frame which can be determined by looking at the <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedaudioframemetadata-mimetype" id="ref-for-dom-rtcencodedaudioframemetadata-mimetype①">mimeType</a></code>.
+            The following table gives a number of examples: </p>
+     <table class="simple">
+      <thead>
+       <tr>
+        <th>mimeType
+        <th>Data format
+      <tbody>
+       <tr>
+        <td> audio/opus 
+        <td> The data is Opus packets, as described in <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc6716" title="Definition of the Opus Audio Codec">[RFC6716]</a>. 
+       <tr>
+        <td> audio/PCMU 
+        <td> The data is a sequence of bytes of arbitrary length, where each byte is a u-law
+                        encoded PCM sample as defined by Table 2a and 2b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>. 
+       <tr>
+        <td> audio/PCMA 
+        <td> The data is a sequence of bytes of arbitrary length, where each byte is
+                        an A-law encoded PCM sample as defined by Tables 1a and 1b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>. 
+       <tr>
+        <td> audio/G722 
+        <td> The data is G.722 audio as described in <a data-link-type="biblio" href="#biblio-itu-g722" title="G.722 : 7 kHz audio-coding within 64 kbit/s">[ITU-G.722]</a>. 
+       <tr>
+        <td> audio/RED 
+        <td> The data is Redundant Audio Data as described in <a href="https://www.rfc-editor.org/rfc/rfc2198#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc2198" title="RTP Payload for Redundant Audio Data">[RFC2198]</a>. 
+       <tr>
+        <td> audio/CN 
+        <td> The data is Comfort Noise as described in <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc3389" title="Real-time Transport Protocol (RTP) Payload for Comfort Noise (CN)">[RFC3389]</a>. 
+     </table>
    </dl>
    <h4 class="heading settled" data-level="4.5.2" id="RTCEncodedAudioFrame-methods"><span class="secno">4.5.2. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedAudioFrame-methods"></a></h4>
    <dl class="dictionary-members">
@@ -1814,14 +1875,32 @@ and may not be audited for reception of data from untrusted sources.</p>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
+   <dt id="biblio-av1">[AV1]
+   <dd>Peter de Rivaz; Jack Haughton. <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf"><cite>AV1 Bitstream &amp; Decoding Process Specification</cite></a>. 8 January 2019. Standard. URL: <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf">https://aomediacodec.github.io/av1-spec/av1-spec.pdf</a>
+   <dt id="biblio-itu-g711">[ITU-G.711]
+   <dd><a href="https://www.itu.int/rec/T-REC-G.711/"><cite>G.711 : Pulse code modulation (PCM) of voice frequencies</cite></a>. URL: <a href="https://www.itu.int/rec/T-REC-G.711/">https://www.itu.int/rec/T-REC-G.711/</a>
+   <dt id="biblio-itu-g722">[ITU-G.722]
+   <dd><a href="https://www.itu.int/rec/T-REC-G.722/"><cite>G.722 : 7 kHz audio-coding within 64 kbit/s</cite></a>. URL: <a href="https://www.itu.int/rec/T-REC-G.722/">https://www.itu.int/rec/T-REC-G.722/</a>
+   <dt id="biblio-itu-t-rec-h264">[ITU-T-REC-H.264]
+   <dd><a href="https://www.itu.int/rec/T-REC-H.264"><cite>H.264 : Advanced video coding for generic audiovisual services</cite></a>. URL: <a href="https://www.itu.int/rec/T-REC-H.264">https://www.itu.int/rec/T-REC-H.264</a>
    <dt id="biblio-rfc1982">[RFC1982]
    <dd>R. Elz; R. Bush. <a href="https://www.rfc-editor.org/rfc/rfc1982"><cite>Serial Number Arithmetic</cite></a>. August 1996. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc1982">https://www.rfc-editor.org/rfc/rfc1982</a>
+   <dt id="biblio-rfc2198">[RFC2198]
+   <dd>C. Perkins; et al. <a href="https://www.rfc-editor.org/rfc/rfc2198"><cite>RTP Payload for Redundant Audio Data</cite></a>. September 1997. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2198">https://www.rfc-editor.org/rfc/rfc2198</a>
+   <dt id="biblio-rfc3389">[RFC3389]
+   <dd>R. Zopf. <a href="https://www.rfc-editor.org/rfc/rfc3389"><cite>Real-time Transport Protocol (RTP) Payload for Comfort Noise (CN)</cite></a>. September 2002. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc3389">https://www.rfc-editor.org/rfc/rfc3389</a>
    <dt id="biblio-rfc3550">[RFC3550]
    <dd>H. Schulzrinne; et al. <a href="https://www.rfc-editor.org/rfc/rfc3550"><cite>RTP: A Transport Protocol for Real-Time Applications</cite></a>. July 2003. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc3550">https://www.rfc-editor.org/rfc/rfc3550</a>
    <dt id="biblio-rfc5104">[RFC5104]
    <dd>S. Wenger; et al. <a href="https://www.rfc-editor.org/rfc/rfc5104"><cite>Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)</cite></a>. February 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5104">https://www.rfc-editor.org/rfc/rfc5104</a>
+   <dt id="biblio-rfc6386">[RFC6386]
+   <dd>J. Bankoski; et al. <a href="https://www.rfc-editor.org/rfc/rfc6386"><cite>VP8 Data Format and Decoding Guide</cite></a>. November 2011. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc6386">https://www.rfc-editor.org/rfc/rfc6386</a>
+   <dt id="biblio-rfc6716">[RFC6716]
+   <dd>JM. Valin; K. Vos; T. Terriberry. <a href="https://www.rfc-editor.org/rfc/rfc6716"><cite>Definition of the Opus Audio Codec</cite></a>. September 2012. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6716">https://www.rfc-editor.org/rfc/rfc6716</a>
    <dt id="biblio-sframe">[SFrame]
    <dd><a href="https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html"><cite>Secure Frame (SFrame)</cite></a>. URL: <a href="https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html">https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html</a>
+   <dt id="biblio-vp9">[VP9]
+   <dd><a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf"><cite>VP9 Bitstream &amp; Decoding Process Specification</cite></a>. URL: <a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf">https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf</a>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
    <dd>Cullen Jennings; Martin Thomson. <a href="https://w3c.github.io/webrtc-identity/"><cite>Identity for WebRTC 1.0</cite></a>. URL: <a href="https://w3c.github.io/webrtc-identity/">https://w3c.github.io/webrtc-identity/</a>
    <dt id="biblio-webrtc-nv-use-cases">[WEBRTC-NV-USE-CASES]
@@ -2368,7 +2447,7 @@ window.dfnpanelData['dom-rtcencodedvideoframemetadata-payloadtype'] = {"dfnID": 
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-contributingsources'] = {"dfnID": "dom-rtcencodedvideoframemetadata-contributingsources", "url": "#dom-rtcencodedvideoframemetadata-contributingsources", "dfnText": "contributingSources", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-contributingsources"}], "title": "4.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-timestamp'] = {"dfnID": "dom-rtcencodedvideoframemetadata-timestamp", "url": "#dom-rtcencodedvideoframemetadata-timestamp", "dfnText": "timestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-timestamp"}], "title": "4.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframemetadata-rtptimestamp'] = {"dfnID": "dom-rtcencodedvideoframemetadata-rtptimestamp", "url": "#dom-rtcencodedvideoframemetadata-rtptimestamp", "dfnText": "rtpTimestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-rtptimestamp"}], "title": "4.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
-window.dfnpanelData['dom-rtcencodedvideoframemetadata-mimetype'] = {"dfnID": "dom-rtcencodedvideoframemetadata-mimetype", "url": "#dom-rtcencodedvideoframemetadata-mimetype", "dfnText": "mimeType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-mimetype"}], "title": "4.2. RTCEncodedVideoFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedvideoframemetadata-mimetype'] = {"dfnID": "dom-rtcencodedvideoframemetadata-mimetype", "url": "#dom-rtcencodedvideoframemetadata-mimetype", "dfnText": "mimeType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-mimetype"}], "title": "4.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframemetadata-mimetype\u2460"}], "title": "4.3.1. Members"}], "external": false};
 window.dfnpanelData['rtcencodedvideoframe'] = {"dfnID": "rtcencodedvideoframe", "url": "#rtcencodedvideoframe", "dfnText": "RTCEncodedVideoFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedvideoframe"}, {"id": "ref-for-rtcencodedvideoframe\u2460"}], "title": "3.1. Algorithm"}, {"refs": [{"id": "ref-for-rtcencodedvideoframe\u2461"}], "title": "4.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-rtcencodedvideoframe\u2462"}], "title": "4.3.3. Serialization"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframe-type'] = {"dfnID": "dom-rtcencodedvideoframe-type", "url": "#dom-rtcencodedvideoframe-type", "dfnText": "type", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-type"}], "title": "4.3. RTCEncodedVideoFrame interface"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-type\u2460"}, {"id": "ref-for-dom-rtcencodedvideoframe-type\u2461"}], "title": "4.3.3. Serialization"}], "external": false};
 window.dfnpanelData['dom-rtcencodedvideoframe-data'] = {"dfnID": "dom-rtcencodedvideoframe-data", "url": "#dom-rtcencodedvideoframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data"}, {"id": "ref-for-dom-rtcencodedvideoframe-data\u2460"}], "title": "3.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcencodedvideoframe-data\u2461"}], "title": "4.3. RTCEncodedVideoFrame interface"}], "external": false};
@@ -2379,7 +2458,7 @@ window.dfnpanelData['dom-rtcencodedaudioframemetadata-payloadtype'] = {"dfnID": 
 window.dfnpanelData['dom-rtcencodedaudioframemetadata-contributingsources'] = {"dfnID": "dom-rtcencodedaudioframemetadata-contributingsources", "url": "#dom-rtcencodedaudioframemetadata-contributingsources", "dfnText": "contributingSources", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-contributingsources"}], "title": "4.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedaudioframemetadata-sequencenumber'] = {"dfnID": "dom-rtcencodedaudioframemetadata-sequencenumber", "url": "#dom-rtcencodedaudioframemetadata-sequencenumber", "dfnText": "sequenceNumber", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-sequencenumber"}], "title": "4.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
 window.dfnpanelData['dom-rtcencodedaudioframemetadata-rtptimestamp'] = {"dfnID": "dom-rtcencodedaudioframemetadata-rtptimestamp", "url": "#dom-rtcencodedaudioframemetadata-rtptimestamp", "dfnText": "rtpTimestamp", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-rtptimestamp"}], "title": "4.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
-window.dfnpanelData['dom-rtcencodedaudioframemetadata-mimetype'] = {"dfnID": "dom-rtcencodedaudioframemetadata-mimetype", "url": "#dom-rtcencodedaudioframemetadata-mimetype", "dfnText": "mimeType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-mimetype"}], "title": "4.4. RTCEncodedAudioFrameMetadata dictionary"}], "external": false};
+window.dfnpanelData['dom-rtcencodedaudioframemetadata-mimetype'] = {"dfnID": "dom-rtcencodedaudioframemetadata-mimetype", "url": "#dom-rtcencodedaudioframemetadata-mimetype", "dfnText": "mimeType", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-mimetype"}], "title": "4.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-dom-rtcencodedaudioframemetadata-mimetype\u2460"}], "title": "4.5.1. Members"}], "external": false};
 window.dfnpanelData['rtcencodedaudioframe'] = {"dfnID": "rtcencodedaudioframe", "url": "#rtcencodedaudioframe", "dfnText": "RTCEncodedAudioFrame", "refSections": [{"refs": [{"id": "ref-for-rtcencodedaudioframe"}, {"id": "ref-for-rtcencodedaudioframe\u2460"}], "title": "3.1. Algorithm"}, {"refs": [{"id": "ref-for-rtcencodedaudioframe\u2461"}], "title": "4.5. RTCEncodedAudioFrame interface"}, {"refs": [{"id": "ref-for-rtcencodedaudioframe\u2462"}], "title": "4.5.3. Serialization"}], "external": false};
 window.dfnpanelData['dom-rtcencodedaudioframe-data'] = {"dfnID": "dom-rtcencodedaudioframe-data", "url": "#dom-rtcencodedaudioframe-data", "dfnText": "data", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data"}, {"id": "ref-for-dom-rtcencodedaudioframe-data\u2460"}], "title": "3.1. Algorithm"}, {"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-data\u2461"}], "title": "4.5. RTCEncodedAudioFrame interface"}], "external": false};
 window.dfnpanelData['dom-rtcencodedaudioframe-getmetadata'] = {"dfnID": "dom-rtcencodedaudioframe-getmetadata", "url": "#dom-rtcencodedaudioframe-getmetadata", "dfnText": "getMetadata()", "refSections": [{"refs": [{"id": "ref-for-dom-rtcencodedaudioframe-getmetadata"}], "title": "4.5. RTCEncodedAudioFrame interface"}], "external": false};

@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="32f00c2b558eeedb96d6eb5b2e99d690c57fde2a" name="document-revision">
+  <meta content="f1f72ebd1e8fb3af082c1e76bd6e4983f51f2c04" name="document-revision">
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -648,7 +648,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-10-12">12 October 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2023-12-07">7 December 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -668,7 +668,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-software" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -693,7 +693,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 	W3C maintains a <a href="https://www.w3.org/2004/01/pp-impl/47318/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group;
 	that page also includes instructions for disclosing a patent.
 	An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/2023/Process-20230612/" id="w3c_process_revision">12 June 2023 W3C Process Document</a>. </p>
+   <p> This document is governed by the <a href="https://www.w3.org/2023/Process-20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>. </p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -818,7 +818,7 @@ insert the processing into the pipeline.</p>
 corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>'s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
    <h4 class="heading settled" data-level="3.1.1" id="stream-creation"><span class="secno">3.1.1. </span><span class="content">Stream creation</span><a class="self-link" href="#stream-creation"></a></h4>
    <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code>, run the following steps:</p>
-   <ol start="2">
+   <ol>
     <li data-md>
      <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.<code>[[transform]]</code> to null.</p>
     <li data-md>
@@ -826,29 +826,25 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[readable]]</code>. <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>.<code>[[readable]]</code> is provided frames using the <a data-link-type="abstract-op" href="#abstract-opdef-readencodeddata" id="ref-for-abstract-opdef-readencodeddata">readEncodedData</a> algorithm given <var>this</var> as parameter.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>.<code>[[readable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream">WritableStream</a></code>.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream">WritableStream</a></code>.</p>
-    <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-highwatermark" id="ref-for-writablestream-set-up-highwatermark">highWaterMark</a> set to <code>Infinity</code>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up" id="ref-for-writablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[writable]]</code> with its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm" id="ref-for-writablestream-set-up-writealgorithm">writeAlgorithm</a> set to <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata">writeEncodedData</a> given <var>this</var> as parameter and its <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#writablestream-set-up-highwatermark" id="ref-for-writablestream-set-up-highwatermark">highWaterMark</a> set to <code>Infinity</code>.</p>
      <p class="note" role="note">highWaterMark is set to Infinity to explicitly disable backpressure.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.<code>[[writable]]</code>.<code>[[owner]]</code> to <var>this</var>.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[pipeToController]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>.<code>[[pipeToController]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.<code>[[lastReceivedFrameCounter]]</code> to <code>0</code>.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>.<code>[[lastReceivedFrameCounter]]</code> to <code>0</code>.</p>
-    <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a>.<code>[[lastEnqueuedFrameCounter]]</code> to <code>0</code>.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>.<code>[[lastEnqueuedFrameCounter]]</code> to <code>0</code>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">Queue a task</a> to run the following steps:</p>
      <ol>
       <li data-md>
-       <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a>.<code>[[pipeToController]]</code> is not null, abort these steps.</p>
+       <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>.<code>[[pipeToController]]</code> is not null, abort these steps.</p>
       <li data-md>
-       <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①②">this</a>.<code>[[pipeToController]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller">AbortController</a></code>.</p>
+       <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a>.<code>[[pipeToController]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller">AbortController</a></code>.</p>
       <li data-md>
-       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①④">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑤">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①②">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>.<code>[[pipeToController]]</code>.signal.</p>
      </ol>
    </ol>
    <p class="note" role="note"> Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
@@ -909,7 +905,7 @@ As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="r
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender,RTCRtpReceiver" data-dfn-type="attribute" data-export id="dom-rtcrtpsender-transform"><code>transform</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑥">this</a>.<code>[[transform]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①④">this</a>.<code>[[transform]]</code>.</p>
    </ol>
    <p>The <code>transform</code> setter steps are:</p>
    <ol start="2">
@@ -924,21 +920,21 @@ As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="r
     <li data-md>
      <p>Initialize <var>newPipeToController</var> to a new <code class="idl"><a data-link-type="idl" href="https://dom.spec.whatwg.org/#abortcontroller" id="ref-for-abortcontroller①">AbortController</a></code>.</p>
     <li data-md>
-     <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑦">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
+     <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑤">this</a>.<code>[[pipeToController]]</code> is not null, run the following steps:</p>
      <ol>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code>.signal.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortsignal-add" id="ref-for-abortsignal-add">Add</a> the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm">chain transform algorithm</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑥">this</a>.<code>[[pipeToController]]</code>.signal.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortcontroller-signal-abort" id="ref-for-abortcontroller-signal-abort">signal abort</a> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[pipeToController]]</code>.</p>
+       <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortcontroller-signal-abort" id="ref-for-abortcontroller-signal-abort">signal abort</a> on <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑦">this</a>.<code>[[pipeToController]]</code>.</p>
      </ol>
     <li data-md>
      <p>Else, run the <a data-link-type="abstract-op" href="#abstract-opdef-chain-transform-algorithm" id="ref-for-abstract-opdef-chain-transform-algorithm①">chain transform algorithm</a> steps.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⓪">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.<code>[[pipeToController]]</code> to <var>newPipeToController</var>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
     <li data-md>
-     <p>Run the steps in the set of <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-steps" id="ref-for-abstract-opdef-rtcrtptransform-association-steps">association steps</a> of <var>transform</var> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②②">this</a>.</p>
+     <p>Run the steps in the set of <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-steps" id="ref-for-abstract-opdef-rtcrtptransform-association-steps">association steps</a> of <var>transform</var> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⓪">this</a>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-chain-transform-algorithm">chain transform algorithm</dfn> steps are defined as:</p>
    <ol>
@@ -1009,7 +1005,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Set <var>this</var>.<code>[[transform]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up①">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②③">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up①">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②①">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
     <li data-md>
@@ -1379,17 +1375,17 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-options"><code>options</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②④">this</a>.<code>[[options]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②②">this</a>.<code>[[options]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-readable"><code>readable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⑤">this</a>.<code>[[readable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②③">this</a>.<code>[[readable]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-writable"><code>writable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⑥">this</a>.<code>[[writable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②④">this</a>.<code>[[writable]]</code>.</p>
    </ol>
    <h3 class="heading settled" data-level="5.9" id="KeyFrame-algorithms"><span class="secno">5.9. </span><span class="content">KeyFrame Algorithms</span><a class="self-link" href="#KeyFrame-algorithms"></a></h3>
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-generate-key-frame-algorithm">generate key frame algorithm</dfn>, given <var>promise</var>, <var>encoder</var> and <var>rid</var>, is defined by running these steps:</p>
@@ -2333,7 +2329,7 @@ window.dfnpanelData['b262501e'] = {"dfnID": "b262501e", "url": "https://webidl.s
 window.dfnpanelData['3b90bdcd'] = {"dfnID": "3b90bdcd", "url": "https://webidl.spec.whatwg.org/#resolve", "dfnText": "resolve", "refSections": [{"refs": [{"id": "ref-for-resolve"}], "title": "4.2. Methods"}, {"refs": [{"id": "ref-for-resolve\u2460"}, {"id": "ref-for-resolve\u2461"}], "title": "5.9. KeyFrame Algorithms"}], "external": true};
 window.dfnpanelData['9cce47fd'] = {"dfnID": "9cce47fd", "url": "https://webidl.spec.whatwg.org/#idl-sequence", "dfnText": "sequence", "refSections": [{"refs": [{"id": "ref-for-idl-sequence"}, {"id": "ref-for-idl-sequence\u2460"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2461"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-sequence\u2462"}], "title": "5.6. Interfaces"}, {"refs": [{"id": "ref-for-idl-sequence\u2463"}], "title": "6. RTCRtpSender extension"}], "external": true};
 window.dfnpanelData['47574099'] = {"dfnID": "47574099", "url": "https://webidl.spec.whatwg.org/#idl-short", "dfnText": "short", "refSections": [{"refs": [{"id": "ref-for-idl-short"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-short\u2460"}], "title": "5.4.1. Members"}], "external": true};
-window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}, {"id": "ref-for-this\u2460\u2460"}, {"id": "ref-for-this\u2460\u2461"}, {"id": "ref-for-this\u2460\u2462"}, {"id": "ref-for-this\u2460\u2463"}, {"id": "ref-for-this\u2460\u2464"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-this\u2460\u2465"}, {"id": "ref-for-this\u2460\u2466"}, {"id": "ref-for-this\u2460\u2467"}, {"id": "ref-for-this\u2460\u2468"}, {"id": "ref-for-this\u2461\u24ea"}, {"id": "ref-for-this\u2461\u2460"}, {"id": "ref-for-this\u2461\u2461"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-this\u2461\u2462"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-this\u2461\u2463"}, {"id": "ref-for-this\u2461\u2464"}, {"id": "ref-for-this\u2461\u2465"}], "title": "5.8. Attributes"}], "external": true};
+window.dfnpanelData['4013a022'] = {"dfnID": "4013a022", "url": "https://webidl.spec.whatwg.org/#this", "dfnText": "this", "refSections": [{"refs": [{"id": "ref-for-this"}, {"id": "ref-for-this\u2460"}, {"id": "ref-for-this\u2461"}, {"id": "ref-for-this\u2462"}, {"id": "ref-for-this\u2463"}, {"id": "ref-for-this\u2464"}, {"id": "ref-for-this\u2465"}, {"id": "ref-for-this\u2466"}, {"id": "ref-for-this\u2467"}, {"id": "ref-for-this\u2468"}, {"id": "ref-for-this\u2460\u24ea"}, {"id": "ref-for-this\u2460\u2460"}, {"id": "ref-for-this\u2460\u2461"}, {"id": "ref-for-this\u2460\u2462"}], "title": "3.1.1. Stream creation"}, {"refs": [{"id": "ref-for-this\u2460\u2463"}, {"id": "ref-for-this\u2460\u2464"}, {"id": "ref-for-this\u2460\u2465"}, {"id": "ref-for-this\u2460\u2466"}, {"id": "ref-for-this\u2460\u2467"}, {"id": "ref-for-this\u2460\u2468"}, {"id": "ref-for-this\u2461\u24ea"}], "title": "3.2. Extension attribute"}, {"refs": [{"id": "ref-for-this\u2461\u2460"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-this\u2461\u2461"}, {"id": "ref-for-this\u2461\u2462"}, {"id": "ref-for-this\u2461\u2463"}], "title": "5.8. Attributes"}], "external": true};
 window.dfnpanelData['5f90bbfb'] = {"dfnID": "5f90bbfb", "url": "https://webidl.spec.whatwg.org/#idl-undefined", "dfnText": "undefined", "refSections": [{"refs": [{"id": "ref-for-idl-undefined"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-undefined\u2460"}], "title": "5.6. Interfaces"}, {"refs": [{"id": "ref-for-idl-undefined\u2461"}], "title": "6. RTCRtpSender extension"}], "external": true};
 window.dfnpanelData['e97a9688'] = {"dfnID": "e97a9688", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long", "dfnText": "unsigned long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long"}, {"id": "ref-for-idl-unsigned-long\u2460"}, {"id": "ref-for-idl-unsigned-long\u2461"}, {"id": "ref-for-idl-unsigned-long\u2462"}, {"id": "ref-for-idl-unsigned-long\u2463"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2464"}, {"id": "ref-for-idl-unsigned-long\u2465"}], "title": "5.2.1. Members"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2466"}, {"id": "ref-for-idl-unsigned-long\u2467"}, {"id": "ref-for-idl-unsigned-long\u2468"}], "title": "5.4. RTCEncodedAudioFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long\u2460\u24ea"}, {"id": "ref-for-idl-unsigned-long\u2460\u2460"}], "title": "5.4.1. Members"}], "external": true};
 window.dfnpanelData['f14b47b8'] = {"dfnID": "f14b47b8", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long-long", "dfnText": "unsigned long long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long-long"}], "title": "4. SFrameTransform"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2460"}, {"id": "ref-for-idl-unsigned-long-long\u2461"}], "title": "5.2. RTCEncodedVideoFrameMetadata dictionary"}, {"refs": [{"id": "ref-for-idl-unsigned-long-long\u2462"}], "title": "5.6. Interfaces"}], "external": true};

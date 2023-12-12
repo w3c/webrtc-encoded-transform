@@ -690,7 +690,7 @@ or Full Intra Refresh (FIR), queue a task to perform the following steps:
 
 1. Set |rid| to the RID of the appropriate layer, or undefined if the request is not for a specific layer.
 1. [=Fire an event=] named `keyframerequest` at |transform| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
-1. If the event's `canceled flag` is true, abort these steps.
+1. If the event's [=Event/canceled flag=] is true, abort these steps.
 1. Run the [$generate key frame algorithm$] with a new promise, |transform|.`[[encoder]]` and |rid|.
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}

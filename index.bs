@@ -590,14 +590,8 @@ partial interface DedicatedWorkerGlobalScope {
     attribute EventHandler onrtctransform;
 };
 
-interface mixin RTCRtpScriptSource {
-};
-
-interface mixin RTCRtpScriptSink {
-};
-
 [Exposed=DedicatedWorker]
-interface RTCRtpScriptTransformer {
+interface RTCRtpScriptTransformer : EventTarget {
     // Attributes and methods related to the transformer source
     readonly attribute ReadableStream readable;
     Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
@@ -683,22 +677,21 @@ The <dfn attribute for="RTCRtpScriptTransform">onkeyframerequest</dfn> EventHand
 
 ## Events ## {#RTCRtpScriptTransformer-events}
 
-The following events fire on an {{RTCRtpScriptTransformer}}:
+The following event fires on an {{RTCRtpScriptTransformer}}:
 
 * keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested.
 
 The steps that generate an event of type {{KeyFrameRequestEvent}} are as follows:
 
-Given a {{RTCRtpScriptTransformer}} `transform`:
+Given a {{RTCRtpScriptTransformer}} |transform|:
 
-When `transform`'s `[[encoder]]` receives a keyframe request, for instance from an incoming RTCP Picture Loss Indication (PLI)
-or Full Intra Refresh (FIR), queue
-a task to perform the following steps:
+When |transform|'s `[[encoder]]` receives a keyframe request, for instance from an incoming RTCP Picture Loss Indication (PLI)
+or Full Intra Refresh (FIR), queue a task to perform the following steps:
 
-1. Set `rid` to the RID of the appropriate layer, or undefined if the request is not for a specific layer.
-1. Fire a cancelable event of type {{KeyFrameRequestEvent}} on `transform`, with {{KeyFrameRequestEvent/rid}} set to `rid`.
-1. If the event is cancelled, abort these steps.
-1. Run the [$generate key frame algorithm$] with a new promise, `transform`.`[[encoder]]` and `rid`.
+1. Set |rid| to the RID of the appropriate layer, or undefined if the request is not for a specific layer.
+1. [=Fire an event=] named `keyframerequest` at |transform| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
+1. If the event's `canceled flag` is true, abort these steps.
+1. Run the [$generate key frame algorithm$] with a new promise, |transform|.`[[encoder]]` and |rid|.
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 

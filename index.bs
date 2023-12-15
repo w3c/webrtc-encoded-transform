@@ -19,15 +19,31 @@ spec:webidl; type:dfn; text:resolve
 </pre>
 <pre class=biblio>
 {
-  "WEB-CODECS": {
-     "href":
-     "https://github.com/WICG/web-codecs/blob/master/explainer.md",
-     "title": "Web Codecs explainer"
-   },
   "SFRAME": {
      "href":
-     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-00.html",
+     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html",
      "title": "Secure Frame (SFrame)"
+   },
+   "VP9": {
+    "href":
+    "https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf",
+    "title": "VP9 Bitstream & Decoding Process Specification",
+    "publisher": "The WebM Project"
+   },
+   "ITU-T-REC-H.264": {
+    "href": "https://www.itu.int/rec/T-REC-H.264",
+    "title": "H.264 : Advanced video coding for generic audiovisual services",
+    "publisher": "ITU"
+   },
+   "ITU-G.711": {
+    "href": "https://www.itu.int/rec/T-REC-G.711/",
+    "title": "G.711 : Pulse code modulation (PCM) of voice frequencies",
+    "publisher": "ITU"
+   },
+   "ITU-G.722": {
+    "href": "https://www.itu.int/rec/T-REC-G.722/",
+    "title": "G.722 : 7 kHz audio-coding within 64 kbit/s",
+    "publisher": "ITU"
    }
 }
 </pre>
@@ -47,11 +63,9 @@ which is the output of the encoder part of a codec and the input to the
 decoder part of a codec which allows the user agent to apply encryption
 locally.
 
-The interface is inspired by [[WEB-CODECS]] to
+The interface is inspired by [[WEBCODECS]] to
 provide access to such functionality while retaining the setup flow of
 RTCPeerConnection
-
-# Terminology # {#terminology}
 
 # Specification # {#specification}
 
@@ -171,15 +185,13 @@ argument, ensure that the codec is disabled and produces no output.
 ### Stream creation ### {#stream-creation}
 
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
-2. Initialize [=this=].`[[transform]]` to null.
-3. Initialize [=this=].`[[readable]]` to a new {{ReadableStream}}.
-4. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]`. [=this=].`[[readable]]` is provided frames using the [$readEncodedData$] algorithm given |this| as parameter.
-5. Set [=this=].`[[readable]]`.`[[owner]]` to |this|.
-6. Initialize [=this=].`[[writable]]` to a new {{WritableStream}}.
-7. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [$writeEncodedData$] given |this| as parameter and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
+1. Initialize [=this=].`[[transform]]` to null.
+1. Initialize [=this=].`[[readable]]` to a new {{ReadableStream}}.
+1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]`. [=this=].`[[readable]]` is provided frames using the [$readEncodedData$] algorithm given |this| as parameter.
+1. Initialize [=this=].`[[writable]]` to a new {{WritableStream}}.
+1. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [$writeEncodedData$] given |this| as parameter and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
     <p class="note">highWaterMark is set to Infinity to explicitly disable backpressure.</p>
-8. Set [=this=].`[[writable]]`.`[[owner]]` to |this|.
-9. Initialize [=this=].`[[pipeToController]]` to null.
+1. Initialize [=this=].`[[pipeToController]]` to null.
 1. Initialize [=this=].`[[lastReceivedFrameCounter]]` to <code>0</code>.
 1. Initialize [=this=].`[[lastEnqueuedFrameCounter]]` to <code>0</code>.
 1. [=Queue a task=] to run the following steps:
@@ -221,6 +233,7 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as 
 
 On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
+The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.
 
 On receiver side, as part of [$readEncodedData$], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
@@ -522,8 +535,70 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            The encoded frame data.
+            The encoded frame data. The format of the data depends on the video codec that is
+            used to encode/decode the frame which can be determined by looking at the
+            {{RTCEncodedVideoFrameMetadata/mimeType}}.
+            For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
+            is transformed separately.
+            <p class="note">
+              Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
+              the input to an receive-side transform may be different from the output of
+              a send-side transform.
+            </p>
+            The following table gives a number of examples:
         </p>
+        <table class="simple">
+            <thead>
+                <tr>
+                    <th>mimeType</th><th>Data format</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        video/VP8
+                    </td>
+                    <td>
+                        The data starts with the "uncompressed data chunk" defined in
+                        <a href="https://datatracker.ietf.org/doc/html/rfc6386#section-9.1">
+                        section 9.1</a> of [[RFC6386]] and is followed by the rest of the
+                        frame data. The <a href="https://www.rfc-editor.org/rfc/rfc7741#section-4.1">
+                        VP8 payload descriptor</a> is not accessible.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        video/VP9
+                    </td>
+                    <td>
+                        The data is a frame as described in Section 6 of [[VP9]].
+                        The <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2">
+                        VP9 payload descriptor</a> is not accessible.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        video/H264
+                    </td>
+                    <td>
+                        The data is a series of NAL units in Annex B format,
+                        as defined in [[ITU-T-REC-H.264]] Annex B.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        video/AV1
+                    </td>
+                    <td>
+                        The data is a series of OBUs compliant to the
+                        <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format">
+                        low-overhead bitstream format</a> as described in Section 5 of [[AV1]].
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage">
+                        AV1 aggregation header</a> is not accessible.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </dd>
 </dl>
 
@@ -650,8 +725,76 @@ interface RTCEncodedAudioFrame {
     </dt>
     <dd>
         <p>
-            The encoded frame data.
+            The encoded frame data. The format of the data depends on the audio codec that is
+            used to encode/decode the frame which can be determined by looking at the
+            {{RTCEncodedAudioFrameMetadata/mimeType}}.
+            The following table gives a number of examples:
         </p>
+        <table class="simple">
+            <thead>
+                <tr>
+                    <th>mimeType</th><th>Data format</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        audio/opus
+                    </td>
+                    <td>
+                        The data is Opus packets, as described in
+                        <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3">
+                        section 3</a> of [[RFC6716]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        audio/PCMU
+                    </td>
+                    <td>
+                        The data is a sequence of bytes of arbitrary length, where each byte is a u-law
+                        encoded PCM sample as defined by Table 2a and 2b in [[ITU-G.711]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        audio/PCMA
+                    </td>
+                    <td>
+                        The data is a sequence of bytes of arbitrary length, where each byte is
+                        an A-law encoded PCM sample as defined by Tables 1a and 1b in [[ITU-G.711]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        audio/G722
+                    </td>
+                    <td>
+                        The data is G.722 audio as described in [[ITU-G.722]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        audio/RED
+                    </td>
+                    <td>
+                        The data is Redundant Audio Data as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc2198#section-3">
+                        section 3</a> of [[RFC2198]].
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        audio/CN
+                    </td>
+                    <td>
+                        The data is Comfort Noise as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3">
+                        section 3</a> of [[RFC3389]].
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </dd>
 </dl>
 
@@ -694,17 +837,27 @@ partial interface DedicatedWorkerGlobalScope {
 };
 
 [Exposed=DedicatedWorker]
-interface RTCRtpScriptTransformer {
+interface RTCRtpScriptTransformer : EventTarget {
+    // Attributes and methods related to the transformer source
     readonly attribute ReadableStream readable;
-    readonly attribute WritableStream writable;
-    readonly attribute any options;
     Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
+    // Attributes and methods related to the transformer sink
+    readonly attribute WritableStream writable;
+    attribute EventHandler onkeyframerequest;
+    // Attributes for configuring the Javascript code
+    readonly attribute any options;
 };
 
 [Exposed=Window]
 interface RTCRtpScriptTransform {
     constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
+};
+
+[Exposed=DedicatedWorker]
+interface KeyFrameRequestEvent : Event {
+  constructor(DOMString type, optional DOMString rid);
+  readonly attribute DOMString? rid;
 };
 </pre>
 
@@ -739,12 +892,12 @@ Each RTCRtpScriptTransform has the following set of [$association steps$], given
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
 
-The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
+The <dfn method for="RTCRtpScriptTransform">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
+The <dfn method for="RTCRtpScriptTransform">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
@@ -758,11 +911,33 @@ This allows algorithms to go from an {{RTCRtpScriptTransformer}} object to its {
 The <dfn attribute for="RTCRtpScriptTransformer">options</dfn> getter steps are:
 1. Return [=this=].`[[options]]`.
 
-The <dfn attribute for="RTCRtpScriptTransformer">readable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptTransform">readable</dfn> getter steps are:
 1. Return [=this=].`[[readable]]`.
 
-The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptTransform">writable</dfn> getter steps are:
 1. Return [=this=].`[[writable]]`.
+
+The <dfn attribute for="RTCRtpScriptTransform">onbandwidthestimate</dfn> EventHandler has type bandwidthestimate.
+
+The <dfn attribute for="RTCRtpScriptTransform">onkeyframerequest</dfn> EventHandler has type keyframerequest.
+
+## Events ## {#RTCRtpScriptTransformer-events}
+
+The following event fires on an {{RTCRtpScriptTransformer}}:
+
+* keyframerequest of type {{KeyFrameRequestEvent}} - fired when the sink determines that a key frame has been requested.
+
+The steps that generate an event of type {{KeyFrameRequestEvent}} are as follows:
+
+Given a {{RTCRtpScriptTransformer}} |transform|:
+
+When |transform|'s `[[encoder]]` receives a keyframe request, for instance from an incoming RTCP Picture Loss Indication (PLI)
+or Full Intra Refresh (FIR), queue a task to perform the following steps:
+
+1. Set |rid| to the RID of the appropriate layer, or undefined if the request is not for a specific layer.
+1. [=Fire an event=] named `keyframerequest` at |transform| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
+1. If the event's [=Event/canceled flag=] is true, abort these steps.
+1. Run the [$generate key frame algorithm$] with a new promise, |transform|.`[[encoder]]` and |rid|.
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 

@@ -6,11 +6,12 @@ This creates a problem, in that when an encoded transform is applied on the send
 
 (The latter is exactly what Sframe is designed to prevent, but it is better for the intermediary to fail clean than to engage in possibly random behavior due to attempting to decode a stream that does not conform to the description it expects.)
 
-This problem is even more acute when the Encoded Transform is used to add support for codecs not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to associate the payload type of incoming packets with the right decoder.
+This problem is even more acute if an interface resembling RTCRtpScriptTransform is used to add support for codecs not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to associate the payload type of incoming packets with the right decoder.
 
-For example, it's been proposed to add [Lyra](https://github.com/google/lyra) to WebRTC using an implementation in WASM
-- a working example using SDP munging can be found on the
+For example, it's been proposed to add [Lyra](https://github.com/google/lyra) to WebRTC using an implementation in WASM; a working example using SDP munging can be found on the
 [Meetecho blog](https://www.meetecho.com/blog/playing-with-lyra/).
+
+However, this API proposal does not directly address that use case at the moment.
 
 # Requirements for an SDP negotiation API
 The following things need to be available on such an API:
@@ -24,22 +25,47 @@ The following things need to be available on such an API:
 # API description
 
 ## Codec description
-For codec description, we reuse the dictionary RTCRtpCodecCapability.
+For codec description, we reuse the dictionary RTCRtpCodecCapability, but add a new field describing the
+packetization mode to be used.
 
 The requirements on the parameters are:
 - either mimetype or fmtp parameters must be different from any existing capability
+- the packetization mode must identify a mode known to the UA.
 
 When a codec capability is added, the SDP machinery will negotiate these codecs as normal, and the resulting payload type will be visible in RTCRtp{Sender,Receiver}.getParameters().
 
+## Describing the input and output codecs of transforms
 
-## For SDP negotiation
+We extend the RTCRTPScriptTransform object's constructor with a fourth argument of type CodecInformation, with the following IDL definition:
+
+```
+dictionary CodecInformation {
+  sequence<RTCRtpCodecCapabilityWithPacketization> inputCodecs;
+  sequence<RTCRtpCodecCapabilityWithPacketization> outputCodecs;
+  bool acceptOnlyInputCodecs = false;
+}
+```
+The inputCodecs member describe the media types the transform is prepared to process. Any frame of a format
+not listed will be passed to the output of the transform without modification.
+
+The outputCodecs describes the media types the transform may produce.
+
+NOTE: The inputCodecs has two purposes in the "Transform proposal" below - it gives codecs to
+negotiate in the SDP, and it serves to filter the frame types that the transform will process.
+
+In order to be able to use the filtering function, the "acceptOnlyInputCodecs" has to be set to true;
+if it is false, all frames are delivered to the transform.
+
+The next section has two versions - the Transceiver proposal and the Transform proposal.
+
+## For SDP negotiation - Transceiver proposal
 SDP negotiation is inherently an SDP property, and the proper target for that is therefore the RTCRtpTransceiver object.
 
 The transceiver will always be available before an offer or answer is created (either because of AddTrack or AddTransceiver on the sender side,
 or in the ontrack event on the side that receives the offer). At that time, the additional codecs to negotiate must be set:
 
 ```
-transceiver.addCodec(RTCRtpCodec codec, RTCRtpCodec packetizationMode)
+transceiver.addCodec(RTCRtpCodecWithPacketization codec, RTCRtpTransceiverDirection direction = "sendrecv")
 ```
 This will add the described codec to the list of codecs to be offered in createOffer/createAnswer. On successful negotiation
 of the codec, it will appear in the negotiated codec list returned from setParameters().
@@ -50,35 +76,51 @@ codec being given as the packetizationMode argument.
 Because it is sometimes inconvenient to intercept every call that creates transceivers, a convenience method is offered on the PC level:
 
 ```
-pc.addCodecCapability(DOMString kind, RTCRtpCodec codec, RTCRtpCodec packetizationMode)
+pc.addCodecCapability(RTCRtpCodecWithPacketization codec, RTCRtpTransceiverDirection direction = "sendrecv")
 ```
 These calls will act as if the addCodec() call had been invoked on every transceiver created of the associated "kind".
 
-NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections. They will show up in the list of codecs in RTCRtp{Sender,Receiver}.getParameters(), so they’re available to the RTCRtpSender for selection or deselection.
+NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections or, when using transceiver-level addCodec, for different transceivers. They will show up in the list of codecs in RTCRtp{Sender,Receiver}.getParameters(), so they’re available to the RTCRtpSender for selection or deselection using setCodecPreferences().
 
+When the PeerConnection generates an offer or an answer, the codecs added with addCodec() will be added to the list of codecs generated for that transceiver. If "direction" is sendrecv or recvonly, the selected
+payload types will also be added to the list of receive codecs on the m= line; if "direction" is "sendonly", the selected payload types will not be added to the list.
 
+Note: It is the application's job to ensure that the transform and the negotiation agree on which
+codecs are being processed.
+
+## For SDP negotiation - Transform proposal
+
+When the PeerConnection generates an offer or an answer:
+
+* If a transform is set on the sender, the process for generating an offer or answer will add the codecs 
+  listed in the transform's outputCodecs to the list of codecs available for sending.
+
+* If a transform is set on the receiver, the process for generating an offer or answer will add the codecs 
+  listed in the transform's inputCodecs to the list of codecs available for receiving.
+
+When the transform attribute of a sender or receiver is changed, and the relevant codec list changes, the "negotiationneeded" event fires.
 
 ## Existing APIs that will be used together with the new APIs
 - Basic establishing of EncodedTransform
 - getParameters() to get results of codec negotiation
 - encoded frame SetMetadata, to set the payload type for processed frames
+- setCodecPreferences, to say which codecs (old or new) are preferred for reception
 
 # Example code
-(This is incomplete)
+(This is based on the Transceiver API proposal)
 ```
 customCodec = {
    mimeType: “video/x-encrypted”,
    clockRate: 90000,
-   fmtp = “encapsulated-codec=vp8”,
+   packetizationMode: "video/vp8", 
 };
 
 // At sender side
-pc.addCodecCapability('video', customCodec, {mimeType: "video/vp8"});
+pc.addCodecCapability(customCodec);
 
 // ...after negotiation
 
 const {codecs} = sender.getParameters();
-const {payloadType} = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
 
 const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
 sender.transform = new RTCRtpScriptTransform(worker, {payloadType});
@@ -92,7 +134,7 @@ function work() {
     let metadata = frame.metadata();
     encryptBody(frame);
     metadata = frame.metadata();
-    metadata.pt = options.payloadType;
+    metadata.mediaType = "video/x-encrypted"
     frame.setMetadata(metadata);
     controller.enqueue(frame);
   }
@@ -100,24 +142,22 @@ function work() {
 
 // At receiver side.
 const decryptedPT = 208; // Can be negotiated PT or locally-valid
-pc.addCodecCapability('video', customCodec, {mimeType: "video/vp8"});
+pc.addCodecCapability('video', customCodec);
 pc.ontrack = ({receiver}) => {
   const {codecs} = sender.getParameters();
-  const encryptingCodec = codecs.find(({mimeType}) => mimeType == "video/acme-encrypted");
-   receiver.setDepacketizer(encryptingCodec.payloadType, {mimeType: "video/vp8"});
    receiver.addDecodingCodec({mimeType: 'video/vp8', payloadType: decryptedPT});
    const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
-   receiver.transform = new RTCRtpScriptTransform(worker, {payloadType});
+   receiver.transform = new RTCRtpScriptTransform(worker, null, null,
+                       {inputCodecs: [customCodec], acceptOnlyInputCodecs = True});
 
   function work() {
     transform = new TransformStream({
       transform: (frame, controller) => {
-         if (frame.metadata().payloadType != encryptedPT) {
-           return;  // Ignore all frames for the wrong payload.         
-         }
+         // We know that only encrypted-frames will get to this point.
          decryptBody(frame);
          metadata = frame.metadata();
-         metadata.payloadType = decryptedPT;
+         metadata.mimeType = 'video/vp8';
+         frame.setMetadata(metadata);
          controller.enqueue(frame);
        }
      });

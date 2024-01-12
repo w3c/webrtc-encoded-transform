@@ -106,9 +106,8 @@ When the transform attribute of a sender or receiver is changed, and the relevan
 - encoded frame SetMetadata, to set the payload type for processed frames
 - setCodecPreferences, to say which codecs (old or new) are preferred for reception
 
-# Example code
-(This is based on the Transceiver API proposal)
-```
+# Example code based on the Transceiver API proposal
+```js
 customCodec = {
    mimeType: “video/x-encrypted”,
    clockRate: 90000,

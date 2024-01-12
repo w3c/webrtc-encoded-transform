@@ -166,6 +166,55 @@ pc.ontrack = ({receiver}) => {
 };
 ```
 
+# Example code based on the Transform API proposal
+
+```js
+const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
+
+// At sender side.
+const sender = pc.addTrack(track);
+const {codecs} = RTCRtpSender.getCapabilities();
+const vp8 = codecs.find(({mimeType}) => mimeType == "video/vp8");
+sender.transform = new RTCRtpScriptTransform(worker, {
+  inputCodecs: [vp8],
+  outputCodecs: [{mimeType: “video/x-encrypted”}]
+});
+
+// At receiver side.
+pc.ontrack = ({receiver}) => {
+  const {codecs} = receiver.getParameters();
+  const customCodec = codecs.find(({mimeType}) => mimeType == "video/x-encrypted");
+  if (customCodec) {
+    receiver.transform = new RTCRtpScriptTransform(worker, {
+      inputCodecs: [customCodec],
+      outputCodecs: [{mimeType: "video/vp8"}]
+    });
+  }
+}
+
+// Same worker can handle both sides.
+function work() {
+  onrtctransform = async ({transformer: {readable, writable}, {inputCodecs, outputCodecs}}) => {
+    const [outputCodec] = outputCodecs;
+    await readable.pipeThrough(new TransformStream({transform})).pipeTo(writable);
+    function transform(frame, controller) {
+      // transform chunk
+      let metadata = frame.metadata();
+      const inputCodec = inputCodecs.find((mimeType) => mimeType == metadata.mediaType);
+
+      if (inputCodec && outputCodec.mimeType == "video/x-encrypted") {
+        encryptBody(frame, inputCodec);
+        metadata.mediaType = outputCodec.mimeType;
+        frame.setMetadata(metadata);
+      } else if (inputCodec.mimeType == "video/x-encrypted") {
+        decryptBody(frame, outputCodec);
+        metadata.mediaType = outputCodec.mimeType;
+        frame.setMetadata(metadata);
+      }
+      controller.enqueue(frame);
+    }
+  }
+}
 # Frequently asked questions
 
 1.  Q: My application wants to send frames with multiple packetizers. How do I accomplish that?

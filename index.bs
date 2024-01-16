@@ -426,7 +426,7 @@ dictionary RTCEncodedVideoFrameMetadata {
 // re-use or extend the equivalent defined in WebCodecs.
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedVideoFrame {
-    constructor(RTCEncodedVideoFrame originalFrame, RTCEncodedVideoFrameMetadata newMetadata);
+    constructor(RTCEncodedVideoFrame originalFrame, optional RTCEncodedVideoFrameMetadata newMetadata);
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
@@ -440,13 +440,13 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            Create a new RTCEncodedVideoFrame from the given |originalFrame| and sets its metadata to |newMetadata|.
+            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and sets the internal metadata to |newMetadata|.
             
             When called, run the following steps:
 
             1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
             1. Set this.`[[data]]` to |originalFrame|.`[[data]]`.
-            1. Set the internal representation of metadata to |newMetadata| such that this.`[[getMetadata()]]` returns |newMetadata|.
+            1. If |newMetadata| is not empty, set the internal representation of metadata to |newMetadata| such that {{RTCEncodedVideoFrame/getMetadata()}} returns |newMetadata|. Otherwise, set the internal representation of metadata to originalFrame.`[[getMetadata()]]`.
 
         </p>
     </dd>
@@ -646,7 +646,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 <pre class="idl">
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedAudioFrame {
-    constructor(RTCEncodedAudioFrame originalFrame, RTCEncodedAudioFrameMetadata newMetadata);
+    constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameMetadata newMetadata);
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };
@@ -659,12 +659,12 @@ interface RTCEncodedAudioFrame {
     </dt>
     <dd>
         <p>
-            Create a new RTCEncodedAudioFrame from the given |originalFrame| and sets its metadata to |newMetadata|.
+            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and sets the internal metadata to |newMetadata|.
             
             When called, run the following steps:
 
             1. Set this.`[[data]]` to |originalFrame|.`[[data]]`.
-            1. Set the internal representation of metadata to |newMetadata| such that this.`[[getMetadata()]]` returns |newMetadata|.
+            1. If |newMetadata| is not empty, set the internal representation of metadata to |newMetadata| such that {{RTCEncodedAudioFrame/getMetadata()}} returns |newMetadata|. Otherwise, set the internal representation of metadata to originalFrame.`[[getMetadata()]]`.
 
         </p>
     </dd>

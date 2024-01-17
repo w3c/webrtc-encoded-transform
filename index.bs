@@ -445,7 +445,7 @@ interface RTCEncodedVideoFrame {
             When called, run the following steps:
 
             1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
-            1. Set this.`[[data]]` to |originalFrame|.`[[data]]`.
+            1. Let this.`[[data]]` be a new ArrayBuffer object whose `[[ArrayBufferData]]` internal slot value is |originalFrame|.`[[data]]`.`[[ArrayBufferData]]`, and whose `[[ArrayBufferByteLength]]` internal slot value is |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`.
             1. If |newMetadata| is not empty, set the internal representation of metadata to |newMetadata| such that {{RTCEncodedVideoFrame/getMetadata()}} returns |newMetadata|. Otherwise, set the internal representation of metadata to originalFrame.`[[getMetadata()]]`.
 
         </p>
@@ -663,7 +663,7 @@ interface RTCEncodedAudioFrame {
             
             When called, run the following steps:
 
-            1. Set this.`[[data]]` to |originalFrame|.`[[data]]`.
+            1. Let this.`[[data]]` be a new ArrayBuffer object whose `[[ArrayBufferData]]` internal slot value is |originalFrame|.`[[data]]`.`[[ArrayBufferData]]`, and whose `[[ArrayBufferByteLength]]` internal slot value is |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`.
             1. If |newMetadata| is not empty, set the internal representation of metadata to |newMetadata| such that {{RTCEncodedAudioFrame/getMetadata()}} returns |newMetadata|. Otherwise, set the internal representation of metadata to originalFrame.`[[getMetadata()]]`.
 
         </p>

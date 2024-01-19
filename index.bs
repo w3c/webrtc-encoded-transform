@@ -347,6 +347,25 @@ dictionary RTCEncodedVideoFrameMetadata {
 
 <dl dfn-for="RTCEncodedVideoFrameMetadata" class="dictionary-members">
     <dt>
+        <dfn dict-member>frameId</dfn> <span class="idlMemberType">unsigned long long</span>
+    </dt>
+    <dd>
+        <p>
+            An identifier for the encoded frame, monotonically increasing in decode order. Its lower
+            16 bits matches the frame_number of the Dependency Descriptor RTP Header Extension, if sent.
+            Only present for received frames if the Dependency Descriptor Header Extension is present.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>dependencies</dfn> <span class="idlMemberType">sequence&lt;unsigned long long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            List of frameIds of frames this frame references.
+            Only present for received frames if the Dependency Descriptor Header Extension is present.
+        </p>
+    </dd>
+    <dt>
         <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
     </dt>
     <dd>

@@ -352,7 +352,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             An identifier for the encoded frame, monotonically increasing in decode order. Its lower
-            16 bits match the frame_number of the AV1 Dependency Descriptor Header Extension defined in Appendix A of [[?AV1-RTP]], if sent.
+            16 bits match the frame_number of the AV1 Dependency Descriptor Header Extension defined in Appendix A of [[?AV1-RTP]], if present.
             Only present for received frames if the Dependency Descriptor Header Extension is present.
         </p>
     </dd>

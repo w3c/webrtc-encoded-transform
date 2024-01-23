@@ -362,7 +362,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     <dd>
         <p>
             List of frameIds of frames this frame references.
-            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of [[?AV1-RTP]] is present.
+            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of [[?AV1-RTP-SPEC]] is present.
         </p>
     </dd>
     <dt>

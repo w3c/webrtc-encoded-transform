@@ -4,7 +4,7 @@ The original definition of encoded transform did not consider negotiation; the f
 
 This creates a problem, in that when an encoded transform is applied on the sending side, the bits on the wire may not correspond to what the SDP negotiation has declared that particular type to be used for. When only talking to another instance of the same application, that is not an issue, but it is an issue as soon as we want two different applications to interoperate - for instance when exchanging SFrame encrypted media between two endpoints from different application providers, or when exchanging SFrame encrypted content via an SFU that expects to be able to decode or modify the media.
 
-(The latter is exactly what Sframe is designed to prevent, but it is better for the intermediary to fail clean than to engage in possibly random behavior due to attempting to decode a stream that does not conform to the description it expects.)
+(The latter is exactly what SFrame is designed to prevent, but it is better for the intermediary to fail clean than to engage in possibly random behavior due to attempting to decode a stream that does not conform to the description it expects.)
 
 This problem is even more acute if an interface resembling RTCRtpScriptTransform is used to add support for codecs not natively supported by the browser; without the ability to influence SDP negotiation, there is no standard way to ensure that a receiver supporting the new codec is able to associate the payload type of incoming packets with the right decoder.
 

@@ -106,7 +106,7 @@ initially empty.
 
 1. Let 'capability' be the "capability" argument
 1. If 'capability' is identical to the capability describing a previously configured codec,
-    throw an IllegalModification error.
+    throw an {{InvalidModificationError}} error.
 1. Add 'capability' to the PeerConnections's {{RTCPeerConnection/[[CustomReceiveCodecs]]}} internal slot.
 
 ## Extensions to RTCRtpSender and RTCRtpReceiver ## {#sender-receiver-extensions}

@@ -83,8 +83,8 @@ allow the declaration and negotiation of new media types.
 <pre class="idl">
 // New methods for RTCPeerConnection
 partial interface RTCPeerConnection {
-   undefined AddSendCodecCapability(RTCRtpCodecCapability capability);
-   undefined AddReceiveCodecCapability(RTCRtpCodecCapability capability);
+   undefined addSendCodecCapability(RTCRtpCodecCapability capability);
+   undefined addReceiveCodecCapability(RTCRtpCodecCapability capability);
 };
 </pre>
 

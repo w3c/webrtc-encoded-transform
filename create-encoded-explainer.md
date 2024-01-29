@@ -24,7 +24,7 @@ focuses on the frame creation and manipulation functionality.
 The approach proposed as a minimum viable API consists of 3 functions:
 
 * A constructor that takes encoded data + metadata and creates an encoded frame
-* A class that allows enqueing encoded frames into a sender peer connection
+* A class that allows enqueing encoded frames into a sender peer connection and exposing control signals
 
 ## Relevant other needed changes
 

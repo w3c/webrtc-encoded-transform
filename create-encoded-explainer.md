@@ -13,12 +13,11 @@ The use cases include:
 Addressing these cases in the webrtc-encoded-transform API requires the ability to:
 
 * Create encoded frames
-* Clone encoded frames
 * Manipulate encoded frame metadata to conform with the requirements of its destination
 * Enqueue those frames on a sending or receiving stream that is not the same stream as the frame originated on
 
 These are not the only functions that are needed to handle the use cases, but this explainer
-focuses on the frame creation, cloning and manipulation functions.
+focuses on the frame creation and manipulation functionality.
 
 ## Approach
 
@@ -63,37 +62,43 @@ recvPc{1|2}.ontrack = evt => {
   evt.receiver.transform = new RTCRtpScriptTransform(worker, { name: "receiverTransform" });
 };
 
-// Let relayPc be the PC used to relay frames to the next peer.
-relayPc.sender.transform = new RTCRtpScriptTransform(worker, { name: "senderTransform" });
 
+// Let relayPc be the PC used to relay frames to the next peer. 
+worker.onmessage = (e) => {
+  relayPc.replaceTrack(e.data);
+};
 ```
 
 ```
 // code in worker.js file
-async function transferFrames(reader, writer) {
-    if(!reader || !writer){
+async function transferFrames(reader, writer, encodedSource) {
+    if(!reader || !writer || !encodedSource){
       return;
     }
     while (true) {
         const {frame, done} = await reader.read();
         if (done) return;
 
-        frame.setMetadata(getUnifiedMetadata(frame));
-        if(!isDuplicate(frame)) {
-            writer.write(frame);
+        let newFrame = new RTCRtpEncodedVideoFrame(frame, getUnifiedMetadata(frame));
+        if(!isDuplicate(newFrame)) {
+            encodedSource.enqueue(newFrame);
         }
+        // Put the original frame back in the receiver PC
+        writer.write(frame);
     }
 }
 
 // Code to instantiate reader and writer from the RTPReceiver and RTPSender.
 onrtctransform = (event) => {
-  if (event.transformer.options.name == "senderTransform")
-    writer = event.transformer.writable;
-  else if (event.transformer.options.name == "receiverTransform")
+  if (event.transformer.options.name == "receiverTransform") {
     reader = event.transformer.readable;
-  else
+    writer = event.transformer.writable;
+    encodedSource = new RTCRtpSenderEncodedSource();
+    postMessage(encodedSource.handle);
+  } else {
     return;
+  }
 
-  transferFrames(reader,writer);
+  transferFrames(reader, writer, encodedSource);
 };
 ```

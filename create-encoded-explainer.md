@@ -14,7 +14,7 @@ Addressing these cases in the webrtc-encoded-transform API requires the ability 
 
 * Create encoded frames
 * Manipulate encoded frame metadata to conform with the requirements of its destination
-* Enqueue those frames on a sending or receiving stream that is not the same stream as the frame originated on
+* Enqueue those frames on a sending peer connection that is not the same peer connection where the frame originated on
 
 These are not the only functions that are needed to handle the use cases, but this explainer
 focuses on the frame creation and manipulation functionality.
@@ -24,15 +24,7 @@ focuses on the frame creation and manipulation functionality.
 The approach proposed as a minimum viable API consists of 3 functions:
 
 * A constructor that takes encoded data + metadata and creates an encoded frame
-* A setter that is able to modify some of the values returned from the existing getMetadata method
-* A clone operator that takes an existing encoded frame and creates a new, independent encoded frame
-
-The clone operator may be thought of as a convenient shorthand for the constructor:
-
-```
-frame.clone = constructor(frame.getMetadata(), frame.data)
-
-```
+* A class that allows enqueing encoded frames into a sender peer connection
 
 ## Relevant other needed changes
 
@@ -51,7 +43,7 @@ It is harmful to the model if there are couplings between the source of encoded 
 
 ## Sample code
 
-Let's take a scenario where P2P relays are used to forward frames. Depending solely on a local peer for the stream is not very reliable in this setup. For consistent, glitch-free, low latency streaming, a redundant PeerConnection delivering the same stream is also setup(`recvPc1` and `recvPc2`). A peer can then choose to relay this stream to the next peer in the network (`relayPc`). We pass the readable stream of the incoming PeerConnections to  `transferFrames` function which reads the frames and modifies the frame's metadata such that two frames with the same payload have the same metadata (`getUnifiedMetadata`). We then write one of these frames(`isDuplicate`) to the `relayPcWriter`. `getUnifiedMetadata` and `isDuplicate` are application-specific functions.
+Let's take a scenario where P2P relays are used to forward frames. Depending solely on a local peer for the stream is not very reliable in this setup. For consistent, glitch-free, low latency streaming, a redundant PeerConnection delivering the same stream is also setup(`recvPc1` and `recvPc2`). A peer can then choose to relay this stream to the next peer in the network (`relayPc`). We pass the readable stream of the incoming PeerConnections to  `transferFrames` function which reads the frames and creates new frames with updated metadata that conforms to the sender PeerConnection's requirements (`getUnifiedMetadata`). We then write one of these frames(`isDuplicate`) to the relay peer PerConnection. `getUnifiedMetadata` and `isDuplicate` are application-specific functions.
 
 ```
 // code in main.js file
@@ -64,8 +56,8 @@ recvPc{1|2}.ontrack = evt => {
 
 
 // Let relayPc be the PC used to relay frames to the next peer. 
-worker.onmessage = (e) => {
-  relayPc.replaceTrack(e.data);
+worker.onmessage = evt => {
+  relayPc.replaceTrack(evt.data);
 };
 ```
 

@@ -448,6 +448,7 @@ interface RTCEncodedVideoFrame {
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
+    undefined setMetadata(optional RTCEncodedVideoFrameMetadata metadata = {});
 };
 </pre>
 
@@ -542,6 +543,16 @@ interface RTCEncodedVideoFrame {
     <dd>
         <p>
             Returns the metadata associated with the frame.
+        </p>
+    </dd>
+    <dt>
+        <dfn for="RTCEncodedVideoFrame" method>setMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Sets a new metadata that would be associated with the frame. Only allowed to change the fields
+	    frameId, dependencies and rtpTimetsamp in the RTCEncodedVideoFrameMetadata. All other changes
+	    are not allowed and should return an error.
         </p>
     </dd>
 </dl>
@@ -647,6 +658,7 @@ dictionary RTCEncodedAudioFrameMetadata {
 interface RTCEncodedAudioFrame {
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
+    undefined setMetadata(optional RTCEncodedAudioFrameMetadata metadata = {});
 };
 </pre>
 
@@ -738,6 +750,16 @@ interface RTCEncodedAudioFrame {
     <dd>
         <p>
             Returns the metadata associated with the frame.
+        </p>
+    </dd>
+    <dt>
+        <dfn for="RTCEncodedAudioFrame" method>setMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Sets a new metadata that would be associated with the frame. Only allowed to change
+	    the rtpTimetsamp field in the RTCEncodedAudioFrameMetadata. All other changes are
+	    not allowed and should return an error.
         </p>
     </dd>
 </dl>

@@ -43,8 +43,8 @@ We extend the RTCRTPScriptTransform object's constructor with a fourth argument 
 
 ```
 dictionary CodecInformation {
-  sequence<RTCRtpCodecCapabilityWithPacketization> inputCodecs;
-  sequence<RTCRtpCodecCapabilityWithPacketization> outputCodecs;
+  sequence&lt;RTCRtpCodecCapabilityWithPacketization&gt; inputCodecs;
+  sequence&lt;RTCRtpCodecCapabilityWithPacketization&gt; outputCodecs;
   bool acceptOnlyInputCodecs = false;
 }
 ```
@@ -58,8 +58,6 @@ negotiate in the SDP, and it serves to filter the frame types that the transform
 
 In order to be able to use the filtering function, the "acceptOnlyInputCodecs" has to be set to true;
 if it is false, all frames are delivered to the transform.
-
-The next section has two versions - the Transceiver proposal and the Transform proposal.
 
 ## For SDP negotiation
 

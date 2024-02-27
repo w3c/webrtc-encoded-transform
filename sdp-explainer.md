@@ -36,6 +36,9 @@ When a codec capability is added, the SDP machinery will negotiate these codecs 
 
 ## Describing the input and output codecs of transforms
 
+We extend the RTCRtpCodecCapability object with a "packetizer" element, which identifies a media type with a packetizer
+known to the platform.
+
 We extend the RTCRTPScriptTransform object's constructor with a fourth argument of type CodecInformation, with the following IDL definition:
 
 ```
@@ -58,37 +61,7 @@ if it is false, all frames are delivered to the transform.
 
 The next section has two versions - the Transceiver proposal and the Transform proposal.
 
-## For SDP negotiation - Transceiver proposal
-SDP negotiation is inherently an SDP property, and the proper target for that is therefore the RTCRtpTransceiver object.
-
-The transceiver will always be available before an offer or answer is created (either because of AddTrack or AddTransceiver on the sender side,
-or in the ontrack event on the side that receives the offer). At that time, the additional codecs to negotiate must be set:
-
-```
-transceiver.addCodec(RTCRtpCodecWithPacketization codec, RTCRtpTransceiverDirection direction = "sendrecv")
-```
-This will add the described codec to the list of codecs to be offered in createOffer/createAnswer. On successful negotiation
-of the codec, it will appear in the negotiated codec list returned from setParameters().
-
-Furthermore, the call will instruct the sender to packetize, and the receiver to depacketize, in accordance with the rules for the
-codec being given as the packetizationMode argument.
-
-Because it is sometimes inconvenient to intercept every call that creates transceivers, a convenience method is offered on the PC level:
-
-```
-pc.addCodecCapability(RTCRtpCodecWithPacketization codec, RTCRtpTransceiverDirection direction = "sendrecv")
-```
-These calls will act as if the addCodec() call had been invoked on every transceiver created of the associated "kind".
-
-NOTE: The codecs will not show up on the static sender/receiver getCapabilities methods, since these methods can’t distinguish between capabilities used for different PeerConnections or, when using transceiver-level addCodec, for different transceivers. They will show up in the list of codecs in RTCRtp{Sender,Receiver}.getParameters(), so they’re available to the RTCRtpSender for selection or deselection using setCodecPreferences().
-
-When the PeerConnection generates an offer or an answer, the codecs added with addCodec() will be added to the list of codecs generated for that transceiver. If "direction" is sendrecv or recvonly, the selected
-payload types will also be added to the list of receive codecs on the m= line; if "direction" is "sendonly", the selected payload types will not be added to the list.
-
-Note: It is the application's job to ensure that the transform and the negotiation agree on which
-codecs are being processed.
-
-## For SDP negotiation - Transform proposal
+## For SDP negotiation
 
 When the PeerConnection generates an offer or an answer:
 
@@ -106,67 +79,8 @@ When the transform attribute of a sender or receiver is changed, and the relevan
 - encoded frame SetMetadata, to set the payload type for processed frames
 - setCodecPreferences, to say which codecs (old or new) are preferred for reception
 
-# Example code based on the Transceiver API proposal
-```js
-customCodec = {
-   mimeType: “video/x-encrypted”,
-   clockRate: 90000,
-   packetizationMode: "video/vp8", 
-};
 
-// At sender side
-pc.addCodecCapability(customCodec);
-
-// ...after negotiation
-
-const {codecs} = sender.getParameters();
-
-const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
-sender.transform = new RTCRtpScriptTransform(worker, {payloadType});
-
-function work() {
-  onrtctransform = async ({transformer: {readable, writable, options}}) =>
-    await readable.pipeThrough(new TransformStream({transform})).pipeTo(writable);
-
-  function transform(frame, controller) {
-    // transform chunk
-    let metadata = frame.metadata();
-    encryptBody(frame);
-    metadata = frame.metadata();
-    metadata.mediaType = "video/x-encrypted"
-    frame.setMetadata(metadata);
-    controller.enqueue(frame);
-  }
-}
-
-// At receiver side.
-const decryptedPT = 208; // Can be negotiated PT or locally-valid
-pc.addCodecCapability('video', customCodec);
-pc.ontrack = ({receiver}) => {
-  const {codecs} = sender.getParameters();
-   receiver.addDecodingCodec({mimeType: 'video/vp8', payloadType: decryptedPT});
-   const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
-   receiver.transform = new RTCRtpScriptTransform(worker, null, null,
-                       {inputCodecs: [customCodec], acceptOnlyInputCodecs = True});
-
-  function work() {
-    transform = new TransformStream({
-      transform: (frame, controller) => {
-         // We know that only encrypted-frames will get to this point.
-         decryptBody(frame);
-         metadata = frame.metadata();
-         metadata.mimeType = 'video/vp8';
-         frame.setMetadata(metadata);
-         controller.enqueue(frame);
-       }
-     });
-     onrtctransform = async({transformer: {readable, writable, options}}) =>
-       await readable.pipeThrough(transform).pipeTo(writable);
-  }
-};
-```
-
-# Example code based on the Transform API proposal
+# Example code
 
 ```js
 const worker = new Worker(`data:text/javascript,(${work.toString()})()`);
@@ -177,7 +91,8 @@ const {codecs} = RTCRtpSender.getCapabilities();
 const vp8 = codecs.find(({mimeType}) => mimeType == "video/vp8");
 sender.transform = new RTCRtpScriptTransform(worker, {
   inputCodecs: [vp8],
-  outputCodecs: [{mimeType: “video/x-encrypted”}]
+  outputCodecs: [{mimeType: “video/x-encrypted”,
+                  packetizationMode: "video/sframe"}]
 });
 
 // At receiver side.
@@ -220,7 +135,7 @@ function work() {
 
 1.  Q: My application wants to send frames with multiple packetizers. How do I accomplish that?
 
-    A: Use multiple payload types. Each will be assigned a payload type. Mark each frame with the payload type they need to be packetized as.
+    A: Use multiple media types. Each will be assigned a payload type. Mark each frame with the media type they need to be packetized as.
 
 1.  Q: What is the relationship between this proposal and the IETF standard for SFrame?
 

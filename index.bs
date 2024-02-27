@@ -791,6 +791,13 @@ interface KeyFrameRequestEvent : Event {
   constructor(DOMString type, optional DOMString rid);
   readonly attribute DOMString? rid;
 };
+
+dictionary RTCRtpScriptTransformParameters {
+  sequence&lt;RTCRtpCodecParameters&gt; inputCodecs;
+  sequence&lt;RTCRtpCodecParameters&gt; outputCodecs;
+  boolean acceptOnlyInputCodecs = false;
+};
+
 </pre>
 
 ## Operations ## {#RTCRtpScriptTransform-operations}
@@ -800,6 +807,7 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 2. Set |t2| to an [=identity transform stream=].
 3. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
 4. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
+4. Set |this|.`[[options]]?` to the result of converting |options| to an RTCRtpScriptTransformParameters dictionary.
 5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
 6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
 7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
@@ -817,12 +825,25 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 
 Each RTCRtpScriptTransform has the following set of [$association steps$], given |rtcObject|:
 1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
-1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
-1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
+1. If |rtcObject| is a {{RTCRtpSender}}, perform the following steps:
+    1. Let |encoder| be |rtcObject|'s encoder.
+    1. If `[[options]]` contains |outputCodecs|, then for each element |codec| in |outputCodecs|:
+        1. If |codec| is not in |rtcObject|'s {{RTCRtpSender/[[SendCodecs]]}}, add it.
+        1. Set the "enabled" flag of |codec| in |rtcObject|'s {{RTCRtpSender/[[SendCodecs]]}} to True.
+        
+1. If |rtcObject| is a {{RTCRtpReceiver}}, perform the following steps:
+    1. Let |depacketizer| be |rtcObject|'s depacketizer
+    1. If `[[options]]` contains |inputCodecs|, then for each element |codec| in |inputCodecs|:
+        1. If |codec| is not in |rtcObject|'s {{RTCRtpReceiver/[[ReceiveCodecs]]}}, add it.
+        1. Set the "enabled" flag of |codec| in |rtcObject|'s {{RTCRtpReceiver/[[ReceiveCodecs]]}} to True.
 1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
     1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
+
+// FIXME: Describe the influence of the acceptOnlyInputCodecs on frame routing.
+
+// FIXME: Describe the influence of the "packetizer" argument of a codec on encoder and depacketizer.
 
 The <dfn method for="RTCRtpScriptTransform">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.

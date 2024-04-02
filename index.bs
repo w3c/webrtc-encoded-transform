@@ -444,8 +444,8 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and sets the internal `[[metadata]]` slot to |options|`[metadata]`.
-            
+            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and sets the internal metadata to |options|`[metadata]`.
+
             When called, run the following steps:
 
             1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
@@ -669,7 +669,7 @@ interface RTCEncodedAudioFrame {
     </dt>
     <dd>
         <p>
-            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and sets the internal `[[metadata]]` slot to |options|`[metadata]`.
+            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and sets the internal metadata to |options|`[metadata]`.
             
             When called, run the following steps:
 

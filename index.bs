@@ -422,7 +422,7 @@ dictionary RTCEncodedVideoFrameMetadata {
 
 ## <dfn interface>RTCEncodedVideoFrame</dfn> interface ## {#RTCEncodedVideoFrame-interface}
 <pre class="idl">
-dictionary RTCEncodedVideoFrameMetadataOptions {
+dictionary RTCEncodedVideoFrameOptions {
     RTCEncodedVideoFrameMetadata metadata;
 };
 
@@ -430,7 +430,7 @@ dictionary RTCEncodedVideoFrameMetadataOptions {
 // re-use or extend the equivalent defined in WebCodecs.
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedVideoFrame {
-    constructor(RTCEncodedVideoFrame originalFrame, optional RTCEncodedVideoFrameMetadataOptions options = {});
+    constructor(RTCEncodedVideoFrame originalFrame, optional RTCEncodedVideoFrameOptions options = {});
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
@@ -450,7 +450,7 @@ interface RTCEncodedVideoFrame {
 
             1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
             1. Let this.`[[data]]` be the result of <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">CloneArrayBuffer</a>(|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
-            1. Let `[[metadata]]` be the internal slot that stores the metadata associated with this newly constructed frame.
+            1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
                 1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if the `[[value]]` exists, set `[[metadata]]`.`[[key]]` to `[[value]]`.
 
@@ -650,13 +650,13 @@ dictionary RTCEncodedAudioFrameMetadata {
 
 ## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
 <pre class="idl">
-dictionary RTCEncodedAudioFrameMetadataOptions {
+dictionary RTCEncodedAudioFrameOptions {
     RTCEncodedAudioFrameMetadata metadata;
 };
 
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedAudioFrame {
-    constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameMetadataOptions options = {});
+    constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameOptions options = {});
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };
@@ -674,7 +674,7 @@ interface RTCEncodedAudioFrame {
             When called, run the following steps:
 
             1. Let this.`[[data]]` be the result of <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">CloneArrayBuffer</a>(|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
-            1. Let `[[metadata]]` be the internal slot that stores the metadata associated with this newly constructed frame.
+            1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
                 1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if the `[[value]]` exists, set `[[metadata]]`.`[[key]]` to `[[value]]`.
 

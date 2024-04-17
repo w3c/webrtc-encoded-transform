@@ -130,6 +130,7 @@ The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as p
 1. Let |frame| be the newly produced frame.
 1. Set |frame|.`[[owner]]` to |rtcObject|.
 1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
+1. If |rtcObject|'s |transform|'s |options| contains {{RTCRtpScriptTransformParameters/acceptOnlyInputCodecs}} with the value True, and the {{RTCEncodedVideoFrameMetadata/mimeType}} of |frame| does not match any codec in |transform|'s |options|' |inputCodecs|, execute the [$writeEncodedData$] algorithm given |rtcObject| and |frame|.
 1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
 
 The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
@@ -146,7 +147,7 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as 
 
 On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
-The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.
+The packetizer will expect the transformed data to conform to the format indicated by its {{RTCEncodedVideoFrameMetadata/mimeType}}.
 
 On receiver side, as part of [$readEncodedData$], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
@@ -840,10 +841,6 @@ Each RTCRtpScriptTransform has the following set of [$association steps$], given
     1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
-
-// FIXME: Describe the influence of the acceptOnlyInputCodecs on frame routing.
-
-// FIXME: Describe the influence of the "packetizer" argument of a codec on encoder and depacketizer.
 
 The <dfn method for="RTCRtpScriptTransform">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.

@@ -801,6 +801,17 @@ dictionary RTCRtpScriptTransformParameters {
 
 </pre>
 
+### Extension to RTCRtpCodec ### {#RTCRtpCodec-extensions}
+
+The member "packetizationMode" is added to the {{RTCRtpCodec}} definition; its value is a MIME type. When this is present, the rules for packetizing and depacketizing are those of the named MIME type. For codecs not supported by the platform, this MUST be present.
+
+<pre class='idl'>
+partial dictionary RTCRtpCodec {
+  DOMString packetizationMode;
+};
+</pre>
+
+
 ## Operations ## {#RTCRtpScriptTransform-operations}
 
 The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:

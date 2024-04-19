@@ -1,8 +1,8 @@
 name: Auto-publish
 on:
   pull_request: {}
-  paths: index.bs
   push:
+    paths: index.bs
     branches: [main]
 
 jobs:
@@ -21,4 +21,4 @@ jobs:
           W3C_NOTIFICATIONS_CC: dom@w3.org
           W3C_BUILD_OVERRIDE: |
             TR: https://www.w3.org/TR/webrtc-encoded-transform/
-            status: WD          
+            status: WD

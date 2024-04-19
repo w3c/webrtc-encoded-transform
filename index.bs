@@ -44,6 +44,10 @@ spec:webidl; type:dfn; text:resolve
     "href": "https://www.itu.int/rec/T-REC-G.722/",
     "title": "G.722 : 7 kHz audio-coding within 64 kbit/s",
     "publisher": "ITU"
+   },
+   "CloneArrayBuffer": {
+    "href": "https://tc39.es/ecma262/#sec-clonearraybuffer",
+    "title": "CloneArrayBuffer"
    }
 }
 </pre>
@@ -449,10 +453,11 @@ interface RTCEncodedVideoFrame {
             When called, run the following steps:
 
             1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
-            1. Let this.`[[data]]` be the result of <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">CloneArrayBuffer</a>(|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
+            1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
             1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
-                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if the `[[value]]` exists, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if `[[value]]` is not <code>undefined</code>, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                    <p class="note">This does a "deep-copy" here.</p>
 
         </p>
     </dd>
@@ -673,10 +678,11 @@ interface RTCEncodedAudioFrame {
             
             When called, run the following steps:
 
-            1. Let this.`[[data]]` be the result of <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">CloneArrayBuffer</a>(|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
+            1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
             1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
-                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if the `[[value]]` exists, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, if `[[value]]` is not <code>undefined</code>, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                    <p class="note">This does a "deep-copy" here.</p>
 
         </p>
     </dd>

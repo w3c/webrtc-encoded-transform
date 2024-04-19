@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version d765c696b, updated Fri Mar 8 15:58:52 2024 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="b99e6af31140c4e675276054ef550a8415040cd8" name="revision">
+  <meta content="4b61373f23b507b2d7716ddb48a7b1cac89d4fdc" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -777,9 +777,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li>
        <a href="#RTCEncodedVideoFrame-interface"><span class="secno">4.3</span> <span class="content"><span><code>RTCEncodedVideoFrame</code></span> interface</span></a>
        <ol class="toc">
-        <li><a href="#RTCEncodedVideoFrame-members"><span class="secno">4.3.1</span> <span class="content">Members</span></a>
-        <li><a href="#RTCEncodedVideoFrame-methods"><span class="secno">4.3.2</span> <span class="content">Methods</span></a>
-        <li><a href="#RTCEncodedVideoFrame-serialization"><span class="secno">4.3.3</span> <span class="content">Serialization</span></a>
+        <li><a href="#RTCEncodedVideoFrame-members"><span class="secno">4.3.1</span> <span class="content">Constructor</span></a>
+        <li><a href="#RTCEncodedVideoFrame-members①"><span class="secno">4.3.2</span> <span class="content">Members</span></a>
+        <li><a href="#RTCEncodedVideoFrame-methods"><span class="secno">4.3.3</span> <span class="content">Methods</span></a>
+        <li><a href="#RTCEncodedVideoFrame-serialization"><span class="secno">4.3.4</span> <span class="content">Serialization</span></a>
        </ol>
       <li>
        <a href="#RTCEncodedAudioFrameMetadata"><span class="secno">4.4</span> <span class="content"><span><code>RTCEncodedAudioFrameMetadata</code></span> dictionary</span></a>
@@ -789,9 +790,10 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
       <li>
        <a href="#RTCEncodedAudioFrame-interface"><span class="secno">4.5</span> <span class="content"><span><code>RTCEncodedAudioFrame</code></span> interface</span></a>
        <ol class="toc">
-        <li><a href="#RTCEncodedAudioFrame-members"><span class="secno">4.5.1</span> <span class="content">Members</span></a>
-        <li><a href="#RTCEncodedAudioFrame-methods"><span class="secno">4.5.2</span> <span class="content">Methods</span></a>
-        <li><a href="#RTCEncodedAudioFrame-serialization"><span class="secno">4.5.3</span> <span class="content">Serialization</span></a>
+        <li><a href="#RTCEncodedAudioFrame-members"><span class="secno">4.5.1</span> <span class="content">Constructor</span></a>
+        <li><a href="#RTCEncodedAudioFrame-members①"><span class="secno">4.5.2</span> <span class="content">Members</span></a>
+        <li><a href="#RTCEncodedAudioFrame-methods"><span class="secno">4.5.3</span> <span class="content">Methods</span></a>
+        <li><a href="#RTCEncodedAudioFrame-serialization"><span class="secno">4.5.4</span> <span class="content">Serialization</span></a>
        </ol>
       <li><a href="#RTCRtpScriptTransformer-interfaces"><span class="secno">4.6</span> <span class="content">Interfaces</span></a>
       <li><a href="#RTCRtpScriptTransform-operations"><span class="secno">4.7</span> <span class="content">Operations</span></a>
@@ -1205,16 +1207,45 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
      <p> The codec MIME media type/subtype defined in the IANA media types registry <a data-link-type="biblio" href="#biblio-iana-media-types" title="Media Types">[IANA-MEDIA-TYPES]</a>, e.g. video/VP8. </p>
    </dl>
    <h3 class="heading settled" data-level="4.3" id="RTCEncodedVideoFrame-interface"><span class="secno">4.3. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe"><code>RTCEncodedVideoFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
-<pre class="idl highlight def">// New interfaces to define encoded video and audio frames. Will eventually
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframeoptions"><code><c- g>RTCEncodedVideoFrameOptions</c-></code></dfn> {
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata①"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameOptions" data-dfn-type="dict-member" data-export data-type="RTCEncodedVideoFrameMetadata" id="dom-rtcencodedvideoframeoptions-metadata"><code><c- g>metadata</c-></code></dfn>;
+};
+
+// New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable" id="ref-for-serializable"><c- g>Serializable</c-></a>]
 <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe②"><c- g>RTCEncodedVideoFrame</c-></a> {
+    <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="constructor" data-export data-lt="RTCEncodedVideoFrame(originalFrame, options)|constructor(originalFrame, options)|RTCEncodedVideoFrame(originalFrame)|constructor(originalFrame)" id="dom-rtcencodedvideoframe-rtcencodedvideoframe"><code><c- g>constructor</c-></code></dfn>(<a data-link-type="idl-name" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe③"><c- n>RTCEncodedVideoFrame</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame/RTCEncodedVideoFrame(originalFrame, options), RTCEncodedVideoFrame/constructor(originalFrame, options), RTCEncodedVideoFrame/RTCEncodedVideoFrame(originalFrame), RTCEncodedVideoFrame/constructor(originalFrame)" data-dfn-type="argument" data-export id="dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe"><code><c- g>originalFrame</c-></code></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframeoptions" id="ref-for-dictdef-rtcencodedvideoframeoptions"><c- n>RTCEncodedVideoFrameOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame/RTCEncodedVideoFrame(originalFrame, options), RTCEncodedVideoFrame/constructor(originalFrame, options), RTCEncodedVideoFrame/RTCEncodedVideoFrame(originalFrame), RTCEncodedVideoFrame/constructor(originalFrame)" data-dfn-type="argument" data-export id="dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options"><code><c- g>options</c-></code></dfn> = {});
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype①"><c- n>RTCEncodedVideoFrameType</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type"><c- g>type</c-></a>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer①"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data" id="ref-for-dom-rtcencodedvideoframe-data②"><c- g>data</c-></a>;
-    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata①"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata" id="ref-for-dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata②"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata" id="ref-for-dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 </pre>
-   <h4 class="heading settled" data-level="4.3.1" id="RTCEncodedVideoFrame-members"><span class="secno">4.3.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrame-members"></a></h4>
+   <h4 class="heading settled" data-level="4.3.1" id="RTCEncodedVideoFrame-members"><span class="secno">4.3.1. </span><span class="content">Constructor</span><a class="self-link" href="#RTCEncodedVideoFrame-members"></a></h4>
+   <dl class="dictionary-members">
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-constructor"><code>constructor()</code></dfn> 
+    <dd>
+     <p> Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe④">RTCEncodedVideoFrame</a></code> from the given <var>originalFrame</var> and <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
+            The new frame’s <code>[[metadata]]</code> is a deep copy of <var>originalFrame</var>.<code>[[metadata]]</code>, with
+            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>. </p>
+     <p>When called, run the following steps:</p>
+     <ol>
+      <li data-md>
+       <p>Set this.<code>[[type]]</code> to <var>originalFrame</var>.<code>[[type]]</code>.</p>
+      <li data-md>
+       <p>Let this.<code>[[data]]</code> be the result of <a data-link-type="biblio" href="#biblio-clonearraybuffer" title="CloneArrayBuffer">[CloneArrayBuffer]</a>(<var>originalFrame</var>.<code>[[data]]</code>, 0, <var>originalFrame</var>.<code>[[data]]</code>.<code>[[ArrayBufferByteLength]]</code>).</p>
+      <li data-md>
+       <p>Let <code>[[metadata]]</code> represent the metadata associated with this newly constructed frame.</p>
+       <ol>
+        <li data-md>
+         <p>For each {<code>[[key]]</code>,<code>[[value]]</code>} pair of <var>originalFrame</var>.<code>[[getMetadata()]]</code>, set <code>[[metadata]]</code>.<code>[[key]]</code> to a deep copy of <code>[[value]]</code>.</p>
+        <li data-md>
+         <p>For each {<code>[[key]]</code>,<code>[[value]]</code>} pair of <var>options</var>.<code>[metadata]</code>, set <code>[[metadata]]</code>.<code>[[key]]</code> to a deep copy of <code>[[value]]</code>.</p>
+       </ol>
+     </ol>
+     <p></p>
+   </dl>
+   <h4 class="heading settled" data-level="4.3.2" id="RTCEncodedVideoFrame-members①"><span class="secno">4.3.2. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrame-members①"></a></h4>
    <dl class="dictionary-members">
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-type"><code>type</code></dfn>, <span> of type <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype②">RTCEncodedVideoFrameType</a>, readonly</span><span class="idlMemberType">RTCEncodedVideoFrameType</span> 
     <dd>
@@ -1255,14 +1286,14 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
                         The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage"> AV1 aggregation header</a> is not accessible. 
      </table>
    </dl>
-   <h4 class="heading settled" data-level="4.3.2" id="RTCEncodedVideoFrame-methods"><span class="secno">4.3.2. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedVideoFrame-methods"></a></h4>
+   <h4 class="heading settled" data-level="4.3.3" id="RTCEncodedVideoFrame-methods"><span class="secno">4.3.3. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedVideoFrame-methods"></a></h4>
    <dl class="dictionary-members">
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-getmetadata"><code>getMetadata()</code></dfn> 
     <dd>
      <p> Returns the metadata associated with the frame. </p>
    </dl>
-   <h4 class="heading settled" data-level="4.3.3" id="RTCEncodedVideoFrame-serialization"><span class="secno">4.3.3. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedVideoFrame-serialization"></a></h4>
-   <p><code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe③">RTCEncodedVideoFrame</a></code> objects are serializable objects <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a>.
+   <h4 class="heading settled" data-level="4.3.4" id="RTCEncodedVideoFrame-serialization"><span class="secno">4.3.4. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedVideoFrame-serialization"></a></h4>
+   <p><code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe⑤">RTCEncodedVideoFrame</a></code> objects are serializable objects <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a>.
 Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#serialization-steps" id="ref-for-serialization-steps">serialization steps</a>, given <var>value</var>, <var>serialized</var>, and <var>forStorage</var>, are:</p>
    <ol>
     <li data-md>
@@ -1319,13 +1350,40 @@ An implementation is therefore free to choose whatever method works best. </p>
      <p> The codec MIME media type/subtype defined in the IANA media types registry <a data-link-type="biblio" href="#biblio-iana-media-types" title="Media Types">[IANA-MEDIA-TYPES]</a>, e.g. audio/opus. </p>
    </dl>
    <h3 class="heading settled" data-level="4.5" id="RTCEncodedAudioFrame-interface"><span class="secno">4.5. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe"><code>RTCEncodedAudioFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
-<pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable" id="ref-for-serializable①"><c- g>Serializable</c-></a>]
+<pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframeoptions"><code><c- g>RTCEncodedAudioFrameOptions</c-></code></dfn> {
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata①"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameOptions" data-dfn-type="dict-member" data-export data-type="RTCEncodedAudioFrameMetadata" id="dom-rtcencodedaudioframeoptions-metadata"><code><c- g>metadata</c-></code></dfn>;
+};
+
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable" id="ref-for-serializable①"><c- g>Serializable</c-></a>]
 <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe②"><c- g>RTCEncodedAudioFrame</c-></a> {
+    <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="constructor" data-export data-lt="RTCEncodedAudioFrame(originalFrame, options)|constructor(originalFrame, options)|RTCEncodedAudioFrame(originalFrame)|constructor(originalFrame)" id="dom-rtcencodedaudioframe-rtcencodedaudioframe"><code><c- g>constructor</c-></code></dfn>(<a data-link-type="idl-name" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe③"><c- n>RTCEncodedAudioFrame</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame/RTCEncodedAudioFrame(originalFrame, options), RTCEncodedAudioFrame/constructor(originalFrame, options), RTCEncodedAudioFrame/RTCEncodedAudioFrame(originalFrame), RTCEncodedAudioFrame/constructor(originalFrame)" data-dfn-type="argument" data-export id="dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe"><code><c- g>originalFrame</c-></code></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframeoptions" id="ref-for-dictdef-rtcencodedaudioframeoptions"><c- n>RTCEncodedAudioFrameOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame/RTCEncodedAudioFrame(originalFrame, options), RTCEncodedAudioFrame/constructor(originalFrame, options), RTCEncodedAudioFrame/RTCEncodedAudioFrame(originalFrame), RTCEncodedAudioFrame/constructor(originalFrame)" data-dfn-type="argument" data-export id="dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options"><code><c- g>options</c-></code></dfn> = {});
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer③"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data" id="ref-for-dom-rtcencodedaudioframe-data②"><c- g>data</c-></a>;
-    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata①"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata" id="ref-for-dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata②"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata" id="ref-for-dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
 </pre>
-   <h4 class="heading settled" data-level="4.5.1" id="RTCEncodedAudioFrame-members"><span class="secno">4.5.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrame-members"></a></h4>
+   <h4 class="heading settled" data-level="4.5.1" id="RTCEncodedAudioFrame-members"><span class="secno">4.5.1. </span><span class="content">Constructor</span><a class="self-link" href="#RTCEncodedAudioFrame-members"></a></h4>
+   <dl class="dictionary-members">
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-constructor"><code>constructor()</code></dfn> 
+    <dd>
+     <p> Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe④">RTCEncodedAudioFrame</a></code> from the given <var>originalFrame</var> and <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
+            The new frame’s <code>[[metadata]]</code> is a deep copy of <var>originalFrame</var>.<code>[[metadata]]</code>, with
+            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>. </p>
+     <p>When called, run the following steps:</p>
+     <ol>
+      <li data-md>
+       <p>Let this.<code>[[data]]</code> be the result of <a data-link-type="biblio" href="#biblio-clonearraybuffer" title="CloneArrayBuffer">[CloneArrayBuffer]</a>(<var>originalFrame</var>.<code>[[data]]</code>, 0, <var>originalFrame</var>.<code>[[data]]</code>.<code>[[ArrayBufferByteLength]]</code>).</p>
+      <li data-md>
+       <p>Let <code>[[metadata]]</code> represent the metadata associated with this newly constructed frame.</p>
+       <ol>
+        <li data-md>
+         <p>For each {<code>[[key]]</code>,<code>[[value]]</code>} pair of <var>originalFrame</var>.<code>[[getMetadata()]]</code>, set <code>[[metadata]]</code>.<code>[[key]]</code> to a deep copy of <code>[[value]]</code>.</p>
+        <li data-md>
+         <p>For each {<code>[[key]]</code>,<code>[[value]]</code>} pair of <var>options</var>.<code>[metadata]</code>, set <code>[[metadata]]</code>.<code>[[key]]</code> to a deep copy of <code>[[value]]</code>.</p>
+       </ol>
+     </ol>
+     <p></p>
+   </dl>
+   <h4 class="heading settled" data-level="4.5.2" id="RTCEncodedAudioFrame-members①"><span class="secno">4.5.2. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrame-members①"></a></h4>
    <dl class="dictionary-members">
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer④">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
     <dd>
@@ -1360,14 +1418,14 @@ An implementation is therefore free to choose whatever method works best. </p>
         <td> The data is Comfort Noise as described in <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc3389" title="Real-time Transport Protocol (RTP) Payload for Comfort Noise (CN)">[RFC3389]</a>. 
      </table>
    </dl>
-   <h4 class="heading settled" data-level="4.5.2" id="RTCEncodedAudioFrame-methods"><span class="secno">4.5.2. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedAudioFrame-methods"></a></h4>
+   <h4 class="heading settled" data-level="4.5.3" id="RTCEncodedAudioFrame-methods"><span class="secno">4.5.3. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedAudioFrame-methods"></a></h4>
    <dl class="dictionary-members">
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-getmetadata"><code>getMetadata()</code></dfn> 
     <dd>
      <p> Returns the metadata associated with the frame. </p>
    </dl>
-   <h4 class="heading settled" data-level="4.5.3" id="RTCEncodedAudioFrame-serialization"><span class="secno">4.5.3. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedAudioFrame-serialization"></a></h4>
-   <p><code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe③">RTCEncodedAudioFrame</a></code> objects are serializable objects <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a>.
+   <h4 class="heading settled" data-level="4.5.4" id="RTCEncodedAudioFrame-serialization"><span class="secno">4.5.4. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedAudioFrame-serialization"></a></h4>
+   <p><code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe⑤">RTCEncodedAudioFrame</a></code> objects are serializable objects <a data-link-type="biblio" href="#biblio-html" title="HTML Standard">[HTML]</a>.
 Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#serialization-steps" id="ref-for-serialization-steps①">serialization steps</a>, given <var>value</var>, <var>serialized</var>, and <var>forStorage</var>, are:</p>
    <ol>
     <li data-md>
@@ -1697,8 +1755,26 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#abstract-opdef-rtcrtptransform-association-steps">association steps</a><span>, in § 2.2</span>
    <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in § 3</span>
    <li><a href="#abstract-opdef-chain-transform-algorithm">chain transform algorithm</a><span>, in § 2.2</span>
-   <li><a href="#dom-sframetransform-sframetransform">constructor()</a><span>, in § 3</span>
+   <li>
+    constructor()
+    <ul>
+     <li><a href="#dom-sframetransform-sframetransform">constructor for SFrameTransform</a><span>, in § 3</span>
+     <li><a href="#dom-rtcencodedaudioframe-constructor">method for RTCEncodedAudioFrame</a><span>, in § 4.5.1</span>
+     <li><a href="#dom-rtcencodedvideoframe-constructor">method for RTCEncodedVideoFrame</a><span>, in § 4.3.1</span>
+    </ul>
    <li><a href="#dom-sframetransform-sframetransform">constructor(options)</a><span>, in § 3</span>
+   <li>
+    constructor(originalFrame)
+    <ul>
+     <li><a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe">constructor for RTCEncodedAudioFrame</a><span>, in § 4.5</span>
+     <li><a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe">constructor for RTCEncodedVideoFrame</a><span>, in § 4.3</span>
+    </ul>
+   <li>
+    constructor(originalFrame, options)
+    <ul>
+     <li><a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe">constructor for RTCEncodedAudioFrame</a><span>, in § 4.5</span>
+     <li><a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe">constructor for RTCEncodedVideoFrame</a><span>, in § 4.3</span>
+    </ul>
    <li><a href="#dom-keyframerequestevent-keyframerequestevent">constructor(type)</a><span>, in § 4.6</span>
    <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">constructor(type, eventInitDict)</a><span>, in § 3</span>
    <li><a href="#dom-keyframerequestevent-keyframerequestevent">constructor(type, rid)</a><span>, in § 4.6</span>
@@ -1715,8 +1791,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     data
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in § 4.5.1</span>
-     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in § 4.3.1</span>
+     <li><a href="#dom-rtcencodedaudioframe-data">attribute for RTCEncodedAudioFrame</a><span>, in § 4.5.2</span>
+     <li><a href="#dom-rtcencodedvideoframe-data">attribute for RTCEncodedVideoFrame</a><span>, in § 4.3.2</span>
     </ul>
    <li><a href="#dom-sframetransformrole-decrypt">"decrypt"</a><span>, in § 3</span>
    <li><a href="#dom-rtcencodedvideoframetype-delta">"delta"</a><span>, in § 4.1</span>
@@ -1755,8 +1831,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     getMetadata()
     <ul>
-     <li><a href="#dom-rtcencodedaudioframe-getmetadata">method for RTCEncodedAudioFrame</a><span>, in § 4.5.2</span>
-     <li><a href="#dom-rtcencodedvideoframe-getmetadata">method for RTCEncodedVideoFrame</a><span>, in § 4.3.2</span>
+     <li><a href="#dom-rtcencodedaudioframe-getmetadata">method for RTCEncodedAudioFrame</a><span>, in § 4.5.3</span>
+     <li><a href="#dom-rtcencodedvideoframe-getmetadata">method for RTCEncodedVideoFrame</a><span>, in § 4.3.3</span>
     </ul>
    <li><a href="#dom-rtcencodedvideoframemetadata-height">height</a><span>, in § 4.2</span>
    <li><a href="#dom-rtcencodedvideoframetype-key">"key"</a><span>, in § 4.1</span>
@@ -1770,6 +1846,12 @@ and may not be audited for reception of data from untrusted sources.</p>
     <ul>
      <li><a href="#dom-sframetransformerrorevent-keyid">attribute for SFrameTransformErrorEvent</a><span>, in § 3</span>
      <li><a href="#dom-sframetransformerroreventinit-keyid">dict-member for SFrameTransformErrorEventInit</a><span>, in § 3</span>
+    </ul>
+   <li>
+    metadata
+    <ul>
+     <li><a href="#dom-rtcencodedaudioframeoptions-metadata">dict-member for RTCEncodedAudioFrameOptions</a><span>, in § 4.5</span>
+     <li><a href="#dom-rtcencodedvideoframeoptions-metadata">dict-member for RTCEncodedVideoFrameOptions</a><span>, in § 4.3</span>
     </ul>
    <li>
     mimeType
@@ -1804,8 +1886,14 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-sframetransformoptions-role">role</a><span>, in § 3</span>
    <li><a href="#rtcencodedaudioframe">RTCEncodedAudioFrame</a><span>, in § 4.5</span>
    <li><a href="#dictdef-rtcencodedaudioframemetadata">RTCEncodedAudioFrameMetadata</a><span>, in § 4.4</span>
+   <li><a href="#dictdef-rtcencodedaudioframeoptions">RTCEncodedAudioFrameOptions</a><span>, in § 4.5</span>
+   <li><a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe">RTCEncodedAudioFrame(originalFrame)</a><span>, in § 4.5</span>
+   <li><a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe">RTCEncodedAudioFrame(originalFrame, options)</a><span>, in § 4.5</span>
    <li><a href="#rtcencodedvideoframe">RTCEncodedVideoFrame</a><span>, in § 4.3</span>
    <li><a href="#dictdef-rtcencodedvideoframemetadata">RTCEncodedVideoFrameMetadata</a><span>, in § 4.2</span>
+   <li><a href="#dictdef-rtcencodedvideoframeoptions">RTCEncodedVideoFrameOptions</a><span>, in § 4.3</span>
+   <li><a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe">RTCEncodedVideoFrame(originalFrame)</a><span>, in § 4.3</span>
+   <li><a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe">RTCEncodedVideoFrame(originalFrame, options)</a><span>, in § 4.3</span>
    <li><a href="#enumdef-rtcencodedvideoframetype">RTCEncodedVideoFrameType</a><span>, in § 4.1</span>
    <li><a href="#rtcrtpscripttransform">RTCRtpScriptTransform</a><span>, in § 4.6</span>
    <li><a href="#rtcrtpscripttransformer">RTCRtpScriptTransformer</a><span>, in § 4.6</span>
@@ -1853,7 +1941,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcencodedvideoframemetadata-timestamp">timestamp</a><span>, in § 4.2.1</span>
    <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 2.2</span>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 4.6</span>
-   <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 4.3.1</span>
+   <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 4.3.2</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 4.2</span>
    <li>
     writable
@@ -2002,6 +2090,8 @@ and may not be audited for reception of data from untrusted sources.</p>
   <dl>
    <dt id="biblio-av1">[AV1]
    <dd>Peter de Rivaz; Jack Haughton. <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf"><cite>AV1 Bitstream &amp; Decoding Process Specification</cite></a>. 8 January 2019. Standard. URL: <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf">https://aomediacodec.github.io/av1-spec/av1-spec.pdf</a>
+   <dt id="biblio-clonearraybuffer">[CloneArrayBuffer]
+   <dd><a href="https://tc39.es/ecma262/#sec-clonearraybuffer"><cite>CloneArrayBuffer</cite></a>. URL: <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">https://tc39.es/ecma262/#sec-clonearraybuffer</a>
    <dt id="biblio-itu-g711">[ITU-G.711]
    <dd><a href="https://www.itu.int/rec/T-REC-G.711/"><cite>G.711 : Pulse code modulation (PCM) of voice frequencies</cite></a>. URL: <a href="https://www.itu.int/rec/T-REC-G.711/">https://www.itu.int/rec/T-REC-G.711/</a>
    <dt id="biblio-itu-g722">[ITU-G.722]
@@ -2107,10 +2197,15 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString" href="#dom-rtcencodedvideoframemetadata-mimetype"><c- g>mimeType</c-></a>;
 };
 
+<c- b>dictionary</c-> <a href="#dictdef-rtcencodedvideoframeoptions"><code><c- g>RTCEncodedVideoFrameOptions</c-></code></a> {
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a data-type="RTCEncodedVideoFrameMetadata" href="#dom-rtcencodedvideoframeoptions-metadata"><code><c- g>metadata</c-></code></a>;
+};
+
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable"><c- g>Serializable</c-></a>]
 <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedvideoframe"><c- g>RTCEncodedVideoFrame</c-></a> {
+    <a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe"><code><c- g>constructor</c-></code></a>(<a data-link-type="idl-name" href="#rtcencodedvideoframe"><c- n>RTCEncodedVideoFrame</c-></a> <a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe"><code><c- g>originalFrame</c-></code></a>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframeoptions"><c- n>RTCEncodedVideoFrameOptions</c-></a> <a href="#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options"><code><c- g>options</c-></code></a> = {});
     <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype"><c- n>RTCEncodedVideoFrameType</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="RTCEncodedVideoFrameType" href="#dom-rtcencodedvideoframe-type"><c- g>type</c-></a>;
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedvideoframe-data"><c- g>data</c-></a>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedvideoframemetadata"><c- n>RTCEncodedVideoFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedvideoframe-getmetadata"><c- g>getMetadata</c-></a>();
@@ -2125,8 +2220,13 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString" href="#dom-rtcencodedaudioframemetadata-mimetype"><c- g>mimeType</c-></a>;
 };
 
+<c- b>dictionary</c-> <a href="#dictdef-rtcencodedaudioframeoptions"><code><c- g>RTCEncodedAudioFrameOptions</c-></code></a> {
+    <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a data-type="RTCEncodedAudioFrameMetadata" href="#dom-rtcencodedaudioframeoptions-metadata"><code><c- g>metadata</c-></code></a>;
+};
+
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable"><c- g>Serializable</c-></a>]
 <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="#rtcencodedaudioframe"><c- g>RTCEncodedAudioFrame</c-></a> {
+    <a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe"><code><c- g>constructor</c-></code></a>(<a data-link-type="idl-name" href="#rtcencodedaudioframe"><c- n>RTCEncodedAudioFrame</c-></a> <a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe"><code><c- g>originalFrame</c-></code></a>, <c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframeoptions"><c- n>RTCEncodedAudioFrameOptions</c-></a> <a href="#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options"><code><c- g>options</c-></code></a> = {});
     <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer"><c- b>ArrayBuffer</c-></a> <a class="idl-code" data-link-type="attribute" data-type="ArrayBuffer" href="#dom-rtcencodedaudioframe-data"><c- g>data</c-></a>;
     <a data-link-type="idl-name" href="#dictdef-rtcencodedaudioframemetadata"><c- n>RTCEncodedAudioFrameMetadata</c-></a> <a class="idl-code" data-link-type="method" href="#dom-rtcencodedaudioframe-getmetadata"><c- g>getMetadata</c-></a>();
 };
@@ -2377,7 +2477,7 @@ let dfnPanelData = {
 "2bc0cdf4": {"dfnID":"2bc0cdf4","dfnText":"EventTarget","external":true,"refSections":[{"refs":[{"id":"ref-for-eventtarget"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-eventtarget\u2460"}],"title":"4.6. Interfaces"}],"url":"https://dom.spec.whatwg.org/#eventtarget"},
 "2e66eaf1": {"dfnID":"2e66eaf1","dfnText":"AbortController","external":true,"refSections":[{"refs":[{"id":"ref-for-abortcontroller"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-abortcontroller\u2460"}],"title":"2.2. Extension attribute"}],"url":"https://dom.spec.whatwg.org/#abortcontroller"},
 "2e9f6464": {"dfnID":"2e9f6464","dfnText":"canceled flag","external":true,"refSections":[{"refs":[{"id":"ref-for-canceled-flag"}],"title":"4.9. Events"}],"url":"https://dom.spec.whatwg.org/#canceled-flag"},
-"2f8afbfe": {"dfnID":"2f8afbfe","dfnText":"ArrayBuffer","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-ArrayBuffer"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2460"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2461"}],"title":"4.3.1. Members"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2462"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2463"}],"title":"4.5.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-ArrayBuffer"},
+"2f8afbfe": {"dfnID":"2f8afbfe","dfnText":"ArrayBuffer","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-ArrayBuffer"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2460"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2461"}],"title":"4.3.2. Members"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2462"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2463"}],"title":"4.5.2. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-ArrayBuffer"},
 "3aff2fb3": {"dfnID":"3aff2fb3","dfnText":"BufferSource","external":true,"refSections":[{"refs":[{"id":"ref-for-BufferSource"},{"id":"ref-for-BufferSource\u2460"}],"title":"3.1. Algorithm"}],"url":"https://webidl.spec.whatwg.org/#BufferSource"},
 "3b90bdcd": {"dfnID":"3b90bdcd","dfnText":"resolve","external":true,"refSections":[{"refs":[{"id":"ref-for-resolve"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-resolve\u2460"},{"id":"ref-for-resolve\u2461"}],"title":"4.10. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#resolve"},
 "3dc81766": {"dfnID":"3dc81766","dfnText":"set up (for WritableStream)","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-set-up"}],"title":"2.1.1. Stream creation"}],"url":"https://streams.spec.whatwg.org/#writablestream-set-up"},
@@ -2401,7 +2501,7 @@ let dfnPanelData = {
 "82ca3efc": {"dfnID":"82ca3efc","dfnText":"TypeError","external":true,"refSections":[{"refs":[{"id":"ref-for-exceptiondef-typeerror"}],"title":"4.10. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#exceptiondef-typeerror"},
 "87bc23a5": {"dfnID":"87bc23a5","dfnText":"add","external":true,"refSections":[{"refs":[{"id":"ref-for-abortsignal-add"}],"title":"2.2. Extension attribute"}],"url":"https://dom.spec.whatwg.org/#abortsignal-add"},
 "8855a9aa": {"dfnID":"8855a9aa","dfnText":"DOMString","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-DOMString"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-idl-DOMString\u2460"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-DOMString\u2461"}],"title":"4.2.1. Members"},{"refs":[{"id":"ref-for-idl-DOMString\u2462"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-DOMString\u2463"}],"title":"4.4.1. Members"},{"refs":[{"id":"ref-for-idl-DOMString\u2464"},{"id":"ref-for-idl-DOMString\u2465"},{"id":"ref-for-idl-DOMString\u2466"},{"id":"ref-for-idl-DOMString\u2467"}],"title":"4.6. Interfaces"},{"refs":[{"id":"ref-for-idl-DOMString\u2468"}],"title":"5. RTCRtpSender extension"}],"url":"https://webidl.spec.whatwg.org/#idl-DOMString"},
-"888d7c65": {"dfnID":"888d7c65","dfnText":"deserialization steps","external":true,"refSections":[{"refs":[{"id":"ref-for-deserialization-steps"}],"title":"4.3.3. Serialization"},{"refs":[{"id":"ref-for-deserialization-steps\u2460"}],"title":"4.5.3. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#deserialization-steps"},
+"888d7c65": {"dfnID":"888d7c65","dfnText":"deserialization steps","external":true,"refSections":[{"refs":[{"id":"ref-for-deserialization-steps"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-deserialization-steps\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#deserialization-steps"},
 "889e932f": {"dfnID":"889e932f","dfnText":"Exposed","external":true,"refSections":[{"refs":[{"id":"ref-for-Exposed"},{"id":"ref-for-Exposed\u2460"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-Exposed\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-Exposed\u2462"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-Exposed\u2463"},{"id":"ref-for-Exposed\u2464"},{"id":"ref-for-Exposed\u2465"},{"id":"ref-for-Exposed\u2466"}],"title":"4.6. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#Exposed"},
 "8c407366": {"dfnID":"8c407366","dfnText":"cancelable","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-event-cancelable"}],"title":"4.9. Events"}],"url":"https://dom.spec.whatwg.org/#dom-event-cancelable"},
 "8f5c2179": {"dfnID":"8f5c2179","dfnText":"a promise resolved with","external":true,"refSections":[{"refs":[{"id":"ref-for-a-promise-resolved-with"},{"id":"ref-for-a-promise-resolved-with\u2460"},{"id":"ref-for-a-promise-resolved-with\u2461"}],"title":"2.1.2. Stream processing"}],"url":"https://webidl.spec.whatwg.org/#a-promise-resolved-with"},
@@ -2418,7 +2518,7 @@ let dfnPanelData = {
 "abstract-opdef-readencodeddata": {"dfnID":"abstract-opdef-readencodeddata","dfnText":"readEncodedData","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-readencodeddata"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-abstract-opdef-readencodeddata\u2460"},{"id":"ref-for-abstract-opdef-readencodeddata\u2461"}],"title":"2.1.2. Stream processing"}],"url":"#abstract-opdef-readencodeddata"},
 "abstract-opdef-rtcrtptransform-association-steps": {"dfnID":"abstract-opdef-rtcrtptransform-association-steps","dfnText":"association steps","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps\u2460"},{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps\u2461"}],"title":"4.7. Operations"}],"url":"#abstract-opdef-rtcrtptransform-association-steps"},
 "abstract-opdef-send-request-key-frame-algorithm": {"dfnID":"abstract-opdef-send-request-key-frame-algorithm","dfnText":"send request key frame algorithm","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-send-request-key-frame-algorithm"}],"title":"4.7. Operations"}],"url":"#abstract-opdef-send-request-key-frame-algorithm"},
-"abstract-opdef-writeencodeddata": {"dfnID":"abstract-opdef-writeencodeddata","dfnText":"writeEncodedData","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2460"},{"id":"ref-for-abstract-opdef-writeencodeddata\u2461"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2462"}],"title":"4.3.3. Serialization"}],"url":"#abstract-opdef-writeencodeddata"},
+"abstract-opdef-writeencodeddata": {"dfnID":"abstract-opdef-writeencodeddata","dfnText":"writeEncodedData","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2460"},{"id":"ref-for-abstract-opdef-writeencodeddata\u2461"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2462"}],"title":"4.3.4. Serialization"}],"url":"#abstract-opdef-writeencodeddata"},
 "b161d57f": {"dfnID":"b161d57f","dfnText":"RTCRtpSender","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender"},{"id":"ref-for-dom-rtcrtpsender\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2462"},{"id":"ref-for-dom-rtcrtpsender\u2463"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2464"},{"id":"ref-for-dom-rtcrtpsender\u2465"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2466"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2467"}],"title":"4.7. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2468"},{"id":"ref-for-dom-rtcrtpsender\u2460\u24ea"}],"title":"4.10. KeyFrame Algorithms"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2460\u2460"},{"id":"ref-for-dom-rtcrtpsender\u2460\u2461"}],"title":"5. RTCRtpSender extension"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"},
 "b21c2abd": {"dfnID":"b21c2abd","dfnText":"release (for ReadableStreamDefaultReader)","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestreamdefaultreader-release"}],"title":"2.2. Extension attribute"}],"url":"https://streams.spec.whatwg.org/#readablestreamdefaultreader-release"},
 "b262501e": {"dfnID":"b262501e","dfnText":"reject","external":true,"refSections":[{"refs":[{"id":"ref-for-reject"},{"id":"ref-for-reject\u2460"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#reject"},
@@ -2436,11 +2536,13 @@ let dfnPanelData = {
 "cae6bf57": {"dfnID":"cae6bf57","dfnText":"InvalidModificationError","external":true,"refSections":[{"refs":[{"id":"ref-for-invalidmodificationerror"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#invalidmodificationerror"},
 "d04a8309": {"dfnID":"d04a8309","dfnText":"writealgorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-set-up-writealgorithm"}],"title":"2.1.1. Stream creation"}],"url":"https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm"},
 "d438bc09": {"dfnID":"d438bc09","dfnText":"set up (for ReadableStream)","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestream-set-up"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-readablestream-set-up\u2460"}],"title":"3. SFrameTransform"}],"url":"https://streams.spec.whatwg.org/#readablestream-set-up"},
-"d54f5897": {"dfnID":"d54f5897","dfnText":"DataCloneError","external":true,"refSections":[{"refs":[{"id":"ref-for-datacloneerror"}],"title":"4.3.3. Serialization"},{"refs":[{"id":"ref-for-datacloneerror\u2460"}],"title":"4.5.3. Serialization"}],"url":"https://webidl.spec.whatwg.org/#datacloneerror"},
+"d54f5897": {"dfnID":"d54f5897","dfnText":"DataCloneError","external":true,"refSections":[{"refs":[{"id":"ref-for-datacloneerror"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-datacloneerror\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://webidl.spec.whatwg.org/#datacloneerror"},
 "d61c5cab": {"dfnID":"d61c5cab","dfnText":"GenericTransformStream","external":true,"refSections":[{"refs":[{"id":"ref-for-generictransformstream"}],"title":"3. SFrameTransform"}],"url":"https://streams.spec.whatwg.org/#generictransformstream"},
 "dacde8b5": {"dfnID":"dacde8b5","dfnText":"a new promise","external":true,"refSections":[{"refs":[{"id":"ref-for-a-new-promise"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#a-new-promise"},
-"dictdef-rtcencodedaudioframemetadata": {"dfnID":"dictdef-rtcencodedaudioframemetadata","dfnText":"RTCEncodedAudioFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata\u2460"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dictdef-rtcencodedaudioframemetadata"},
-"dictdef-rtcencodedvideoframemetadata": {"dfnID":"dictdef-rtcencodedvideoframemetadata","dfnText":"RTCEncodedVideoFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata\u2460"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dictdef-rtcencodedvideoframemetadata"},
+"dictdef-rtcencodedaudioframemetadata": {"dfnID":"dictdef-rtcencodedaudioframemetadata","dfnText":"RTCEncodedAudioFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata\u2460"},{"id":"ref-for-dictdef-rtcencodedaudioframemetadata\u2461"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dictdef-rtcencodedaudioframemetadata"},
+"dictdef-rtcencodedaudioframeoptions": {"dfnID":"dictdef-rtcencodedaudioframeoptions","dfnText":"RTCEncodedAudioFrameOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframeoptions"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dictdef-rtcencodedaudioframeoptions"},
+"dictdef-rtcencodedvideoframemetadata": {"dfnID":"dictdef-rtcencodedvideoframemetadata","dfnText":"RTCEncodedVideoFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata\u2460"},{"id":"ref-for-dictdef-rtcencodedvideoframemetadata\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dictdef-rtcencodedvideoframemetadata"},
+"dictdef-rtcencodedvideoframeoptions": {"dfnID":"dictdef-rtcencodedvideoframeoptions","dfnText":"RTCEncodedVideoFrameOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframeoptions"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dictdef-rtcencodedvideoframeoptions"},
 "dictdef-sframetransformerroreventinit": {"dfnID":"dictdef-sframetransformerroreventinit","dfnText":"SFrameTransformErrorEventInit","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-sframetransformerroreventinit"}],"title":"3. SFrameTransform"}],"url":"#dictdef-sframetransformerroreventinit"},
 "dictdef-sframetransformoptions": {"dfnID":"dictdef-sframetransformoptions","dfnText":"SFrameTransformOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-sframetransformoptions"}],"title":"3. SFrameTransform"}],"url":"#dictdef-sframetransformoptions"},
 "dom-dedicatedworkerglobalscope-onrtctransform": {"dfnID":"dom-dedicatedworkerglobalscope-onrtctransform","dfnText":"onrtctransform","external":false,"refSections":[],"url":"#dom-dedicatedworkerglobalscope-onrtctransform"},
@@ -2448,22 +2550,31 @@ let dfnPanelData = {
 "dom-keyframerequestevent-keyframerequestevent-type-rid-rid": {"dfnID":"dom-keyframerequestevent-keyframerequestevent-type-rid-rid","dfnText":"rid","external":false,"refSections":[],"url":"#dom-keyframerequestevent-keyframerequestevent-type-rid-rid"},
 "dom-keyframerequestevent-keyframerequestevent-type-rid-type": {"dfnID":"dom-keyframerequestevent-keyframerequestevent-type-rid-type","dfnText":"type","external":false,"refSections":[],"url":"#dom-keyframerequestevent-keyframerequestevent-type-rid-type"},
 "dom-keyframerequestevent-rid": {"dfnID":"dom-keyframerequestevent-rid","dfnText":"rid","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-keyframerequestevent-rid"}],"title":"4.9. Events"}],"url":"#dom-keyframerequestevent-rid"},
+"dom-rtcencodedaudioframe-constructor": {"dfnID":"dom-rtcencodedaudioframe-constructor","dfnText":"constructor()","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-constructor"},
 "dom-rtcencodedaudioframe-data": {"dfnID":"dom-rtcencodedaudioframe-data","dfnText":"data","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframe-data"},{"id":"ref-for-dom-rtcencodedaudioframe-data\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcencodedaudioframe-data\u2461"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dom-rtcencodedaudioframe-data"},
 "dom-rtcencodedaudioframe-getmetadata": {"dfnID":"dom-rtcencodedaudioframe-getmetadata","dfnText":"getMetadata()","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframe-getmetadata"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dom-rtcencodedaudioframe-getmetadata"},
+"dom-rtcencodedaudioframe-rtcencodedaudioframe": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe","dfnText":"constructor","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe"},
+"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options"},
+"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe","dfnText":"originalFrame","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe"},
 "dom-rtcencodedaudioframemetadata-contributingsources": {"dfnID":"dom-rtcencodedaudioframemetadata-contributingsources","dfnText":"contributingSources","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-contributingsources"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-contributingsources"},
-"dom-rtcencodedaudioframemetadata-mimetype": {"dfnID":"dom-rtcencodedaudioframemetadata-mimetype","dfnText":"mimeType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype\u2460"}],"title":"4.5.1. Members"}],"url":"#dom-rtcencodedaudioframemetadata-mimetype"},
+"dom-rtcencodedaudioframemetadata-mimetype": {"dfnID":"dom-rtcencodedaudioframemetadata-mimetype","dfnText":"mimeType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype\u2460"}],"title":"4.5.2. Members"}],"url":"#dom-rtcencodedaudioframemetadata-mimetype"},
 "dom-rtcencodedaudioframemetadata-payloadtype": {"dfnID":"dom-rtcencodedaudioframemetadata-payloadtype","dfnText":"payloadType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-payloadtype"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-payloadtype"},
 "dom-rtcencodedaudioframemetadata-rtptimestamp": {"dfnID":"dom-rtcencodedaudioframemetadata-rtptimestamp","dfnText":"rtpTimestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-rtptimestamp"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-rtptimestamp"},
 "dom-rtcencodedaudioframemetadata-sequencenumber": {"dfnID":"dom-rtcencodedaudioframemetadata-sequencenumber","dfnText":"sequenceNumber","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-sequencenumber"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-sequencenumber"},
 "dom-rtcencodedaudioframemetadata-synchronizationsource": {"dfnID":"dom-rtcencodedaudioframemetadata-synchronizationsource","dfnText":"synchronizationSource","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-synchronizationsource"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-synchronizationsource"},
+"dom-rtcencodedaudioframeoptions-metadata": {"dfnID":"dom-rtcencodedaudioframeoptions-metadata","dfnText":"metadata","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframeoptions-metadata"},
+"dom-rtcencodedvideoframe-constructor": {"dfnID":"dom-rtcencodedvideoframe-constructor","dfnText":"constructor()","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-constructor"},
 "dom-rtcencodedvideoframe-data": {"dfnID":"dom-rtcencodedvideoframe-data","dfnText":"data","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-data"},{"id":"ref-for-dom-rtcencodedvideoframe-data\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-data\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dom-rtcencodedvideoframe-data"},
 "dom-rtcencodedvideoframe-getmetadata": {"dfnID":"dom-rtcencodedvideoframe-getmetadata","dfnText":"getMetadata()","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-getmetadata"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dom-rtcencodedvideoframe-getmetadata"},
-"dom-rtcencodedvideoframe-type": {"dfnID":"dom-rtcencodedvideoframe-type","dfnText":"type","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type\u2460"},{"id":"ref-for-dom-rtcencodedvideoframe-type\u2461"}],"title":"4.3.3. Serialization"}],"url":"#dom-rtcencodedvideoframe-type"},
+"dom-rtcencodedvideoframe-rtcencodedvideoframe": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe","dfnText":"constructor","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe"},
+"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options"},
+"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe","dfnText":"originalFrame","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe"},
+"dom-rtcencodedvideoframe-type": {"dfnID":"dom-rtcencodedvideoframe-type","dfnText":"type","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type\u2460"},{"id":"ref-for-dom-rtcencodedvideoframe-type\u2461"}],"title":"4.3.4. Serialization"}],"url":"#dom-rtcencodedvideoframe-type"},
 "dom-rtcencodedvideoframemetadata-contributingsources": {"dfnID":"dom-rtcencodedvideoframemetadata-contributingsources","dfnText":"contributingSources","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-contributingsources"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-contributingsources"},
 "dom-rtcencodedvideoframemetadata-dependencies": {"dfnID":"dom-rtcencodedvideoframemetadata-dependencies","dfnText":"dependencies","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-dependencies"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-dependencies"},
 "dom-rtcencodedvideoframemetadata-frameid": {"dfnID":"dom-rtcencodedvideoframemetadata-frameid","dfnText":"frameId","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-frameid"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-frameid"},
 "dom-rtcencodedvideoframemetadata-height": {"dfnID":"dom-rtcencodedvideoframemetadata-height","dfnText":"height","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframemetadata-height"},
-"dom-rtcencodedvideoframemetadata-mimetype": {"dfnID":"dom-rtcencodedvideoframemetadata-mimetype","dfnText":"mimeType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-mimetype"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-mimetype\u2460"}],"title":"4.3.1. Members"}],"url":"#dom-rtcencodedvideoframemetadata-mimetype"},
+"dom-rtcencodedvideoframemetadata-mimetype": {"dfnID":"dom-rtcencodedvideoframemetadata-mimetype","dfnText":"mimeType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-mimetype"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-mimetype\u2460"}],"title":"4.3.2. Members"}],"url":"#dom-rtcencodedvideoframemetadata-mimetype"},
 "dom-rtcencodedvideoframemetadata-payloadtype": {"dfnID":"dom-rtcencodedvideoframemetadata-payloadtype","dfnText":"payloadType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-payloadtype"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-payloadtype"},
 "dom-rtcencodedvideoframemetadata-rtptimestamp": {"dfnID":"dom-rtcencodedvideoframemetadata-rtptimestamp","dfnText":"rtpTimestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-rtptimestamp"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-rtptimestamp"},
 "dom-rtcencodedvideoframemetadata-spatialindex": {"dfnID":"dom-rtcencodedvideoframemetadata-spatialindex","dfnText":"spatialIndex","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframemetadata-spatialindex"},
@@ -2471,6 +2582,7 @@ let dfnPanelData = {
 "dom-rtcencodedvideoframemetadata-temporalindex": {"dfnID":"dom-rtcencodedvideoframemetadata-temporalindex","dfnText":"temporalIndex","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframemetadata-temporalindex"},
 "dom-rtcencodedvideoframemetadata-timestamp": {"dfnID":"dom-rtcencodedvideoframemetadata-timestamp","dfnText":"timestamp","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-timestamp"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-timestamp"},
 "dom-rtcencodedvideoframemetadata-width": {"dfnID":"dom-rtcencodedvideoframemetadata-width","dfnText":"width","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframemetadata-width"},
+"dom-rtcencodedvideoframeoptions-metadata": {"dfnID":"dom-rtcencodedvideoframeoptions-metadata","dfnText":"metadata","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframeoptions-metadata"},
 "dom-rtcencodedvideoframetype-delta": {"dfnID":"dom-rtcencodedvideoframetype-delta","dfnText":"delta","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-delta"}],"title":"4.1. RTCEncodedVideoFrameType dictionary"}],"url":"#dom-rtcencodedvideoframetype-delta"},
 "dom-rtcencodedvideoframetype-empty": {"dfnID":"dom-rtcencodedvideoframetype-empty","dfnText":"empty","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-empty"}],"title":"4.1. RTCEncodedVideoFrameType dictionary"}],"url":"#dom-rtcencodedvideoframetype-empty"},
 "dom-rtcencodedvideoframetype-key": {"dfnID":"dom-rtcencodedvideoframetype-key","dfnText":"key","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-key"}],"title":"4.1. RTCEncodedVideoFrameType dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-key\u2460"}],"title":"4.10. KeyFrame Algorithms"}],"url":"#dom-rtcencodedvideoframetype-key"},
@@ -2521,18 +2633,18 @@ let dfnPanelData = {
 "eb5c4be3": {"dfnID":"eb5c4be3","dfnText":"Serializable","external":true,"refSections":[{"refs":[{"id":"ref-for-serializable"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-serializable\u2460"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serializable"},
 "ec878a66": {"dfnID":"ec878a66","dfnText":"RangeError","external":true,"refSections":[{"refs":[{"id":"ref-for-exceptiondef-rangeerror"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#exceptiondef-rangeerror"},
 "efd1ec5d": {"dfnID":"efd1ec5d","dfnText":"object","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-object"}],"title":"4.6. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-object"},
-"enumdef-rtcencodedvideoframetype": {"dfnID":"enumdef-rtcencodedvideoframetype","dfnText":"RTCEncodedVideoFrameType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype"}],"title":"4.1. RTCEncodedVideoFrameType dictionary"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2460"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2461"}],"title":"4.3.1. Members"}],"url":"#enumdef-rtcencodedvideoframetype"},
+"enumdef-rtcencodedvideoframetype": {"dfnID":"enumdef-rtcencodedvideoframetype","dfnText":"RTCEncodedVideoFrameType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype"}],"title":"4.1. RTCEncodedVideoFrameType dictionary"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2460"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2461"}],"title":"4.3.2. Members"}],"url":"#enumdef-rtcencodedvideoframetype"},
 "enumdef-sframetransformerroreventtype": {"dfnID":"enumdef-sframetransformerroreventtype","dfnText":"SFrameTransformErrorEventType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformerroreventtype"},{"id":"ref-for-enumdef-sframetransformerroreventtype\u2460"}],"title":"3. SFrameTransform"}],"url":"#enumdef-sframetransformerroreventtype"},
 "enumdef-sframetransformrole": {"dfnID":"enumdef-sframetransformrole","dfnText":"SFrameTransformRole","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformrole"}],"title":"3. SFrameTransform"}],"url":"#enumdef-sframetransformrole"},
 "eventdef-dedicatedworkerglobalscope-rtctransform": {"dfnID":"eventdef-dedicatedworkerglobalscope-rtctransform","dfnText":"rtctransform","external":false,"refSections":[],"url":"#eventdef-dedicatedworkerglobalscope-rtctransform"},
 "f0951476": {"dfnID":"f0951476","dfnText":"EventHandler","external":true,"refSections":[{"refs":[{"id":"ref-for-eventhandler"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-eventhandler\u2460"},{"id":"ref-for-eventhandler\u2461"}],"title":"4.6. Interfaces"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"},
 "f14b47b8": {"dfnID":"f14b47b8","dfnText":"unsigned long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long-long"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-idl-unsigned-long-long\u2460"},{"id":"ref-for-idl-unsigned-long-long\u2461"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-unsigned-long-long\u2462"}],"title":"4.2.1. Members"},{"refs":[{"id":"ref-for-idl-unsigned-long-long\u2463"}],"title":"4.6. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long-long"},
-"f2f85335": {"dfnID":"f2f85335","dfnText":"structuredClone(value, options)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-structuredclone"}],"title":"4.3.3. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#dom-structuredclone"},
-"f32dc6c1": {"dfnID":"f32dc6c1","dfnText":"serialization steps","external":true,"refSections":[{"refs":[{"id":"ref-for-serialization-steps"}],"title":"4.3.3. Serialization"},{"refs":[{"id":"ref-for-serialization-steps\u2460"}],"title":"4.5.3. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serialization-steps"},
+"f2f85335": {"dfnID":"f2f85335","dfnText":"structuredClone(value, options)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-structuredclone"}],"title":"4.3.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#dom-structuredclone"},
+"f32dc6c1": {"dfnID":"f32dc6c1","dfnText":"serialization steps","external":true,"refSections":[{"refs":[{"id":"ref-for-serialization-steps"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-serialization-steps\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serialization-steps"},
 "f4acb816": {"dfnID":"f4acb816","dfnText":"getting a writer","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-get-a-writer"}],"title":"2.2. Extension attribute"}],"url":"https://streams.spec.whatwg.org/#writablestream-get-a-writer"},
 "keyframerequestevent": {"dfnID":"keyframerequestevent","dfnText":"KeyFrameRequestEvent","external":false,"refSections":[{"refs":[{"id":"ref-for-keyframerequestevent"},{"id":"ref-for-keyframerequestevent\u2460"},{"id":"ref-for-keyframerequestevent\u2461"}],"title":"4.9. Events"}],"url":"#keyframerequestevent"},
-"rtcencodedaudioframe": {"dfnID":"rtcencodedaudioframe","dfnText":"RTCEncodedAudioFrame","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcencodedaudioframe"},{"id":"ref-for-rtcencodedaudioframe\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-rtcencodedaudioframe\u2461"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-rtcencodedaudioframe\u2462"}],"title":"4.5.3. Serialization"}],"url":"#rtcencodedaudioframe"},
-"rtcencodedvideoframe": {"dfnID":"rtcencodedvideoframe","dfnText":"RTCEncodedVideoFrame","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcencodedvideoframe"},{"id":"ref-for-rtcencodedvideoframe\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-rtcencodedvideoframe\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-rtcencodedvideoframe\u2462"}],"title":"4.3.3. Serialization"}],"url":"#rtcencodedvideoframe"},
+"rtcencodedaudioframe": {"dfnID":"rtcencodedaudioframe","dfnText":"RTCEncodedAudioFrame","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcencodedaudioframe"},{"id":"ref-for-rtcencodedaudioframe\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-rtcencodedaudioframe\u2461"},{"id":"ref-for-rtcencodedaudioframe\u2462"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-rtcencodedaudioframe\u2463"}],"title":"4.5.1. Constructor"},{"refs":[{"id":"ref-for-rtcencodedaudioframe\u2464"}],"title":"4.5.4. Serialization"}],"url":"#rtcencodedaudioframe"},
+"rtcencodedvideoframe": {"dfnID":"rtcencodedvideoframe","dfnText":"RTCEncodedVideoFrame","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcencodedvideoframe"},{"id":"ref-for-rtcencodedvideoframe\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-rtcencodedvideoframe\u2461"},{"id":"ref-for-rtcencodedvideoframe\u2462"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-rtcencodedvideoframe\u2463"}],"title":"4.3.1. Constructor"},{"refs":[{"id":"ref-for-rtcencodedvideoframe\u2464"}],"title":"4.3.4. Serialization"}],"url":"#rtcencodedvideoframe"},
 "rtcrtpscripttransform": {"dfnID":"rtcrtpscripttransform","dfnText":"RTCRtpScriptTransform","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcrtpscripttransform"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-rtcrtpscripttransform\u2460"}],"title":"4.7. Operations"},{"refs":[{"id":"ref-for-rtcrtpscripttransform\u2461"},{"id":"ref-for-rtcrtpscripttransform\u2462"}],"title":"4.8. Attributes"}],"url":"#rtcrtpscripttransform"},
 "rtcrtpscripttransformer": {"dfnID":"rtcrtpscripttransformer","dfnText":"RTCRtpScriptTransformer","external":false,"refSections":[{"refs":[{"id":"ref-for-rtcrtpscripttransformer"}],"title":"4.6. Interfaces"},{"refs":[{"id":"ref-for-rtcrtpscripttransformer\u2460"},{"id":"ref-for-rtcrtpscripttransformer\u2461"}],"title":"4.7. Operations"},{"refs":[{"id":"ref-for-rtcrtpscripttransformer\u2462"},{"id":"ref-for-rtcrtpscripttransformer\u2463"},{"id":"ref-for-rtcrtpscripttransformer\u2464"}],"title":"4.8. Attributes"},{"refs":[{"id":"ref-for-rtcrtpscripttransformer\u2465"},{"id":"ref-for-rtcrtpscripttransformer\u2466"}],"title":"4.9. Events"},{"refs":[{"id":"ref-for-rtcrtpscripttransformer\u2467"},{"id":"ref-for-rtcrtpscripttransformer\u2468"}],"title":"4.10. KeyFrame Algorithms"},{"refs":[{"id":"ref-for-rtcrtpscripttransformer\u2460\u24ea"}],"title":"5. RTCRtpSender extension"}],"url":"#rtcrtpscripttransformer"},
 "rtctransformevent": {"dfnID":"rtctransformevent","dfnText":"RTCTransformEvent","external":false,"refSections":[{"refs":[{"id":"ref-for-rtctransformevent"}],"title":"4.7. Operations"}],"url":"#rtctransformevent"},
@@ -2936,7 +3048,9 @@ let refsData = {
 "#abstract-opdef-send-request-key-frame-algorithm": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"send request key frame algorithm","type":"abstract-op","url":"#abstract-opdef-send-request-key-frame-algorithm"},
 "#abstract-opdef-writeencodeddata": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"writeEncodedData","type":"abstract-op","url":"#abstract-opdef-writeencodeddata"},
 "#dictdef-rtcencodedaudioframemetadata": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedAudioFrameMetadata","type":"dictionary","url":"#dictdef-rtcencodedaudioframemetadata"},
+"#dictdef-rtcencodedaudioframeoptions": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedAudioFrameOptions","type":"dictionary","url":"#dictdef-rtcencodedaudioframeoptions"},
 "#dictdef-rtcencodedvideoframemetadata": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedVideoFrameMetadata","type":"dictionary","url":"#dictdef-rtcencodedvideoframemetadata"},
+"#dictdef-rtcencodedvideoframeoptions": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedVideoFrameOptions","type":"dictionary","url":"#dictdef-rtcencodedvideoframeoptions"},
 "#dictdef-sframetransformerroreventinit": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformErrorEventInit","type":"dictionary","url":"#dictdef-sframetransformerroreventinit"},
 "#dictdef-sframetransformoptions": {"export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformOptions","type":"dictionary","url":"#dictdef-sframetransformoptions"},
 "#dom-keyframerequestevent-rid": {"export":true,"for_":["KeyFrameRequestEvent"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"rid","type":"attribute","url":"#dom-keyframerequestevent-rid"},

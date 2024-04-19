@@ -44,6 +44,10 @@ spec:webidl; type:dfn; text:resolve
     "href": "https://www.itu.int/rec/T-REC-G.722/",
     "title": "G.722 : 7 kHz audio-coding within 64 kbit/s",
     "publisher": "ITU"
+   },
+   "CloneArrayBuffer": {
+    "href": "https://tc39.es/ecma262/#sec-clonearraybuffer",
+    "title": "CloneArrayBuffer"
    }
 }
 </pre>
@@ -441,15 +445,45 @@ dictionary RTCEncodedVideoFrameMetadata {
 
 ## <dfn interface>RTCEncodedVideoFrame</dfn> interface ## {#RTCEncodedVideoFrame-interface}
 <pre class="idl">
+dictionary RTCEncodedVideoFrameOptions {
+    RTCEncodedVideoFrameMetadata metadata;
+};
+
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedVideoFrame {
+    constructor(RTCEncodedVideoFrame originalFrame, optional RTCEncodedVideoFrameOptions options = {});
     readonly attribute RTCEncodedVideoFrameType type;
     attribute ArrayBuffer data;
     RTCEncodedVideoFrameMetadata getMetadata();
 };
 </pre>
+
+### Constructor ### {#RTCEncodedVideoFrame-members}
+<dl dfn-for="RTCEncodedVideoFrame" class="dictionary-members">
+    <dt>
+        <dfn for="RTCEncodedVideoFrame" method>constructor()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and
+            |options|.`[metadata]`. The newly created frame is completely independent of
+            |originalFrame|, with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`.
+            The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
+            fields replaced with deep copies of the fields present in |options|.`[metadata]`.
+
+            When called, run the following steps:
+
+            1. Set this.`[[type]]` to |originalFrame|.`[[type]]`.
+            1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
+            1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
+                1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|.`[metadata]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
+
+        </p>
+    </dd>
+</dl>
 
 ### Members ### {#RTCEncodedVideoFrame-members}
 <dl dfn-for="RTCEncodedVideoFrame" class="dictionary-members">
@@ -643,12 +677,41 @@ dictionary RTCEncodedAudioFrameMetadata {
 
 ## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
 <pre class="idl">
+dictionary RTCEncodedAudioFrameOptions {
+    RTCEncodedAudioFrameMetadata metadata;
+};
+
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedAudioFrame {
+    constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameOptions options = {});
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };
 </pre>
+
+### Constructor ### {#RTCEncodedAudioFrame-members}
+<dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
+    <dt>
+        <dfn for="RTCEncodedAudioFrame" method>constructor()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and
+            |options|.`[metadata]`. The newly created frame is completely independent of
+            |originalFrame|, with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`.
+            The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
+            fields replaced with deep copies of the fields present in |options|.`[metadata]`.
+        
+            When called, run the following steps:
+
+            1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
+            1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
+                1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|.`[metadata]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
+
+        </p>
+    </dd>
+</dl>
 
 ### Members ### {#RTCEncodedAudioFrame-members}
 <dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">

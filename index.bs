@@ -448,9 +448,11 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and |options|`[metadata]`. The newly created frame is completely independent of the
-            |originalFrame| with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`. The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
-            any fields replaced with deep copies of the fields present in |options|`[metadata]`.
+            Creates a new {{RTCEncodedVideoFrame}} from the given |originalFrame| and
+            |options|.`[metadata]`. The newly created frame is completely independent of
+            |originalFrame|, with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`.
+            The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
+            fields replaced with deep copies of the fields present in |options|.`[metadata]`.
 
             When called, run the following steps:
 
@@ -458,7 +460,7 @@ interface RTCEncodedVideoFrame {
             1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
             1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
-                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|.`[metadata]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
                     <p class="note">This does a "deep-copy" here.</p>
 
         </p>
@@ -676,16 +678,18 @@ interface RTCEncodedAudioFrame {
     </dt>
     <dd>
         <p>
-            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and |options|`[metadata]`. The newly created frame is completely independent of the
-            |originalFrame| with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`. The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
-            any fields replaced with deep copies of the fields present in |options|`[metadata]`.
+            Creates a new {{RTCEncodedAudioFrame}} from the given |originalFrame| and
+            |options|.`[metadata]`. The newly created frame is completely independent of
+            |originalFrame|, with its `[[data]]` being a deep copy of |originalFrame|.`[[data]]`.
+            The new frame's `[[metadata]]` is a deep copy of |originalFrame|.`[[metadata]]`, with
+            fields replaced with deep copies of the fields present in |options|.`[metadata]`.
         
             When called, run the following steps:
 
             1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|originalFrame|.`[[data]]`, 0, |originalFrame|.`[[data]]`.`[[ArrayBufferByteLength]]`).
             1. Let `[[metadata]]` represent the metadata associated with this newly constructed frame.
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
-                1. For each {`[[key]]`,`[[value]]`} pair of |options|`[metadata]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
+                1. For each {`[[key]]`,`[[value]]`} pair of |options|.`[metadata]`, set `[[metadata]]`.`[[key]]` to `[[value]]`.
                     <p class="note">This does a "deep-copy" here.</p>
 
         </p>

@@ -794,8 +794,8 @@ interface KeyFrameRequestEvent : Event {
 };
 
 dictionary RTCRtpScriptTransformParameters {
-  sequence&lt;RTCRtpCodecParameters&gt; inputCodecs;
-  sequence&lt;RTCRtpCodecParameters&gt; outputCodecs;
+  sequence&lt;RTCRtpCodec&gt; inputCodecs;
+  sequence&lt;RTCRtpCodec&gt; outputCodecs;
   boolean acceptOnlyInputCodecs = false;
 };
 

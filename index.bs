@@ -134,6 +134,7 @@ The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as p
 1. Let |frame| be the newly produced frame.
 1. Set |frame|.`[[owner]]` to |rtcObject|.
 1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
+1. If |rtcObject|'s |transform|'s |options| contains {{RTCRtpScriptTransformParameters/acceptOnlyInputCodecs}} with the value True, and the {{RTCEncodedVideoFrameMetadata/mimeType}} of |frame| does not match any codec in |transform|'s |options|' |inputCodecs|, execute the [$writeEncodedData$] algorithm given |rtcObject| and |frame|.
 1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
 
 The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
@@ -150,7 +151,7 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as 
 
 On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
-The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.
+The packetizer will expect the transformed data to conform to the format indicated by its {{RTCEncodedVideoFrameMetadata/mimeType}}.
 
 On receiver side, as part of [$readEncodedData$], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
 To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
@@ -854,7 +855,25 @@ interface KeyFrameRequestEvent : Event {
   constructor(DOMString type, optional DOMString rid);
   readonly attribute DOMString? rid;
 };
+
+dictionary RTCRtpScriptTransformParameters {
+  sequence&lt;RTCRtpCodec&gt; inputCodecs;
+  sequence&lt;RTCRtpCodec&gt; outputCodecs;
+  boolean acceptOnlyInputCodecs = false;
+};
+
 </pre>
+
+### Extension to RTCRtpCodec ### {#RTCRtpCodec-extensions}
+
+The member "packetizationMode" is added to the {{RTCRtpCodec}} definition; its value is a MIME type. When this is present, the rules for packetizing and depacketizing are those of the named MIME type. For codecs not supported by the platform, this MUST be present.
+
+<pre class='idl'>
+partial dictionary RTCRtpCodec {
+  DOMString packetizationMode;
+};
+</pre>
+
 
 ## Operations ## {#RTCRtpScriptTransform-operations}
 
@@ -863,6 +882,7 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 2. Set |t2| to an [=identity transform stream=].
 3. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
 4. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
+4. Set |this|.`[[options]]?` to the result of converting |options| to an RTCRtpScriptTransformParameters dictionary.
 5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
 6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
 7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
@@ -880,8 +900,17 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 
 Each RTCRtpScriptTransform has the following set of [$association steps$], given |rtcObject|:
 1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
-1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
-1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
+1. If |rtcObject| is a {{RTCRtpSender}}, perform the following steps:
+    1. Let |encoder| be |rtcObject|'s encoder.
+    1. If `[[options]]` contains |outputCodecs|, then for each element |codec| in |outputCodecs|:
+        1. If |codec| is not in |rtcObject|'s {{RTCRtpSender/[[SendCodecs]]}}, add it.
+        1. Set the "enabled" flag of |codec| in |rtcObject|'s {{RTCRtpSender/[[SendCodecs]]}} to True.
+        
+1. If |rtcObject| is a {{RTCRtpReceiver}}, perform the following steps:
+    1. Let |depacketizer| be |rtcObject|'s depacketizer
+    1. If `[[options]]` contains |inputCodecs|, then for each element |codec| in |inputCodecs|:
+        1. If |codec| is not in |rtcObject|'s {{RTCRtpReceiver/[[ReceiveCodecs]]}}, add it.
+        1. Set the "enabled" flag of |codec| in |rtcObject|'s {{RTCRtpReceiver/[[ReceiveCodecs]]}} to True.
 1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
     1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
     1. Set |transformer|.`[[encoder]]` to |encoder|.

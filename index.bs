@@ -358,6 +358,7 @@ dictionary RTCEncodedVideoFrameMetadata {
     sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
     unsigned long rtpTimestamp;
+    DOMHighResTimeStamp receiveTime;
     DOMString mimeType;
 };
 </pre>
@@ -429,6 +430,18 @@ dictionary RTCEncodedVideoFrameMetadata {
         <p>
             The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
             that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>receiveTime</dfn> <span class=
+            "idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            For frames coming from an RTCRtpReceiver, represents the timestamp
+            of the last received packet used to produce this video frame. This
+            timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
+            Only exists for incoming video frames.
         </p>
     </dd>
     <dt>
@@ -614,6 +627,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     sequence&lt;unsigned long&gt; contributingSources;
     short sequenceNumber;
     unsigned long rtpTimestamp;
+    DOMHighResTimeStamp receiveTime;
     DOMString mimeType;
 };
 </pre>
@@ -667,6 +681,17 @@ dictionary RTCEncodedAudioFrameMetadata {
             that reflects the sampling instant of the first octet in the RTP data packet.
         </p>
     </dd>
+    <dt>
+        <dfn dict-member>receiveTime</dfn> <span class=
+            "idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            For frames coming from an RTCRtpReceiver, represents the timestamp
+            of the last received packet used to produce this audio frame. This
+            timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
+            Only exists for incoming audio frames.
+        </p>
     <dt>
         <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
     </dt>

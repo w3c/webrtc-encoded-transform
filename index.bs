@@ -460,7 +460,7 @@ interface RTCEncodedVideoFrame {
 };
 </pre>
 
-### Constructor ### {#RTCEncodedVideoFrame-members}
+### Constructor ### {#RTCEncodedVideoFrame-constructor}
 <dl dfn-for="RTCEncodedVideoFrame" class="dictionary-members">
     <dt>
         <dfn for="RTCEncodedVideoFrame" method>constructor()</dfn>
@@ -506,11 +506,13 @@ interface RTCEncodedVideoFrame {
             {{RTCEncodedVideoFrameMetadata/mimeType}}.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
             is transformed separately.
-            <p class="note">
+        </p>
+        <p class="note">
               Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
               the input to an receive-side transform may be different from the output of
               a send-side transform.
-            </p>
+        </p>
+        <p>
             The following table gives a number of examples:
         </p>
         <table class="simple">
@@ -704,7 +706,7 @@ interface RTCEncodedAudioFrame {
 };
 </pre>
 
-### Constructor ### {#RTCEncodedAudioFrame-members}
+### Constructor ### {#RTCEncodedAudioFrame-constructor}
 <dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
         <dfn for="RTCEncodedAudioFrame" method>constructor()</dfn>

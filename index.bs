@@ -142,10 +142,10 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as 
 1. Set |rtcObject|.`[[lastReceivedFrameCounter]]` to |frame|`[[counter]]`.
 1. Let |data| be |frame|.`[[data]]`.
 1. Let |serializedFrame| be [$StructuredSerializeWithTransfer$](|frame|, « |data| »).
-1. Let |frameCopy| be [$StructuredDeserialize$](|serializedFrame|,  |frame|'s [=relevant realm=]).
-1. Enqueue |frameCopy| for processing as if it came directly from the encoded data source, by running one of the following steps:
-    * If |rtcObject| is a {{RTCRtpSender}}, enqueue |frameCopy| to |rtcObject|'s packetizer, to be processed [=in parallel=].
-    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue |frameCopy| it to |rtcObject|'s decoder, to be processed [=in parallel=].
+1. Let |transferredFrame| be [$StructuredDeserializeWithTransfer$](|serializedFrame|,  |frame|'s [=relevant realm=]).
+1. Enqueue |transferredFrame| for processing as if it came directly from the encoded data source, by running one of the following steps:
+    * If |rtcObject| is a {{RTCRtpSender}}, enqueue |transferredFrame| to |rtcObject|'s packetizer, to be processed [=in parallel=].
+    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue |transferredFrame| it to |rtcObject|'s decoder, to be processed [=in parallel=].
 1. Return [=a promise resolved with=] undefined.
 
 On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
@@ -451,7 +451,7 @@ dictionary RTCEncodedVideoFrameOptions {
 
 // New interfaces to define encoded video and audio frames. Will eventually
 // re-use or extend the equivalent defined in WebCodecs.
-[Exposed=(Window,DedicatedWorker), Serializable]
+[Exposed=(Window,DedicatedWorker), Serializable, Transferable]
 interface RTCEncodedVideoFrame {
     constructor(RTCEncodedVideoFrame originalFrame, optional RTCEncodedVideoFrameOptions options = {});
     readonly attribute RTCEncodedVideoFrameType type;
@@ -580,26 +580,41 @@ interface RTCEncodedVideoFrame {
     </dd>
 </dl>
 
-### Serialization ### {#RTCEncodedVideoFrame-serialization}
+### Transfer and Serialization ### {#RTCEncodedVideoFrame-serialization}
 
-{{RTCEncodedVideoFrame}} objects are serializable objects [[HTML]].
+{{RTCEncodedVideoFrame}} objects are [=serializable objects=] and [=transferable objects=].
+
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
-1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}
+1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}.
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
-1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+1. Set |serialized|.`[[data]]` to a copy of |value|.`[[data]]`.
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
-1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`
-1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
+1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`.
+1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`.
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
+
+Their [=transfer steps=], given |value| and |dataHolder|, are:
+
+1. Set |dataHolder|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}.
+1. Set |dataHolder|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |dataHolder|.`[[data]]` to |value|.`[[data]]`.
+1. Unset |value|.`[[data]]`.
+
+Their [=transfer-receiving steps=], given |dataHolder| and |value|, are:
+
+1. Set |value|.{{RTCEncodedVideoFrame/type}} to |dataHolder|.`[[type]]`
+1. Set |value|'s metadata to the platform object representation of |dataHolder|.`[[metadata]]`.
+1. Set |value|.`[[data]]` to |dataHolder|.`[[data]]`.
 
 <p class="note">
 The internal form of a serialized RTCEncodedVideoFrame is not observable;
-it is defined chiefly so that it can be used with frame cloning in the
-[$writeEncodedData$] algorithm and in the {{WindowOrWorkerGlobalScope/structuredClone()}} operation.
+transfer is used to hand off frames in the
+[$writeEncodedData$] algorithm, and serialization is used in the
+{{WindowOrWorkerGlobalScope/structuredClone()}} operation.
 An implementation is therefore free to choose whatever method works best.
 </p>
 
@@ -681,7 +696,7 @@ dictionary RTCEncodedAudioFrameOptions {
     RTCEncodedAudioFrameMetadata metadata;
 };
 
-[Exposed=(Window,DedicatedWorker), Serializable]
+[Exposed=(Window,DedicatedWorker), Serializable, Transferable]
 interface RTCEncodedAudioFrame {
     constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameOptions options = {});
     attribute ArrayBuffer data;
@@ -806,19 +821,31 @@ interface RTCEncodedAudioFrame {
 </dl>
 
 
-### Serialization ### {#RTCEncodedAudioFrame-serialization}
+### Transfer and Serialization ### {#RTCEncodedAudioFrame-serialization}
 
-{{RTCEncodedAudioFrame}} objects are serializable objects [[HTML]].
+{{RTCEncodedAudioFrame}} objects are [=serializable objects=] and [=transferable objects=].
+
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
-1. Set |serialized|.`[[data]]` to |value|.`[[data]]`
+1. Set |serialized|.`[[data]]` to a copy of |value|.`[[data]]`
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to |serialized|.`[[data]]`.
+
+Their [=transfer steps=], given |value| and |dataHolder|, are:
+
+1. Set |dataHolder|.`[[metadata]]` to an internal representation of |value|'s metadata.
+1. Set |dataHolder|.`[[data]]` to |value|.`[[data]]`.
+1. Unset |value|.`[[data]]`.
+
+Their [=transfer-receiving steps=], given |dataHolder| and |value|, are:
+
+1. Set |value|'s metadata to the platform object representation of |dataHolder|.`[[metadata]]`.
+1. Set |value|.`[[data]]` to |dataHolder|.`[[data]]`.
 
 ## Interfaces ## {#RTCRtpScriptTransformer-interfaces}
 <pre class="idl">
@@ -867,9 +894,9 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
 7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
 8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
-    1. Let |transformerOptions| be the result of [$StructuredDeserialize$](|serializedOptions|, the current Realm).
-    2. Let |readable| be the result of [$StructuredDeserialize$](|serializedReadable|, the current Realm).
-    3. Let |writable| be the result of [$StructuredDeserialize$](|serializedWritable|, the current Realm).
+    1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
+    2. Let |readable| be the result of [$StructuredDeserializeWithTransfer$](|serializedReadable|, the current Realm).
+    3. Let |writable| be the result of [$StructuredDeserializeWithTransfer$](|serializedWritable|, the current Realm).
     4. Let |transformer| be a new {{RTCRtpScriptTransformer}}.
     5. Set |transformer|.`[[options]]` to |transformerOptions|.
     6. Set |transformer|.`[[readable]]` to |readable|.

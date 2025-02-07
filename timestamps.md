@@ -77,11 +77,12 @@ In all of these cases, the application can log the measurements for offline
 analysis or A/B testing, but also adjust application parameters in real time.
 
 
-### Goals [or Motivating Use Cases, or Scenarios]
+### Goals
 
 - Provide Web applications using WebRTC Encoded Transform access to receive and
   capture timestamps in addition to existing metadata already provided.
 - Align encoded frame metadata with [metadata provided for raw frames]().
+
 
 ### Non-goals
 

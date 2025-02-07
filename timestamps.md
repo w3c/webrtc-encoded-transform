@@ -20,20 +20,20 @@ and audio data is exposed as
 Both types of frames have a getMetadata() method that returns a number of
 metadata fields containing more information about the frames.
 
-This proposal consists in adding a number of additional metadata fields
+This feature consists in adding a number of additional metadata fields
 containing timestamps, in line with recent additions to
 [VideoFrameMetadata](https://w3c.github.io/webcodecs/video_frame_metadata_registry.html#videoframemetadata-members)
 in [WebCodecs](https://w3c.github.io/webcodecs/) and
 [requestVideoFrameCallback](https://wicg.github.io/video-rvfc/#video-frame-callback-metadata-attributes). 
 
-For the purposes of this proposal, we use the following definitions:
+For the purposes of this feature, we use the following definitions:
 * The *capturer system* is a system that originally captures a media frame,
   typically from a local camera, microphone or screen-share session. This frame
   can be relayed through multiple systems before it reaches its final
   destination.
 * The *receiver system* is the final destination of the captured frames. It
   receives the data via an [RTCPeerConnection] and it uses the WebRTC Encoded
-  Transform API with the changes included in this proposal.
+  Transform API with the changes proposed by this feature.
 * The *sender system* is the system that communicates directly with the
   *receiver system*. It may be the same as the capturer system, but not
   necessarily. It is the last hop before the captured frames reach the receiver
@@ -212,12 +212,12 @@ worker.postMessage(senderReceiverTimeOffset);
 
 Use the values already exposed in `RTCRtpContributingSource`.
 
-`RTCRtpContibutingSource` already exposes the same timestamps as in this proposal.
+`RTCRtpContibutingSource` already exposes the same timestamps as this feature.
 The problem with using those timestamps is that it is impossible to reliably
 associate them to a specific encoded frame exposed by the WebRTC Encoded
 Transform API.
 
-This makes any of the computations in this proposal unreliable.
+This makes any of the computations in this feature unreliable.
 
 ### [Alternative 2]
 
@@ -291,9 +291,9 @@ using WebRTC Encoded Transform as part of the RTCRtpContributingSource API.
 *The `receiveTime` field is available via the 
 [RTCRtpContributingSource.timestamp](https://w3c.github.io/webrtc-pc/#dom-rtcrtpcontributingsource-timestamp) field.
 
-While these fields are not 100% equivalent to the fields in this proposal,
+While these fields are not 100% equivalent to the fields in this feature,
 they have the same privacy characteristics. Therefore, we consider that the
-privacy delta of this proposal is zero.
+privacy delta of this feature is zero.
 
 ## References & acknowledgements
 

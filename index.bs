@@ -522,7 +522,7 @@ interface RTCEncodedVideoFrame {
         </p>
         <p class="note">
               Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
-              the input to an receive-side transform may be different from the output of
+              the input to a receive-side transform may be different from the output of
               a send-side transform.
         </p>
         <p>

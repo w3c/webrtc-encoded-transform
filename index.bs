@@ -48,6 +48,11 @@ spec:webidl; type:dfn; text:resolve
    "CloneArrayBuffer": {
     "href": "https://tc39.es/ecma262/#sec-clonearraybuffer",
     "title": "CloneArrayBuffer"
+   },
+   "RTP-EXT-CAPTURE-TIME": {
+    "href": "https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/",
+    "title": "RTP Header Extension for Absolute Capture Time",
+    "publisher": "IETF"
    }
 }
 </pre>
@@ -134,6 +139,20 @@ The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as p
 1. Let |frame| be the newly produced frame.
 1. Set |frame|.`[[owner]]` to |rtcObject|.
 1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
+1. If the frame has been produced by a {{RTCRtpReceiver}}:
+    1. If the relevant RTP packet contains the
+        [[RTP-EXT-CAPTURE-TIME|RTP Header Extension for Absolute Capture Time]], set |frame|.`[[captureTime]]` to the
+        [[RTP-EXT-CAPTURE-TIME#absolute-capture-timestamp|absolute capture timestamp]] field and set |frame|.`[[senderCaptureTimeOffset]]`
+        to the [[RTP-EXT-CAPTURE-TIME#estimated-capture-clock-offset|capture clock offset field]] if it is present.
+    1. Otherwise, if the relevant RTP packet does not contain the
+        [[RTP-EXT-CAPTURE-TIME|RTP Header Extension for Absolute Capture Time]] but a previous RTP packet did,
+        set |frame|.`[[captureTime]]` to the result of calculating the absolute capture timestamp according to
+        [[RTP-EXT-CAPTURE-TIME#timestamp-interpolation|timestamp interpolation]] and set |frame|.`[[senderCaptureTimeOffset]]`
+        to the most recent value that was present.
+    1. Otherwise, set |frame|.`[[captureTime]]` to undefined and set |frame|.`[[senderCaptureTimeOffset]]` to undefined.
+1. If the frame has been produced by a {{RTCRtpSender}}, set |frame|.`[[captureTime]]` to the capture timestamp
+    using the methodology described in [[RTP-EXT-CAPTURE-TIME#absolute-capture-timestamp]] and set frame.`[[senderCaptureTimeOffset]]`
+    to undefined.
 1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
 
 The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
@@ -293,6 +312,10 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 
 # RTCRtpScriptTransform # {#scriptTransform}
 
+In this section, the capture system refers to the system where media is sourced from and the sender system
+refers to the system that is sending RTP and RTCP packets to the receiver system where {{RTCEncodedVideoFrameMetadata}} data
+or {{RTCEncodedAudioFrameMetadata}} data is populated.
+
 ## <dfn enum>RTCEncodedVideoFrameType</dfn> dictionary ## {#RTCEncodedVideoFrameType}
 <pre class="idl">
 // New enum for video frame types. Will eventually re-use the equivalent defined
@@ -359,6 +382,8 @@ dictionary RTCEncodedVideoFrameMetadata {
     long long timestamp;    // microseconds
     unsigned long rtpTimestamp;
     DOMHighResTimeStamp receiveTime;
+    DOMHighResTimeStamp captureTime;
+    DOMHighResTimeStamp senderCaptureTimeOffset;
     DOMString mimeType;
 };
 </pre>
@@ -442,6 +467,27 @@ dictionary RTCEncodedVideoFrameMetadata {
             of the last received packet used to produce this video frame. This
             timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
             Only exists for incoming video frames.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The capture time of this frame in the capture system's clock.
+            On populating this member, the user agent MUST return the value of the frame's `[[captureTime]]` slot,
+            shifted to be relative to {{Performance}}.{{Performance/timeOrigin}}.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>senderCaptureTimeOffset</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The {{RTCEncodedVideoFrameMetadata/senderCaptureTimeOffset}} is the sender system's estimate of the offset
+            between its own NTP clock and the capture system's NTP clock, for the same frame that the
+            {{RTCEncodedVideoFrameMetadata/captureTime}} was originated from.
+            On populating this member, the user agent MUST return the value of the frame's `[[senderCaptureTimeOffset]]` slot.
         </p>
     </dd>
     <dt>
@@ -628,6 +674,8 @@ dictionary RTCEncodedAudioFrameMetadata {
     short sequenceNumber;
     unsigned long rtpTimestamp;
     DOMHighResTimeStamp receiveTime;
+    DOMHighResTimeStamp captureTime;
+    DOMHighResTimeStamp senderCaptureTimeOffset;
     DOMString mimeType;
 };
 </pre>
@@ -692,6 +740,28 @@ dictionary RTCEncodedAudioFrameMetadata {
             timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
             Only exists for incoming audio frames.
         </p>
+   </dd>
+    <dt>
+        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The capture time of this frame in the capture system's clock.
+            On populating this member, the user agent MUST return the value of the frame's `[[captureTime]]` slot,
+            shifted to be relative to {{Performance}}.{{Performance/timeOrigin}}.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>senderCaptureTimeOffset</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The {{RTCEncodedAudioFrameMetadata/senderCaptureTimeOffset}} is the sender system's estimate of the offset
+            between its own NTP clock and the capture system's NTP clock, for the same frame that the
+            {{RTCEncodedAudioFrameMetadata/captureTime}} was originated from.
+            On populating this member, the user agent MUST return the value of the frame's `[[senderCaptureTimeOffset]]` slot.
+        </p>
+    </dd>
     <dt>
         <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
     </dt>

@@ -5,9 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 60c422380, updated Thu Feb 20 19:11:22 2025 -0800" name="generator">
+  <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="c45d1252f4200a243e95e0881ea879c22ded9f3e" name="revision">
+  <meta content="3cd9f83dec3dab9467600e6128efbaffc5332496" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -695,7 +695,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-02-27">27 February 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-04-24">24 April 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1201,12 +1201,12 @@ or <code class="idl"><a data-link-type="idl" href="#dictdef-rtcencodedaudioframe
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-frameid"><code>frameId</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long③">unsigned long long</a></span><span class="idlMemberType">unsigned long long</span> 
     <dd>
      <p> An identifier for the encoded frame, monotonically increasing in decode order. Its lower
-            16 bits match the frame_number of the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1 (v1.0)">[AV1-RTP-SPEC]</a>, if present.
+            16 bits match the frame_number of the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1">[AV1-RTP-SPEC]</a>, if present.
             Only present for received frames if the Dependency Descriptor Header Extension is present. </p>
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-dependencies"><code>dependencies</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long long></code></span><span class="idlMemberType">sequence&lt;unsigned long long></span> 
     <dd>
      <p> List of frameIds of frames this frame references.
-            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1 (v1.0)">[AV1-RTP-SPEC]</a> is present. </p>
+            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1">[AV1-RTP-SPEC]</a> is present. </p>
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-synchronizationsource"><code>synchronizationSource</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
     <dd>
      <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
@@ -1714,7 +1714,7 @@ If the promise is associated to several rid values, it will be resolved when the
     <li data-md>
      <p>If <var>depacketizer</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
-     <p>If <var>depacketizer</var> is not processing video packets, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror③">InvalidStateError</a></code>, abort these steps.</p>
+     <p>If <var>depacketizer</var> does not belong to a video <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①⓪">RTCRtpReceiver</a></code>, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror③">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">In parallel</a>, run the following steps:</p>
      <ol>
@@ -2177,7 +2177,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dt id="biblio-av1">[AV1]
    <dd>Peter de Rivaz; Jack Haughton. <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf"><cite>AV1 Bitstream &amp; Decoding Process Specification</cite></a>. 8 January 2019. Standard. URL: <a href="https://aomediacodec.github.io/av1-spec/av1-spec.pdf">https://aomediacodec.github.io/av1-spec/av1-spec.pdf</a>
    <dt id="biblio-av1-rtp-spec">[AV1-RTP-SPEC]
-   <dd><a href="https://aomediacodec.github.io/av1-rtp-spec/"><cite>RTP Payload Format For AV1 (v1.0)</cite></a>. Draft Deliverable. URL: <a href="https://aomediacodec.github.io/av1-rtp-spec/">https://aomediacodec.github.io/av1-rtp-spec/</a>
+   <dd><a href="https://aomediacodec.github.io/av1-rtp-spec/"><cite>RTP Payload Format For AV1</cite></a>. Draft Deliverable. URL: <a href="https://aomediacodec.github.io/av1-rtp-spec/">https://aomediacodec.github.io/av1-rtp-spec/</a>
    <dt id="biblio-clonearraybuffer">[CloneArrayBuffer]
    <dd><a href="https://tc39.es/ecma262/#sec-clonearraybuffer"><cite>CloneArrayBuffer</cite></a>. URL: <a href="https://tc39.es/ecma262/#sec-clonearraybuffer">https://tc39.es/ecma262/#sec-clonearraybuffer</a>
    <dt id="biblio-itu-g711">[ITU-G.711]
@@ -2733,7 +2733,7 @@ let dfnPanelData = {
 "dom-sframetransformoptions-role": {"dfnID":"dom-sframetransformoptions-role","dfnText":"role","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformoptions-role"}],"title":"3. SFrameTransform"}],"url":"#dom-sframetransformoptions-role"},
 "dom-sframetransformrole-decrypt": {"dfnID":"dom-sframetransformrole-decrypt","dfnText":"\"decrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-decrypt"},
 "dom-sframetransformrole-encrypt": {"dfnID":"dom-sframetransformrole-encrypt","dfnText":"\"encrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-encrypt"},
-"e4db230f": {"dfnID":"e4db230f","dfnText":"RTCRtpReceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpreceiver"},{"id":"ref-for-dom-rtcrtpreceiver\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2462"},{"id":"ref-for-dom-rtcrtpreceiver\u2463"},{"id":"ref-for-dom-rtcrtpreceiver\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2465"},{"id":"ref-for-dom-rtcrtpreceiver\u2466"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2467"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2468"}],"title":"4.7. Operations"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
+"e4db230f": {"dfnID":"e4db230f","dfnText":"RTCRtpReceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpreceiver"},{"id":"ref-for-dom-rtcrtpreceiver\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2462"},{"id":"ref-for-dom-rtcrtpreceiver\u2463"},{"id":"ref-for-dom-rtcrtpreceiver\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2465"},{"id":"ref-for-dom-rtcrtpreceiver\u2466"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2467"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2468"}],"title":"4.7. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2460\u24ea"}],"title":"4.10. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
 "e7cb09fb": {"dfnID":"e7cb09fb","dfnText":"StructuredDeserializeWithTransfer","external":true,"refSections":[{"refs":[{"id":"ref-for-structureddeserializewithtransfer"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-structureddeserializewithtransfer\u2460"},{"id":"ref-for-structureddeserializewithtransfer\u2461"},{"id":"ref-for-structureddeserializewithtransfer\u2462"}],"title":"4.7. Operations"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserializewithtransfer"},
 "e97a9688": {"dfnID":"e97a9688","dfnText":"unsigned long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long"},{"id":"ref-for-idl-unsigned-long\u2460"},{"id":"ref-for-idl-unsigned-long\u2461"},{"id":"ref-for-idl-unsigned-long\u2462"},{"id":"ref-for-idl-unsigned-long\u2463"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-unsigned-long\u2464"},{"id":"ref-for-idl-unsigned-long\u2465"}],"title":"4.2.1. Members"},{"refs":[{"id":"ref-for-idl-unsigned-long\u2466"},{"id":"ref-for-idl-unsigned-long\u2467"},{"id":"ref-for-idl-unsigned-long\u2468"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-unsigned-long\u2460\u24ea"},{"id":"ref-for-idl-unsigned-long\u2460\u2460"}],"title":"4.4.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
 "eb5c4be3": {"dfnID":"eb5c4be3","dfnText":"Serializable","external":true,"refSections":[{"refs":[{"id":"ref-for-serializable"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-serializable\u2460"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serializable"},

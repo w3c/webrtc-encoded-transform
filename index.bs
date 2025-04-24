@@ -1070,7 +1070,7 @@ If the promise is associated to several rid values, it will be resolved when the
 
 The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
 1. If |depacketizer| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
-1. If |depacketizer| is not processing video packets, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |depacketizer| does not belong to a video {{RTCRtpReceiver}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. [=In parallel=], run the following steps:
     1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.
         Section 4.3.1 of [[RFC5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.

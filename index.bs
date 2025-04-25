@@ -620,7 +620,7 @@ interface RTCEncodedVideoFrame {
                         The data is a series of OBUs compliant to the
                         <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format">
                         low-overhead bitstream format</a> as described in Section 5 of [[AV1]].
-                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage">
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#aggregation-header">
                         AV1 aggregation header</a> is not accessible.
                     </td>
                 </tr>

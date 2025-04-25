@@ -313,8 +313,104 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 # RTCRtpScriptTransform # {#scriptTransform}
 
 In this section, the capture system refers to the system where media is sourced from and the sender system
-refers to the system that is sending RTP and RTCP packets to the receiver system where {{RTCEncodedVideoFrameMetadata}} data
-or {{RTCEncodedAudioFrameMetadata}} data is populated.
+refers to the system that is sending RTP and RTCP packets to the receiver system where {{RTCEncodedFrameMetadata}} data is populated.
+
+## <dfn dictionary>RTCEncodedFrameMetadata</dfn> dictionary ## {#RTCEncodedFrameMetadata}
+<pre class="idl">
+dictionary RTCEncodedFrameMetadata {
+    unsigned long synchronizationSource;
+    octet payloadType;
+    sequence&lt;unsigned long&gt; contributingSources;
+    unsigned long rtpTimestamp;
+    DOMHighResTimeStamp receiveTime;
+    DOMHighResTimeStamp captureTime;
+    DOMHighResTimeStamp senderCaptureTimeOffset;
+    DOMString mimeType;
+};
+</pre>
+
+### Members ### {#RTCEncodedFrameMetadata-members}
+
+<dl dfn-for="RTCEncodedFrameMetadata" class="dictionary-members">
+    <dt>
+        <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
+            used to identify the stream of RTP packets that the encoded frame object is describing.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
+    </dt>
+    <dd>
+        <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
+            that is used to describe the format of the RTP payload.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>contributingSources</dfn> <span class=
+            "idlMemberType">sequence&lt;unsigned long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>rtpTimestamp</dfn> <span class=
+            "idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>receiveTime</dfn> <span class=
+            "idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            For frames coming from an RTCRtpReceiver, represents the timestamp
+            of the last received packet used to produce this media frame. This
+            timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The capture time of this frame in the capture system's clock.
+            On populating this member, the user agent MUST return the value of the frame's `[[captureTime]]` slot,
+            shifted to be relative to {{Performance}}.{{Performance/timeOrigin}}.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>senderCaptureTimeOffset</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            The {{RTCEncodedFrameMetadata/senderCaptureTimeOffset}} is the sender system's estimate of the offset
+            between its own NTP clock and the capture system's NTP clock, for the same frame that the
+            {{RTCEncodedFrameMetadata/captureTime}} was originated from.
+            On populating this member, the user agent MUST return the value of the frame's `[[senderCaptureTimeOffset]]` slot.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
+    </dt>
+    <dd>
+        <p>
+            The codec MIME media type/subtype defined in the IANA media types registry
+            [[!IANA-MEDIA-TYPES]], e.g. audio/opus or video/VP8.
+        </p>
+    </dd>
+</dl>
 
 ## <dfn enum>RTCEncodedVideoFrameType</dfn> dictionary ## {#RTCEncodedVideoFrameType}
 <pre class="idl">
@@ -369,22 +465,14 @@ enum RTCEncodedVideoFrameType {
 
 ## <dfn dictionary>RTCEncodedVideoFrameMetadata</dfn> dictionary ## {#RTCEncodedVideoFrameMetadata}
 <pre class="idl">
-dictionary RTCEncodedVideoFrameMetadata {
+dictionary RTCEncodedVideoFrameMetadata : RTCEncodedFrameMetadata {
     unsigned long long frameId;
     sequence&lt;unsigned long long&gt; dependencies;
     unsigned short width;
     unsigned short height;
     unsigned long spatialIndex;
     unsigned long temporalIndex;
-    unsigned long synchronizationSource;
-    octet payloadType;
-    sequence&lt;unsigned long&gt; contributingSources;
     long long timestamp;    // microseconds
-    unsigned long rtpTimestamp;
-    DOMHighResTimeStamp receiveTime;
-    DOMHighResTimeStamp captureTime;
-    DOMHighResTimeStamp senderCaptureTimeOffset;
-    DOMString mimeType;
 };
 </pre>
 
@@ -411,33 +499,6 @@ dictionary RTCEncodedVideoFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
-            used to identify the stream of RTP packets that the encoded frame object is describing.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
-    </dt>
-    <dd>
-        <p>
-            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
-            that is used to describe the format of the RTP payload.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>contributingSources</dfn> <span class=
-            "idlMemberType">sequence&lt;unsigned long&gt;</span>
-    </dt>
-    <dd>
-        <p>
-            The list of contribution sources (csrc list) as defined in [[RFC3550]].
-        </p>
-    </dd>
-    <dt>
         <dfn dict-member>timestamp</dfn> <span class=
             "idlMemberType">long long</span>
     </dt>
@@ -445,58 +506,6 @@ dictionary RTCEncodedVideoFrameMetadata {
         <p>
             The media presentation timestamp (PTS) in microseconds of raw frame, matching the
             {{VideoFrame/timestamp}} for raw frames which correspond to this frame.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>rtpTimestamp</dfn> <span class=
-            "idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
-            that reflects the sampling instant of the first octet in the RTP data packet.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>receiveTime</dfn> <span class=
-            "idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            For frames coming from an RTCRtpReceiver, represents the timestamp
-            of the last received packet used to produce this video frame. This
-            timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
-            Only exists for incoming video frames.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            The capture time of this frame in the capture system's clock.
-            On populating this member, the user agent MUST return the value of the frame's `[[captureTime]]` slot,
-            shifted to be relative to {{Performance}}.{{Performance/timeOrigin}}.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>senderCaptureTimeOffset</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            The {{RTCEncodedVideoFrameMetadata/senderCaptureTimeOffset}} is the sender system's estimate of the offset
-            between its own NTP clock and the capture system's NTP clock, for the same frame that the
-            {{RTCEncodedVideoFrameMetadata/captureTime}} was originated from.
-            On populating this member, the user agent MUST return the value of the frame's `[[senderCaptureTimeOffset]]` slot.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
-    </dt>
-    <dd>
-        <p>
-            The codec MIME media type/subtype defined in the IANA media types registry
-            [[!IANA-MEDIA-TYPES]], e.g. video/VP8.
         </p>
     </dd>
 </dl>
@@ -562,7 +571,7 @@ interface RTCEncodedVideoFrame {
         <p>
             The encoded frame data. The format of the data depends on the video codec that is
             used to encode/decode the frame which can be determined by looking at the
-            {{RTCEncodedVideoFrameMetadata/mimeType}}.
+            {{RTCEncodedFrameMetadata/mimeType}}.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
             is transformed separately.
         </p>
@@ -667,47 +676,12 @@ An implementation is therefore free to choose whatever method works best.
 
 ## <dfn dictionary>RTCEncodedAudioFrameMetadata</dfn> dictionary ## {#RTCEncodedAudioFrameMetadata}
 <pre class="idl">
-dictionary RTCEncodedAudioFrameMetadata {
-    unsigned long synchronizationSource;
-    octet payloadType;
-    sequence&lt;unsigned long&gt; contributingSources;
+dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
     short sequenceNumber;
-    unsigned long rtpTimestamp;
-    DOMHighResTimeStamp receiveTime;
-    DOMHighResTimeStamp captureTime;
-    DOMHighResTimeStamp senderCaptureTimeOffset;
-    DOMString mimeType;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
 <dl dfn-for="RTCEncodedAudioFrameMetadata" class="dictionary-members">
-    <dt>
-        <dfn dict-member>synchronizationSource</dfn> <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The synchronization source (ssrc) identifier is an unsigned integer value per [[RFC3550]]
-            used to identify the stream of RTP packets that the encoded frame object is describing.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
-    </dt>
-    <dd>
-        <p>
-            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
-            that is used to describe the format of the RTP payload.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>contributingSources</dfn> <span class=
-            "idlMemberType">sequence&lt;unsigned long&gt;</span>
-    </dt>
-    <dd>
-        <p>
-            The list of contribution sources (csrc list) as defined in [[RFC3550]].
-        </p>
-    </dd>
     <dt>
         <dfn dict-member>sequenceNumber</dfn> <span class=
             "idlMemberType">short</span>
@@ -718,57 +692,6 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
         <p class="note">
             Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>rtpTimestamp</dfn> <span class="idlMemberType">unsigned long</span>
-    </dt>
-    <dd>
-        <p>
-            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
-            that reflects the sampling instant of the first octet in the RTP data packet.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>receiveTime</dfn> <span class=
-            "idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            For frames coming from an RTCRtpReceiver, represents the timestamp
-            of the last received packet used to produce this audio frame. This
-            timestamp is relative to {{Performance}}.{{Performance/timeOrigin}}.
-            Only exists for incoming audio frames.
-        </p>
-   </dd>
-    <dt>
-        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            The capture time of this frame in the capture system's clock.
-            On populating this member, the user agent MUST return the value of the frame's `[[captureTime]]` slot,
-            shifted to be relative to {{Performance}}.{{Performance/timeOrigin}}.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>senderCaptureTimeOffset</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
-    </dt>
-    <dd>
-        <p>
-            The {{RTCEncodedAudioFrameMetadata/senderCaptureTimeOffset}} is the sender system's estimate of the offset
-            between its own NTP clock and the capture system's NTP clock, for the same frame that the
-            {{RTCEncodedAudioFrameMetadata/captureTime}} was originated from.
-            On populating this member, the user agent MUST return the value of the frame's `[[senderCaptureTimeOffset]]` slot.
-        </p>
-    </dd>
-    <dt>
-        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
-    </dt>
-    <dd>
-        <p>
-            The codec MIME media type/subtype defined in the IANA media types registry
-            [[!IANA-MEDIA-TYPES]], e.g. audio/opus.
         </p>
     </dd>
 </dl>
@@ -820,7 +743,7 @@ interface RTCEncodedAudioFrame {
         <p>
             The encoded frame data. The format of the data depends on the audio codec that is
             used to encode/decode the frame which can be determined by looking at the
-            {{RTCEncodedAudioFrameMetadata/mimeType}}.
+            {{RTCEncodedFrameMetadata/mimeType}}.
             The following table gives a number of examples:
         </p>
         <table class="simple">

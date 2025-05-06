@@ -677,6 +677,7 @@ dictionary RTCEncodedAudioFrameMetadata {
     DOMHighResTimeStamp captureTime;
     DOMHighResTimeStamp senderCaptureTimeOffset;
     DOMString mimeType;
+    double audioLevel;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -769,6 +770,16 @@ dictionary RTCEncodedAudioFrameMetadata {
         <p>
             The codec MIME media type/subtype defined in the IANA media types registry
             [[!IANA-MEDIA-TYPES]], e.g. audio/opus.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>audioLevel</dfn> <span class="idlMemberType">doublt</span>
+    </dt>
+    <dd>
+        <p>
+            The audio level of this frame. The value is between 0..1 (linear), 
+            where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
+            approximately 6 dBSPL change in the sound pressure level from 0 dBov.
         </p>
     </dd>
 </dl>

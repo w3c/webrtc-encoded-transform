@@ -1044,7 +1044,7 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
     1. Gather a list of video encoders, named |videoEncoders| from |encoder|, ordered according negotiated RIDs if any.
     1. If |rid| is defined, remove from |videoEncoders| any video encoder that does not match |rid|.
     1. If |rid| is undefined, remove from |videoEncoders| all video encoders except the first one.
-    1. If |videoEncoders| is empty, reject |promise| with {{NotFoundError}} and abort these steps.
+    1. If |videoEncoders| is empty, [=queue a task=] to reject |promise| with {{NotFoundError}} and abort these steps.
         |videoEncoders| is expected to be empty if the corresponding {{RTCRtpSender}} is not active, or the corresponding {{RTCRtpSender}} track is ended.
     1. Let |videoEncoder| be the first encoder in |videoEncoders|.
     1. If |rid| is undefined, set |rid| to the RID value corresponding to |videoEncoder|.
@@ -1075,7 +1075,7 @@ The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and
     1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.
         Section 4.3.1 of [[RFC5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.
     1. Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of [[RFC5104]] and send it through |depacketizer|'s receiver.
-    1. [=Resolve=] |promise| with undefined.
+    1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 
 # RTCRtpSender extension # {#rtcrtpsender-extension}
 

@@ -177,7 +177,10 @@ As [$writeEncodedData$] ensures that the transform cannot reorder frames, this w
 
 ## Extension attribute ## {#attribute}
 
-A RTCRtpTransform has two private slots called `[[readable]]` and `[[writable]]`.
+A RTCRtpTransform has private slots:
+* `[[readable]]` of type {{ReadableStream}}.
+* `[[writable]]` of type {{WritableStream}}.
+* `[[owner]]` of type {{RTCRtpSender}} or {{RTCRtpReceiver}}, initialized to null.
 
 Each RTCRtpTransform has an <dfn abstract-op for=RTCRtpTransform>association steps</dfn> set, which is empty by default.
 
@@ -185,18 +188,20 @@ The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter step
 1. Return [=this=].`[[transform]]`.
 
 The `transform` setter steps are:
-2. Let |transform| be the argument to the setter.
-3. Let |checkedTransform| set to |transform| if it is not null or to an [=identity transform stream=] otherwise.
-3. Let |reader| be the result of [=ReadableStream/getting a reader=] for |checkedTransform|.`[[readable]]`.
-4. Let |writer| be the result of [=WritableStream/getting a writer=] for |checkedTransform|.`[[writable]]`.
-5. Initialize |newPipeToController| to a new {{AbortController}}.
-6. If [=this=].`[[pipeToController]]` is not null, run the following steps:
+1. Let |transform| be the argument to the setter.
+1. Let |checkedTransform| set to |transform| if it is not null or to an [=identity transform stream=] otherwise.
+1. If |checkedTransform|.`[[owner]]` is not null, throw a {{InvalidStateError}} and abort these steps.
+1. Let |reader| be the result of [=ReadableStream/getting a reader=] for |checkedTransform|.`[[readable]]`.
+1. Let |writer| be the result of [=WritableStream/getting a writer=] for |checkedTransform|.`[[writable]]`.
+1. Set |checkedTransform|.`[[owner]]` to [=this=].
+1. Initialize |newPipeToController| to a new {{AbortController}}.
+1. If [=this=].`[[pipeToController]]` is not null, run the following steps:
     1. [=AbortSignal/Add=] the [$chain transform algorithm$] to [=this=].`[[pipeToController]]`'s [=AbortController/signal=].
     2. [=AbortController/signal abort=] on [=this=].`[[pipeToController]]`.
-7. Else, run the [$chain transform algorithm$] steps.
-8. Set [=this=].`[[pipeToController]]` to |newPipeToController|.
-9. Set [=this=].`[[transform]]` to |transform|.
-10. Run the steps in the set of [$association steps$] of |transform| with [=this=].
+1. Else, run the [$chain transform algorithm$] steps.
+1. Set [=this=].`[[pipeToController]]` to |newPipeToController|.
+1. Set [=this=].`[[transform]]` to |transform|.
+1. Run the steps in the set of [$association steps$] of |transform| with [=this=].
 
 The <dfn abstract-op>chain transform algorithm</dfn> steps are defined as:
 1. If |newPipeToController|'s [=AbortController/signal=] is [=AbortSignal/aborted=], abort these steps.
@@ -629,7 +634,7 @@ interface RTCEncodedVideoFrame {
                         The data is a series of OBUs compliant to the
                         <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format">
                         low-overhead bitstream format</a> as described in Section 5 of [[AV1]].
-                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage">
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#aggregation-header">
                         AV1 aggregation header</a> is not accessible.
                     </td>
                 </tr>
@@ -678,6 +683,7 @@ An implementation is therefore free to choose whatever method works best.
 <pre class="idl">
 dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
     short sequenceNumber;
+    double audioLevel;
 };
 </pre>
 ### Members ### {#RTCEncodedAudioFrameMetadata-members}
@@ -692,6 +698,16 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
         </p>
         <p class="note">
             Comparing two sequence numbers requires serial number arithmetic described in [[RFC1982]].
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>audioLevel</dfn> <span class="idlMemberType">double</span>
+    </dt>
+    <dd>
+        <p>
+            The audio level of this frame. The value is between 0..1 (linear), 
+            where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
+            approximately 6 dBSPL change in the sound pressure level from 0 dBov.
         </p>
     </dd>
 </dl>
@@ -967,7 +983,7 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
     1. Gather a list of video encoders, named |videoEncoders| from |encoder|, ordered according negotiated RIDs if any.
     1. If |rid| is defined, remove from |videoEncoders| any video encoder that does not match |rid|.
     1. If |rid| is undefined, remove from |videoEncoders| all video encoders except the first one.
-    1. If |videoEncoders| is empty, reject |promise| with {{NotFoundError}} and abort these steps.
+    1. If |videoEncoders| is empty, [=queue a task=] to reject |promise| with {{NotFoundError}} and abort these steps.
         |videoEncoders| is expected to be empty if the corresponding {{RTCRtpSender}} is not active, or the corresponding {{RTCRtpSender}} track is ended.
     1. Let |videoEncoder| be the first encoder in |videoEncoders|.
     1. If |rid| is undefined, set |rid| to the RID value corresponding to |videoEncoder|.
@@ -998,7 +1014,7 @@ The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and
     1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.
         Section 4.3.1 of [[RFC5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.
     1. Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of [[RFC5104]] and send it through |depacketizer|'s receiver.
-    1. [=Resolve=] |promise| with undefined.
+    1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 
 # RTCRtpSender extension # {#rtcrtpsender-extension}
 

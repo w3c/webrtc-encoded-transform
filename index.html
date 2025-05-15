@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="3cd9f83dec3dab9467600e6128efbaffc5332496" name="revision">
+  <meta content="8c38a88d3fe9b6d5a938f23937d768a2d0c066b6" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -695,7 +695,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-04-24">24 April 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-05-15">15 May 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1318,7 +1318,7 @@ or <code class="idl"><a data-link-type="idl" href="#dictdef-rtcencodedaudioframe
        <tr>
         <td> video/AV1 
         <td> The data is a series of OBUs compliant to the <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format"> low-overhead bitstream format</a> as described in Section 5 of <a data-link-type="biblio" href="#biblio-av1" title="AV1 Bitstream &amp; Decoding Process Specification">[AV1]</a>.
-                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#41-rtp-header-usage"> AV1 aggregation header</a> is not accessible. 
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#aggregation-header"> AV1 aggregation header</a> is not accessible. 
      </table>
    </dl>
    <h4 class="heading settled" data-level="4.3.3" id="RTCEncodedVideoFrame-methods"><span class="secno">4.3.3. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedVideoFrame-methods"></a></h4>
@@ -1363,6 +1363,7 @@ An implementation is therefore free to choose whatever method works best. </p>
     <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp⑦"><c- n>DOMHighResTimeStamp</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMHighResTimeStamp" href="#dom-rtcencodedaudioframemetadata-capturetime" id="ref-for-dom-rtcencodedaudioframemetadata-capturetime"><c- g>captureTime</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp⑧"><c- n>DOMHighResTimeStamp</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMHighResTimeStamp" href="#dom-rtcencodedaudioframemetadata-sendercapturetimeoffset" id="ref-for-dom-rtcencodedaudioframemetadata-sendercapturetimeoffset"><c- g>senderCaptureTimeOffset</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString" href="#dom-rtcencodedaudioframemetadata-mimetype" id="ref-for-dom-rtcencodedaudioframemetadata-mimetype"><c- g>mimeType</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double"><c- b>double</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="double" href="#dom-rtcencodedaudioframemetadata-audiolevel" id="ref-for-dom-rtcencodedaudioframemetadata-audiolevel"><c- g>audioLevel</c-></a>;
 };
 </pre>
    <h4 class="heading settled" data-level="4.4.1" id="RTCEncodedAudioFrameMetadata-members"><span class="secno">4.4.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata-members"></a></h4>
@@ -1402,6 +1403,11 @@ An implementation is therefore free to choose whatever method works best. </p>
     <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-mimetype"><code>mimeType</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString④">DOMString</a></span><span class="idlMemberType">DOMString</span> 
     <dd>
      <p> The codec MIME media type/subtype defined in the IANA media types registry <a data-link-type="biblio" href="#biblio-iana-media-types" title="Media Types">[IANA-MEDIA-TYPES]</a>, e.g. audio/opus. </p>
+    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-audiolevel"><code>audioLevel</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double①">double</a></span><span class="idlMemberType">double</span> 
+    <dd>
+     <p> The audio level of this frame. The value is between 0..1 (linear), 
+            where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
+            approximately 6 dBSPL change in the sound pressure level from 0 dBov. </p>
    </dl>
    <h3 class="heading settled" data-level="4.5" id="RTCEncodedAudioFrame-interface"><span class="secno">4.5. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe"><code>RTCEncodedAudioFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframeoptions"><code><c- g>RTCEncodedAudioFrameOptions</c-></code></dfn> {
@@ -1668,7 +1674,7 @@ these steps.</p>
       <li data-md>
        <p>If <var>rid</var> is undefined, remove from <var>videoEncoders</var> all video encoders except the first one.</p>
       <li data-md>
-       <p>If <var>videoEncoders</var> is empty, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①⓪">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> track is ended.</p>
+       <p>If <var>videoEncoders</var> is empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①⓪">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> track is ended.</p>
       <li data-md>
        <p>Let <var>videoEncoder</var> be the first encoder in <var>videoEncoders</var>.</p>
       <li data-md>
@@ -1724,7 +1730,7 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec 
       <li data-md>
        <p>Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> and send it through <var>depacketizer</var>’s receiver.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">Resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑤">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
    </ol>
    <h2 class="heading settled" data-level="5" id="rtcrtpsender-extension"><span class="secno">5. </span><span class="content">RTCRtpSender extension</span><a class="self-link" href="#rtcrtpsender-extension"></a></h2>
@@ -1807,6 +1813,7 @@ and may not be audited for reception of data from untrusted sources.</p>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#abstract-opdef-rtcrtptransform-association-steps">association steps</a><span>, in § 2.2</span>
+   <li><a href="#dom-rtcencodedaudioframemetadata-audiolevel">audioLevel</a><span>, in § 4.4.1</span>
    <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in § 3</span>
    <li>
     captureTime
@@ -2097,7 +2104,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="93b563b6">timestamp</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[WebCryptoAPI]</a> defines the following terms:
+    <a data-link-type="biblio">[WEBCRYPTO-2]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="5fc623fc">CryptoKey</span>
     </ul>
@@ -2120,6 +2127,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="8f5c2179">a promise resolved with</span>
      <li><span class="dfn-paneled" id="6c6b1005">any</span>
      <li><span class="dfn-paneled" id="bdcd112d">bigint</span>
+     <li><span class="dfn-paneled" id="8c800cdf">double</span>
      <li><span class="dfn-paneled" id="9aeb0a82">long long</span>
      <li><span class="dfn-paneled" id="efd1ec5d">object</span>
      <li><span class="dfn-paneled" id="bc5645aa">octet</span>
@@ -2165,8 +2173,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Adam Rice; et al. <a href="https://streams.spec.whatwg.org/"><cite>Streams Standard</cite></a>. Living Standard. URL: <a href="https://streams.spec.whatwg.org/">https://streams.spec.whatwg.org/</a>
    <dt id="biblio-webcodecs">[WEBCODECS]
    <dd>Paul Adenot; Eugene Zemtsov. <a href="https://w3c.github.io/webcodecs/"><cite>WebCodecs</cite></a>. URL: <a href="https://w3c.github.io/webcodecs/">https://w3c.github.io/webcodecs/</a>
-   <dt id="biblio-webcryptoapi">[WebCryptoAPI]
-   <dd>Mark Watson. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography API</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
+   <dt id="biblio-webcrypto-2">[WEBCRYPTO-2]
+   <dd>Daniel Huigens. <a href="https://w3c.github.io/webcrypto/"><cite>Web Cryptography Level 2</cite></a>. URL: <a href="https://w3c.github.io/webcrypto/">https://w3c.github.io/webcrypto/</a>
    <dt id="biblio-webidl">[WEBIDL]
    <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
    <dt id="biblio-webrtc">[WEBRTC]
@@ -2312,6 +2320,7 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp"><c- n>DOMHighResTimeStamp</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMHighResTimeStamp" href="#dom-rtcencodedaudioframemetadata-capturetime"><c- g>captureTime</c-></a>;
     <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp"><c- n>DOMHighResTimeStamp</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMHighResTimeStamp" href="#dom-rtcencodedaudioframemetadata-sendercapturetimeoffset"><c- g>senderCaptureTimeOffset</c-></a>;
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString" href="#dom-rtcencodedaudioframemetadata-mimetype"><c- g>mimeType</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-double"><c- b>double</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="double" href="#dom-rtcencodedaudioframemetadata-audiolevel"><c- g>audioLevel</c-></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-rtcencodedaudioframeoptions"><code><c- g>RTCEncodedAudioFrameOptions</c-></code></a> {
@@ -2600,9 +2609,10 @@ let dfnPanelData = {
 "888d7c65": {"dfnID":"888d7c65","dfnText":"deserialization steps","external":true,"refSections":[{"refs":[{"id":"ref-for-deserialization-steps"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-deserialization-steps\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#deserialization-steps"},
 "889e932f": {"dfnID":"889e932f","dfnText":"Exposed","external":true,"refSections":[{"refs":[{"id":"ref-for-Exposed"},{"id":"ref-for-Exposed\u2460"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-Exposed\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-Exposed\u2462"}],"title":"4.5. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-Exposed\u2463"},{"id":"ref-for-Exposed\u2464"},{"id":"ref-for-Exposed\u2465"},{"id":"ref-for-Exposed\u2466"}],"title":"4.6. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#Exposed"},
 "8c407366": {"dfnID":"8c407366","dfnText":"cancelable","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-event-cancelable"}],"title":"4.9. Events"}],"url":"https://dom.spec.whatwg.org/#dom-event-cancelable"},
+"8c800cdf": {"dfnID":"8c800cdf","dfnText":"double","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-double"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-double\u2460"}],"title":"4.4.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-double"},
 "8f5c2179": {"dfnID":"8f5c2179","dfnText":"a promise resolved with","external":true,"refSections":[{"refs":[{"id":"ref-for-a-promise-resolved-with"},{"id":"ref-for-a-promise-resolved-with\u2460"},{"id":"ref-for-a-promise-resolved-with\u2461"}],"title":"2.1.2. Stream processing"}],"url":"https://webidl.spec.whatwg.org/#a-promise-resolved-with"},
 "93b563b6": {"dfnID":"93b563b6","dfnText":"timestamp","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-videoframe-timestamp"}],"title":"4.2.1. Members"}],"url":"https://w3c.github.io/webcodecs/#dom-videoframe-timestamp"},
-"9a517a7d": {"dfnID":"9a517a7d","dfnText":"queue a task","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-a-task"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-queue-a-task\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-queue-a-task\u2461"},{"id":"ref-for-queue-a-task\u2462"}],"title":"4.7. Operations"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task"},
+"9a517a7d": {"dfnID":"9a517a7d","dfnText":"queue a task","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-a-task"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-queue-a-task\u2460"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-queue-a-task\u2461"},{"id":"ref-for-queue-a-task\u2462"}],"title":"4.7. Operations"},{"refs":[{"id":"ref-for-queue-a-task\u2463"},{"id":"ref-for-queue-a-task\u2464"}],"title":"4.10. KeyFrame Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task"},
 "9aeb0a82": {"dfnID":"9aeb0a82","dfnText":"long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-long-long"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-long-long\u2460"}],"title":"4.2.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-long-long"},
 "9cce47fd": {"dfnID":"9cce47fd","dfnText":"sequence","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-sequence"},{"id":"ref-for-idl-sequence\u2460"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2461"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2462"}],"title":"4.6. Interfaces"},{"refs":[{"id":"ref-for-idl-sequence\u2463"}],"title":"5. RTCRtpSender extension"}],"url":"https://webidl.spec.whatwg.org/#idl-sequence"},
 "9da834a1": {"dfnID":"9da834a1","dfnText":"StructuredSerializeWithTransfer","external":true,"refSections":[{"refs":[{"id":"ref-for-structuredserializewithtransfer"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-structuredserializewithtransfer\u2460"},{"id":"ref-for-structuredserializewithtransfer\u2461"},{"id":"ref-for-structuredserializewithtransfer\u2462"}],"title":"4.7. Operations"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer"},
@@ -2655,6 +2665,7 @@ let dfnPanelData = {
 "dom-rtcencodedaudioframe-rtcencodedaudioframe": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe","dfnText":"constructor","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe"},
 "dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-options"},
 "dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe": {"dfnID":"dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe","dfnText":"originalFrame","external":false,"refSections":[],"url":"#dom-rtcencodedaudioframe-rtcencodedaudioframe-originalframe-options-originalframe"},
+"dom-rtcencodedaudioframemetadata-audiolevel": {"dfnID":"dom-rtcencodedaudioframemetadata-audiolevel","dfnText":"audioLevel","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-audiolevel"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-audiolevel"},
 "dom-rtcencodedaudioframemetadata-capturetime": {"dfnID":"dom-rtcencodedaudioframemetadata-capturetime","dfnText":"captureTime","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-capturetime"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-capturetime\u2460"}],"title":"4.4.1. Members"}],"url":"#dom-rtcencodedaudioframemetadata-capturetime"},
 "dom-rtcencodedaudioframemetadata-contributingsources": {"dfnID":"dom-rtcencodedaudioframemetadata-contributingsources","dfnText":"contributingSources","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-contributingsources"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dom-rtcencodedaudioframemetadata-contributingsources"},
 "dom-rtcencodedaudioframemetadata-mimetype": {"dfnID":"dom-rtcencodedaudioframemetadata-mimetype","dfnText":"mimeType","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedaudioframemetadata-mimetype\u2460"}],"title":"4.5.2. Members"}],"url":"#dom-rtcencodedaudioframemetadata-mimetype"},
@@ -3162,6 +3173,7 @@ let refsData = {
 "#dom-keyframerequestevent-rid": {"displayText":"rid","export":true,"for_":["KeyFrameRequestEvent"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"rid","type":"attribute","url":"#dom-keyframerequestevent-rid"},
 "#dom-rtcencodedaudioframe-data": {"displayText":"data","export":true,"for_":["RTCEncodedAudioFrame"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"data","type":"attribute","url":"#dom-rtcencodedaudioframe-data"},
 "#dom-rtcencodedaudioframe-getmetadata": {"displayText":"getMetadata()","export":true,"for_":["RTCEncodedAudioFrame"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"getMetadata()","type":"method","url":"#dom-rtcencodedaudioframe-getmetadata"},
+"#dom-rtcencodedaudioframemetadata-audiolevel": {"displayText":"audioLevel","export":true,"for_":["RTCEncodedAudioFrameMetadata"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"audioLevel","type":"dict-member","url":"#dom-rtcencodedaudioframemetadata-audiolevel"},
 "#dom-rtcencodedaudioframemetadata-capturetime": {"displayText":"captureTime","export":true,"for_":["RTCEncodedAudioFrameMetadata"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"captureTime","type":"dict-member","url":"#dom-rtcencodedaudioframemetadata-capturetime"},
 "#dom-rtcencodedaudioframemetadata-contributingsources": {"displayText":"contributingSources","export":true,"for_":["RTCEncodedAudioFrameMetadata"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"contributingSources","type":"dict-member","url":"#dom-rtcencodedaudioframemetadata-contributingsources"},
 "#dom-rtcencodedaudioframemetadata-mimetype": {"displayText":"mimeType","export":true,"for_":["RTCEncodedAudioFrameMetadata"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"mimeType","type":"dict-member","url":"#dom-rtcencodedaudioframemetadata-mimetype"},
@@ -3264,7 +3276,7 @@ let refsData = {
 "https://w3c.github.io/hr-time/#dom-performance-timeorigin": {"displayText":"timeOrigin","export":true,"for_":["Performance"],"level":"3","normative":true,"shortname":"hr-time","spec":"hr-time-3","status":"current","text":"timeOrigin","type":"attribute","url":"https://w3c.github.io/hr-time/#dom-performance-timeorigin"},
 "https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack": {"displayText":"MediaStreamTrack","export":true,"for_":[],"level":"1","normative":true,"shortname":"mediacapture-streams","spec":"mediacapture-streams","status":"current","text":"MediaStreamTrack","type":"interface","url":"https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack"},
 "https://w3c.github.io/webcodecs/#dom-videoframe-timestamp": {"displayText":"timestamp","export":true,"for_":["VideoFrame"],"level":"1","normative":true,"shortname":"webcodecs","spec":"webcodecs","status":"current","text":"timestamp","type":"attribute","url":"https://w3c.github.io/webcodecs/#dom-videoframe-timestamp"},
-"https://w3c.github.io/webcrypto/#dfn-CryptoKey": {"displayText":"CryptoKey","export":true,"for_":[],"level":"1","normative":true,"shortname":"webcryptoapi","spec":"webcryptoapi","status":"current","text":"CryptoKey","type":"interface","url":"https://w3c.github.io/webcrypto/#dfn-CryptoKey"},
+"https://w3c.github.io/webcrypto/#dfn-CryptoKey": {"displayText":"CryptoKey","export":true,"for_":[],"level":"2","normative":true,"shortname":"webcrypto","spec":"webcrypto-2","status":"current","text":"CryptoKey","type":"interface","url":"https://w3c.github.io/webcrypto/#dfn-CryptoKey"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration": {"displayText":"RTCConfiguration","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCConfiguration","type":"dictionary","url":"https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection": {"displayText":"RTCPeerConnection","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCPeerConnection","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver": {"displayText":"RTCRtpReceiver","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpReceiver","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
@@ -3281,6 +3293,7 @@ let refsData = {
 "https://webidl.spec.whatwg.org/#idl-DOMString": {"displayText":"DOMString","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"DOMString","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-DOMString"},
 "https://webidl.spec.whatwg.org/#idl-any": {"displayText":"any","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"any","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-any"},
 "https://webidl.spec.whatwg.org/#idl-bigint": {"displayText":"bigint","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"bigint","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-bigint"},
+"https://webidl.spec.whatwg.org/#idl-double": {"displayText":"double","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"double","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-double"},
 "https://webidl.spec.whatwg.org/#idl-long-long": {"displayText":"long long","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"long long","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-long-long"},
 "https://webidl.spec.whatwg.org/#idl-object": {"displayText":"object","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"object","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-object"},
 "https://webidl.spec.whatwg.org/#idl-octet": {"displayText":"octet","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"octet","type":"interface","url":"https://webidl.spec.whatwg.org/#idl-octet"},

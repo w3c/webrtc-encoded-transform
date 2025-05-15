@@ -773,7 +773,7 @@ dictionary RTCEncodedAudioFrameMetadata {
         </p>
     </dd>
     <dt>
-        <dfn dict-member>audioLevel</dfn> <span class="idlMemberType">doublt</span>
+        <dfn dict-member>audioLevel</dfn> <span class="idlMemberType">double</span>
     </dt>
     <dd>
         <p>

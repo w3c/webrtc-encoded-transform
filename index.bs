@@ -711,7 +711,7 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
 
             If the frame comes from a remotely sourced track, this MUST be
             converted from the level value defined in [[!RFC6464]]. If the 
-            RFC 6464 header extension is not present in the received packets,
+            [[!RFC6464]] header extension is not present in the received packets,
             this value SHOULD be absent.
             This RFC defines the audio level as an integral value from 0 to 127
             representing the audio level in negative decibels relative to the
@@ -724,7 +724,7 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
 
             If the frame comes from a locally sourced track, the level MUST be
             taken directly from the source and used as input to generate a value
-            for the RFC 6464 header extension, if negotiated.
+            for the [[!RFC6464]] header extension, if negotiated.
         </p>
     </dd>
 </dl>

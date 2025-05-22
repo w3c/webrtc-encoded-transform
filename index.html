@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="73c546481384b21a72a45d7f829054eace08ea9f" name="revision">
+  <meta content="cf0e77a7e4f372ef8e6e4cb1f1cdfb2d2bcb3d71" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -695,7 +695,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-05-15">15 May 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-05-22">22 May 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1391,6 +1391,20 @@ An implementation is therefore free to choose whatever method works best. </p>
      <p> The audio level of this frame. The value is between 0..1 (linear), 
             where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
             approximately 6 dBSPL change in the sound pressure level from 0 dBov. </p>
+     <p>If the frame comes from a remotely sourced track, this MUST be
+            converted from the level value defined in <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a>. If the <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a> header extension is not present in the received packets of the frame,
+            this value MUST be absent.
+            This RFC defines the audio level as an integral value from 0 to 127
+            representing the audio level in negative decibels relative to the
+            loudest signal that the system could possibly encode. Thus, 0
+            represents the loudest signal the system could possibly encode,
+            and 127 represents silence. To convert these values to the linear
+            0..1 range, a value of 127 is converted to 0, and all other values
+            are converted using the equation: <code class="math">10^(-rfc_level/20)</code>.</p>
+     <p>If the frame comes from a locally sourced track, the level MUST be
+            taken directly from the source and used as input to generate a value
+            for the <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a> header extension, if negotiated.</p>
+     <p></p>
    </dl>
    <h3 class="heading settled" data-level="4.6" id="RTCEncodedAudioFrame-interface"><span class="secno">4.6. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedaudioframe"><code>RTCEncodedAudioFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedAudioFrame-interface"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframeoptions"><code><c- g>RTCEncodedAudioFrameOptions</c-></code></dfn> {
@@ -2109,6 +2123,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Cullen Jennings; et al. <a href="https://w3c.github.io/mediacapture-main/"><cite>Media Capture and Streams</cite></a>. URL: <a href="https://w3c.github.io/mediacapture-main/">https://w3c.github.io/mediacapture-main/</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-rfc6464">[RFC6464]
+   <dd>J. Lennox, Ed.; E. Ivov; E. Marocco. <a href="https://www.rfc-editor.org/rfc/rfc6464"><cite>A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication</cite></a>. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6464">https://www.rfc-editor.org/rfc/rfc6464</a>
    <dt id="biblio-rfc8851">[RFC8851]
    <dd>A.B. Roach, Ed.. <a href="https://www.rfc-editor.org/rfc/rfc8851"><cite>RTP Payload Format Restrictions</cite></a>. January 2021. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8851">https://www.rfc-editor.org/rfc/rfc8851</a>
    <dt id="biblio-rtp-ext-capture-time">[RTP-EXT-CAPTURE-TIME]

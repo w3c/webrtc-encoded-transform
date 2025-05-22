@@ -709,12 +709,10 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
             where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
             approximately 6 dBSPL change in the sound pressure level from 0 dBov.
 
-            If the frame comes from a locally sourced track, the level MUST be
-            taken directly from the source.
-
-            For remotely sourced tracks, this MUST be converted from the level
-            value defined in [[!RFC6464]]. If the RFC 6464 header extension is
-            not present in the received packets, this value SHOULD be absent.
+            If the frame comes from a remotely sourced track, this MUST be
+            converted from the level value defined in [[!RFC6464]]. If the 
+            RFC 6464 header extension is not present in the received packets,
+            this value SHOULD be absent.
             This RFC defines the audio level as an integral value from 0 to 127
             representing the audio level in negative decibels relative to the
             loudest signal that the system could possibly encode. Thus, 0
@@ -723,6 +721,10 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
             0..1 range, a value of 127 is converted to 0, and all other values
             are converted using the equation:
             <code class="math">10^(-rfc_level/20)</code>.
+
+            If the frame comes from a locally sourced track, the level MUST be
+            taken directly from the source and used as input to generate a value
+            for the RFC 6464 header extension, if negotiated.
         </p>
     </dd>
 </dl>

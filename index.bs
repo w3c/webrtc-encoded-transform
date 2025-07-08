@@ -885,6 +885,10 @@ partial interface DedicatedWorkerGlobalScope {
     attribute EventHandler onrtctransform;
 };
 
+interface mixin KeyFrameRequest {
+    Promise&lt;undefined&gt; generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
+};
+
 [Exposed=DedicatedWorker]
 interface RTCRtpScriptTransformer : EventTarget {
     // Attributes and methods related to the transformer source
@@ -897,6 +901,7 @@ interface RTCRtpScriptTransformer : EventTarget {
     // Attributes for configuring the Javascript code
     readonly attribute any options;
 };
+RTCRtpScriptTransformer includes KeyFrameRequest;
 
 [Exposed=Window]
 interface RTCRtpScriptTransform {
@@ -941,11 +946,6 @@ Each RTCRtpScriptTransform has the following set of [$association steps$], given
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
 
-The <dfn method for="RTCRtpScriptTransform">generateKeyFrame(|rid|)</dfn> method steps are:
-1. Let |promise| be a new promise.
-1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
-1. Return |promise|.
-
 The <dfn method for="RTCRtpScriptTransform">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
@@ -987,6 +987,13 @@ or Full Intra Refresh (FIR), queue a task to perform the following steps:
 1. [=Fire an event=] named `keyframerequest` at |transform| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
 1. If the event's [=Event/canceled flag=] is true, abort these steps.
 1. Run the [$generate key frame algorithm$] with a new promise, |transform|.`[[encoder]]` and |rid|.
+
+## KeyFrameRequest Operations ## {#KeyFrameRequest-operations}
+
+The <dfn method for="KeyFrameRequest">generateKeyFrame(|rid|)</dfn> method steps are:
+1. Let |promise| be a new promise.
+1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
+1. Return |promise|.
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 
@@ -1038,18 +1045,8 @@ The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and
 An additional API on {{RTCRtpSender}} is added to complement the generation of key frame added to {{RTCRtpScriptTransformer}}.
 
 <pre class="idl">
-partial interface RTCRtpSender {
-    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
-};
+RTCRtpSender includes KeyFrameRequest;
 </pre>
-
-## Extension operation ## {#sender-operation}
-
-The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
-
-1. Let |promise| be a new promise.
-1. [=In parallel=], run the [$generate key frame algorithm$] with |promise|, |this|'s encoder and |rids|.
-1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}
 

@@ -19,11 +19,6 @@ spec:webidl; type:dfn; text:resolve
 </pre>
 <pre class=biblio>
 {
-  "SFRAME": {
-     "href":
-     "https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html",
-     "title": "Secure Frame (SFrame)"
-   },
    "VP9": {
     "href":
     "https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf",
@@ -221,7 +216,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 # SFrameTransform # {#sframe}
 
 <p>
-The API presented in this section allows applications to process SFrame data as defined in [[SFrame]].
+The API presented in this section allows applications to process SFrame data using specific cipher suites defined in [[RFC9605]].
 </p>
 
 <xmp class="idl">
@@ -230,8 +225,18 @@ enum SFrameTransformRole {
     "decrypt"
 };
 
+// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
+enum SFrameCipherSuite {
+     "AES_128_CTR_HMAC_SHA256_80",
+     "AES_128_CTR_HMAC_SHA256_64",
+     "AES_128_CTR_HMAC_SHA256_32",
+     "AES_128_GCM_SHA256_128",
+     "AES_256_GCM_SHA512_128"
+};
+
 dictionary SFrameTransformOptions {
     SFrameTransformRole role = "encrypt";
+    required SFrameCipherSuite cipherSuite;
 };
 
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
@@ -269,12 +274,13 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with |this| and |frame|.
-2. Set |this|.`[[transform]]` to a new {{TransformStream}}.
-3. <a dfn for="ReadableStream">Set up</a> [=this=].`[[transform]]` with [=TransformStream/set up/transformAlgorithm=] set to |transformAlgorithm|.
-4. Let |options| be the method's first argument.
-5. Set |this|.`[[role]]` to |options|["{{SFrameTransformOptions/role}}"].
-6. Set |this|.`[[readable]]` to |this|.`[[transform]]`.`[[readable]]`.
-7. Set |this|.`[[writable]]` to |this|.`[[transform]]`.`[[writable]]`.
+1. Set |this|.`[[transform]]` to a new {{TransformStream}}.
+1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[transform]]` with [=TransformStream/set up/transformAlgorithm=] set to |transformAlgorithm|.
+1. Let |options| be the method's first argument.
+1. Set |this|.`[[role]]` to |options|["{{SFrameTransformOptions/role}}"].
+1. Set |this|.`[[cipherSuite]]` to |options|["{{SFrameTransformOptions/cipherSuite}}"].
+1. Set |this|.`[[readable]]` to |this|.`[[transform]]`.`[[readable]]`.
+1. Set |this|.`[[writable]]` to |this|.`[[transform]]`.`[[writable]]`.
 
 ## Algorithm ## {#sframe-transform-algorithm}
 
@@ -287,7 +293,7 @@ The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |
 1. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}
 1. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
 1. If |data| is undefined, abort these steps.
-1. Let |buffer| be the result of running the SFrame algorithm with |data| and |role| as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an {{ArrayBuffer}}.
+1. Let |buffer| be the result of running the SFrame algorithm with |data|, |sframe|.`[[cipherSuite]]`, and |role| as parameters. This algorithm is defined by [[RFC9605]] and returns an {{ArrayBuffer}}.
 1. If the SFrame algorithm exits abruptly with an error, [=queue a task=] to run the following sub steps:
      1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/syntax}}
@@ -309,7 +315,7 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 1. Let |promise| be [=a new promise=].
 2. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception.
 3. Otherwise, [=in parallel=], run the following steps:
-    1. Set |key| with its optional |keyID| as key material to use for the SFrame transform algorithm, as defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a>.
+    1. Set |key| with its optional |keyID| as key material to use for the SFrame transform algorithm, as defined by [[RFC9605]].
     2. If setting the key material fails, [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
     3. [=Resolve=] |promise| with undefined.
 4. Return |promise|.

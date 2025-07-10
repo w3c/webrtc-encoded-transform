@@ -886,7 +886,7 @@ partial interface DedicatedWorkerGlobalScope {
 };
 
 interface mixin KeyFrameRequest {
-    Promise&lt;undefined&gt; generateKeyFrame(optional sequence&lt;DOMString&gt; rids);
+    Promise&lt;undefined&gt; generateKeyFrame(optional DOMString rid);
 };
 
 [Exposed=DedicatedWorker]

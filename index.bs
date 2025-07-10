@@ -947,12 +947,12 @@ Each RTCRtpScriptTransform has the following set of [$association steps$], given
     1. Set |transformer|.`[[encoder]]` to |encoder|.
     1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
 
-The <dfn method for="RTCRtpScriptTransform">generateKeyFrame(|rid|)</dfn> method steps are:
+The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
 1. Return |promise|.
 
-The <dfn method for="RTCRtpScriptTransform">sendKeyFrameRequest()</dfn> method steps are:
+The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
 1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
 1. Return |promise|.
@@ -966,15 +966,15 @@ This allows algorithms to go from an {{RTCRtpScriptTransformer}} object to its {
 The <dfn attribute for="RTCRtpScriptTransformer">options</dfn> getter steps are:
 1. Return [=this=].`[[options]]`.
 
-The <dfn attribute for="RTCRtpScriptTransform">readable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptTransformer">readable</dfn> getter steps are:
 1. Return [=this=].`[[readable]]`.
 
-The <dfn attribute for="RTCRtpScriptTransform">writable</dfn> getter steps are:
+The <dfn attribute for="RTCRtpScriptTransformer">writable</dfn> getter steps are:
 1. Return [=this=].`[[writable]]`.
 
-The <dfn attribute for="RTCRtpScriptTransform">onbandwidthestimate</dfn> EventHandler has type bandwidthestimate.
+The <dfn attribute for="RTCRtpScriptTransformer">onbandwidthestimate</dfn> EventHandler has type bandwidthestimate.
 
-The <dfn attribute for="RTCRtpScriptTransform">onkeyframerequest</dfn> EventHandler has type keyframerequest.
+The <dfn attribute for="RTCRtpScriptTransformer">onkeyframerequest</dfn> EventHandler has type keyframerequest.
 
 ## Events ## {#RTCRtpScriptTransformer-events}
 

@@ -5,9 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version b25686b9f, updated Fri Mar 14 14:15:20 2025 -0700" name="generator">
+  <meta content="Bikeshed version 618007319, updated Thu Jun 26 17:23:55 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="cf0e77a7e4f372ef8e6e4cb1f1cdfb2d2bcb3d71" name="revision">
+  <meta content="67dde1a16a00cb29894e346585432932fcca7646" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -693,9 +693,13 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/">
+    <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
+</a>
+</p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-05-22">22 May 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
+    <time class="dt-updated" datetime="2025-07-10">10 July 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -715,32 +719,50 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply.
+</p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>This API defines an API surface for manipulating the bits on <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack" id="ref-for-dom-mediastreamtrack">MediaStreamTrack</a></code>s being sent via an <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection">RTCPeerConnection</a></code>.</p>
+   <p>This API defines an API surface for manipulating the bits on
+<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/mediacapture-main/#dom-mediastreamtrack" id="ref-for-dom-mediastreamtrack">MediaStreamTrack</a></code>s being sent via an <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection">RTCPeerConnection</a></code>.</p>
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
-   <p> This is a public copy of the editors’ draft.
+   <p>
+	This is a public copy of the editors’ draft.
 	It is provided for discussion only and may change at any moment.
 	Its publication here does not imply endorsement of its contents by W3C.
-	Don’t cite this document other than as work in progress. </p>
-   <p> If you wish to make comments regarding this document, please send them to <a href="mailto:public-webrtc@w3.org?Subject=%5Bwebrtc-encoded-transform%5D%20PUT%20SUBJECT%20HERE">public-webrtc@w3.org</a> (<a href="mailto:public-webrtc-request@w3.org?subject=subscribe">subscribe</a>, <a href="https://lists.w3.org/Archives/Public/public-webrtc/">archives</a>).
+	Don’t cite this document other than as work in progress.
+</p>
+   <p>
+	If you wish to make comments regarding this document, please send them to
+	<a href="mailto:public-webrtc@w3.org?Subject=%5Bwebrtc-encoded-transform%5D%20PUT%20SUBJECT%20HERE">public-webrtc@w3.org</a>
+	(<a href="mailto:public-webrtc-request@w3.org?subject=subscribe">subscribe</a>,
+	<a href="https://lists.w3.org/Archives/Public/public-webrtc/">archives</a>).
 	When sending e-mail,
 	please put the text “webrtc-encoded-transform” in the subject,
 	preferably like this:
 	“[webrtc-encoded-transform] <em>…summary of comment…</em>”.
-	All comments are welcome. </p>
-   <p> This document was produced by the <a href="https://www.w3.org/groups/wg/webrtc">Web Real-Time Communications Working Group</a>. </p>
-   <p> This document was produced by a group operating under
+	All comments are welcome.
+</p>
+   <p>
+	This document was produced by the
+  <a href="https://www.w3.org/groups/wg/webrtc">Web Real-Time Communications Working Group</a>.
+</p>
+   <p>
+	This document was produced by a group operating under
 	the <a href="https://www.w3.org/policies/patent-policy/">W3C Patent Policy</a>.
-	W3C maintains a <a href="https://www.w3.org/2004/01/pp-impl/47318/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group;
+	W3C maintains a <a href="https://www.w3.org/2004/01/pp-impl/47318/status" rel="disclosure">public list of any patent disclosures</a>
+	made in connection with the deliverables of the group;
 	that page also includes instructions for disclosing a patent.
-	An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>. </p>
+	An individual who has actual knowledge of a patent that the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a>
+	must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.
+</p>
+   <p>
+  This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>.
+</p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -842,7 +864,9 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <p>Untrusted JavaScript Cloud Conferencing</p>
    </ul>
    which requires that the conferencing server does not have access
-to the cleartext media (requirement N27). 
+to the cleartext media (requirement N27).
+
+
    <p>This specification provides access to encoded media,
 which is the output of the encoder part of a codec and the input to the
 decoder part of a codec which allows the user agent to apply encryption
@@ -868,7 +892,8 @@ insert the processing into the pipeline.</p>
 </pre>
    <h3 class="heading settled" data-level="2.1" id="operation"><span class="secno">2.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
    <p>At the time when a codec is initialized as part of the encoder, and the
-corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>’s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration">RTCConfiguration</a></code> argument, ensure that the codec is disabled and produces no output.</p>
+corresponding flag is set in the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection" id="ref-for-dom-rtcpeerconnection①">RTCPeerConnection</a></code>’s <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration" id="ref-for-dom-rtcconfiguration">RTCConfiguration</a></code>
+argument, ensure that the codec is disabled and produces no output.</p>
    <h4 class="heading settled" data-level="2.1.1" id="stream-creation"><span class="secno">2.1.1. </span><span class="content">Stream creation</span><a class="self-link" href="#stream-creation"></a></h4>
    <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender②">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver②">RTCRtpReceiver</a></code>, run the following steps:</p>
    <ol>
@@ -900,12 +925,14 @@ corresponding flag is set in the <code class="idl"><a data-link-type="idl" href=
        <p>Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a>.<code>[[readable]]</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①②">this</a>.<code>[[writable]]</code>, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>.<code>[[pipeToController]]</code>’s <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#abortcontroller-signal" id="ref-for-abortcontroller-signal">signal</a>.</p>
      </ol>
    </ol>
-   <p class="note" role="note"> Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
+   <p class="note" role="note">
+Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
 This proves useful in contexts where reliability is essential and latency is less of a concern.
 On the other hand, WebRTC media pipelines favour low latency over reliability, for instance by allowing to drop frames at various places and by using recovery mechanisms.
 Buffering within a transform would add latency without allowing web applications to adapt much.
 The User Agent is responsible for doing these adaptations, especially since it controls both ends of the transform.
-For those reasons, streams backpressure is disabled in WebRTC encoded transforms. </p>
+For those reasons, streams backpressure is disabled in WebRTC encoded transforms.
+</p>
    <h4 class="heading settled" data-level="2.1.2" id="stream-processing"><span class="secno">2.1.2. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-readencodeddata">readEncodedData</dfn> algorithm is given a <var>rtcObject</var> as parameter. It is defined by running the following steps:</p>
    <ol>
@@ -923,16 +950,23 @@ For those reasons, streams backpressure is disabled in WebRTC encoded transforms
      <p>If the frame has been produced by a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver④">RTCRtpReceiver</a></code>:</p>
      <ol>
       <li data-md>
-       <p>If the relevant RTP packet contains the <a data-link-type="biblio" href="#biblio-rtp-ext-capture-time" title="RTP Header Extension for Absolute Capture Time">RTP Header Extension for Absolute Capture Time</a>, set <var>frame</var>.<code>[[captureTime]]</code> to the <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#absolute-capture-timestamp">absolute capture timestamp</a> field and set <var>frame</var>.<code>[[senderCaptureTimeOffset]]</code> to the <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#estimated-capture-clock-offset">capture clock offset field</a> if it is present.</p>
+       <p>If the relevant RTP packet contains the
+<a data-link-type="biblio" href="#biblio-rtp-ext-capture-time" title="RTP Header Extension for Absolute Capture Time">RTP Header Extension for Absolute Capture Time</a>, set <var>frame</var>.<code>[[captureTime]]</code> to the
+<a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#absolute-capture-timestamp">absolute capture timestamp</a> field and set <var>frame</var>.<code>[[senderCaptureTimeOffset]]</code>
+to the <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#estimated-capture-clock-offset">capture clock offset field</a> if it is present.</p>
       <li data-md>
-       <p>Otherwise, if the relevant RTP packet does not contain the <a data-link-type="biblio" href="#biblio-rtp-ext-capture-time" title="RTP Header Extension for Absolute Capture Time">RTP Header Extension for Absolute Capture Time</a> but a previous RTP packet did,
-set <var>frame</var>.<code>[[captureTime]]</code> to the result of calculating the absolute capture timestamp according to <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#timestamp-interpolation">timestamp interpolation</a> and set <var>frame</var>.<code>[[senderCaptureTimeOffset]]</code> to the most recent value that was present.</p>
+       <p>Otherwise, if the relevant RTP packet does not contain the
+<a data-link-type="biblio" href="#biblio-rtp-ext-capture-time" title="RTP Header Extension for Absolute Capture Time">RTP Header Extension for Absolute Capture Time</a> but a previous RTP packet did,
+set <var>frame</var>.<code>[[captureTime]]</code> to the result of calculating the absolute capture timestamp according to
+<a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#timestamp-interpolation">timestamp interpolation</a> and set <var>frame</var>.<code>[[senderCaptureTimeOffset]]</code>
+to the most recent value that was present.</p>
       <li data-md>
        <p>Otherwise, set <var>frame</var>.<code>[[captureTime]]</code> to undefined and set <var>frame</var>.<code>[[senderCaptureTimeOffset]]</code> to undefined.</p>
      </ol>
     <li data-md>
      <p>If the frame has been produced by a <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code>, set <var>frame</var>.<code>[[captureTime]]</code> to the capture timestamp
-using the methodology described in <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#absolute-capture-timestamp">RTP Header Extension for Absolute Capture Time § absolute-capture-timestamp</a> and set frame.<code>[[senderCaptureTimeOffset]]</code> to undefined.</p>
+using the methodology described in <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/#absolute-capture-timestamp">RTP Header Extension for Absolute Capture Time § absolute-capture-timestamp</a> and set frame.<code>[[senderCaptureTimeOffset]]</code>
+to undefined.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue">Enqueue</a> <var>frame</var> in <var>rtcObject</var>.<code>[[readable]]</code>.</p>
    </ol>
@@ -1036,14 +1070,26 @@ There is no guarantee on which frame will happen the switch from the previous tr
    <p>If a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑦">RTCRtpSender</a></code> (for instance when calling addTrack), the transform will receive the first frame generated by the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender⑧">RTCRtpSender</a></code>’s encoder.
 Similarly, if a web application sets the transform synchronously at creation of the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑦">RTCRtpReceiver</a></code> (for instance when calling addTrack, or at track event handler), the transform will receive the first full frame generated by the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver⑧">RTCRtpReceiver</a></code>’s packetizer.</p>
    <h2 class="heading settled" data-level="3" id="sframe"><span class="secno">3. </span><span class="content">SFrameTransform</span><a class="self-link" href="#sframe"></a></h2>
-   <p> The API presented in this section allows applications to process SFrame data as defined in <a data-link-type="biblio" href="#biblio-sframe" title="Secure Frame (SFrame)">[SFrame]</a>. </p>
+   <p>
+The API presented in this section allows applications to process SFrame data using specific cipher suites defined in <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a>.
+</p>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-sframetransformrole"><code><c- g>SFrameTransformRole</c-></code></dfn> {
     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformRole" data-dfn-type="enum-value" data-export id="dom-sframetransformrole-encrypt"><code><c- s>"encrypt"</c-></code></dfn>,
     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformRole" data-dfn-type="enum-value" data-export id="dom-sframetransformrole-decrypt"><code><c- s>"decrypt"</c-></code></dfn>
 };
 
+// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-sframeciphersuite"><code><c- g>SFrameCipherSuite</c-></code></dfn> {
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"><code><c- s>"AES_128_CTR_HMAC_SHA256_80"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"><code><c- s>"AES_128_CTR_HMAC_SHA256_64"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"><code><c- s>"AES_128_CTR_HMAC_SHA256_32"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_gcm_sha256_128"><code><c- s>"AES_128_GCM_SHA256_128"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></dfn>
+};
+
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-sframetransformoptions"><code><c- g>SFrameTransformOptions</c-></code></dfn> {
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole" id="ref-for-enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;encrypt&quot;" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameTransformRole" id="dom-sframetransformoptions-role"><code><c- g>role</c-></code></dfn> = "encrypt";
+    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframeciphersuite" id="ref-for-enumdef-sframeciphersuite"><c- n>SFrameCipherSuite</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameCipherSuite" id="dom-sframetransformoptions-ciphersuite"><code><c- g>cipherSuite</c-></code></dfn>;
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></dfn>;
@@ -1091,6 +1137,8 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>Set <var>this</var>.<code>[[role]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-sframetransformoptions-role" id="ref-for-dom-sframetransformoptions-role">role</a></code>"].</p>
     <li data-md>
+     <p>Set <var>this</var>.<code>[[cipherSuite]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-sframetransformoptions-ciphersuite" id="ref-for-dom-sframetransformoptions-ciphersuite">cipherSuite</a></code>"].</p>
+    <li data-md>
      <p>Set <var>this</var>.<code>[[readable]]</code> to <var>this</var>.<code>[[transform]]</code>.<code>[[readable]]</code>.</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[writable]]</code> to <var>this</var>.<code>[[transform]]</code>.<code>[[writable]]</code>.</p>
@@ -1115,20 +1163,22 @@ Similarly, if a web application sets the transform synchronously at creation of 
     <li data-md>
      <p>If <var>data</var> is undefined, abort these steps.</p>
     <li data-md>
-     <p>Let <var>buffer</var> be the result of running the SFrame algorithm with <var>data</var> and <var>role</var> as parameters. This algorithm is defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a> and returns an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer">ArrayBuffer</a></code>.</p>
+     <p>Let <var>buffer</var> be the result of running the SFrame algorithm with <var>data</var>, <var>sframe</var>.<code>[[cipherSuite]]</code>, and <var>role</var> as parameters. This algorithm is defined by <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a> and returns an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer">ArrayBuffer</a></code>.</p>
     <li data-md>
      <p>If the SFrame algorithm exits abruptly with an error, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task①">queue a task</a> to run the following sub steps:</p>
      <ol>
       <li data-md>
        <p>If the processing fails on decryption side due to <var>data</var> not following the SFrame format, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror">error</a></code> at <var>sframe</var>,
-using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-syntax" id="ref-for-dom-sframetransformerroreventtype-syntax">syntax</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame">frame</a></code> attribute set to <var>frame</var>.</p>
+using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-syntax" id="ref-for-dom-sframetransformerroreventtype-syntax">syntax</a></code>
+and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame">frame</a></code> attribute set to <var>frame</var>.</p>
       <li data-md>
        <p>If the processing fails on decryption side due to the key identifier parsed in <var>data</var> being unknown, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire①">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror①">error</a></code> at <var>sframe</var>,
 using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent①">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype①">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-keyid" id="ref-for-dom-sframetransformerroreventtype-keyid">keyID</a></code>,
 its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame①">frame</a></code> attribute set to <var>frame</var> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-keyid" id="ref-for-dom-sframetransformerrorevent-keyid">keyID</a></code> attribute set to the keyID value parsed in the SFrame header.</p>
       <li data-md>
        <p>If the processing fails on decryption side due to validation of the authentication tag, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire②">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframetransform-onerror" id="ref-for-dom-sframetransform-onerror②">error</a></code> at <var>sframe</var>,
-using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent②">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype②">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-authentication" id="ref-for-dom-sframetransformerroreventtype-authentication">authentication</a></code> and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame②">frame</a></code> attribute set to <var>frame</var>.</p>
+using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrorevent" id="ref-for-sframetransformerrorevent②">SFrameTransformErrorEvent</a></code> interface with its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-errortype" id="ref-for-dom-sframetransformerrorevent-errortype②">errorType</a></code> attribute set to <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerroreventtype-authentication" id="ref-for-dom-sframetransformerroreventtype-authentication">authentication</a></code>
+and its <code class="idl"><a data-link-type="idl" href="#dom-sframetransformerrorevent-frame" id="ref-for-dom-sframetransformerrorevent-frame②">frame</a></code> attribute set to <var>frame</var>.</p>
       <li data-md>
        <p>Abort these steps.</p>
      </ol>
@@ -1142,7 +1192,9 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
      <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-enqueue" id="ref-for-readablestream-enqueue①">Enqueue</a> <var>frame</var> in <var>sframe</var>.<code>[[transform]]</code>.</p>
    </ol>
    <h3 class="heading settled" data-level="3.2" id="sframe-transform-methods"><span class="secno">3.2. </span><span class="content">Methods</span><a class="self-link" href="#sframe-transform-methods"></a></h3>
-    The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransform" data-dfn-type="method" data-export data-lt="setEncryptionKey(key, keyID)|setEncryptionKey(key)" id="dom-sframetransform-setencryptionkey"><code>setEncryptionKey(<var>key</var>, <var>keyID</var>)</code></dfn> method steps are: 
+   
+The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransform" data-dfn-type="method" data-export data-lt="setEncryptionKey(key, keyID)|setEncryptionKey(key)" id="dom-sframetransform-setencryptionkey"><code>setEncryptionKey(<var>key</var>, <var>keyID</var>)</code></dfn> method steps are:
+
    <ol>
     <li data-md>
      <p>Let <var>promise</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#a-new-promise" id="ref-for-a-new-promise">a new promise</a>.</p>
@@ -1152,7 +1204,7 @@ using the <code class="idl"><a data-link-type="idl" href="#sframetransformerrore
      <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>Set <var>key</var> with its optional <var>keyID</var> as key material to use for the SFrame transform algorithm, as defined by the <a href="https://datatracker.ietf.org/doc/draft-omara-sframe/">SFrame specification</a>.</p>
+       <p>Set <var>key</var> with its optional <var>keyID</var> as key material to use for the SFrame transform algorithm, as defined by <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a>.</p>
       <li data-md>
        <p>If setting the key material fails, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror">InvalidModificationError</a></code> exception and abort these steps.</p>
       <li data-md>
@@ -1178,36 +1230,73 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
 </pre>
    <h4 class="heading settled" data-level="4.1.1" id="RTCEncodedFrameMetadata-members"><span class="secno">4.1.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-synchronizationsource"><code>synchronizationSource</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-synchronizationsource"><code>synchronizationSource</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long③">unsigned long</a></span><span class="idlMemberType">unsigned long</span>
+    
     <dd>
-     <p> The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> used to identify the stream of RTP packets that the encoded frame object is describing. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-payloadtype"><code>payloadType</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①">octet</a></span><span class="idlMemberType">octet</span> 
+     <p>
+            The synchronization source (ssrc) identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>
+            used to identify the stream of RTP packets that the encoded frame object is describing.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-payloadtype"><code>payloadType</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①">octet</a></span><span class="idlMemberType">octet</span>
+    
     <dd>
-     <p> The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that is used to describe the format of the RTP payload. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-contributingsources"><code>contributingSources</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long></code></span><span class="idlMemberType">sequence&lt;unsigned long></span> 
+     <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>
+            that is used to describe the format of the RTP payload.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-contributingsources"><code>contributingSources</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long></code></span><span class="idlMemberType">sequence&lt;unsigned long></span>
+    
     <dd>
-     <p> The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-rtptimestamp"><code>rtpTimestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④">unsigned long</a></span><span class="idlMemberType">unsigned long</span> 
+     <p>
+            The list of contribution sources (csrc list) as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-rtptimestamp"><code>rtpTimestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long④">unsigned long</a></span><span class="idlMemberType">unsigned long</span>
+    
     <dd>
-     <p> The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a> that reflects the sampling instant of the first octet in the RTP data packet. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-receivetime"><code>receiveTime</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp③">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span> 
+     <p>
+            The RTP timestamp identifier is an unsigned integer value per <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>
+            that reflects the sampling instant of the first octet in the RTP data packet.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-receivetime"><code>receiveTime</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp③">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span>
+    
     <dd>
-     <p> For frames coming from an RTCRtpReceiver, represents the timestamp
+     <p>
+            For frames coming from an RTCRtpReceiver, represents the timestamp
             of the last received packet used to produce this media frame. This
-            timestamp is relative to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance" id="ref-for-dom-performance">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin">timeOrigin</a></code>. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-capturetime"><code>captureTime</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp④">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span> 
+            timestamp is relative to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance" id="ref-for-dom-performance">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin">timeOrigin</a></code>.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-capturetime"><code>captureTime</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp④">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span>
+    
     <dd>
-     <p> The capture time of this frame in the capture system’s clock.
+     <p>
+            The capture time of this frame in the capture system’s clock.
             On populating this member, the user agent MUST return the value of the frame’s <code>[[captureTime]]</code> slot,
-            shifted to be relative to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance" id="ref-for-dom-performance①">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin①">timeOrigin</a></code>. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-sendercapturetimeoffset"><code>senderCaptureTimeOffset</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp⑤">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span> 
+            shifted to be relative to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance" id="ref-for-dom-performance①">Performance</a></code>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/hr-time/#dom-performance-timeorigin" id="ref-for-dom-performance-timeorigin①">timeOrigin</a></code>.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-sendercapturetimeoffset"><code>senderCaptureTimeOffset</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://w3c.github.io/hr-time/#dom-domhighrestimestamp" id="ref-for-dom-domhighrestimestamp⑤">DOMHighResTimeStamp</a></span><span class="idlMemberType">DOMHighResTimeStamp</span>
+    
     <dd>
-     <p> The <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-sendercapturetimeoffset" id="ref-for-dom-rtcencodedframemetadata-sendercapturetimeoffset①">senderCaptureTimeOffset</a></code> is the sender system’s estimate of the offset
-            between its own NTP clock and the capture system’s NTP clock, for the same frame that the <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-capturetime" id="ref-for-dom-rtcencodedframemetadata-capturetime①">captureTime</a></code> was originated from.
-            On populating this member, the user agent MUST return the value of the frame’s <code>[[senderCaptureTimeOffset]]</code> slot. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-mimetype"><code>mimeType</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②">DOMString</a></span><span class="idlMemberType">DOMString</span> 
+     <p>
+            The <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-sendercapturetimeoffset" id="ref-for-dom-rtcencodedframemetadata-sendercapturetimeoffset①">senderCaptureTimeOffset</a></code> is the sender system’s estimate of the offset
+            between its own NTP clock and the capture system’s NTP clock, for the same frame that the
+            <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-capturetime" id="ref-for-dom-rtcencodedframemetadata-capturetime①">captureTime</a></code> was originated from.
+            On populating this member, the user agent MUST return the value of the frame’s <code>[[senderCaptureTimeOffset]]</code> slot.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedframemetadata-mimetype"><code>mimeType</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②">DOMString</a></span><span class="idlMemberType">DOMString</span>
+    
     <dd>
-     <p> The codec MIME media type/subtype defined in the IANA media types registry <a data-link-type="biblio" href="#biblio-iana-media-types" title="Media Types">[IANA-MEDIA-TYPES]</a>, e.g. audio/opus or video/VP8. </p>
+     <p>
+            The codec MIME media type/subtype defined in the IANA media types registry
+            <a data-link-type="biblio" href="#biblio-iana-media-types" title="Media Types">[IANA-MEDIA-TYPES]</a>, e.g. audio/opus or video/VP8.
+        </p>
    </dl>
    <h3 class="heading settled" data-level="4.2" id="RTCEncodedVideoFrameType"><span class="secno">4.2. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-rtcencodedvideoframetype"><code>RTCEncodedVideoFrameType</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameType"></a></h3>
 <pre class="idl highlight def">// New enum for video frame types. Will eventually re-use the equivalent defined
@@ -1226,17 +1315,29 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
       <th>Description
     <tbody>
      <tr>
-      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;empty&quot;|empty" id="dom-rtcencodedvideoframetype-empty"><code>empty</code></dfn> 
       <td>
-       <p> This frame contains no data. </p>
+                <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;empty&quot;|empty" id="dom-rtcencodedvideoframetype-empty"><code>empty</code></dfn>
+            
+      <td>
+       <p>
+                    This frame contains no data.
+                </p>
      <tr>
-      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;key&quot;|key" id="dom-rtcencodedvideoframetype-key"><code>key</code></dfn> 
       <td>
-       <p> This frame can be decoded without reference to any other frames. </p>
+                <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;key&quot;|key" id="dom-rtcencodedvideoframetype-key"><code>key</code></dfn>
+            
+      <td>
+       <p>
+                    This frame can be decoded without reference to any other frames.
+                </p>
      <tr>
-      <td> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;delta&quot;|delta" id="dom-rtcencodedvideoframetype-delta"><code>delta</code></dfn> 
       <td>
-       <p> This frame references another frame and can not be decoded without that frame. </p>
+                <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameType" data-dfn-type="enum-value" data-export data-lt="&quot;delta&quot;|delta" id="dom-rtcencodedvideoframetype-delta"><code>delta</code></dfn>
+            
+      <td>
+       <p>
+                    This frame references another frame and can not be decoded without that frame.
+                </p>
    </table>
    <h3 class="heading settled" data-level="4.3" id="RTCEncodedVideoFrameMetadata"><span class="secno">4.3. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframemetadata"><code>RTCEncodedVideoFrameMetadata</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedvideoframemetadata" id="ref-for-dictdef-rtcencodedvideoframemetadata"><c- g>RTCEncodedVideoFrameMetadata</c-></a> : <a data-link-type="idl-name" href="#dictdef-rtcencodedframemetadata" id="ref-for-dictdef-rtcencodedframemetadata②"><c- n>RTCEncodedFrameMetadata</c-></a> {
@@ -1251,18 +1352,31 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
 </pre>
    <h4 class="heading settled" data-level="4.3.1" id="RTCEncodedVideoFrameMetadata-members"><span class="secno">4.3.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-frameid"><code>frameId</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long③">unsigned long long</a></span><span class="idlMemberType">unsigned long long</span> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-frameid"><code>frameId</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long③">unsigned long long</a></span><span class="idlMemberType">unsigned long long</span>
+    
     <dd>
-     <p> An identifier for the encoded frame, monotonically increasing in decode order. Its lower
+     <p>
+            An identifier for the encoded frame, monotonically increasing in decode order. Its lower
             16 bits match the frame_number of the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1">[AV1-RTP-SPEC]</a>, if present.
-            Only present for received frames if the Dependency Descriptor Header Extension is present. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-dependencies"><code>dependencies</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long long></code></span><span class="idlMemberType">sequence&lt;unsigned long long></span> 
+            Only present for received frames if the Dependency Descriptor Header Extension is present.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-dependencies"><code>dependencies</code></dfn>, <span> of type <code class="idl-code">sequence&lt;unsigned long long></code></span><span class="idlMemberType">sequence&lt;unsigned long long></span>
+    
     <dd>
-     <p> List of frameIds of frames this frame references.
-            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1">[AV1-RTP-SPEC]</a> is present. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-timestamp"><code>timestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long①">long long</a></span><span class="idlMemberType">long long</span> 
+     <p>
+            List of frameIds of frames this frame references.
+            Only present for received frames if the AV1 Dependency Descriptor Header Extension defined in Appendix A of <a data-link-type="biblio" href="#biblio-av1-rtp-spec" title="RTP Payload Format For AV1">[AV1-RTP-SPEC]</a> is present.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedvideoframemetadata-timestamp"><code>timestamp</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-long-long" id="ref-for-idl-long-long①">long long</a></span><span class="idlMemberType">long long</span>
+    
     <dd>
-     <p> The media presentation timestamp (PTS) in microseconds of raw frame, matching the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcodecs/#dom-videoframe-timestamp" id="ref-for-dom-videoframe-timestamp">timestamp</a></code> for raw frames which correspond to this frame. </p>
+     <p>
+            The media presentation timestamp (PTS) in microseconds of raw frame, matching the
+            <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webcodecs/#dom-videoframe-timestamp" id="ref-for-dom-videoframe-timestamp">timestamp</a></code> for raw frames which correspond to this frame.
+        </p>
    </dl>
    <h3 class="heading settled" data-level="4.4" id="RTCEncodedVideoFrame-interface"><span class="secno">4.4. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcencodedvideoframe"><code>RTCEncodedVideoFrame</code></dfn> interface</span><a class="self-link" href="#RTCEncodedVideoFrame-interface"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedvideoframeoptions"><code><c- g>RTCEncodedVideoFrameOptions</c-></code></dfn> {
@@ -1281,11 +1395,18 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
 </pre>
    <h4 class="heading settled" data-level="4.4.1" id="RTCEncodedVideoFrame-constructor"><span class="secno">4.4.1. </span><span class="content">Constructor</span><a class="self-link" href="#RTCEncodedVideoFrame-constructor"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-constructor"><code>constructor()</code></dfn> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-constructor"><code>constructor()</code></dfn>
+    
     <dd>
-     <p> Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe④">RTCEncodedVideoFrame</a></code> from the given <var>originalFrame</var> and <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
+     <p>
+            Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe④">RTCEncodedVideoFrame</a></code> from the given <var>originalFrame</var> and
+            <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of
+            <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
             The new frame’s <code>[[metadata]]</code> is a deep copy of <var>originalFrame</var>.<code>[[metadata]]</code>, with
-            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>. </p>
+            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>.
+
+</p>
      <p>When called, run the following steps:</p>
      <ol>
       <li data-md>
@@ -1305,20 +1426,33 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
    </dl>
    <h4 class="heading settled" data-level="4.4.2" id="RTCEncodedVideoFrame-members"><span class="secno">4.4.2. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedVideoFrame-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-type"><code>type</code></dfn>, <span> of type <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype②">RTCEncodedVideoFrameType</a>, readonly</span><span class="idlMemberType">RTCEncodedVideoFrameType</span> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-type"><code>type</code></dfn>, <span> of type <a data-link-type="idl-name" href="#enumdef-rtcencodedvideoframetype" id="ref-for-enumdef-rtcencodedvideoframetype②">RTCEncodedVideoFrameType</a>, readonly</span><span class="idlMemberType">RTCEncodedVideoFrameType</span>
+    
     <dd>
-     <p> The type attribute allows the application to determine when a key frame is being
-            sent or received. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
+     <p>
+            The type attribute allows the application to determine when a key frame is being
+            sent or received.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span>
+    
     <dd>
-     <p> The encoded frame data. The format of the data depends on the video codec that is
-            used to encode/decode the frame which can be determined by looking at the <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype①">mimeType</a></code>.
+     <p>
+            The encoded frame data. The format of the data depends on the video codec that is
+            used to encode/decode the frame which can be determined by looking at the
+            <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype①">mimeType</a></code>.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
-            is transformed separately. </p>
-     <p class="note" role="note"> Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
+            is transformed separately.
+        </p>
+     <p class="note" role="note">
+              Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
               the input to a receive-side transform may be different from the output of
-              a send-side transform. </p>
-     <p> The following table gives a number of examples: </p>
+              a send-side transform.
+        </p>
+     <p>
+            The following table gives a number of examples:
+        </p>
      <table class="simple">
       <thead>
        <tr>
@@ -1326,28 +1460,55 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
         <th>Data format
       <tbody>
        <tr>
-        <td> video/VP8 
-        <td> The data starts with the "uncompressed data chunk" defined in <a href="https://datatracker.ietf.org/doc/html/rfc6386#section-9.1"> section 9.1</a> of <a data-link-type="biblio" href="#biblio-rfc6386" title="VP8 Data Format and Decoding Guide">[RFC6386]</a> and is followed by the rest of the
-                        frame data. The <a href="https://www.rfc-editor.org/rfc/rfc7741#section-4.1"> VP8 payload descriptor</a> is not accessible. 
+        <td>
+                        video/VP8
+                    
+        <td>
+                        The data starts with the "uncompressed data chunk" defined in
+                        <a href="https://datatracker.ietf.org/doc/html/rfc6386#section-9.1">
+                        section 9.1</a> of <a data-link-type="biblio" href="#biblio-rfc6386" title="VP8 Data Format and Decoding Guide">[RFC6386]</a> and is followed by the rest of the
+                        frame data. The <a href="https://www.rfc-editor.org/rfc/rfc7741#section-4.1">
+                        VP8 payload descriptor</a> is not accessible.
+                    
        <tr>
-        <td> video/VP9 
-        <td> The data is a frame as described in Section 6 of <a data-link-type="biblio" href="#biblio-vp9" title="VP9 Bitstream &amp; Decoding Process Specification">[VP9]</a>.
-                        The <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2"> VP9 payload descriptor</a> is not accessible. 
+        <td>
+                        video/VP9
+                    
+        <td>
+                        The data is a frame as described in Section 6 of <a data-link-type="biblio" href="#biblio-vp9" title="VP9 Bitstream &amp; Decoding Process Specification">[VP9]</a>.
+                        The <a href="https://datatracker.ietf.org/doc/html/draft-ietf-payload-vp9#section-4.2">
+                        VP9 payload descriptor</a> is not accessible.
+                    
        <tr>
-        <td> video/H264 
-        <td> The data is a series of NAL units in Annex B format,
-                        as defined in <a data-link-type="biblio" href="#biblio-itu-t-rec-h264" title="H.264 : Advanced video coding for generic audiovisual services">[ITU-T-REC-H.264]</a> Annex B. 
+        <td>
+                        video/H264
+                    
+        <td>
+                        The data is a series of NAL units in Annex B format,
+                        as defined in <a data-link-type="biblio" href="#biblio-itu-t-rec-h264" title="H.264 : Advanced video coding for generic audiovisual services">[ITU-T-REC-H.264]</a> Annex B.
+                    
        <tr>
-        <td> video/AV1 
-        <td> The data is a series of OBUs compliant to the <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format"> low-overhead bitstream format</a> as described in Section 5 of <a data-link-type="biblio" href="#biblio-av1" title="AV1 Bitstream &amp; Decoding Process Specification">[AV1]</a>.
-                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#aggregation-header"> AV1 aggregation header</a> is not accessible. 
+        <td>
+                        video/AV1
+                    
+        <td>
+                        The data is a series of OBUs compliant to the
+                        <a href="https://aomediacodec.github.io/av1-spec/#low-overhead-bitstream-format">
+                        low-overhead bitstream format</a> as described in Section 5 of <a data-link-type="biblio" href="#biblio-av1" title="AV1 Bitstream &amp; Decoding Process Specification">[AV1]</a>.
+                        The <a href="https://aomediacodec.github.io/av1-rtp-spec/#aggregation-header">
+                        AV1 aggregation header</a> is not accessible.
+                    
      </table>
    </dl>
    <h4 class="heading settled" data-level="4.4.3" id="RTCEncodedVideoFrame-methods"><span class="secno">4.4.3. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedVideoFrame-methods"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-getmetadata"><code>getMetadata()</code></dfn> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="method" data-export id="dom-rtcencodedvideoframe-getmetadata"><code>getMetadata()</code></dfn>
+    
     <dd>
-     <p> Returns the metadata associated with the frame. </p>
+     <p>
+            Returns the metadata associated with the frame.
+        </p>
    </dl>
    <h4 class="heading settled" data-level="4.4.4" id="RTCEncodedVideoFrame-serialization"><span class="secno">4.4.4. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedVideoFrame-serialization"></a></h4>
    <p><code class="idl"><a data-link-type="idl" href="#rtcencodedvideoframe" id="ref-for-rtcencodedvideoframe⑤">RTCEncodedVideoFrame</a></code> objects are <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable-objects" id="ref-for-serializable-objects">serializable objects</a>.
@@ -1371,9 +1532,12 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
     <li data-md>
      <p>Set <var>value</var>.<code>[[data]]</code> to the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#sub-deserialization" id="ref-for-sub-deserialization">sub-deserialization</a> of <var>serialized</var>.<code>[[data]]</code>.</p>
    </ol>
-   <p class="note" role="note"> The internal form of a serialized RTCEncodedVideoFrame is not observable;
-it is defined chiefly so that it can be used with frame cloning in the <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata③">writeEncodedData</a> algorithm and in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/structured-data.html#dom-structuredclone" id="ref-for-dom-structuredclone">structuredClone()</a></code> operation.
-An implementation is therefore free to choose whatever method works best. </p>
+   <p class="note" role="note">
+The internal form of a serialized RTCEncodedVideoFrame is not observable;
+it is defined chiefly so that it can be used with frame cloning in the
+<a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="ref-for-abstract-opdef-writeencodeddata③">writeEncodedData</a> algorithm and in the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/structured-data.html#dom-structuredclone" id="ref-for-dom-structuredclone">structuredClone()</a></code> operation.
+An implementation is therefore free to choose whatever method works best.
+</p>
    <h3 class="heading settled" data-level="4.5" id="RTCEncodedAudioFrameMetadata"><span class="secno">4.5. </span><span class="content"><dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcencodedaudioframemetadata"><code>RTCEncodedAudioFrameMetadata</code></dfn> dictionary</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata"></a></h3>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a class="idl-code" data-link-type="dictionary" href="#dictdef-rtcencodedaudioframemetadata" id="ref-for-dictdef-rtcencodedaudioframemetadata"><c- g>RTCEncodedAudioFrameMetadata</c-></a> : <a data-link-type="idl-name" href="#dictdef-rtcencodedframemetadata" id="ref-for-dictdef-rtcencodedframemetadata③"><c- n>RTCEncodedFrameMetadata</c-></a> {
     <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short"><c- b>short</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="short" href="#dom-rtcencodedaudioframemetadata-sequencenumber" id="ref-for-dom-rtcencodedaudioframemetadata-sequencenumber"><c- g>sequenceNumber</c-></a>;
@@ -1382,17 +1546,29 @@ An implementation is therefore free to choose whatever method works best. </p>
 </pre>
    <h4 class="heading settled" data-level="4.5.1" id="RTCEncodedAudioFrameMetadata-members"><span class="secno">4.5.1. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrameMetadata-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-sequencenumber"><code>sequenceNumber</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short①">short</a></span><span class="idlMemberType">short</span> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-sequencenumber"><code>sequenceNumber</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-short" id="ref-for-idl-short①">short</a></span><span class="idlMemberType">short</span>
+    
     <dd>
-     <p> The RTP sequence number as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. Only exists for incoming audio frames. </p>
-     <p class="note" role="note"> Comparing two sequence numbers requires serial number arithmetic described in <a data-link-type="biblio" href="#biblio-rfc1982" title="Serial Number Arithmetic">[RFC1982]</a>. </p>
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-audiolevel"><code>audioLevel</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double①">double</a></span><span class="idlMemberType">double</span> 
+     <p>
+            The RTP sequence number as defined in <a data-link-type="biblio" href="#biblio-rfc3550" title="RTP: A Transport Protocol for Real-Time Applications">[RFC3550]</a>. Only exists for incoming audio frames.
+        </p>
+     <p class="note" role="note">
+            Comparing two sequence numbers requires serial number arithmetic described in <a data-link-type="biblio" href="#biblio-rfc1982" title="Serial Number Arithmetic">[RFC1982]</a>.
+        </p>
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrameMetadata" data-dfn-type="dict-member" data-export id="dom-rtcencodedaudioframemetadata-audiolevel"><code>audioLevel</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-double" id="ref-for-idl-double①">double</a></span><span class="idlMemberType">double</span>
+    
     <dd>
-     <p> The audio level of this frame. The value is between 0..1 (linear), 
+     <p>
+            The audio level of this frame. The value is between 0..1 (linear), 
             where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
-            approximately 6 dBSPL change in the sound pressure level from 0 dBov. </p>
+            approximately 6 dBSPL change in the sound pressure level from 0 dBov.
+
+</p>
      <p>If the frame comes from a remotely sourced track, this MUST be
-            converted from the level value defined in <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a>. If the <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a> header extension is not present in the received packets of the frame,
+            converted from the level value defined in <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a>. If the 
+            <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a> header extension is not present in the received packets of the frame,
             this value MUST be absent.
             This RFC defines the audio level as an integral value from 0 to 127
             representing the audio level in negative decibels relative to the
@@ -1400,7 +1576,8 @@ An implementation is therefore free to choose whatever method works best. </p>
             represents the loudest signal the system could possibly encode,
             and 127 represents silence. To convert these values to the linear
             0..1 range, a value of 127 is converted to 0, and all other values
-            are converted using the equation: <code class="math">10^(-rfc_level/20)</code>.</p>
+            are converted using the equation:
+            <code class="math">10^(-rfc_level/20)</code>.</p>
      <p>If the frame comes from a locally sourced track, the level MUST be
             taken directly from the source and used as input to generate a value
             for the <a data-link-type="biblio" href="#biblio-rfc6464" title="A Real-time Transport Protocol (RTP) Header Extension for Client-to-Mixer Audio Level Indication">[RFC6464]</a> header extension, if negotiated.</p>
@@ -1420,11 +1597,18 @@ An implementation is therefore free to choose whatever method works best. </p>
 </pre>
    <h4 class="heading settled" data-level="4.6.1" id="RTCEncodedAudioFrame-constructor"><span class="secno">4.6.1. </span><span class="content">Constructor</span><a class="self-link" href="#RTCEncodedAudioFrame-constructor"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-constructor"><code>constructor()</code></dfn> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-constructor"><code>constructor()</code></dfn>
+    
     <dd>
-     <p> Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe④">RTCEncodedAudioFrame</a></code> from the given <var>originalFrame</var> and <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
+     <p>
+            Creates a new <code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe④">RTCEncodedAudioFrame</a></code> from the given <var>originalFrame</var> and
+            <var>options</var>.<code>[metadata]</code>. The newly created frame is completely independent of
+            <var>originalFrame</var>, with its <code>[[data]]</code> being a deep copy of <var>originalFrame</var>.<code>[[data]]</code>.
             The new frame’s <code>[[metadata]]</code> is a deep copy of <var>originalFrame</var>.<code>[[metadata]]</code>, with
-            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>. </p>
+            fields replaced with deep copies of the fields present in <var>options</var>.<code>[metadata]</code>.
+        
+</p>
      <p>When called, run the following steps:</p>
      <ol>
       <li data-md>
@@ -1442,11 +1626,16 @@ An implementation is therefore free to choose whatever method works best. </p>
    </dl>
    <h4 class="heading settled" data-level="4.6.2" id="RTCEncodedAudioFrame-members"><span class="secno">4.6.2. </span><span class="content">Members</span><a class="self-link" href="#RTCEncodedAudioFrame-members"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer④">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedaudioframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer④">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span>
+    
     <dd>
-     <p> The encoded frame data. The format of the data depends on the audio codec that is
-            used to encode/decode the frame which can be determined by looking at the <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype②">mimeType</a></code>.
-            The following table gives a number of examples: </p>
+     <p>
+            The encoded frame data. The format of the data depends on the audio codec that is
+            used to encode/decode the frame which can be determined by looking at the
+            <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype②">mimeType</a></code>.
+            The following table gives a number of examples:
+        </p>
      <table class="simple">
       <thead>
        <tr>
@@ -1454,32 +1643,66 @@ An implementation is therefore free to choose whatever method works best. </p>
         <th>Data format
       <tbody>
        <tr>
-        <td> audio/opus 
-        <td> The data is Opus packets, as described in <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc6716" title="Definition of the Opus Audio Codec">[RFC6716]</a>. 
+        <td>
+                        audio/opus
+                    
+        <td>
+                        The data is Opus packets, as described in
+                        <a href="https://datatracker.ietf.org/doc/html/rfc6716#section-3">
+                        section 3</a> of <a data-link-type="biblio" href="#biblio-rfc6716" title="Definition of the Opus Audio Codec">[RFC6716]</a>.
+                    
        <tr>
-        <td> audio/PCMU 
-        <td> The data is a sequence of bytes of arbitrary length, where each byte is a u-law
-                        encoded PCM sample as defined by Table 2a and 2b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>. 
+        <td>
+                        audio/PCMU
+                    
+        <td>
+                        The data is a sequence of bytes of arbitrary length, where each byte is a u-law
+                        encoded PCM sample as defined by Table 2a and 2b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>.
+                    
        <tr>
-        <td> audio/PCMA 
-        <td> The data is a sequence of bytes of arbitrary length, where each byte is
-                        an A-law encoded PCM sample as defined by Tables 1a and 1b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>. 
+        <td>
+                        audio/PCMA
+                    
+        <td>
+                        The data is a sequence of bytes of arbitrary length, where each byte is
+                        an A-law encoded PCM sample as defined by Tables 1a and 1b in <a data-link-type="biblio" href="#biblio-itu-g711" title="G.711 : Pulse code modulation (PCM) of voice frequencies">[ITU-G.711]</a>.
+                    
        <tr>
-        <td> audio/G722 
-        <td> The data is G.722 audio as described in <a data-link-type="biblio" href="#biblio-itu-g722" title="G.722 : 7 kHz audio-coding within 64 kbit/s">[ITU-G.722]</a>. 
+        <td>
+                        audio/G722
+                    
+        <td>
+                        The data is G.722 audio as described in <a data-link-type="biblio" href="#biblio-itu-g722" title="G.722 : 7 kHz audio-coding within 64 kbit/s">[ITU-G.722]</a>.
+                    
        <tr>
-        <td> audio/RED 
-        <td> The data is Redundant Audio Data as described in <a href="https://www.rfc-editor.org/rfc/rfc2198#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc2198" title="RTP Payload for Redundant Audio Data">[RFC2198]</a>. 
+        <td>
+                        audio/RED
+                    
+        <td>
+                        The data is Redundant Audio Data as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc2198#section-3">
+                        section 3</a> of <a data-link-type="biblio" href="#biblio-rfc2198" title="RTP Payload for Redundant Audio Data">[RFC2198]</a>.
+                    
        <tr>
-        <td> audio/CN 
-        <td> The data is Comfort Noise as described in <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3"> section 3</a> of <a data-link-type="biblio" href="#biblio-rfc3389" title="Real-time Transport Protocol (RTP) Payload for Comfort Noise (CN)">[RFC3389]</a>. 
+        <td>
+                        audio/CN
+                    
+        <td>
+                        The data is Comfort Noise as described in
+                        <a href="https://www.rfc-editor.org/rfc/rfc3389#section-3">
+                        section 3</a> of <a data-link-type="biblio" href="#biblio-rfc3389" title="Real-time Transport Protocol (RTP) Payload for Comfort Noise (CN)">[RFC3389]</a>.
+                    
      </table>
    </dl>
    <h4 class="heading settled" data-level="4.6.3" id="RTCEncodedAudioFrame-methods"><span class="secno">4.6.3. </span><span class="content">Methods</span><a class="self-link" href="#RTCEncodedAudioFrame-methods"></a></h4>
    <dl class="dictionary-members">
-    <dt> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-getmetadata"><code>getMetadata()</code></dfn> 
+    <dt>
+        <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedAudioFrame" data-dfn-type="method" data-export id="dom-rtcencodedaudioframe-getmetadata"><code>getMetadata()</code></dfn>
+    
     <dd>
-     <p> Returns the metadata associated with the frame. </p>
+     <p>
+            Returns the metadata associated with the frame.
+        </p>
    </dl>
    <h4 class="heading settled" data-level="4.6.4" id="RTCEncodedAudioFrame-serialization"><span class="secno">4.6.4. </span><span class="content">Serialization</span><a class="self-link" href="#RTCEncodedAudioFrame-serialization"></a></h4>
    <p><code class="idl"><a data-link-type="idl" href="#rtcencodedaudioframe" id="ref-for-rtcencodedaudioframe⑤">RTCEncodedAudioFrame</a></code> objects are <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#serializable-objects" id="ref-for-serializable-objects①">serializable objects</a>.
@@ -1671,7 +1894,8 @@ these steps.</p>
       <li data-md>
        <p>If <var>rid</var> is undefined, remove from <var>videoEncoders</var> all video encoders except the first one.</p>
       <li data-md>
-       <p>If <var>videoEncoders</var> is empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps. <var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②">RTCRtpSender</a></code> track is ended.</p>
+       <p>If <var>videoEncoders</var> is empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps.
+<var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②">RTCRtpSender</a></code> track is ended.</p>
       <li data-md>
        <p>Let <var>videoEncoder</var> be the first encoder in <var>videoEncoders</var>.</p>
       <li data-md>
@@ -1681,7 +1905,8 @@ these steps.</p>
       <li data-md>
        <p>If <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> is undefined, initialize <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> to an empty set.</p>
       <li data-md>
-       <p>Let <var>shouldTriggerKeyFrame</var> be <code>false</code> if <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> contains a task whose <code>[[rid]]</code> value is equal to <var>rid</var>, and <code>true</code> otherwise.</p>
+       <p>Let <var>shouldTriggerKeyFrame</var> be <code>false</code> if <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> contains a task whose <code>[[rid]]</code>
+value is equal to <var>rid</var>, and <code>true</code> otherwise.</p>
       <li data-md>
        <p>Add <var>task</var> to <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
       <li data-md>
@@ -1749,7 +1974,8 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec 
    <h2 class="heading settled" data-level="6" id="privacy"><span class="secno">6. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
    <p>This API gives Javascript access to the content of media streams. This
 is also available from other sources, such as Canvas and WebAudio.</p>
-   <p>However, streams that are isolated (as specified in <a data-link-type="biblio" href="#biblio-webrtc-identity" title="Identity for WebRTC 1.0">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
+   <p>However, streams that are isolated (as specified in
+<a data-link-type="biblio" href="#biblio-webrtc-identity" title="Identity for WebRTC 1.0">[WEBRTC-IDENTITY]</a>) or tainted with another origin, cannot be
 accessed using this API, since that would break the isolation rule.</p>
    <p>The API will allow access to some aspects of timing information that are
 otherwise unavailable, which allows some fingerprinting surface.</p>
@@ -1772,21 +1998,31 @@ and may not be audited for reception of data from untrusted sources.</p>
     in the normative parts of this document
     are to be interpreted as described in RFC 2119.
     However, for readability,
-    these words do not appear in all uppercase letters in this specification. </p>
+    these words do not appear in all uppercase letters in this specification.
+
+    </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a>
+
+    </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <div class="example" id="w3c-example">
-    <a class="self-link" href="#w3c-example"></a> 
-    <p>This is an example of an informative example. </p>
+    <a class="self-link" href="#w3c-example"></a>
+        
+    <p>This is an example of an informative example.
+    </p>
    </div>
    <p>Informative notes begin with the word “Note”
     and are set apart from the normative text
     with <code>class="note"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <p class="note" role="note">Note, this is an informative note.</p>
    <section>
     <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
@@ -1795,25 +2031,34 @@ and may not be audited for reception of data from untrusted sources.</p>
     or "return false and abort these steps")
     are to be interpreted with the meaning of the key word
     ("must", "should", "may", etc)
-    used in introducing the algorithm. </p>
+    used in introducing the algorithm.
+
+    </p>
     <p>Conformance requirements phrased as algorithms or specific steps
     can be implemented in any manner,
     so long as the end result is equivalent.
     In particular, the algorithms defined in this specification
     are intended to be easy to understand
     and are not intended to be performant.
-    Implementers are encouraged to optimize. </p>
+    Implementers are encouraged to optimize.
+</p>
    </section>
   </div>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32">"AES_128_CTR_HMAC_SHA256_32"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64">"AES_128_CTR_HMAC_SHA256_64"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80">"AES_128_CTR_HMAC_SHA256_80"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_128_gcm_sha256_128">"AES_128_GCM_SHA256_128"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_256_gcm_sha512_128">"AES_256_GCM_SHA512_128"</a><span>, in § 3</span>
    <li><a href="#abstract-opdef-rtcrtptransform-association-steps">association steps</a><span>, in § 2.2</span>
    <li><a href="#dom-rtcencodedaudioframemetadata-audiolevel">audioLevel</a><span>, in § 4.5.1</span>
    <li><a href="#dom-sframetransformerroreventtype-authentication">"authentication"</a><span>, in § 3</span>
    <li><a href="#dom-rtcencodedframemetadata-capturetime">captureTime</a><span>, in § 4.1.1</span>
    <li><a href="#abstract-opdef-chain-transform-algorithm">chain transform algorithm</a><span>, in § 2.2</span>
+   <li><a href="#dom-sframetransformoptions-ciphersuite">cipherSuite</a><span>, in § 3</span>
    <li>
     constructor()
     <ul>
@@ -1961,6 +2206,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcencodedaudioframemetadata-sequencenumber">sequenceNumber</a><span>, in § 4.5.1</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in § 3.2</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key, keyID)</a><span>, in § 3.2</span>
+   <li><a href="#enumdef-sframeciphersuite">SFrameCipherSuite</a><span>, in § 3</span>
    <li><a href="#sframetransform">SFrameTransform</a><span>, in § 3</span>
    <li><a href="#dom-sframetransform-sframetransform">SFrameTransform()</a><span>, in § 3</span>
    <li><a href="#sframetransformerrorevent">SFrameTransformErrorEvent</a><span>, in § 3</span>
@@ -2168,8 +2414,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>J. Bankoski; et al. <a href="https://www.rfc-editor.org/rfc/rfc6386"><cite>VP8 Data Format and Decoding Guide</cite></a>. November 2011. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc6386">https://www.rfc-editor.org/rfc/rfc6386</a>
    <dt id="biblio-rfc6716">[RFC6716]
    <dd>JM. Valin; K. Vos; T. Terriberry. <a href="https://www.rfc-editor.org/rfc/rfc6716"><cite>Definition of the Opus Audio Codec</cite></a>. September 2012. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6716">https://www.rfc-editor.org/rfc/rfc6716</a>
-   <dt id="biblio-sframe">[SFrame]
-   <dd><a href="https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html"><cite>Secure Frame (SFrame)</cite></a>. URL: <a href="https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html">https://www.ietf.org/archive/id/draft-ietf-sframe-enc-04.html</a>
+   <dt id="biblio-rfc9605">[RFC9605]
+   <dd>E. Omara; et al. <a href="https://www.rfc-editor.org/rfc/rfc9605"><cite>Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media</cite></a>. August 2024. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc9605">https://www.rfc-editor.org/rfc/rfc9605</a>
    <dt id="biblio-vp9">[VP9]
    <dd><a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf"><cite>VP9 Bitstream &amp; Decoding Process Specification</cite></a>. URL: <a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf">https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf</a>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
@@ -2194,8 +2440,18 @@ and may not be audited for reception of data from untrusted sources.</p>
     <a href="#dom-sframetransformrole-decrypt"><code><c- s>"decrypt"</c-></code></a>
 };
 
+// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
+<c- b>enum</c-> <a href="#enumdef-sframeciphersuite"><code><c- g>SFrameCipherSuite</c-></code></a> {
+     <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"><code><c- s>"AES_128_CTR_HMAC_SHA256_80"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"><code><c- s>"AES_128_CTR_HMAC_SHA256_64"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"><code><c- s>"AES_128_CTR_HMAC_SHA256_32"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_128_gcm_sha256_128"><code><c- s>"AES_128_GCM_SHA256_128"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></a>
+};
+
 <c- b>dictionary</c-> <a href="#dictdef-sframetransformoptions"><code><c- g>SFrameTransformOptions</c-></code></a> {
     <a data-link-type="idl-name" href="#enumdef-sframetransformrole"><c- n>SFrameTransformRole</c-></a> <a data-default="&quot;encrypt&quot;" data-type="SFrameTransformRole" href="#dom-sframetransformoptions-role"><code><c- g>role</c-></code></a> = "encrypt";
+    <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframeciphersuite"><c- n>SFrameCipherSuite</c-></a> <a data-type="SFrameCipherSuite" href="#dom-sframetransformoptions-ciphersuite"><code><c- g>cipherSuite</c-></code></a>;
 };
 
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></a>;
@@ -2671,6 +2927,11 @@ let dfnPanelData = {
 "dom-rtcrtpsender-generatekeyframe-rids-rids": {"dfnID":"dom-rtcrtpsender-generatekeyframe-rids-rids","dfnText":"rids","external":false,"refSections":[],"url":"#dom-rtcrtpsender-generatekeyframe-rids-rids"},
 "dom-rtcrtpsender-transform": {"dfnID":"dom-rtcrtpsender-transform","dfnText":"transform","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender-transform"},{"id":"ref-for-dom-rtcrtpsender-transform\u2460"}],"title":"2. Specification"}],"url":"#dom-rtcrtpsender-transform"},
 "dom-rtctransformevent-transformer": {"dfnID":"dom-rtctransformevent-transformer","dfnText":"transformer","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtctransformevent-transformer"}],"title":"4.8. Operations"}],"url":"#dom-rtctransformevent-transformer"},
+"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32","dfnText":"\"AES_128_CTR_HMAC_SHA256_32\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"},
+"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64","dfnText":"\"AES_128_CTR_HMAC_SHA256_64\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"},
+"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80","dfnText":"\"AES_128_CTR_HMAC_SHA256_80\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"},
+"dom-sframeciphersuite-aes_128_gcm_sha256_128": {"dfnID":"dom-sframeciphersuite-aes_128_gcm_sha256_128","dfnText":"\"AES_128_GCM_SHA256_128\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_gcm_sha256_128"},
+"dom-sframeciphersuite-aes_256_gcm_sha512_128": {"dfnID":"dom-sframeciphersuite-aes_256_gcm_sha512_128","dfnText":"\"AES_256_GCM_SHA512_128\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_256_gcm_sha512_128"},
 "dom-sframetransform-onerror": {"dfnID":"dom-sframetransform-onerror","dfnText":"onerror","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransform-onerror"},{"id":"ref-for-dom-sframetransform-onerror\u2460"},{"id":"ref-for-dom-sframetransform-onerror\u2461"}],"title":"3.1. Algorithm"}],"url":"#dom-sframetransform-onerror"},
 "dom-sframetransform-setencryptionkey": {"dfnID":"dom-sframetransform-setencryptionkey","dfnText":"setEncryptionKey(key, keyID)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransform-setencryptionkey"}],"title":"3. SFrameTransform"}],"url":"#dom-sframetransform-setencryptionkey"},
 "dom-sframetransform-setencryptionkey-key-keyid-key": {"dfnID":"dom-sframetransform-setencryptionkey-key-keyid-key","dfnText":"key","external":false,"refSections":[],"url":"#dom-sframetransform-setencryptionkey-key-keyid-key"},
@@ -2689,6 +2950,7 @@ let dfnPanelData = {
 "dom-sframetransformerroreventtype-authentication": {"dfnID":"dom-sframetransformerroreventtype-authentication","dfnText":"\"authentication\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformerroreventtype-authentication"}],"title":"3.1. Algorithm"}],"url":"#dom-sframetransformerroreventtype-authentication"},
 "dom-sframetransformerroreventtype-keyid": {"dfnID":"dom-sframetransformerroreventtype-keyid","dfnText":"\"keyID\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformerroreventtype-keyid"}],"title":"3.1. Algorithm"}],"url":"#dom-sframetransformerroreventtype-keyid"},
 "dom-sframetransformerroreventtype-syntax": {"dfnID":"dom-sframetransformerroreventtype-syntax","dfnText":"\"syntax\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformerroreventtype-syntax"}],"title":"3.1. Algorithm"}],"url":"#dom-sframetransformerroreventtype-syntax"},
+"dom-sframetransformoptions-ciphersuite": {"dfnID":"dom-sframetransformoptions-ciphersuite","dfnText":"cipherSuite","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformoptions-ciphersuite"}],"title":"3. SFrameTransform"}],"url":"#dom-sframetransformoptions-ciphersuite"},
 "dom-sframetransformoptions-role": {"dfnID":"dom-sframetransformoptions-role","dfnText":"role","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformoptions-role"}],"title":"3. SFrameTransform"}],"url":"#dom-sframetransformoptions-role"},
 "dom-sframetransformrole-decrypt": {"dfnID":"dom-sframetransformrole-decrypt","dfnText":"\"decrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-decrypt"},
 "dom-sframetransformrole-encrypt": {"dfnID":"dom-sframetransformrole-encrypt","dfnText":"\"encrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-encrypt"},
@@ -2699,6 +2961,7 @@ let dfnPanelData = {
 "ec878a66": {"dfnID":"ec878a66","dfnText":"RangeError","external":true,"refSections":[{"refs":[{"id":"ref-for-exceptiondef-rangeerror"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#exceptiondef-rangeerror"},
 "efd1ec5d": {"dfnID":"efd1ec5d","dfnText":"object","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-object"}],"title":"4.7. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-object"},
 "enumdef-rtcencodedvideoframetype": {"dfnID":"enumdef-rtcencodedvideoframetype","dfnText":"RTCEncodedVideoFrameType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype"}],"title":"4.2. RTCEncodedVideoFrameType dictionary"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2460"}],"title":"4.4. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-enumdef-rtcencodedvideoframetype\u2461"}],"title":"4.4.2. Members"}],"url":"#enumdef-rtcencodedvideoframetype"},
+"enumdef-sframeciphersuite": {"dfnID":"enumdef-sframeciphersuite","dfnText":"SFrameCipherSuite","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframeciphersuite"}],"title":"3. SFrameTransform"}],"url":"#enumdef-sframeciphersuite"},
 "enumdef-sframetransformerroreventtype": {"dfnID":"enumdef-sframetransformerroreventtype","dfnText":"SFrameTransformErrorEventType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformerroreventtype"},{"id":"ref-for-enumdef-sframetransformerroreventtype\u2460"}],"title":"3. SFrameTransform"}],"url":"#enumdef-sframetransformerroreventtype"},
 "enumdef-sframetransformrole": {"dfnID":"enumdef-sframetransformrole","dfnText":"SFrameTransformRole","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformrole"}],"title":"3. SFrameTransform"}],"url":"#enumdef-sframetransformrole"},
 "eventdef-dedicatedworkerglobalscope-rtctransform": {"dfnID":"eventdef-dedicatedworkerglobalscope-rtctransform","dfnText":"rtctransform","external":false,"refSections":[],"url":"#eventdef-dedicatedworkerglobalscope-rtctransform"},
@@ -3155,8 +3418,10 @@ let refsData = {
 "#dom-sframetransformerroreventtype-authentication": {"displayText":"\"authentication\"","export":true,"for_":["SFrameTransformErrorEventType"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"\"authentication\"","type":"enum-value","url":"#dom-sframetransformerroreventtype-authentication"},
 "#dom-sframetransformerroreventtype-keyid": {"displayText":"\"keyID\"","export":true,"for_":["SFrameTransformErrorEventType"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"\"keyID\"","type":"enum-value","url":"#dom-sframetransformerroreventtype-keyid"},
 "#dom-sframetransformerroreventtype-syntax": {"displayText":"\"syntax\"","export":true,"for_":["SFrameTransformErrorEventType"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"\"syntax\"","type":"enum-value","url":"#dom-sframetransformerroreventtype-syntax"},
+"#dom-sframetransformoptions-ciphersuite": {"displayText":"cipherSuite","export":true,"for_":["SFrameTransformOptions"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"cipherSuite","type":"dict-member","url":"#dom-sframetransformoptions-ciphersuite"},
 "#dom-sframetransformoptions-role": {"displayText":"role","export":true,"for_":["SFrameTransformOptions"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"role","type":"dict-member","url":"#dom-sframetransformoptions-role"},
 "#enumdef-rtcencodedvideoframetype": {"displayText":"RTCEncodedVideoFrameType","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedVideoFrameType","type":"enum","url":"#enumdef-rtcencodedvideoframetype"},
+"#enumdef-sframeciphersuite": {"displayText":"SFrameCipherSuite","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameCipherSuite","type":"enum","url":"#enumdef-sframeciphersuite"},
 "#enumdef-sframetransformerroreventtype": {"displayText":"SFrameTransformErrorEventType","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformErrorEventType","type":"enum","url":"#enumdef-sframetransformerroreventtype"},
 "#enumdef-sframetransformrole": {"displayText":"SFrameTransformRole","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformRole","type":"enum","url":"#enumdef-sframetransformrole"},
 "#keyframerequestevent": {"displayText":"KeyFrameRequestEvent","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"KeyFrameRequestEvent","type":"interface","url":"#keyframerequestevent"},

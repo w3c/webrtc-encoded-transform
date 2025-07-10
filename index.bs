@@ -216,7 +216,7 @@ Similarly, if a web application sets the transform synchronously at creation of 
 # SFrameTransform # {#sframe}
 
 <p>
-The API presented in this section allows applications to process SFrame data as defined in [[RFC9605]].
+The API presented in this section allows applications to process SFrame data using specific cipher suites defined in [[RFC9605]].
 </p>
 
 <xmp class="idl">

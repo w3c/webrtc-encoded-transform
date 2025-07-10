@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 618007319, updated Thu Jun 26 17:23:55 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="67dde1a16a00cb29894e346585432932fcca7646" name="revision">
+  <meta content="9cf200fc0b97c48a1a2e694bbb41eca29634ff0b" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1735,12 +1735,12 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①"><c- n>EventTarget</c-></a> {
     // Attributes and methods related to the transformer source
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②"><c- n>ReadableStream</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export data-readonly data-type="ReadableStream" id="dom-rtcrtpscripttransformer-readable"><code><c- g>readable</c-></code></dfn>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long④"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export data-lt="generateKeyFrame(rid)|generateKeyFrame()" id="dom-rtcrtpscripttransformer-generatekeyframe"><code><c- g>generateKeyFrame</c-></code></dfn>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code></dfn>);
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export data-lt="sendKeyFrameRequest()" id="dom-rtcrtpscripttransformer-sendkeyframerequest"><code><c- g>sendKeyFrameRequest</c-></code></dfn>();
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream" id="ref-for-readablestream②"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable" id="ref-for-dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long④"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe" id="ref-for-dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer/generateKeyFrame(rid), RTCRtpScriptTransformer/generateKeyFrame()" data-dfn-type="argument" data-export id="dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code></dfn>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
     // Attributes and methods related to the transformer sink
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream②"><c- n>WritableStream</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export data-readonly data-type="WritableStream" id="dom-rtcrtpscripttransformer-writable"><code><c- g>writable</c-></code></dfn>;
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②"><c- n>EventHandler</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-rtcrtpscripttransformer-onkeyframerequest"><code><c- g>onkeyframerequest</c-></code></dfn>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream" id="ref-for-writablestream②"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable" id="ref-for-dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②"><c- n>EventHandler</c-></a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-rtcrtpscripttransformer-onkeyframerequest" id="ref-for-dom-rtcrtpscripttransformer-onkeyframerequest"><c- g>onkeyframerequest</c-></a>;
     // Attributes for configuring the Javascript code
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any" id="ref-for-idl-any②"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options" id="ref-for-dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
 };
@@ -1814,7 +1814,7 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
        <p>Set <var>transformer</var>.<code>[[depacketizer]]</code> to <var>depacketizer</var>.</p>
      </ol>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="method" data-export id="dom-rtcrtpscripttransform-generatekeyframe"><code>generateKeyFrame(<var>rid</var>)</code></dfn> method steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export data-lt="generateKeyFrame(rid)|generateKeyFrame()" id="dom-rtcrtpscripttransformer-generatekeyframe"><code>generateKeyFrame(<var>rid</var>)</code></dfn> method steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
@@ -1823,7 +1823,7 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
     <li data-md>
      <p>Return <var>promise</var>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="method" data-export id="dom-rtcrtpscripttransform-sendkeyframerequest"><code>sendKeyFrameRequest()</code></dfn> method steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="method" data-export id="dom-rtcrtpscripttransformer-sendkeyframerequest"><code>sendKeyFrameRequest()</code></dfn> method steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>promise</var> be a new promise.</p>
@@ -1841,18 +1841,18 @@ This allows algorithms to go from an <code class="idl"><a data-link-type="idl" h
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②③">this</a>.<code>[[options]]</code>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransform-readable"><code>readable</code></dfn> getter steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-readable"><code>readable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②④">this</a>.<code>[[readable]]</code>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransform-writable"><code>writable</code></dfn> getter steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-writable"><code>writable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⑤">this</a>.<code>[[writable]]</code>.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransform-onbandwidthestimate"><code>onbandwidthestimate</code></dfn> EventHandler has type bandwidthestimate.</p>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransform-onkeyframerequest"><code>onkeyframerequest</code></dfn> EventHandler has type keyframerequest.</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-onbandwidthestimate"><code>onbandwidthestimate</code></dfn> EventHandler has type bandwidthestimate.</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-onkeyframerequest"><code>onkeyframerequest</code></dfn> EventHandler has type keyframerequest.</p>
    <h3 class="heading settled" data-level="4.10" id="RTCRtpScriptTransformer-events"><span class="secno">4.10. </span><span class="content">Events</span><a class="self-link" href="#RTCRtpScriptTransformer-events"></a></h3>
    <p>The following event fires on an <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑥">RTCRtpScriptTransformer</a></code>:</p>
    <ul>
@@ -2116,16 +2116,11 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     generateKeyFrame()
     <ul>
-     <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">method for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
+     <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">method for RTCRtpScriptTransformer</a><span>, in § 4.8</span>
      <li><a href="#dom-rtcrtpsender-generatekeyframe">method for RTCRtpSender</a><span>, in § 5.1</span>
     </ul>
    <li><a href="#abstract-opdef-generate-key-frame-algorithm">generate key frame algorithm</a><span>, in § 4.11</span>
-   <li>
-    generateKeyFrame(rid)
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransform-generatekeyframe">method for RTCRtpScriptTransform</a><span>, in § 4.8</span>
-     <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">method for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-generatekeyframe">generateKeyFrame(rid)</a><span>, in § 4.8</span>
    <li><a href="#dom-rtcrtpsender-generatekeyframe">generateKeyFrame(rids)</a><span>, in § 5.1</span>
    <li>
     getMetadata()
@@ -2153,23 +2148,13 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><a href="#dom-rtcencodedvideoframeoptions-metadata">dict-member for RTCEncodedVideoFrameOptions</a><span>, in § 4.4</span>
     </ul>
    <li><a href="#dom-rtcencodedframemetadata-mimetype">mimeType</a><span>, in § 4.1.1</span>
-   <li><a href="#dom-rtcrtpscripttransform-onbandwidthestimate">onbandwidthestimate</a><span>, in § 4.9</span>
+   <li><a href="#dom-rtcrtpscripttransformer-onbandwidthestimate">onbandwidthestimate</a><span>, in § 4.9</span>
    <li><a href="#dom-sframetransform-onerror">onerror</a><span>, in § 3</span>
-   <li>
-    onkeyframerequest
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransform-onkeyframerequest">attribute for RTCRtpScriptTransform</a><span>, in § 4.9</span>
-     <li><a href="#dom-rtcrtpscripttransformer-onkeyframerequest">attribute for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-onkeyframerequest">onkeyframerequest</a><span>, in § 4.9</span>
    <li><a href="#dom-dedicatedworkerglobalscope-onrtctransform">onrtctransform</a><span>, in § 4.7</span>
    <li><a href="#dom-rtcrtpscripttransformer-options">options</a><span>, in § 4.9</span>
    <li><a href="#dom-rtcencodedframemetadata-payloadtype">payloadType</a><span>, in § 4.1.1</span>
-   <li>
-    readable
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransform-readable">attribute for RTCRtpScriptTransform</a><span>, in § 4.9</span>
-     <li><a href="#dom-rtcrtpscripttransformer-readable">attribute for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-readable">readable</a><span>, in § 4.9</span>
    <li><a href="#abstract-opdef-readencodeddata">readEncodedData</a><span>, in § 2.1.2</span>
    <li><a href="#dom-rtcencodedframemetadata-receivetime">receiveTime</a><span>, in § 4.1.1</span>
    <li><a href="#dom-keyframerequestevent-rid">rid</a><span>, in § 4.7</span>
@@ -2196,12 +2181,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 4.7</span>
    <li><a href="#dom-rtcencodedframemetadata-rtptimestamp">rtpTimestamp</a><span>, in § 4.1.1</span>
    <li><a href="#dom-rtcencodedframemetadata-sendercapturetimeoffset">senderCaptureTimeOffset</a><span>, in § 4.1.1</span>
-   <li>
-    sendKeyFrameRequest()
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransform-sendkeyframerequest">method for RTCRtpScriptTransform</a><span>, in § 4.8</span>
-     <li><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">method for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-sendkeyframerequest">sendKeyFrameRequest()</a><span>, in § 4.8</span>
    <li><a href="#abstract-opdef-send-request-key-frame-algorithm">send request key frame algorithm</a><span>, in § 4.11</span>
    <li><a href="#dom-rtcencodedaudioframemetadata-sequencenumber">sequenceNumber</a><span>, in § 4.5.1</span>
    <li><a href="#dom-sframetransform-setencryptionkey">setEncryptionKey(key)</a><span>, in § 3.2</span>
@@ -2226,12 +2206,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 4.7</span>
    <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 4.4.2</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 4.3</span>
-   <li>
-    writable
-    <ul>
-     <li><a href="#dom-rtcrtpscripttransform-writable">attribute for RTCRtpScriptTransform</a><span>, in § 4.9</span>
-     <li><a href="#dom-rtcrtpscripttransformer-writable">attribute for RTCRtpScriptTransformer</a><span>, in § 4.7</span>
-    </ul>
+   <li><a href="#dom-rtcrtpscripttransformer-writable">writable</a><span>, in § 4.9</span>
    <li><a href="#abstract-opdef-writeencodeddata">writeEncodedData</a><span>, in § 2.1.2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -2557,12 +2532,12 @@ and may not be audited for reception of data from untrusted sources.</p>
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>DedicatedWorker</c->]
 <c- b>interface</c-> <a href="#rtcrtpscripttransformer"><code><c- g>RTCRtpScriptTransformer</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
     // Attributes and methods related to the transformer source
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable"><code><c- g>readable</c-></code></a>;
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a href="#dom-rtcrtpscripttransformer-generatekeyframe"><code><c- g>generateKeyFrame</c-></code></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code></a>);
-    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-rtcrtpscripttransformer-sendkeyframerequest"><code><c- g>sendKeyFrameRequest</c-></code></a>();
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#readablestream"><c- n>ReadableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="ReadableStream" href="#dom-rtcrtpscripttransformer-readable"><c- g>readable</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-generatekeyframe"><c- g>generateKeyFrame</c-></a>(<c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"><code><c- g>rid</c-></code></a>);
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a class="idl-code" data-link-type="method" href="#dom-rtcrtpscripttransformer-sendkeyframerequest"><c- g>sendKeyFrameRequest</c-></a>();
     // Attributes and methods related to the transformer sink
-    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable"><code><c- g>writable</c-></code></a>;
-    <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-rtcrtpscripttransformer-onkeyframerequest"><code><c- g>onkeyframerequest</c-></code></a>;
+    <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#writablestream"><c- n>WritableStream</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="WritableStream" href="#dom-rtcrtpscripttransformer-writable"><c- g>writable</c-></a>;
+    <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a class="idl-code" data-link-type="attribute" data-type="EventHandler" href="#dom-rtcrtpscripttransformer-onkeyframerequest"><c- g>onkeyframerequest</c-></a>;
     // Attributes for configuring the Javascript code
     <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-any"><c- b>any</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="any" href="#dom-rtcrtpscripttransformer-options"><c- g>options</c-></a>;
 };
@@ -2906,23 +2881,18 @@ let dfnPanelData = {
 "dom-rtcencodedvideoframetype-delta": {"dfnID":"dom-rtcencodedvideoframetype-delta","dfnText":"delta","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-delta"}],"title":"4.2. RTCEncodedVideoFrameType dictionary"}],"url":"#dom-rtcencodedvideoframetype-delta"},
 "dom-rtcencodedvideoframetype-empty": {"dfnID":"dom-rtcencodedvideoframetype-empty","dfnText":"empty","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-empty"}],"title":"4.2. RTCEncodedVideoFrameType dictionary"}],"url":"#dom-rtcencodedvideoframetype-empty"},
 "dom-rtcencodedvideoframetype-key": {"dfnID":"dom-rtcencodedvideoframetype-key","dfnText":"key","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-key"}],"title":"4.2. RTCEncodedVideoFrameType dictionary"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframetype-key\u2460"}],"title":"4.11. KeyFrame Algorithms"}],"url":"#dom-rtcencodedvideoframetype-key"},
-"dom-rtcrtpscripttransform-generatekeyframe": {"dfnID":"dom-rtcrtpscripttransform-generatekeyframe","dfnText":"generateKeyFrame(rid)","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-generatekeyframe"},
-"dom-rtcrtpscripttransform-onbandwidthestimate": {"dfnID":"dom-rtcrtpscripttransform-onbandwidthestimate","dfnText":"onbandwidthestimate","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-onbandwidthestimate"},
-"dom-rtcrtpscripttransform-onkeyframerequest": {"dfnID":"dom-rtcrtpscripttransform-onkeyframerequest","dfnText":"onkeyframerequest","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-onkeyframerequest"},
-"dom-rtcrtpscripttransform-readable": {"dfnID":"dom-rtcrtpscripttransform-readable","dfnText":"readable","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-readable"},
 "dom-rtcrtpscripttransform-rtcrtpscripttransform": {"dfnID":"dom-rtcrtpscripttransform-rtcrtpscripttransform","dfnText":"new RTCRtpScriptTransform(worker, options, transfer)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransform-rtcrtpscripttransform"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransform-rtcrtpscripttransform"},
 "dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options": {"dfnID":"dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-options"},
 "dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer": {"dfnID":"dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer","dfnText":"transfer","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-transfer"},
 "dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker": {"dfnID":"dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker","dfnText":"worker","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-rtcrtpscripttransform-worker-options-transfer-worker"},
-"dom-rtcrtpscripttransform-sendkeyframerequest": {"dfnID":"dom-rtcrtpscripttransform-sendkeyframerequest","dfnText":"sendKeyFrameRequest()","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-sendkeyframerequest"},
-"dom-rtcrtpscripttransform-writable": {"dfnID":"dom-rtcrtpscripttransform-writable","dfnText":"writable","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransform-writable"},
-"dom-rtcrtpscripttransformer-generatekeyframe": {"dfnID":"dom-rtcrtpscripttransformer-generatekeyframe","dfnText":"generateKeyFrame","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-generatekeyframe"},
+"dom-rtcrtpscripttransformer-generatekeyframe": {"dfnID":"dom-rtcrtpscripttransformer-generatekeyframe","dfnText":"generateKeyFrame(rid)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-generatekeyframe"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-generatekeyframe"},
 "dom-rtcrtpscripttransformer-generatekeyframe-rid-rid": {"dfnID":"dom-rtcrtpscripttransformer-generatekeyframe-rid-rid","dfnText":"rid","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-generatekeyframe-rid-rid"},
-"dom-rtcrtpscripttransformer-onkeyframerequest": {"dfnID":"dom-rtcrtpscripttransformer-onkeyframerequest","dfnText":"onkeyframerequest","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-onkeyframerequest"},
+"dom-rtcrtpscripttransformer-onbandwidthestimate": {"dfnID":"dom-rtcrtpscripttransformer-onbandwidthestimate","dfnText":"onbandwidthestimate","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-onbandwidthestimate"},
+"dom-rtcrtpscripttransformer-onkeyframerequest": {"dfnID":"dom-rtcrtpscripttransformer-onkeyframerequest","dfnText":"onkeyframerequest","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-onkeyframerequest"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-onkeyframerequest"},
 "dom-rtcrtpscripttransformer-options": {"dfnID":"dom-rtcrtpscripttransformer-options","dfnText":"options","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-options"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-options"},
-"dom-rtcrtpscripttransformer-readable": {"dfnID":"dom-rtcrtpscripttransformer-readable","dfnText":"readable","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-readable"},
-"dom-rtcrtpscripttransformer-sendkeyframerequest": {"dfnID":"dom-rtcrtpscripttransformer-sendkeyframerequest","dfnText":"sendKeyFrameRequest","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-sendkeyframerequest"},
-"dom-rtcrtpscripttransformer-writable": {"dfnID":"dom-rtcrtpscripttransformer-writable","dfnText":"writable","external":false,"refSections":[],"url":"#dom-rtcrtpscripttransformer-writable"},
+"dom-rtcrtpscripttransformer-readable": {"dfnID":"dom-rtcrtpscripttransformer-readable","dfnText":"readable","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-readable"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-readable"},
+"dom-rtcrtpscripttransformer-sendkeyframerequest": {"dfnID":"dom-rtcrtpscripttransformer-sendkeyframerequest","dfnText":"sendKeyFrameRequest()","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-sendkeyframerequest"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-sendkeyframerequest"},
+"dom-rtcrtpscripttransformer-writable": {"dfnID":"dom-rtcrtpscripttransformer-writable","dfnText":"writable","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpscripttransformer-writable"}],"title":"4.7. Interfaces"}],"url":"#dom-rtcrtpscripttransformer-writable"},
 "dom-rtcrtpsender-generatekeyframe": {"dfnID":"dom-rtcrtpsender-generatekeyframe","dfnText":"generateKeyFrame(rids)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender-generatekeyframe"}],"title":"5. RTCRtpSender extension"}],"url":"#dom-rtcrtpsender-generatekeyframe"},
 "dom-rtcrtpsender-generatekeyframe-rids-rids": {"dfnID":"dom-rtcrtpsender-generatekeyframe-rids-rids","dfnText":"rids","external":false,"refSections":[],"url":"#dom-rtcrtpsender-generatekeyframe-rids-rids"},
 "dom-rtcrtpsender-transform": {"dfnID":"dom-rtcrtpsender-transform","dfnText":"transform","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender-transform"},{"id":"ref-for-dom-rtcrtpsender-transform\u2460"}],"title":"2. Specification"}],"url":"#dom-rtcrtpsender-transform"},
@@ -3405,7 +3375,12 @@ let refsData = {
 "#dom-rtcencodedvideoframetype-empty": {"displayText":"\"empty\"","export":true,"for_":["RTCEncodedVideoFrameType"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"\"empty\"","type":"enum-value","url":"#dom-rtcencodedvideoframetype-empty"},
 "#dom-rtcencodedvideoframetype-key": {"displayText":"\"key\"","export":true,"for_":["RTCEncodedVideoFrameType"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"\"key\"","type":"enum-value","url":"#dom-rtcencodedvideoframetype-key"},
 "#dom-rtcrtpscripttransform-rtcrtpscripttransform": {"displayText":"RTCRtpScriptTransform(worker, options)","export":true,"for_":["RTCRtpScriptTransform"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCRtpScriptTransform(worker, options)","type":"constructor","url":"#dom-rtcrtpscripttransform-rtcrtpscripttransform"},
+"#dom-rtcrtpscripttransformer-generatekeyframe": {"displayText":"generateKeyFrame(rid)","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"generateKeyFrame(rid)","type":"method","url":"#dom-rtcrtpscripttransformer-generatekeyframe"},
+"#dom-rtcrtpscripttransformer-onkeyframerequest": {"displayText":"onkeyframerequest","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"onkeyframerequest","type":"attribute","url":"#dom-rtcrtpscripttransformer-onkeyframerequest"},
 "#dom-rtcrtpscripttransformer-options": {"displayText":"options","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"options","type":"attribute","url":"#dom-rtcrtpscripttransformer-options"},
+"#dom-rtcrtpscripttransformer-readable": {"displayText":"readable","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"readable","type":"attribute","url":"#dom-rtcrtpscripttransformer-readable"},
+"#dom-rtcrtpscripttransformer-sendkeyframerequest": {"displayText":"sendKeyFrameRequest()","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"sendKeyFrameRequest()","type":"method","url":"#dom-rtcrtpscripttransformer-sendkeyframerequest"},
+"#dom-rtcrtpscripttransformer-writable": {"displayText":"writable","export":true,"for_":["RTCRtpScriptTransformer"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"writable","type":"attribute","url":"#dom-rtcrtpscripttransformer-writable"},
 "#dom-rtcrtpsender-generatekeyframe": {"displayText":"generateKeyFrame(rids)","export":true,"for_":["RTCRtpSender"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"generateKeyFrame(rids)","type":"method","url":"#dom-rtcrtpsender-generatekeyframe"},
 "#dom-rtcrtpsender-transform": {"displayText":"transform","export":true,"for_":["RTCRtpReceiver","RTCRtpSender"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"transform","type":"attribute","url":"#dom-rtcrtpsender-transform"},
 "#dom-rtctransformevent-transformer": {"displayText":"transformer","export":true,"for_":["RTCTransformEvent"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"transformer","type":"attribute","url":"#dom-rtctransformevent-transformer"},

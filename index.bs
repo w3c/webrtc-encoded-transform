@@ -225,6 +225,7 @@ enum SFrameTransformRole {
     "decrypt"
 };
 
+// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
 enum SFrameCipherSuite {
      "AES_128_CTR_HMAC_SHA256_80",
      "AES_128_CTR_HMAC_SHA256_64",

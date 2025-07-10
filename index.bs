@@ -893,7 +893,6 @@ interface mixin KeyFrameRequest {
 interface RTCRtpScriptTransformer : EventTarget {
     // Attributes and methods related to the transformer source
     readonly attribute ReadableStream readable;
-    Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
     // Attributes and methods related to the transformer sink
     readonly attribute WritableStream writable;

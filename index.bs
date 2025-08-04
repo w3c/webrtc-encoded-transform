@@ -1039,24 +1039,6 @@ The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and
     1. Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of [[RFC5104]] and send it through |depacketizer|'s receiver.
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 
-# RTCRtpSender extension # {#rtcrtpsender-extension}
-
-An additional API on {{RTCRtpSender}} is added to complement the generation of key frame added to {{RTCRtpScriptTransformer}}.
-
-<pre class="idl">
-partial interface RTCRtpSender {
-    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
-};
-</pre>
-
-## Extension operation ## {#sender-operation}
-
-The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
-
-1. Let |promise| be a new promise.
-1. [=In parallel=], run the [$generate key frame algorithm$] with |promise|, |this|'s encoder and |rids|.
-1. Return |promise|.
-
 # Privacy and security considerations # {#privacy}
 
 This API gives Javascript access to the content of media streams. This

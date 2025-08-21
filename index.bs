@@ -585,6 +585,7 @@ interface RTCEncodedVideoFrame {
             {{RTCEncodedFrameMetadata/mimeType}}.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
             is transformed separately.
+            On getting, |this|.`[[data]]` MUST be returned. On setting, |this|.`[[data]]` MUST be set to the new value.
         </p>
         <p class="note">
               Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
@@ -667,14 +668,14 @@ interface RTCEncodedVideoFrame {
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
-1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}.
+1. Set |serialized|.`[[type]]` to the value of |value|.`[[type]]`.
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to the [=sub-serialization=] of |value|.`[[data]]`.
 
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
-1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`.
+1. Set |value|.`[[type]]` to |serialized|.`[[type]]`.
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`.
 1. Set |value|.`[[data]]` to the [=sub-deserialization=] of |serialized|.`[[data]]`.
 
@@ -783,6 +784,7 @@ interface RTCEncodedAudioFrame {
             The encoded frame data. The format of the data depends on the audio codec that is
             used to encode/decode the frame which can be determined by looking at the
             {{RTCEncodedFrameMetadata/mimeType}}.
+            On getting, |this|.`[[data]]` MUST be returned. On setting, |this|.`[[data]]` MUST be set to the new value.
             The following table gives a number of examples:
         </p>
         <table class="simple">

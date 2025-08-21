@@ -571,8 +571,8 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            The type attribute allows the application to determine when a key frame is being
-            sent or received.
+            The type attribute allows the application to determine when a frame is a key frame or a delta frame.
+            On getting, |this|.`[[type]]` MUST be returned.
         </p>
     </dd>
     <dt>

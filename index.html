@@ -5,9 +5,9 @@
   <title>WebRTC Encoded Transform</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 618007319, updated Thu Jun 26 17:23:55 2025 -0700" name="generator">
+  <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="9cf200fc0b97c48a1a2e694bbb41eca29634ff0b" name="revision">
+  <meta content="1cfafbd5567937d383561642e4e72bb05ee76f9d" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -699,7 +699,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </p>
    <h1 class="p-name no-ref" id="title">WebRTC Encoded Transform</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2025-07-10">10 July 2025</time></p>
+    <time class="dt-updated" datetime="2025-08-21">21 August 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -761,7 +761,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 	must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.
 </p>
    <p>
-  This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>.
+  This document is governed by the <a href="https://www.w3.org/policies/process/20250818/" id="w3c_process_revision">18 August 2025 W3C Process Document</a>.
 </p>
    <p></p>
   </div>
@@ -1879,7 +1879,7 @@ or Full Intra Refresh (FIR), queue a task to perform the following steps:</p>
     <li data-md>
      <p>If <var>encoder</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
-     <p>If <var>encoder</var> is not processing video frames, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code>, abort these steps.</p>
+     <p>If <var>encoder</var> does not belong to a video <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①①">RTCRtpReceiver</a></code>, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
      <p>If <var>rid</var> is defined, but does not conform to the grammar requirements specified
 in Section 10 of <a data-link-type="biblio" href="#biblio-rfc8851" title="RTP Payload Format Restrictions">[RFC8851]</a>, then reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#exceptiondef-typeerror" id="ref-for-exceptiondef-typeerror">TypeError</a></code> and abort
@@ -1942,7 +1942,7 @@ If the promise is associated to several rid values, it will be resolved when the
     <li data-md>
      <p>If <var>depacketizer</var> is undefined, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror③">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
-     <p>If <var>depacketizer</var> does not belong to a video <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①①">RTCRtpReceiver</a></code>, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror④">InvalidStateError</a></code>, abort these steps.</p>
+     <p>If <var>depacketizer</var> does not belong to a video <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver①②">RTCRtpReceiver</a></code>, reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror④">InvalidStateError</a></code>, abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">In parallel</a>, run the following steps:</p>
      <ol>
@@ -2924,7 +2924,7 @@ let dfnPanelData = {
 "dom-sframetransformoptions-role": {"dfnID":"dom-sframetransformoptions-role","dfnText":"role","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformoptions-role"}],"title":"3. SFrameTransform"}],"url":"#dom-sframetransformoptions-role"},
 "dom-sframetransformrole-decrypt": {"dfnID":"dom-sframetransformrole-decrypt","dfnText":"\"decrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-decrypt"},
 "dom-sframetransformrole-encrypt": {"dfnID":"dom-sframetransformrole-encrypt","dfnText":"\"encrypt\"","external":false,"refSections":[],"url":"#dom-sframetransformrole-encrypt"},
-"e4db230f": {"dfnID":"e4db230f","dfnText":"RTCRtpReceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpreceiver"},{"id":"ref-for-dom-rtcrtpreceiver\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2462"},{"id":"ref-for-dom-rtcrtpreceiver\u2463"},{"id":"ref-for-dom-rtcrtpreceiver\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2465"},{"id":"ref-for-dom-rtcrtpreceiver\u2466"},{"id":"ref-for-dom-rtcrtpreceiver\u2467"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2468"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2460\u24ea"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2460\u2460"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
+"e4db230f": {"dfnID":"e4db230f","dfnText":"RTCRtpReceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpreceiver"},{"id":"ref-for-dom-rtcrtpreceiver\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2462"},{"id":"ref-for-dom-rtcrtpreceiver\u2463"},{"id":"ref-for-dom-rtcrtpreceiver\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2465"},{"id":"ref-for-dom-rtcrtpreceiver\u2466"},{"id":"ref-for-dom-rtcrtpreceiver\u2467"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2468"}],"title":"3.1. Algorithm"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2460\u24ea"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2460\u2460"},{"id":"ref-for-dom-rtcrtpreceiver\u2460\u2461"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
 "e7cb09fb": {"dfnID":"e7cb09fb","dfnText":"StructuredDeserializeWithTransfer","external":true,"refSections":[{"refs":[{"id":"ref-for-structureddeserializewithtransfer"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-structureddeserializewithtransfer\u2460"},{"id":"ref-for-structureddeserializewithtransfer\u2461"},{"id":"ref-for-structureddeserializewithtransfer\u2462"}],"title":"4.8. Operations"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserializewithtransfer"},
 "e97a9688": {"dfnID":"e97a9688","dfnText":"unsigned long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long"},{"id":"ref-for-idl-unsigned-long\u2460"},{"id":"ref-for-idl-unsigned-long\u2461"}],"title":"4.1. RTCEncodedFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-unsigned-long\u2462"},{"id":"ref-for-idl-unsigned-long\u2463"}],"title":"4.1.1. Members"},{"refs":[{"id":"ref-for-idl-unsigned-long\u2464"},{"id":"ref-for-idl-unsigned-long\u2465"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long"},
 "eb5c4be3": {"dfnID":"eb5c4be3","dfnText":"Serializable","external":true,"refSections":[{"refs":[{"id":"ref-for-serializable"}],"title":"4.4. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-serializable\u2460"}],"title":"4.6. RTCEncodedAudioFrame interface"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serializable"},

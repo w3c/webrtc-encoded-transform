@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="1cfafbd5567937d383561642e4e72bb05ee76f9d" name="revision">
+  <meta content="aeceff85acba2457effbd857f87b80d2972d7afe" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1431,8 +1431,8 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
     
     <dd>
      <p>
-            The type attribute allows the application to determine when a key frame is being
-            sent or received.
+            The type attribute allows the application to determine when a frame is a key frame or a delta frame.
+            On getting, <var>this</var>.<code>[[type]]</code> MUST be returned.
         </p>
     <dt>
         <dfn class="dfn-paneled idl-code" data-dfn-for="RTCEncodedVideoFrame" data-dfn-type="attribute" data-export id="dom-rtcencodedvideoframe-data"><code>data</code></dfn>, <span> of type <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer②">ArrayBuffer</a></span><span class="idlMemberType">ArrayBuffer</span>
@@ -1444,6 +1444,7 @@ refers to the system that is sending RTP and RTCP packets to the receiver system
             <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype①">mimeType</a></code>.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
             is transformed separately.
+            On getting, <var>this</var>.<code>[[data]]</code> MUST be returned. On setting, <var>this</var>.<code>[[data]]</code> MUST be set to the new value.
         </p>
      <p class="note" role="note">
               Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
@@ -1517,7 +1518,7 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
     <li data-md>
      <p>If <var>forStorage</var> is true, then throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#datacloneerror" id="ref-for-datacloneerror">DataCloneError</a></code>.</p>
     <li data-md>
-     <p>Set <var>serialized</var>.<code>[[type]]</code> to the value of <var>value</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type①">type</a></code>.</p>
+     <p>Set <var>serialized</var>.<code>[[type]]</code> to the value of <var>value</var>.<code>[[type]]</code>.</p>
     <li data-md>
      <p>Set <var>serialized</var>.<code>[[metadata]]</code> to an internal representation of <var>value</var>’s metadata.</p>
     <li data-md>
@@ -1526,7 +1527,7 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
    <p>Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/structured-data.html#deserialization-steps" id="ref-for-deserialization-steps">deserialization steps</a>, given <var>serialized</var>, <var>value</var> and <var>realm</var>, are:</p>
    <ol>
     <li data-md>
-     <p>Set <var>value</var>.<code class="idl"><a data-link-type="idl" href="#dom-rtcencodedvideoframe-type" id="ref-for-dom-rtcencodedvideoframe-type②">type</a></code> to <var>serialized</var>.<code>[[type]]</code>.</p>
+     <p>Set <var>value</var>.<code>[[type]]</code> to <var>serialized</var>.<code>[[type]]</code>.</p>
     <li data-md>
      <p>Set <var>value</var>’s metadata to the platform object representation of <var>serialized</var>.<code>[[metadata]]</code>.</p>
     <li data-md>
@@ -1634,6 +1635,7 @@ An implementation is therefore free to choose whatever method works best.
             The encoded frame data. The format of the data depends on the audio codec that is
             used to encode/decode the frame which can be determined by looking at the
             <code class="idl"><a data-link-type="idl" href="#dom-rtcencodedframemetadata-mimetype" id="ref-for-dom-rtcencodedframemetadata-mimetype②">mimeType</a></code>.
+            On getting, <var>this</var>.<code>[[data]]</code> MUST be returned. On setting, <var>this</var>.<code>[[data]]</code> MUST be set to the new value.
             The following table gives a number of examples:
         </p>
      <table class="simple">
@@ -2869,7 +2871,7 @@ let dfnPanelData = {
 "dom-rtcencodedvideoframe-rtcencodedvideoframe": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe","dfnText":"constructor","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe"},
 "dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-options"},
 "dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe": {"dfnID":"dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe","dfnText":"originalFrame","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframe-rtcencodedvideoframe-originalframe-options-originalframe"},
-"dom-rtcencodedvideoframe-type": {"dfnID":"dom-rtcencodedvideoframe-type","dfnText":"type","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type"}],"title":"4.4. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type\u2460"},{"id":"ref-for-dom-rtcencodedvideoframe-type\u2461"}],"title":"4.4.4. Serialization"}],"url":"#dom-rtcencodedvideoframe-type"},
+"dom-rtcencodedvideoframe-type": {"dfnID":"dom-rtcencodedvideoframe-type","dfnText":"type","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframe-type"}],"title":"4.4. RTCEncodedVideoFrame interface"}],"url":"#dom-rtcencodedvideoframe-type"},
 "dom-rtcencodedvideoframemetadata-dependencies": {"dfnID":"dom-rtcencodedvideoframemetadata-dependencies","dfnText":"dependencies","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-dependencies"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-dependencies"},
 "dom-rtcencodedvideoframemetadata-frameid": {"dfnID":"dom-rtcencodedvideoframemetadata-frameid","dfnText":"frameId","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcencodedvideoframemetadata-frameid"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"}],"url":"#dom-rtcencodedvideoframemetadata-frameid"},
 "dom-rtcencodedvideoframemetadata-height": {"dfnID":"dom-rtcencodedvideoframemetadata-height","dfnText":"height","external":false,"refSections":[],"url":"#dom-rtcencodedvideoframemetadata-height"},

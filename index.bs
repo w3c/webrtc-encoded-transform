@@ -1007,7 +1007,7 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
     1. Let |layers| be a new [=list=] of the layers for this |encoder|, ordered by negotiated encoding index.
     1. Remove from |layers| all layers that are not {{RTCRtpEncodingParameters/active}}, or whose
         corresponding {{RTCRtpSender}} track has ended.
-    1. If |rid| is not undefined, remove from |layers| all layers whose rid is not |rid|.
+    1. If |rid| is not undefined, remove from |layers| all layers whose RID is not |rid|.
 
        Note: If no |rid| is passed in, keyframes are generated for all active layers.
 

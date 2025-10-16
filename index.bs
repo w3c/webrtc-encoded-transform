@@ -217,15 +217,10 @@ Similarly, if a web application sets the transform synchronously at creation of 
 # SFrameTransform # {#sframe}
 
 <p>
-The API presented in this section allows applications to process SFrame data using specific cipher suites defined in [[RFC9605]].
+The APIs presented in this section allow applications to process SFrame data using specific cipher suites defined in [[RFC9605]].
 </p>
 
 <xmp class="idl">
-enum SFrameTransformRole {
-    "encrypt",
-    "decrypt"
-};
-
 // List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
 enum SFrameCipherSuite {
      "AES_128_CTR_HMAC_SHA256_80",
@@ -236,20 +231,36 @@ enum SFrameCipherSuite {
 };
 
 dictionary SFrameTransformOptions {
-    SFrameTransformRole role = "encrypt";
     required SFrameCipherSuite cipherSuite;
 };
 
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
-[Exposed=(Window,DedicatedWorker)]
-interface SFrameTransform : EventTarget {
-    constructor(optional SFrameTransformOptions options = {});
+interface mixin SFrameKeyManagement {
     Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyID);
     attribute EventHandler onerror;
 };
-SFrameTransform includes GenericTransformStream;
+
+[Exposed=Window]
+interface SFrameTransform : EventTarget {
+    constructor(optional SFrameTransformOptions options = {});
+};
+SFrameTransform includes SFrameKeyManagement;
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameEncrypterStream : EventTarget {
+    constructor(optional SFrameTransformOptions options = {});
+};
+SFrameEncrypterStream includes GenericTransformStream;
+SFrameEncrypterStream includes SFrameKeyManagement;
+
+[Exposed=(Window,DedicatedWorker)]
+interface SFrameDecrypterStream : EventTarget {
+    constructor(optional SFrameTransformOptions options = {});
+};
+SFrameDecrypterStream includes GenericTransformStream;
+SFrameDecrypterStream includes SFrameKeyManagement;
 
 enum SFrameTransformErrorEventType {
     "authentication",
@@ -274,42 +285,54 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 </xmp>
 
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
-1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the <a href="#sframe-transform-algorithm">SFrame transform algorithm</a> with |this| and |frame|.
+1. Let |options| be the method's first argument.
+1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
+
+The <dfn constructor for="SFrameEncrypterStream" lt="SFrameEncrypterStream(options)"><code>new SFrameEncrypterStream(<var>options</var>)</code></dfn> constructor steps are:
+1. Let |options| be the method's first argument.
+1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
+1. Set |this|.`[[role]]` to 'encrypt'.
+
+The <dfn constructor for="SFrameDecrypterStream" lt="SFrameDecrypterStream(options)"><code>new SFrameDecrypterStream(<var>options</var>)</code></dfn> constructor steps are:
+1. Let |options| be the method's first argument.
+1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
+1. Set |this|.`[[role]]` to 'decrypt'.
+
+## Algorithms ## {#sframe-algorithms}
+
+The <dfn>SFrame initialization algorithm</dfn>, given |this| and |options|, runs these steps:
+1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the [=SFrame transform algorithm=] with |this| and |frame|.
 1. Set |this|.`[[transform]]` to a new {{TransformStream}}.
 1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[transform]]` with [=TransformStream/set up/transformAlgorithm=] set to |transformAlgorithm|.
-1. Let |options| be the method's first argument.
-1. Set |this|.`[[role]]` to |options|["{{SFrameTransformOptions/role}}"].
 1. Set |this|.`[[cipherSuite]]` to |options|["{{SFrameTransformOptions/cipherSuite}}"].
 1. Set |this|.`[[readable]]` to |this|.`[[transform]]`.`[[readable]]`.
 1. Set |this|.`[[writable]]` to |this|.`[[transform]]`.`[[writable]]`.
 
-## Algorithm ## {#sframe-transform-algorithm}
-
-The SFrame transform algorithm, given |sframe| as a SFrameTransform object and |frame|, runs these steps:
-1. Let |role| be |sframe|.`[[role]]`.
-1. If |frame|.`[[owner]]` is a {{RTCRtpSender}}, set |role| to 'encrypt'.
-1. If |frame|.`[[owner]]` is a {{RTCRtpReceiver}}, set |role| to 'decrypt'.
+The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these steps:
+1. Let |role| be |this|.`[[role]]`.
+1. If |this|.`[[owner]]` is an {{RTCRtpSender}}, set |role| to 'encrypt'.
+1. If |this|.`[[owner]]` is an {{RTCRtpReceiver}}, set |role| to 'decrypt'.
 1. Let |data| be undefined.
 1. If |frame| is a {{BufferSource}}, set |data| to |frame|.
 1. If |frame| is a {{RTCEncodedAudioFrame}}, set |data| to |frame|.{{RTCEncodedAudioFrame/data}}
 1. If |frame| is a {{RTCEncodedVideoFrame}}, set |data| to |frame|.{{RTCEncodedVideoFrame/data}}
 1. If |data| is undefined, abort these steps.
-1. Let |buffer| be the result of running the SFrame algorithm with |data|, |sframe|.`[[cipherSuite]]`, and |role| as parameters. This algorithm is defined by [[RFC9605]] and returns an {{ArrayBuffer}}.
+1. Let |buffer| be the result of running the SFrame algorithm with |data|, |this|.`[[cipherSuite]]`, and |role| as parameters. This algorithm is defined by [[RFC9605]] and returns an {{ArrayBuffer}}.
 1. If the SFrame algorithm exits abruptly with an error, [=queue a task=] to run the following sub steps:
-     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameTransform/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/syntax}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
-     1. If the processing fails on decryption side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+     1. If the processing fails on decryption side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameTransform/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/keyID}},
         its {{SFrameTransformErrorEvent/frame}} attribute set to |frame| and its {{SFrameTransformErrorEvent/keyID}} attribute set to the keyID value parsed in the SFrame header.
-     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |sframe|,
+     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameTransform/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/authentication}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
      1. Abort these steps.
 1. If |frame| is a {{BufferSource}}, set |frame| to |buffer|.
 1. If |frame| is a {{RTCEncodedAudioFrame}}, set |frame|.{{RTCEncodedAudioFrame/data}} to |buffer|.
 1. If |frame| is a {{RTCEncodedVideoFrame}}, set |frame|.{{RTCEncodedVideoFrame/data}} to |buffer|.
-1. [=ReadableStream/Enqueue=] |frame| in |sframe|.`[[transform]]`.
+1. [=ReadableStream/Enqueue=] |frame| in |this|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
 The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
@@ -572,8 +595,8 @@ interface RTCEncodedVideoFrame {
     </dt>
     <dd>
         <p>
-            The type attribute allows the application to determine when a key frame is being
-            sent or received.
+            The type attribute allows the application to determine when a frame is a key frame or a delta frame.
+            On getting, |this|.`[[type]]` MUST be returned.
         </p>
     </dd>
     <dt>
@@ -586,6 +609,7 @@ interface RTCEncodedVideoFrame {
             {{RTCEncodedFrameMetadata/mimeType}}.
             For <a href="https://w3c.github.io/webrtc-svc/">SVC</a>, each spatial layer
             is transformed separately.
+            On getting, |this|.`[[data]]` MUST be returned. On setting, |this|.`[[data]]` MUST be set to the new value.
         </p>
         <p class="note">
               Since packetizers may drop certain elements, e.g. AV1 temporal delimiter OBUs,
@@ -668,14 +692,14 @@ interface RTCEncodedVideoFrame {
 Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, are:
 
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
-1. Set |serialized|.`[[type]]` to the value of |value|.{{RTCEncodedVideoFrame/type}}.
+1. Set |serialized|.`[[type]]` to the value of |value|.`[[type]]`.
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to the [=sub-serialization=] of |value|.`[[data]]`.
 
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
-1. Set |value|.{{RTCEncodedVideoFrame/type}} to |serialized|.`[[type]]`.
+1. Set |value|.`[[type]]` to |serialized|.`[[type]]`.
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`.
 1. Set |value|.`[[data]]` to the [=sub-deserialization=] of |serialized|.`[[data]]`.
 
@@ -784,6 +808,7 @@ interface RTCEncodedAudioFrame {
             The encoded frame data. The format of the data depends on the audio codec that is
             used to encode/decode the frame which can be determined by looking at the
             {{RTCEncodedFrameMetadata/mimeType}}.
+            On getting, |this|.`[[data]]` MUST be returned. On setting, |this|.`[[data]]` MUST be set to the new value.
             The following table gives a number of examples:
         </p>
         <table class="simple">
@@ -896,7 +921,7 @@ partial interface DedicatedWorkerGlobalScope {
 interface RTCRtpScriptTransformer : EventTarget {
     // Attributes and methods related to the transformer source
     readonly attribute ReadableStream readable;
-    Promise&lt;unsigned long long&gt; generateKeyFrame(optional DOMString rid);
+    Promise&lt;undefined&gt; generateKeyFrame(optional DOMString rid);
     Promise&lt;undefined&gt; sendKeyFrameRequest();
     // Attributes and methods related to the transformer sink
     readonly attribute WritableStream writable;
@@ -999,7 +1024,7 @@ or Full Intra Refresh (FIR), queue a task to perform the following steps:
 
 The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rid|, is defined by running these steps:
 1. If |encoder| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
-1. If |encoder| is not processing video frames, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |encoder| does not belong to a video {{RTCRtpReceiver}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |rid| is defined, but does not conform to the grammar requirements specified
     in Section 10 of [[!RFC8851]], then reject |promise| with {{TypeError}} and abort
     these steps.
@@ -1043,24 +1068,6 @@ The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and
         Section 4.3.1 of [[RFC5104]] provides guidelines of how and when it is appropriate to sending a Full Intra Request.
     1. Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of [[RFC5104]] and send it through |depacketizer|'s receiver.
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
-
-# RTCRtpSender extension # {#rtcrtpsender-extension}
-
-An additional API on {{RTCRtpSender}} is added to complement the generation of key frame added to {{RTCRtpScriptTransformer}}.
-
-<pre class="idl">
-partial interface RTCRtpSender {
-    Promise&lt;undefined&gt; generateKeyFrame(optional sequence &lt;DOMString&gt; rids);
-};
-</pre>
-
-## Extension operation ## {#sender-operation}
-
-The <dfn method for="RTCRtpSender">generateKeyFrame(|rids|)</dfn> method steps are:
-
-1. Let |promise| be a new promise.
-1. [=In parallel=], run the [$generate key frame algorithm$] with |promise|, |this|'s encoder and |rids|.
-1. Return |promise|.
 
 # Privacy and security considerations # {#privacy}
 

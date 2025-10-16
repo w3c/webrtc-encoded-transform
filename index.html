@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="c181f8b501ccf17b0e6983aa25ade6582729aa7a" name="revision">
+  <meta content="45066af79c5df1ce820e65f0a338fb6264ce04ba" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1917,29 +1917,28 @@ these steps.</p>
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel③">In parallel</a>, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>Gather a list of video encoders, named <var>videoEncoders</var> from <var>encoder</var>, ordered according negotiated RIDs if any.</p>
+       <p>Let <var>layers</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list">list</a> of the layers for this <var>encoder</var>, ordered by negotiated encoding index.</p>
       <li data-md>
-       <p>If <var>rid</var> is defined, remove from <var>videoEncoders</var> any video encoder that does not match <var>rid</var>.</p>
+       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove">Remove</a> from <var>layers</var> all layers that are not <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active" id="ref-for-dom-rtcrtpencodingparameters-active">active</a></code>, or whose
+corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> track has ended.</p>
       <li data-md>
-       <p>If <var>rid</var> is undefined, remove from <var>videoEncoders</var> all video encoders except the first one.</p>
+       <p>If <var>rid</var> is not undefined, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove①">remove</a> from <var>layers</var> all layers whose RID is not <var>rid</var>.</p>
+     </ol>
+     <p class="note" role="note"><span class="marker">Note:</span> If no <var>rid</var> is passed in, keyframes are generated for all active layers.</p>
+     <ol>
       <li data-md>
-       <p>If <var>videoEncoders</var> is empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps.
-<var>videoEncoders</var> is expected to be empty if the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①①">RTCRtpSender</a></code> is not active, or the corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender①②">RTCRtpSender</a></code> track is ended.</p>
+       <p>If <var>layers</var> is now empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps.</p>
       <li data-md>
-       <p>Let <var>videoEncoder</var> be the first encoder in <var>videoEncoders</var>.</p>
+       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove②">Remove</a> from <var>layers</var> all layers already <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-list-contain">found</a> in any <code>[[layers]]</code> of any tasks in <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
       <li data-md>
-       <p>If <var>rid</var> is undefined, set <var>rid</var> to the RID value corresponding to <var>videoEncoder</var>.</p>
-      <li data-md>
-       <p>Create a pending key frame task called <var>task</var> with <var>task</var>.<code>[[rid]]</code> set to rid and <var>task</var>.<code>[[promise]]</code>| set to <var>promise</var>.</p>
+       <p>Create a pending key frame task called <var>task</var> with <var>task</var>.<code>[[layers]]</code> set to <var>layers</var> and <var>task</var>.<code>[[promise]]</code> set to <var>promise</var>.</p>
       <li data-md>
        <p>If <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> is undefined, initialize <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> to an empty set.</p>
       <li data-md>
-       <p>Let <var>shouldTriggerKeyFrame</var> be <code>false</code> if <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code> contains a task whose <code>[[rid]]</code>
-value is equal to <var>rid</var>, and <code>true</code> otherwise.</p>
+       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#set-append" id="ref-for-set-append">Append</a> <var>task</var> to <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
       <li data-md>
-       <p>Add <var>task</var> to <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
-      <li data-md>
-       <p>If <var>shouldTriggerKeyFrame</var> is <code>true</code>, instruct <var>videoEncoder</var> to generate a key frame for the next provided video frame.</p>
+       <p>For each <var>layer</var> in <var>layers</var> (if any), instruct <var>encoder</var> to generate a key frame for its
+next provided video frame to that <var>layer</var>.</p>
      </ol>
    </ol>
    <p>For any <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑧">RTCRtpScriptTransformer</a></code> named <var>transformer</var>, the following steps are run just before any <var>frame</var> is enqueued in <var>transformer</var>.<code>[[readable]]</code>:</p>
@@ -1954,18 +1953,22 @@ value is equal to <var>rid</var>, and <code>true</code> otherwise.</p>
      <p>For each <var>task</var> in <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>If <var>frame</var> was generated by a video encoder identified by <var>task</var>.<code>[[rid]]</code>, run the following steps:</p>
+       <p>If <var>frame</var> was generated for a layer <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-list-contain①">contained</a> in <var>task</var>.<code>[[layers]]</code>,
+then run the following steps:</p>
        <ol>
         <li data-md>
-         <p>Remove <var>task</var> from <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
+         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove③">Remove</a> that layer from <var>task</var>.<code>[[layers]]</code>.</p>
         <li data-md>
-         <p>Resolve <var>task</var>.<code>[[promise]]</code> with undefined.</p>
+         <p>If <var>task</var>.<code>[[layers]]</code> is now empty, then <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove④">remove</a> <var>task</var> from
+<var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①">Resolve</a> <var>task</var>.<code>[[promise]]</code> with undefined.</p>
        </ol>
      </ol>
    </ol>
    <p>By resolving the promises just before enqueuing the corresponding key frame in a <code class="idl"><a data-link-type="idl" href="#rtcrtpscripttransformer" id="ref-for-rtcrtpscripttransformer⑨">RTCRtpScriptTransformer</a></code>’s readable,
 the resolution callbacks of the promises are always executed just before the corresponding key frame is exposed.
-If the promise is associated to several rid values, it will be resolved when the first key frame corresponding to one the rid value is enqueued.</p>
+If the promise is associated with several layers, it will be resolved once key frames have been enqueued for all of them.</p>
    <p>The <dfn class="dfn-paneled" data-dfn-type="abstract-op" data-export id="abstract-opdef-send-request-key-frame-algorithm">send request key frame algorithm</dfn>, given <var>promise</var> and <var>depacketizer</var>, is defined by running these steps:</p>
    <ol>
     <li data-md>
@@ -1976,12 +1979,12 @@ If the promise is associated to several rid values, it will be resolved when the
      <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">In parallel</a>, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>If sending a Full Intra Request (FIR) by <var>depacketizer</var>’s receiver is not deemed appropriate, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①">resolve</a> <var>promise</var> with undefined and abort these steps.
+       <p>If sending a Full Intra Request (FIR) by <var>depacketizer</var>’s receiver is not deemed appropriate, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">resolve</a> <var>promise</var> with undefined and abort these steps.
 Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> provides guidelines of how and when it is appropriate to sending a Full Intra Request.</p>
       <li data-md>
        <p>Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> and send it through <var>depacketizer</var>’s receiver.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑤">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑤">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve③">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
    </ol>
    <h2 class="heading settled" data-level="5" id="privacy"><span class="secno">5. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
@@ -2279,6 +2282,14 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="c3b2d08c">task source</span>
     </ul>
    <li>
+    <a data-link-type="biblio">[INFRA]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="a3b18719">append</span>
+     <li><span class="dfn-paneled" id="ae8def21">contain</span>
+     <li><span class="dfn-paneled" id="649608b9">list</span>
+     <li><span class="dfn-paneled" id="99c988d6">remove</span>
+    </ul>
+   <li>
     <a data-link-type="biblio">[MEDIACAPTURE-STREAMS]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="bc1e4fa1">MediaStreamTrack</span>
@@ -2352,6 +2363,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="7c983b6d">RTCPeerConnection</span>
      <li><span class="dfn-paneled" id="e4db230f">RTCRtpReceiver</span>
      <li><span class="dfn-paneled" id="b161d57f">RTCRtpSender</span>
+     <li><span class="dfn-paneled" id="4379d6b1">active</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2365,6 +2377,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-iana-media-types">[IANA-MEDIA-TYPES]
    <dd><a href="https://www.iana.org/assignments/media-types/"><cite>Media Types</cite></a>. URL: <a href="https://www.iana.org/assignments/media-types/">https://www.iana.org/assignments/media-types/</a>
+   <dt id="biblio-infra">[INFRA]
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-mediacapture-streams">[MEDIACAPTURE-STREAMS]
    <dd>Cullen Jennings; et al. <a href="https://w3c.github.io/mediacapture-main/"><cite>Media Capture and Streams</cite></a>. URL: <a href="https://w3c.github.io/mediacapture-main/">https://w3c.github.io/mediacapture-main/</a>
    <dt id="biblio-rfc2119">[RFC2119]
@@ -2802,9 +2816,10 @@ let dfnPanelData = {
 "2f8afbfe": {"dfnID":"2f8afbfe","dfnText":"ArrayBuffer","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-ArrayBuffer"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2460"}],"title":"4.4. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2461"}],"title":"4.4.2. Members"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2462"}],"title":"4.6. RTCEncodedAudioFrame interface"},{"refs":[{"id":"ref-for-idl-ArrayBuffer\u2463"}],"title":"4.6.2. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-ArrayBuffer"},
 "3aff2fb3": {"dfnID":"3aff2fb3","dfnText":"BufferSource","external":true,"refSections":[{"refs":[{"id":"ref-for-BufferSource"},{"id":"ref-for-BufferSource\u2460"}],"title":"3.1. Algorithms"}],"url":"https://webidl.spec.whatwg.org/#BufferSource"},
 "3b35d8a9": {"dfnID":"3b35d8a9","dfnText":"timeOrigin","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-performance-timeorigin"},{"id":"ref-for-dom-performance-timeorigin\u2460"}],"title":"4.1.1. Members"}],"url":"https://w3c.github.io/hr-time/#dom-performance-timeorigin"},
-"3b90bdcd": {"dfnID":"3b90bdcd","dfnText":"resolve","external":true,"refSections":[{"refs":[{"id":"ref-for-resolve"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-resolve\u2460"},{"id":"ref-for-resolve\u2461"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#resolve"},
+"3b90bdcd": {"dfnID":"3b90bdcd","dfnText":"resolve","external":true,"refSections":[{"refs":[{"id":"ref-for-resolve"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-resolve\u2460"},{"id":"ref-for-resolve\u2461"},{"id":"ref-for-resolve\u2462"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#resolve"},
 "3dc81766": {"dfnID":"3dc81766","dfnText":"set up (for WritableStream)","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-set-up"}],"title":"2.1.1. Stream creation"}],"url":"https://streams.spec.whatwg.org/#writablestream-set-up"},
 "4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"},{"id":"ref-for-this\u2460"},{"id":"ref-for-this\u2461"},{"id":"ref-for-this\u2462"},{"id":"ref-for-this\u2463"},{"id":"ref-for-this\u2464"},{"id":"ref-for-this\u2465"},{"id":"ref-for-this\u2466"},{"id":"ref-for-this\u2467"},{"id":"ref-for-this\u2468"},{"id":"ref-for-this\u2460\u24ea"},{"id":"ref-for-this\u2460\u2460"},{"id":"ref-for-this\u2460\u2461"},{"id":"ref-for-this\u2460\u2462"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-this\u2460\u2463"},{"id":"ref-for-this\u2460\u2464"},{"id":"ref-for-this\u2460\u2465"},{"id":"ref-for-this\u2460\u2466"},{"id":"ref-for-this\u2460\u2467"},{"id":"ref-for-this\u2460\u2468"},{"id":"ref-for-this\u2461\u24ea"},{"id":"ref-for-this\u2461\u2460"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-this\u2461\u2461"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-this\u2461\u2462"},{"id":"ref-for-this\u2461\u2463"},{"id":"ref-for-this\u2461\u2464"}],"title":"4.9. Attributes"}],"url":"https://webidl.spec.whatwg.org/#this"},
+"4379d6b1": {"dfnID":"4379d6b1","dfnText":"active","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpencodingparameters-active"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active"},
 "44a7708c": {"dfnID":"44a7708c","dfnText":"EventInit","external":true,"refSections":[{"refs":[{"id":"ref-for-dictdef-eventinit"}],"title":"3. SFrameTransform"}],"url":"https://dom.spec.whatwg.org/#dictdef-eventinit"},
 "450958f7": {"dfnID":"450958f7","dfnText":"unsigned short","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-short"},{"id":"ref-for-idl-unsigned-short\u2460"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-short"},
 "47574099": {"dfnID":"47574099","dfnText":"short","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-short"}],"title":"4.5. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-short\u2460"}],"title":"4.5.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-short"},
@@ -2817,6 +2832,7 @@ let dfnPanelData = {
 "5f90bbfb": {"dfnID":"5f90bbfb","dfnText":"undefined","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-undefined"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-idl-undefined\u2460"},{"id":"ref-for-idl-undefined\u2461"}],"title":"4.7. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-undefined"},
 "5fc623fc": {"dfnID":"5fc623fc","dfnText":"CryptoKey","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-CryptoKey"}],"title":"3. SFrameTransform"}],"url":"https://w3c.github.io/webcrypto/#dfn-CryptoKey"},
 "5fd23811": {"dfnID":"5fd23811","dfnText":"fire an event","external":true,"refSections":[{"refs":[{"id":"ref-for-concept-event-fire"},{"id":"ref-for-concept-event-fire\u2460"},{"id":"ref-for-concept-event-fire\u2461"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-concept-event-fire\u2462"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-concept-event-fire\u2463"}],"title":"4.10. Events"}],"url":"https://dom.spec.whatwg.org/#concept-event-fire"},
+"649608b9": {"dfnID":"649608b9","dfnText":"list","external":true,"refSections":[{"refs":[{"id":"ref-for-list"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://infra.spec.whatwg.org/#list"},
 "6b6bb798": {"dfnID":"6b6bb798","dfnText":"enqueue","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestream-enqueue"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-readablestream-enqueue\u2460"}],"title":"3.1. Algorithms"}],"url":"https://streams.spec.whatwg.org/#readablestream-enqueue"},
 "6c6b1005": {"dfnID":"6c6b1005","dfnText":"any","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-any"},{"id":"ref-for-idl-any\u2460"}],"title":"3. SFrameTransform"},{"refs":[{"id":"ref-for-idl-any\u2461"},{"id":"ref-for-idl-any\u2462"}],"title":"4.7. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-any"},
 "797018a7": {"dfnID":"797018a7","dfnText":"InvalidStateError","external":true,"refSections":[{"refs":[{"id":"ref-for-invalidstateerror"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-invalidstateerror\u2460"},{"id":"ref-for-invalidstateerror\u2461"},{"id":"ref-for-invalidstateerror\u2462"},{"id":"ref-for-invalidstateerror\u2463"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#invalidstateerror"},
@@ -2830,12 +2846,14 @@ let dfnPanelData = {
 "8c800cdf": {"dfnID":"8c800cdf","dfnText":"double","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-double"}],"title":"4.5. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-double\u2460"}],"title":"4.5.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-double"},
 "8f5c2179": {"dfnID":"8f5c2179","dfnText":"a promise resolved with","external":true,"refSections":[{"refs":[{"id":"ref-for-a-promise-resolved-with"},{"id":"ref-for-a-promise-resolved-with\u2460"},{"id":"ref-for-a-promise-resolved-with\u2461"}],"title":"2.1.2. Stream processing"}],"url":"https://webidl.spec.whatwg.org/#a-promise-resolved-with"},
 "93b563b6": {"dfnID":"93b563b6","dfnText":"timestamp","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-videoframe-timestamp"}],"title":"4.3.1. Members"}],"url":"https://w3c.github.io/webcodecs/#dom-videoframe-timestamp"},
+"99c988d6": {"dfnID":"99c988d6","dfnText":"remove","external":true,"refSections":[{"refs":[{"id":"ref-for-list-remove"},{"id":"ref-for-list-remove\u2460"},{"id":"ref-for-list-remove\u2461"},{"id":"ref-for-list-remove\u2462"},{"id":"ref-for-list-remove\u2463"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://infra.spec.whatwg.org/#list-remove"},
 "9a517a7d": {"dfnID":"9a517a7d","dfnText":"queue a task","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-a-task"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-queue-a-task\u2460"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-queue-a-task\u2461"},{"id":"ref-for-queue-a-task\u2462"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-queue-a-task\u2463"},{"id":"ref-for-queue-a-task\u2464"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task"},
 "9aeb0a82": {"dfnID":"9aeb0a82","dfnText":"long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-long-long"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-long-long\u2460"}],"title":"4.3.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-long-long"},
 "9cce47fd": {"dfnID":"9cce47fd","dfnText":"sequence","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-sequence"}],"title":"4.1. RTCEncodedFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2460"}],"title":"4.3. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2461"}],"title":"4.7. Interfaces"}],"url":"https://webidl.spec.whatwg.org/#idl-sequence"},
 "9da834a1": {"dfnID":"9da834a1","dfnText":"StructuredSerializeWithTransfer","external":true,"refSections":[{"refs":[{"id":"ref-for-structuredserializewithtransfer"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-structuredserializewithtransfer\u2460"},{"id":"ref-for-structuredserializewithtransfer\u2461"},{"id":"ref-for-structuredserializewithtransfer\u2462"}],"title":"4.8. Operations"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#structuredserializewithtransfer"},
 "9eda9b58": {"dfnID":"9eda9b58","dfnText":"NotFoundError","external":true,"refSections":[{"refs":[{"id":"ref-for-notfounderror"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#notfounderror"},
 "a307241e": {"dfnID":"a307241e","dfnText":"release (for WritableStreamDefaultWriter)","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestreamdefaultwriter-release"}],"title":"2.2. Extension attribute"}],"url":"https://streams.spec.whatwg.org/#writablestreamdefaultwriter-release"},
+"a3b18719": {"dfnID":"a3b18719","dfnText":"append","external":true,"refSections":[{"refs":[{"id":"ref-for-set-append"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://infra.spec.whatwg.org/#set-append"},
 "a72449dd": {"dfnID":"a72449dd","dfnText":"in parallel","external":true,"refSections":[{"refs":[{"id":"ref-for-in-parallel"},{"id":"ref-for-in-parallel\u2460"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-in-parallel\u2461"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-in-parallel\u2462"},{"id":"ref-for-in-parallel\u2463"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
 "abstract-opdef-chain-transform-algorithm": {"dfnID":"abstract-opdef-chain-transform-algorithm","dfnText":"chain transform algorithm","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-chain-transform-algorithm"},{"id":"ref-for-abstract-opdef-chain-transform-algorithm\u2460"}],"title":"2.2. Extension attribute"}],"url":"#abstract-opdef-chain-transform-algorithm"},
 "abstract-opdef-generate-key-frame-algorithm": {"dfnID":"abstract-opdef-generate-key-frame-algorithm","dfnText":"generate key frame algorithm","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-generate-key-frame-algorithm"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-abstract-opdef-generate-key-frame-algorithm\u2460"}],"title":"4.10. Events"}],"url":"#abstract-opdef-generate-key-frame-algorithm"},
@@ -2843,7 +2861,8 @@ let dfnPanelData = {
 "abstract-opdef-rtcrtptransform-association-steps": {"dfnID":"abstract-opdef-rtcrtptransform-association-steps","dfnText":"association steps","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps\u2460"},{"id":"ref-for-abstract-opdef-rtcrtptransform-association-steps\u2461"}],"title":"4.8. Operations"}],"url":"#abstract-opdef-rtcrtptransform-association-steps"},
 "abstract-opdef-send-request-key-frame-algorithm": {"dfnID":"abstract-opdef-send-request-key-frame-algorithm","dfnText":"send request key frame algorithm","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-send-request-key-frame-algorithm"}],"title":"4.8. Operations"}],"url":"#abstract-opdef-send-request-key-frame-algorithm"},
 "abstract-opdef-writeencodeddata": {"dfnID":"abstract-opdef-writeencodeddata","dfnText":"writeEncodedData","external":false,"refSections":[{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2460"},{"id":"ref-for-abstract-opdef-writeencodeddata\u2461"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-abstract-opdef-writeencodeddata\u2462"}],"title":"4.4.4. Serialization"}],"url":"#abstract-opdef-writeencodeddata"},
-"b161d57f": {"dfnID":"b161d57f","dfnText":"RTCRtpSender","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender"},{"id":"ref-for-dom-rtcrtpsender\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2462"},{"id":"ref-for-dom-rtcrtpsender\u2463"},{"id":"ref-for-dom-rtcrtpsender\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2465"},{"id":"ref-for-dom-rtcrtpsender\u2466"},{"id":"ref-for-dom-rtcrtpsender\u2467"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2468"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2460\u24ea"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2460\u2460"},{"id":"ref-for-dom-rtcrtpsender\u2460\u2461"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"},
+"ae8def21": {"dfnID":"ae8def21","dfnText":"contain","external":true,"refSections":[{"refs":[{"id":"ref-for-list-contain"},{"id":"ref-for-list-contain\u2460"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://infra.spec.whatwg.org/#list-contain"},
+"b161d57f": {"dfnID":"b161d57f","dfnText":"RTCRtpSender","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpsender"},{"id":"ref-for-dom-rtcrtpsender\u2460"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2461"}],"title":"2.1.1. Stream creation"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2462"},{"id":"ref-for-dom-rtcrtpsender\u2463"},{"id":"ref-for-dom-rtcrtpsender\u2464"}],"title":"2.1.2. Stream processing"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2465"},{"id":"ref-for-dom-rtcrtpsender\u2466"},{"id":"ref-for-dom-rtcrtpsender\u2467"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2468"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2460\u24ea"}],"title":"4.8. Operations"},{"refs":[{"id":"ref-for-dom-rtcrtpsender\u2460\u2460"}],"title":"4.11. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"},
 "b21c2abd": {"dfnID":"b21c2abd","dfnText":"release (for ReadableStreamDefaultReader)","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestreamdefaultreader-release"}],"title":"2.2. Extension attribute"}],"url":"https://streams.spec.whatwg.org/#readablestreamdefaultreader-release"},
 "b262501e": {"dfnID":"b262501e","dfnText":"reject","external":true,"refSections":[{"refs":[{"id":"ref-for-reject"},{"id":"ref-for-reject\u2460"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#reject"},
 "b8308563": {"dfnID":"b8308563","dfnText":"DedicatedWorkerGlobalScope","external":true,"refSections":[{"refs":[{"id":"ref-for-dedicatedworkerglobalscope"}],"title":"4.7. Interfaces"}],"url":"https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope"},
@@ -3476,6 +3495,10 @@ let refsData = {
 "https://html.spec.whatwg.org/multipage/webappapis.html#task-source": {"displayText":"task source","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"task source","type":"dfn","url":"https://html.spec.whatwg.org/multipage/webappapis.html#task-source"},
 "https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope": {"displayText":"DedicatedWorkerGlobalScope","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"DedicatedWorkerGlobalScope","type":"interface","url":"https://html.spec.whatwg.org/multipage/workers.html#dedicatedworkerglobalscope"},
 "https://html.spec.whatwg.org/multipage/workers.html#worker": {"displayText":"Worker","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"Worker","type":"interface","url":"https://html.spec.whatwg.org/multipage/workers.html#worker"},
+"https://infra.spec.whatwg.org/#list": {"displayText":"list","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"list","type":"dfn","url":"https://infra.spec.whatwg.org/#list"},
+"https://infra.spec.whatwg.org/#list-contain": {"displayText":"contain","export":true,"for_":["list","stack","queue","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"contain","type":"dfn","url":"https://infra.spec.whatwg.org/#list-contain"},
+"https://infra.spec.whatwg.org/#list-remove": {"displayText":"remove","export":true,"for_":["list","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"remove","type":"dfn","url":"https://infra.spec.whatwg.org/#list-remove"},
+"https://infra.spec.whatwg.org/#set-append": {"displayText":"append","export":true,"for_":["set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#set-append"},
 "https://streams.spec.whatwg.org/#generictransformstream": {"displayText":"GenericTransformStream","export":true,"for_":[],"level":"1","normative":true,"shortname":"streams","spec":"streams","status":"current","text":"GenericTransformStream","type":"interface","url":"https://streams.spec.whatwg.org/#generictransformstream"},
 "https://streams.spec.whatwg.org/#identity-transform-stream": {"displayText":"identity transform stream","export":true,"for_":[],"level":"1","normative":true,"shortname":"streams","spec":"streams","status":"current","text":"identity transform stream","type":"dfn","url":"https://streams.spec.whatwg.org/#identity-transform-stream"},
 "https://streams.spec.whatwg.org/#readablestream": {"displayText":"ReadableStream","export":true,"for_":[],"level":"1","normative":true,"shortname":"streams","spec":"streams","status":"current","text":"ReadableStream","type":"interface","url":"https://streams.spec.whatwg.org/#readablestream"},
@@ -3499,6 +3522,7 @@ let refsData = {
 "https://w3c.github.io/webcrypto/#dfn-CryptoKey": {"displayText":"CryptoKey","export":true,"for_":[],"level":"2","normative":true,"shortname":"webcrypto","spec":"webcrypto-2","status":"current","text":"CryptoKey","type":"interface","url":"https://w3c.github.io/webcrypto/#dfn-CryptoKey"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration": {"displayText":"RTCConfiguration","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCConfiguration","type":"dictionary","url":"https://w3c.github.io/webrtc-pc/#dom-rtcconfiguration"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection": {"displayText":"RTCPeerConnection","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCPeerConnection","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection"},
+"https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active": {"displayText":"active","export":true,"for_":["RTCRtpEncodingParameters"],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"active","type":"dict-member","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver": {"displayText":"RTCRtpReceiver","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpReceiver","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender": {"displayText":"RTCRtpSender","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpSender","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"},
 "https://webidl.spec.whatwg.org/#BufferSource": {"displayText":"BufferSource","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"BufferSource","type":"typedef","url":"https://webidl.spec.whatwg.org/#BufferSource"},

@@ -1012,9 +1012,9 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
        Note: If no |rid| is passed in, keyframes are generated for all active layers.
 
     1. If |layers| is now empty, [=queue a task=] to reject |promise| with {{NotFoundError}} and abort these steps.
+    1. Remove from |layers| all layers already [=list/contained|found=] in any `[[layers]]` of any tasks in |encoder|.`[[pendingKeyFrameTasks]]`.
     1. Create a pending key frame task called |task| with |task|.`[[layers]]` set to |layers| and |task|.`[[promise]]` set to |promise|.
     1. If |encoder|.`[[pendingKeyFrameTasks]]` is undefined, initialize |encoder|.`[[pendingKeyFrameTasks]]` to an empty set.
-    1. Remove from |layers| all layers already [=list/contained|found=] in any `[[layers]]` of any tasks in |encoder|.`[[pendingKeyFrameTasks]]`.
     1. Add |task| to |encoder|.`[[pendingKeyFrameTasks]]`.
     1. For each |layer| in |layers| (if any), instruct |encoder| to generate a key frame for its
         next provided video frame to that |layer|.
@@ -1024,11 +1024,12 @@ For any {{RTCRtpScriptTransformer}} named |transformer|, the following steps are
 1. If |encoder| or |encoder|.`[[pendingKeyFrameTasks]]` is undefined, abort these steps.
 1. If |frame| is not a video {{RTCEncodedVideoFrameType/"key"}} frame, abort these steps.
 1. For each |task| in |encoder|.`[[pendingKeyFrameTasks]]`, run the following steps:
-    1. If |frame| was generated for a layer
-        [=list/contained=] in |task|.`[[layers]]`, remove that layer from |task|.`[[layers]]`.
-        If this causes |task|.`[[layers]]` to become empty, then run the following steps:
-        1. Remove |task| from |encoder|.`[[pendingKeyFrameTasks]]`.
-        1. Resolve |task|.`[[promise]]` with |frame|'s timestamp.
+    1. If |frame| was generated for a layer [=list/contained=] in |task|.`[[layers]]`,
+        then run the following steps:
+        1. remove that layer from |task|.`[[layers]]`.
+        1. If |task|.`[[layers]]` is now empty, then remove |task| from
+            |encoder|.`[[pendingKeyFrameTasks]]`.
+        1. Resolve |task|.`[[promise]]` with undefined.
 
 By resolving the promises just before enqueuing the corresponding key frame in a {{RTCRtpScriptTransformer}}'s readable,
 the resolution callbacks of the promises are always executed just before the corresponding key frame is exposed.

@@ -93,30 +93,31 @@ partial interface RTCRtpReceiver {
 };
 </pre>
 
+This allows manipulation of encoded frames in the media pipeline
+between the processing steps of an {{RTCRtpSender}}'s underlying
+<dfn>encoder</dfn> and <dfn ignore=''>packetizer</dfn>, and/or
+between an {{RTCRtpReceiver}}'s underlying <dfn>depacketizer</dfn>
+and <dfn ignore=''>decoder</dfn>.
+
 ## Extension operation ## {#operation}
 
 At the time when a codec is initialized as part of the encoder, and the
 corresponding flag is set in the {{RTCPeerConnection}}'s {{RTCConfiguration}}
 argument, ensure that the codec is disabled and produces no output.
 
-
-### Stream creation ### {#stream-creation}
-
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
 1. Initialize [=this=].`[[transform]]` to null.
-1. Initialize [=this=].`[[readable]]` to a new {{ReadableStream}}.
-1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[readable]]`. [=this=].`[[readable]]` is provided frames using the [$readEncodedData$] algorithm given |this| as parameter.
-1. Initialize [=this=].`[[writable]]` to a new {{WritableStream}}.
-1. <a dfn for="WritableStream">Set up</a> [=this=].`[[writable]]` with its [=WritableStream/set up/writeAlgorithm=] set to [$writeEncodedData$] given |this| as parameter and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
-    <p class="note">highWaterMark is set to Infinity to explicitly disable backpressure.</p>
 1. Initialize [=this=].`[[pipeToController]]` to null.
 1. Initialize [=this=].`[[lastReceivedFrameCounter]]` to <code>0</code>.
 1. Initialize [=this=].`[[lastEnqueuedFrameCounter]]` to <code>0</code>.
 1. [=Queue a task=] to run the following steps:
     1. If [=this=].`[[pipeToController]]` is not null, abort these steps.
     2. Set [=this=].`[[pipeToController]]` to a new {{AbortController}}.
-    <!-- FIXME: Use pipeTo algorithm when available. -->
-    3. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with [=this=].`[[readable]]`, [=this=].`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to true and [=this=].`[[pipeToController]]`'s [=AbortController/signal=].
+        <!-- FIXME: Fix aborting. -->
+        <p class="note">TODO: Specify details of how
+        [=this=].`[[pipeToController]]` aborts streaming in the worker.</p>
+
+### Stream processing ### {#stream-processing}
 
 <p class=note>
 Streams backpressure can optimize throughput while limiting processing and memory consumption by pausing data production as early as possible in a data pipeline.
@@ -126,8 +127,6 @@ Buffering within a transform would add latency without allowing web applications
 The User Agent is responsible for doing these adaptations, especially since it controls both ends of the transform.
 For those reasons, streams backpressure is disabled in WebRTC encoded transforms.
 </p>
-
-### Stream processing ### {#stream-processing}
 
 The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as parameter. It is defined by running the following steps:
 1. Wait for a frame to be produced by |rtcObject|'s encoder if it is a {{RTCRtpSender}} or |rtcObject|'s packetizer if it is a {{RTCRtpReceiver}}.
@@ -345,7 +344,7 @@ The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> met
 4. Return |promise|.
 
 
-# RTCRtpScriptTransform # {#scriptTransform}
+# Script Transform # {#scriptTransform}
 
 In this section, the capture system refers to the system where media is sourced from and the sender system
 refers to the system that is sending RTP and RTCP packets to the receiver system where {{RTCEncodedFrameMetadata}} data is populated.
@@ -906,17 +905,40 @@ Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to the [=sub-deserialization=] of |serialized|.`[[data]]`.
 
-## Interfaces ## {#RTCRtpScriptTransformer-interfaces}
+
+# <dfn interface>RTCRtpScriptTransform</dfn> interface # {#RTCRtpScriptTransform-interface}
 <pre class="idl">
-[Exposed=DedicatedWorker]
-interface RTCTransformEvent : Event {
-    readonly attribute RTCRtpScriptTransformer transformer;
+[Exposed=Window]
+interface RTCRtpScriptTransform {
+    constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
 };
+</pre>
 
-partial interface DedicatedWorkerGlobalScope {
-    attribute EventHandler onrtctransform;
-};
+## Constructor ## {#RTCRtpScriptTransform-constructor}
 
+The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:
+5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
+8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+    1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
+    4. Let |transformer| be the result of [=RTCRtpScriptTransformer/creating=] a
+        {{RTCRtpScriptTransformer}} with |transformerOptions|.
+    8. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
+
+// FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
+
+## Algorithms ## {#RTCRtpScriptTransform-algorithms}
+
+Each {{RTCRtpScriptTransform}} has the following set of [$association steps$], given |rtcObject|:
+1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
+1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
+1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
+1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
+    1. Set |transformer|.`[[encoder]]` to |encoder|.
+    1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
+
+# <dfn interface>RTCRtpScriptTransformer</dfn> interface # {#RTCRtpScriptTransformer-interface}
+<pre class="idl">
 [Exposed=DedicatedWorker]
 interface RTCRtpScriptTransformer : EventTarget {
     // Attributes and methods related to the transformer source
@@ -929,49 +951,82 @@ interface RTCRtpScriptTransformer : EventTarget {
     // Attributes for configuring the Javascript code
     readonly attribute any options;
 };
-
-[Exposed=Window]
-interface RTCRtpScriptTransform {
-    constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
-};
-
-[Exposed=DedicatedWorker]
-interface KeyFrameRequestEvent : Event {
-  constructor(DOMString type, optional DOMString rid);
-  readonly attribute DOMString? rid;
-};
 </pre>
 
-## Operations ## {#RTCRtpScriptTransform-operations}
+## Internal slots ## {#RTCRtpScriptTransformer-internal-slots}
 
-The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:
-1. Set |t1| to an [=identity transform stream=].
-2. Set |t2| to an [=identity transform stream=].
-3. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
-4. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
-5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
-6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
-7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
-8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
-    1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
-    2. Let |readable| be the result of [$StructuredDeserializeWithTransfer$](|serializedReadable|, the current Realm).
-    3. Let |writable| be the result of [$StructuredDeserializeWithTransfer$](|serializedWritable|, the current Realm).
-    4. Let |transformer| be a new {{RTCRtpScriptTransformer}}.
-    5. Set |transformer|.`[[options]]` to |transformerOptions|.
-    6. Set |transformer|.`[[readable]]` to |readable|.
-    7. Set |transformer|.`[[writable]]` to |writable|.
-    8. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
+A {{RTCRtpScriptTransformer}} object has the following internal slots.
 
-// FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
+<table class="data" dfn-for="RTCRtpScriptTransformer" dfn-type="attribute">
+ <thead>
+  <tr>
+   <th>Internal Slot
+   <th>Description (<em>non-normative</em>)
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td><dfn>`[[depacketizer]]`</dfn>
+   <td class="non-normative">A [=depacketizer=] or undefined.
+  </tr>
+  <tr>
+   <td><dfn>`[[encoder]]`</dfn>
+   <td class="non-normative">An [=encoder=] or undefined.
+  </tr>
+  <tr>
+   <td><dfn>`[[options]]`</dfn>
+   <td class="non-normative">An optional {{Object}}, or null.
+  </tr>
+  <tr>
+   <td><dfn>`[[readable]]`</dfn>
+   <td class="non-normative">A {{ReadableStream}}.
+  </tr>
+  <tr>
+   <td><dfn>`[[writable]]`</dfn>
+   <td class="non-normative">A {{WritableStream}}.
+  </tr>
+ </tbody>
+</table>
 
-Each RTCRtpScriptTransform has the following set of [$association steps$], given |rtcObject|:
-1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
-1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
-1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
-1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
-    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
-    1. Set |transformer|.`[[encoder]]` to |encoder|.
-    1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
+<div algorithm="create|creating">
+To <dfn for="RTCRtpScriptTransformer" lt="create|creating">create</dfn> an
+{{RTCRtpScriptTransformer}}, given an |options| object, perform the following steps:
+1. Let |transformer| be a [=new=] {{RTCRtpScriptTransformer}}, with:
+    : {{RTCRtpScriptTransformer/[[depacketizer]]}}
+    :: undefined
+    : {{RTCRtpScriptTransformer/[[encoder]]}}
+    :: undefined
+    : {{RTCRtpScriptTransformer/[[options]]}}
+    :: |options|
+    : {{RTCRtpScriptTransformer/[[readable]]}}
+    :: A new {{ReadableStream}}.
+    : {{RTCRtpScriptTransformer/[[writable]]}}
+    :: A new {{WritableStream}}.
+1. [=ReadableStream/Set up=] |transformer|.{{[[readable]]}}. <p class="note">The
+    [$readEncodedData$] algorithm, given |this| as parameter, provides encoded frames to it.
+    </p>
+1. Let |writeAlgorithm| be an action that runs [$writeEncodedData$] with |this| as
+    parameter and |frame| as input, given |frame|.
+1. [=WritableStream/Set up=] |transformer|.{{[[writable]]}} with its
+    [=WritableStream/set up/writeAlgorithm=] set to |writeAlgorithm| and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
+    <p class="note">highWaterMark is set to Infinity to explicitly disable backpressure.</p>
+ 1. Return |transformer|.
+
+</div>
+
+### Methods ### {#RTCRtpScriptTransformer-methods}
+<dl dfn-for="RTCRtpScriptTransformer" class="dictionary-members">
+    <dt>
+        <dfn for="RTCRtpScriptTransformer" method>getMetadata()</dfn>
+    </dt>
+    <dd>
+        <p>
+            Returns the metadata associated with the frame.
+        </p>
+    </dd>
+</dl>
+
+## Operations ## {#RTCRtpScriptTransformer-operations}
 
 The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.
@@ -1003,6 +1058,23 @@ The <dfn attribute for="RTCRtpScriptTransformer">onbandwidthestimate</dfn> Event
 The <dfn attribute for="RTCRtpScriptTransformer">onkeyframerequest</dfn> EventHandler has type keyframerequest.
 
 ## Events ## {#RTCRtpScriptTransformer-events}
+
+<pre class="idl">
+[Exposed=DedicatedWorker]
+interface RTCTransformEvent : Event {
+    readonly attribute RTCRtpScriptTransformer transformer;
+};
+
+partial interface DedicatedWorkerGlobalScope {
+    attribute EventHandler onrtctransform;
+};
+
+[Exposed=DedicatedWorker]
+interface KeyFrameRequestEvent : Event {
+  constructor(DOMString type, optional DOMString rid);
+  readonly attribute DOMString? rid;
+};
+</pre>
 
 The following event fires on an {{RTCRtpScriptTransformer}}:
 

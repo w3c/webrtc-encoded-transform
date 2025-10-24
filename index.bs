@@ -918,12 +918,12 @@ interface RTCRtpScriptTransform {
 ## Constructor ## {#RTCRtpScriptTransform-constructor}
 
 The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:
-5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
-8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+1. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
+1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
     1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
-    4. Let |transformer| be the result of [=RTCRtpScriptTransformer/creating=] a
+    1. Let |transformer| be the result of [=RTCRtpScriptTransformer/creating=] a
         {{RTCRtpScriptTransformer}} with |transformerOptions|.
-    8. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
+    1. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
 
 // FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
 

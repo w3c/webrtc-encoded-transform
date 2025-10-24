@@ -1019,19 +1019,7 @@ To <dfn for="RTCRtpScriptTransformer" lt="create|creating">create</dfn> an
 
 </div>
 
-### Methods ### {#RTCRtpScriptTransformer-methods}
-<dl dfn-for="RTCRtpScriptTransformer" class="dictionary-members">
-    <dt>
-        <dfn for="RTCRtpScriptTransformer" method>getMetadata()</dfn>
-    </dt>
-    <dd>
-        <p>
-            Returns the metadata associated with the frame.
-        </p>
-    </dd>
-</dl>
-
-## Operations ## {#RTCRtpScriptTransformer-operations}
+## Methods ## {#RTCRtpScriptTransformer-methods}
 
 The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.

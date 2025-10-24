@@ -95,9 +95,9 @@ partial interface RTCRtpReceiver {
 
 This allows manipulation of encoded frames in the media pipeline
 between the processing steps of an {{RTCRtpSender}}'s underlying
-<dfn>encoder</dfn> and <dfn ignore=''>packetizer</dfn>, and/or
+<dfn>encoder</dfn> and <dfn>packetizer</dfn>, and/or
 between an {{RTCRtpReceiver}}'s underlying <dfn>depacketizer</dfn>
-and <dfn ignore=''>decoder</dfn>.
+and <dfn>decoder</dfn>.
 
 ## Extension operation ## {#operation}
 
@@ -108,8 +108,6 @@ argument, ensure that the codec is disabled and produces no output.
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
 1. Initialize [=this=].`[[transform]]` to null.
 1. Initialize [=this=].`[[pipeToController]]` to null.
-1. Initialize [=this=].`[[lastReceivedFrameCounter]]` to <code>0</code>.
-1. Initialize [=this=].`[[lastEnqueuedFrameCounter]]` to <code>0</code>.
 1. [=Queue a task=] to run the following steps:
     1. If [=this=].`[[pipeToController]]` is not null, abort these steps.
     2. Set [=this=].`[[pipeToController]]` to a new {{AbortController}}.
@@ -128,13 +126,14 @@ The User Agent is responsible for doing these adaptations, especially since it c
 For those reasons, streams backpressure is disabled in WebRTC encoded transforms.
 </p>
 
-The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as parameter. It is defined by running the following steps:
-1. Wait for a frame to be produced by |rtcObject|'s encoder if it is a {{RTCRtpSender}} or |rtcObject|'s packetizer if it is a {{RTCRtpReceiver}}.
-1. Increment |rtcObject|.`[[lastEnqueuedFrameCounter]]` by <code>1</code>.
+The <dfn abstract-op>readEncodedData</dfn> algorithm is given an {{RTCRtpScriptTransformer}}
+|transformer| as parameter. It is defined by running the following steps:
+1. Wait for a frame to be produced by |transformer|.{{[[frameSource]]}}.
+1. Increment |transformer|.`[[lastEnqueuedFrameCounter]]` by <code>1</code>.
 1. Let |frame| be the newly produced frame.
-1. Set |frame|.`[[owner]]` to |rtcObject|.
-1. Set |frame|.`[[counter]]` to |rtcObject|.`[[lastEnqueuedFrameCounter]]`.
-1. If the frame has been produced by a {{RTCRtpReceiver}}:
+1. Set |frame|.`[[owner]]` to |transformer|.{{[[frameSource]]}}.
+1. Set |frame|.`[[counter]]` to |transformer|.{{[[lastEnqueuedFrameCounter]]}}.
+1. If |frame|.`[[owner]]` is a [=depacketizer=]:
     1. If the relevant RTP packet contains the
         [[RTP-EXT-CAPTURE-TIME|RTP Header Extension for Absolute Capture Time]], set |frame|.`[[captureTime]]` to the
         [[RTP-EXT-CAPTURE-TIME#absolute-capture-timestamp|absolute capture timestamp]] field and set |frame|.`[[senderCaptureTimeOffset]]`
@@ -145,30 +144,32 @@ The <dfn abstract-op>readEncodedData</dfn> algorithm is given a |rtcObject| as p
         [[RTP-EXT-CAPTURE-TIME#timestamp-interpolation|timestamp interpolation]] and set |frame|.`[[senderCaptureTimeOffset]]`
         to the most recent value that was present.
     1. Otherwise, set |frame|.`[[captureTime]]` to undefined and set |frame|.`[[senderCaptureTimeOffset]]` to undefined.
-1. If the frame has been produced by a {{RTCRtpSender}}, set |frame|.`[[captureTime]]` to the capture timestamp
+1. If |frame|.`[[owner]]` is an [=encoder=], set |frame|.`[[captureTime]]` to the capture timestamp
     using the methodology described in [[RTP-EXT-CAPTURE-TIME#absolute-capture-timestamp]] and set frame.`[[senderCaptureTimeOffset]]`
     to undefined.
-1. [=ReadableStream/Enqueue=] |frame| in |rtcObject|.`[[readable]]`.
+1. [=ReadableStream/Enqueue=] |frame| into |transformer|.{{[[readable]]}}.
 
-The <dfn abstract-op>writeEncodedData</dfn> algorithm is given a |rtcObject| as parameter and a |frame| as input. It is defined by running the following steps:
-1. If |frame|.`[[owner]]` is not equal to |rtcObject|, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
-1. If |frame|.`[[counter]]` is equal or smaller than |rtcObject|.`[[lastReceivedFrameCounter]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
-1. Set |rtcObject|.`[[lastReceivedFrameCounter]]` to |frame|`[[counter]]`.
+The <dfn abstract-op>writeEncodedData</dfn> algorithm is given an {{RTCRtpScriptTransformer}}
+|transformer| as parameter and a |frame| as input. It is defined by running the following steps:
+1. If |frame|.`[[owner]]` is not equal to |transformer|.{{[[frameSource]]}}, abort these steps and return [=a promise resolved with=] undefined. A processor cannot create frames, or move frames between streams.
+1. If |frame|.`[[counter]]` is equal or smaller than |transformer|.`[[lastReceivedFrameCounter]]`, abort these steps and return [=a promise resolved with=] undefined. A processor cannot reorder frames, although it may delay them or drop them.
+1. Set |transformer|.`[[lastReceivedFrameCounter]]` to |frame|.`[[counter]]`.
 1. Let |data| be |frame|.`[[data]]`.
 1. Let |serializedFrame| be [$StructuredSerializeWithTransfer$](|frame|, « |data| »).
 1. Let |frameCopy| be [$StructuredDeserializeWithTransfer$](|serializedFrame|, |frame|'s [=relevant realm=]).
 1. Enqueue |frameCopy| for processing as if it came directly from the encoded data source, by running one of the following steps:
-    * If |rtcObject| is a {{RTCRtpSender}}, enqueue |frameCopy| to |rtcObject|'s packetizer, to be processed [=in parallel=].
-    * If |rtcObject| is a {{RTCRtpReceiver}}, enqueue |frameCopy| it to |rtcObject|'s decoder, to be processed [=in parallel=].
+    * If |transformer|.{{[[frameSource]]}} is an [=encoder=], enqueue |frameCopy| to its
+        associated [=packetizer=], to be processed [=in parallel=].
+    * If |transformer|.{{[[frameSource]]}} is a [=depacketizer=], enqueue |frameCopy| to its associated [=decoder=], to be processed [=in parallel=].
 1. Return [=a promise resolved with=] undefined.
 
-On sender side, as part of [$readEncodedData$], frames produced by |rtcObject|'s encoder MUST be enqueued in |rtcObject|.`[[readable]]` in the encoder's output order.
+On the sender side, as part of [$readEncodedData$], frames produced by the [=encoder=] MUST be [=ReadableStream/enqueued=] into |transformer|.{{[[readable]]}} in the [=encoder=]'s output order.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, the encoder's output order is also the order followed by packetizers to generate RTP packets and assign RTP packet sequence numbers.
-The packetizer may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.
+The [=packetizer=] may expect the transformed data to still conform to the original format, e.g. a series of NAL units separated by Annex B start codes.
 
-On receiver side, as part of [$readEncodedData$], frames produced by |rtcObject|'s packetizer MUST be enqueued in |rtcObject|.`[[readable]]` in the same encoder's output order.
-To ensure the order is respected, the depacketizer will typically use RTP packet sequence numbers to reorder RTP packets as needed before enqueuing frames in |rtcObject|.`[[readable]]`.
-As [$writeEncodedData$] ensures that the transform cannot reorder frames, this will be the order expected by |rtcObject|'s decoder.
+On the receiver side, as part of [$readEncodedData$], frames produced by the [=depacketizer=] MUST be [=ReadableStream/enqueued=] into |transformer|.{{[[readable]]}} in the same [=encoder=]'s output order.
+To ensure the order is respected, the [=depacketizer=] will typically use RTP packet sequence numbers to reorder RTP packets as needed before [=ReadableStream/enqueuing=] frames into |transformer|.{{[[readable]]}}.
+As [$writeEncodedData$] ensures that the transform cannot reorder frames, this will be the order expected by the [=decoder=].
 
 ## Extension attribute ## {#attribute}
 
@@ -202,7 +203,7 @@ The <dfn abstract-op>chain transform algorithm</dfn> steps are defined as:
 1. If |newPipeToController|'s [=AbortController/signal=] is [=AbortSignal/aborted=], abort these steps.
 2. [=ReadableStreamDefaultReader/Release=] |reader|.
 3. [=WritableStreamDefaultWriter/Release=] |writer|.
-4. Assert that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.
+4. [=Assert=] that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.
 <!-- FIXME: Use pipeTo algorithm when available. -->
 5. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |rtcObject|.`[[readable]]`, |checkedTransform|.`[[writable]]`, preventClose equal to false, preventAbort equal to false, preventCancel equal to true and |newPipeToController|'s [=AbortController/signal=].
 6. Call <a href="https://streams.spec.whatwg.org/#readable-stream-pipe-to">pipeTo</a> with |checkedTransform|.`[[readable]]`, |rtcObject|.`[[writable]]`, preventClose equal to true, preventAbort equal to true, preventCancel equal to false and |newPipeToController|'s [=AbortController/signal=].
@@ -930,12 +931,10 @@ The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worke
 
 Each {{RTCRtpScriptTransform}} has the following set of [$association steps$], given |rtcObject|:
 1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
-1. Let |encoder| be |rtcObject|'s encoder if |rtcObject| is a {{RTCRtpSender}} or undefined otherwise.
-1. Let |depacketizer| be |rtcObject|'s depacketizer if |rtcObject| is a {{RTCRtpReceiver}} or undefined otherwise.
+1. Let |frameSource| be |rtcObject|'s [=encoder=] if |rtcObject| is an {{RTCRtpSender}} or |rtcObject|'s [=depacketizer=] otherwise.
 1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
     1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
-    1. Set |transformer|.`[[encoder]]` to |encoder|.
-    1. Set |transformer|.`[[depacketizer]]` to |depacketizer|.
+    1. Set |transformer|.{{[[frameSource]]}} to |frameSource|.
 
 # <dfn interface>RTCRtpScriptTransformer</dfn> interface # {#RTCRtpScriptTransformer-interface}
 <pre class="idl">
@@ -955,7 +954,7 @@ interface RTCRtpScriptTransformer : EventTarget {
 
 ## Internal slots ## {#RTCRtpScriptTransformer-internal-slots}
 
-A {{RTCRtpScriptTransformer}} object has the following internal slots.
+An {{RTCRtpScriptTransformer}} object has the following internal slots.
 
 <table class="data" dfn-for="RTCRtpScriptTransformer" dfn-type="attribute">
  <thead>
@@ -966,12 +965,8 @@ A {{RTCRtpScriptTransformer}} object has the following internal slots.
  </thead>
  <tbody>
   <tr>
-   <td><dfn>`[[depacketizer]]`</dfn>
-   <td class="non-normative">A [=depacketizer=] or undefined.
-  </tr>
-  <tr>
-   <td><dfn>`[[encoder]]`</dfn>
-   <td class="non-normative">An [=encoder=] or undefined.
+   <td><dfn>`[[frameSource]]`</dfn>
+   <td class="non-normative">An [=encoder=], a [=depacketizer=], or undefined.
   </tr>
   <tr>
    <td><dfn>`[[options]]`</dfn>
@@ -985,6 +980,14 @@ A {{RTCRtpScriptTransformer}} object has the following internal slots.
    <td><dfn>`[[writable]]`</dfn>
    <td class="non-normative">A {{WritableStream}}.
   </tr>
+  <tr>
+   <td><dfn>`[[lastReceivedFrameCounter]]`</dfn>
+   <td class="non-normative">A count of frames received.
+  </tr>
+  <tr>
+   <td><dfn>`[[lastEnqueuedFrameCounter]]`</dfn>
+   <td class="non-normative">A count of frames enqueued.
+  </tr>
  </tbody>
 </table>
 
@@ -992,16 +995,18 @@ A {{RTCRtpScriptTransformer}} object has the following internal slots.
 To <dfn for="RTCRtpScriptTransformer" lt="create|creating">create</dfn> an
 {{RTCRtpScriptTransformer}}, given an |options| object, perform the following steps:
 1. Let |transformer| be a [=new=] {{RTCRtpScriptTransformer}}, with:
-    : {{RTCRtpScriptTransformer/[[depacketizer]]}}
-    :: undefined
-    : {{RTCRtpScriptTransformer/[[encoder]]}}
+    : {{RTCRtpScriptTransformer/[[frameSource]]}}
     :: undefined
     : {{RTCRtpScriptTransformer/[[options]]}}
     :: |options|
     : {{RTCRtpScriptTransformer/[[readable]]}}
-    :: A new {{ReadableStream}}.
+    :: A new {{ReadableStream}}
     : {{RTCRtpScriptTransformer/[[writable]]}}
-    :: A new {{WritableStream}}.
+    :: A new {{WritableStream}}
+    : {{RTCRtpScriptTransformer/[[lastReceivedFrameCounter]]}}
+    :: 0
+    : {{RTCRtpScriptTransformer/[[lastEnqueuedFrameCounter]]}}
+    :: 0
 1. [=ReadableStream/Set up=] |transformer|.{{[[readable]]}}. <p class="note">The
     [$readEncodedData$] algorithm, given |this| as parameter, provides encoded frames to it.
     </p>
@@ -1030,19 +1035,15 @@ To <dfn for="RTCRtpScriptTransformer" lt="create|creating">create</dfn> an
 
 The <dfn method for="RTCRtpScriptTransformer">generateKeyFrame(|rid|)</dfn> method steps are:
 1. Let |promise| be a new promise.
-1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[encoder]]` and |rid|.
+1. Run the [$generate key frame algorithm$] with |promise|, |this|.`[[frameSource]]` and |rid|.
 1. Return |promise|.
 
 The <dfn method for="RTCRtpScriptTransformer">sendKeyFrameRequest()</dfn> method steps are:
 1. Let |promise| be a new promise.
-1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[depacketizer]]`.
+1. Run the [$send request key frame algorithm$] with |promise| and |this|.`[[frameSource]]`.
 1. Return |promise|.
 
 ## Attributes ## {#RTCRtpScriptTransformer-attributes}
-
-A {{RTCRtpScriptTransformer}} has the following private slots called `[[depacketizer]]`, `[[encoder]]`, `[[options]]`, `[[readable]]` and `[[writable]]`.
-In addition, a {{RTCRtpScriptTransformer}} is always associated with its parent {{RTCRtpScriptTransform}} transform.
-This allows algorithms to go from an {{RTCRtpScriptTransformer}} object to its {{RTCRtpScriptTransform}} parent and vice versa.
 
 The <dfn attribute for="RTCRtpScriptTransformer">options</dfn> getter steps are:
 1. Return [=this=].`[[options]]`.
@@ -1082,21 +1083,19 @@ The following event fires on an {{RTCRtpScriptTransformer}}:
 
 The steps that generate an event of type {{KeyFrameRequestEvent}} are as follows:
 
-Given a {{RTCRtpScriptTransformer}} |transform|:
-
-When |transform|'s `[[encoder]]` receives a keyframe request, for instance from an incoming RTCP Picture Loss Indication (PLI)
+When the [=encoder=] of an associated {{RTCRtpScriptTransformer}} |transformer| receives a keyframe request, for instance from an incoming RTCP Picture Loss Indication (PLI)
 or Full Intra Refresh (FIR), queue a task to perform the following steps:
 
 1. Set |rid| to the RID of the appropriate layer, or undefined if the request is not for a specific layer.
-1. [=Fire an event=] named `keyframerequest` at |transform| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
+1. [=Fire an event=] named `keyframerequest` at |transformer| using {{KeyFrameRequestEvent}} with its {{Event/cancelable}} attribute initialized to "true", and with {{KeyFrameRequestEvent/rid}} set to |rid|.
 1. If the event's [=Event/canceled flag=] is true, abort these steps.
-1. Run the [$generate key frame algorithm$] with a new promise, |transform|.`[[encoder]]` and |rid|.
+1. Run the [$generate key frame algorithm$] with a new promise, |transformer|.`[[frameSource]]` and |rid|.
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 
 The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rid|, is defined by running these steps:
-1. If |encoder| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
-1. If |encoder| does not belong to a video {{RTCRtpReceiver}}, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |encoder| is not an [=encoder=], reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |encoder| does not belong to a video {{RTCRtpSender}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |rid| is defined, but does not conform to the grammar requirements specified
     in Section 10 of [[!RFC8851]], then reject |promise| with {{TypeError}} and abort
     these steps.
@@ -1116,9 +1115,9 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encod
     1. For each |layer| in |layers| (if any), instruct |encoder| to generate a key frame for its
         next provided video frame to that |layer|.
 
-For any {{RTCRtpScriptTransformer}} named |transformer|, the following steps are run just before any |frame| is enqueued in |transformer|.`[[readable]]`:
-1. Let |encoder| be |transformer|.`[[encoder]]`.
-1. If |encoder| or |encoder|.`[[pendingKeyFrameTasks]]` is undefined, abort these steps.
+For any [=encoder=] associated with an {{RTCRtpScriptTransformer}} |transformer|, the user agent MUST run the following steps just before any |frame| is [=ReadableStream/enqueued=] into |transformer|.{{[[readable]]}}:
+1. Let |encoder| be |transformer|.{{[[frameSource]]}}.
+1. If |encoder|.`[[pendingKeyFrameTasks]]` is undefined, abort these steps.
 1. If |frame| is not a video {{RTCEncodedVideoFrameType/"key"}} frame, abort these steps.
 1. For each |task| in |encoder|.`[[pendingKeyFrameTasks]]`, run the following steps:
     1. If |frame| was generated for a layer [=list/contained=] in |task|.`[[layers]]`,
@@ -1133,7 +1132,7 @@ the resolution callbacks of the promises are always executed just before the cor
 If the promise is associated with several layers, it will be resolved once key frames have been enqueued for all of them.
 
 The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
-1. If |depacketizer| is undefined, reject |promise| with {{InvalidStateError}}, abort these steps.
+1. If |depacketizer| is not a [=depacketizer=], reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |depacketizer| does not belong to a video {{RTCRtpReceiver}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. [=In parallel=], run the following steps:
     1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.

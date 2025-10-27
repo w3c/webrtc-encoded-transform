@@ -93,25 +93,27 @@ partial interface RTCRtpReceiver {
 };
 </pre>
 
-This allows manipulation of <dfn>encoded frames</dfn> in the media
+This API allows manipulation of <dfn>encoded frames</dfn> in the media
 pipeline between the processing steps of an {{RTCRtpSender}}'s
 underlying <dfn>encoder</dfn> and <dfn>packetizer</dfn>, and/or
 between an {{RTCRtpReceiver}}'s underlying <dfn>depacketizer</dfn>
 and <dfn>decoder</dfn>.
 
 The [=encoder=] and [=depacketizer=] each have a
+<dfn>[[processedFramesQueue]]</dfn> internal slot initialized to
+an empty [=queue=], and a
 <dfn>[[transformFrameAlgorithm]]</dfn> internal slot initialized to
 the <dfn>passthrough algorithm</dfn> which, given an [=encoded frame=]
 |frame|, is to return |frame|.
 
-Whenever the [=encoder=] outputs a [=encoded frame|frame=], the user
-agent MUST invoke the [=encoder=].[=[[transformFrameAlgorithm]]=] with
+Whenever the [=encoder=] outputs an [=encoded frame=], the user
+agent MUST invoke the [=encoder=].[=[[transformFrameAlgorithm]]=] on
 it and pass the result to the associated [=packetizer=] in place of
 the original frame.
 
-Whenever the [=depacketizer=] outputs a [=encoded frame|frame=], the
+Whenever the [=depacketizer=] outputs an [=encoded frame=], the
 user agent MUST invoke the [=depacketizer=].[=[[transformFrameAlgorithm]]=]
-with it and pass the result to the associated [=decoder=] in place of
+on it and pass the result to the associated [=decoder=] in place of
 the original frame.
 
 ## Extension operation ## {#operation}
@@ -120,12 +122,6 @@ At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the followin
 1. Initialize [=this=].`[[transform]]` to null.
 1. Initialize [=this=].`[[pipeToController]]` to null.
 1. Initialize [=this=].`[[frameSource]]` to [=this=]'s [=encoder=] if [=this=] is an {{RTCRtpSender}} or [=this=]'s [=depacketizer=] otherwise.
-1. [=Queue a task=] to run the following steps:
-    1. If [=this=].`[[pipeToController]]` is not null, abort these steps.
-    1. Set [=this=].`[[pipeToController]]` to a new {{AbortController}}.
-    1. Let |frameSource| be [=this=].`[[frameSource]]`.
-    1. [=In parallel=], set |frameSource|.[=[[transformFrameAlgorithm]]=] to the
-        [=passthrough algorithm=].
 
 ### Stream processing ### {#stream-processing}
 
@@ -139,10 +135,7 @@ For those reasons, streams backpressure is disabled in WebRTC encoded transforms
 </p>
 
 The <dfn abstract-op>readEncodedData</dfn> algorithm is given an {{RTCRtpScriptTransformer}}
-|transformer| as parameter. It is defined by running the following steps:
-1. Wait for a frame to be produced by |transformer|.{{[[frameSource]]}}.
-1. Increment |transformer|.`[[lastEnqueuedFrameCounter]]` by <code>1</code>.
-1. Let |frame| be the newly produced frame.
+|transformer| as parameter, and |frame| as input. It is defined by running the following steps:
 1. Set |frame|.`[[owner]]` to |transformer|.{{[[frameSource]]}}.
 1. Set |frame|.`[[counter]]` to |transformer|.{{[[lastEnqueuedFrameCounter]]}}.
 1. If |frame|.`[[owner]]` is a [=depacketizer=]:
@@ -169,10 +162,8 @@ The <dfn abstract-op>writeEncodedData</dfn> algorithm is given an {{RTCRtpScript
 1. Let |data| be |frame|.`[[data]]`.
 1. Let |serializedFrame| be [$StructuredSerializeWithTransfer$](|frame|, « |data| »).
 1. Let |frameCopy| be [$StructuredDeserializeWithTransfer$](|serializedFrame|, |frame|'s [=relevant realm=]).
-1. Enqueue |frameCopy| for processing as if it came directly from the encoded data source, by running one of the following steps:
-    * If |transformer|.{{[[frameSource]]}} is an [=encoder=], enqueue |frameCopy| to its
-        associated [=packetizer=], to be processed [=in parallel=].
-    * If |transformer|.{{[[frameSource]]}} is a [=depacketizer=], enqueue |frameCopy| to its associated [=decoder=], to be processed [=in parallel=].
+1. Let |processedFrame| be |frameCopy|'s underlying [=encoded frame=].
+1. [=In parallel=], [=queue/enqueue=] |processedFrame| onto |transformer|.{{[[frameSource]]}}.[=[[processedFramesQueue]]=].
 1. Return [=a promise resolved with=] undefined.
 
 On the sender side, as part of [$readEncodedData$], frames produced by the [=encoder=] MUST be [=ReadableStream/enqueued=] into |transformer|.{{[[readable]]}} in the [=encoder=]'s output order.
@@ -183,35 +174,28 @@ On the receiver side, as part of [$readEncodedData$], frames produced by the [=d
 To ensure the order is respected, the [=depacketizer=] will typically use RTP packet sequence numbers to reorder RTP packets as needed before [=ReadableStream/enqueuing=] frames into |transformer|.{{[[readable]]}}.
 As [$writeEncodedData$] ensures that the transform cannot reorder frames, this will be the order expected by the [=decoder=].
 
-## Extension attribute ## {#attribute}
+### RTCRtpTransform common processing ### {#transform-processing}
 
 An RTCRtpTransform has a private slot:
 * `[[owner]]` of type {{RTCRtpSender}} or {{RTCRtpReceiver}}, initialized to null.
 
-Each RTCRtpTransform has an <dfn abstract-op for=RTCRtpTransform>association steps</dfn> set, which is empty by default.
+Each RTCRtpTransform has an <dfn abstract-op for=RTCRtpTransform>association algorithm</dfn>
+and a <dfn abstract-op for=RTCRtpTransform>disassociation algorithm</dfn>, both empty by default.
 
-The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter steps are:
-1. Return [=this=].`[[transform]]`.
+## Extension attribute ## {#attribute}
 
-The `transform` setter steps are:
+The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter steps are to
+return [=this=].`[[transform]]`. The setter steps are:
 1. Let |transform| be the argument to the setter.
 1. If |transform| is not null and |transform|.`[[owner]]` is not null, throw a {{InvalidStateError}} and abort these steps.
 1. Set |transform|.`[[owner]]` to [=this=].
-1. Initialize |newPipeToController| to a new {{AbortController}}.
-1. If [=this=].`[[pipeToController]]` is not null, run the following steps:
-    1. [=AbortSignal/Add=] the [$apply transform$] to [=this=].`[[pipeToController]]`'s [=AbortController/signal=].
-    2. [=AbortController/signal abort=] on [=this=].`[[pipeToController]]`.
-1. Else, run the [$apply transform$] steps.
-1. Set [=this=].`[[pipeToController]]` to |newPipeToController|.
+1. Let |oldTransform| be [=this=].`[[transform]]`.
+1. If |oldTransform| is not null, run |oldTransform|'s [$disassociation algorithm$].
 1. Set [=this=].`[[transform]]` to |transform|.
-1. Run the steps in the set of [$association steps$] of |transform| with [=this=].
-
-The <dfn abstract-op>apply transform</dfn> steps are defined as:
-1. If |newPipeToController|'s [=AbortController/signal=] is [=AbortSignal/aborted=], abort these steps.
-1. [=Assert=] that |newPipeToController| is the same object as |rtcObject|.`[[pipeToController]]`.
-    <!-- FIXME: Fix aborting. -->
-    <p class="note">TODO: Specify details of how
-    [=this=].`[[pipeToController]]` replaces the transform in the media pipeline.</p>
+1. If |transform| is not null, run |transform|'s [$association algorithm$] with [=this=].
+1. If |transform| is null, run the following steps:
+    1. Let |frameSource| be [=this=].`[[frameSource]]`.
+    1. [=In parallel=], set |frameSource|.[=[[transformFrameAlgorithm]]=] to the [=passthrough algorithm=].
 
 This algorithm is defined so that transforms can be updated dynamically.
 There is no guarantee on which frame will happen the switch from the previous transform to the new transform.
@@ -920,26 +904,69 @@ interface RTCRtpScriptTransform {
 };
 </pre>
 
+## Internal slots ## {#RTCRtpScriptTransform-internal-slots}
+
+An {{RTCRtpScriptTransform}} object has the following internal slot:
+
+<table class="data" dfn-for="RTCRtpScriptTransform" dfn-type="attribute">
+ <thead>
+  <tr>
+   <th>Internal Slot
+   <th>Description (<em>non-normative</em>)
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td><dfn>`[[worker]]`</dfn>
+   <td class="non-normative">The {{Worker}} provided in the constructor.
+  </tr>
+ </tbody>
+</table>
+
 ## Constructor ## {#RTCRtpScriptTransform-constructor}
 
 The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:
+1. Initialize [=this=]'s internal slot as follows:
+    : {{RTCRtpScriptTransform/[[worker]]}}
+    :: |worker|
 1. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
-1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+1. [=Queue a global task=] on the DOM manipulation [=task source=] with |worker|'s
+    {{WorkerGlobalScope}} to run the following steps:
     1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
     1. Let |transformer| be the result of [=RTCRtpScriptTransformer/creating=] a
         {{RTCRtpScriptTransformer}} with |transformerOptions|.
-    1. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |worker|’s global scope.
+    1. [=Fire an event=] named <dfn event for="DedicatedWorkerGlobalScope">rtctransform</dfn> using {{RTCTransformEvent}} with {{RTCTransformEvent/transformer}} set to |transformer| on |transformer|’s [=relevant global object=].
 
 // FIXME: Describe error handling (worker closing flag true at RTCRtpScriptTransform creation time. And worker being terminated while transform is processing data).
 
 ## Algorithms ## {#RTCRtpScriptTransform-algorithms}
 
-Each {{RTCRtpScriptTransform}} has the following set of [$association steps$], given |rtcObject|:
-1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association steps$].
-1. Let |frameSource| be |rtcObject|'s `[[frameSource=]]`.
-1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
-    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated to |transform|.
+Each {{RTCRtpScriptTransform}} has the following [$association algorithm$], given |rtcObject|:
+1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$association algorithm$].
+1. Let |frameSource| be |rtcObject|'s `[[frameSource]]`.
+1. Let |workerGlobalScope| be |transform|.{{[[worker]]}}'s {{WorkerGlobalScope}}.
+1. [=Queue a global task=] on the DOM manipulation [=task source=] with |workerGlobalScope|
+     to run the following steps:
+    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated with |transform|.
     1. Set |transformer|.{{[[frameSource]]}} to |frameSource|.
+1. [=In parallel=], set |frameSource|.[=[[transformFrameAlgorithm]]=] to the following steps,
+    given an [=encoded frame=] |frame| as input:
+    1. [=Queue a global task=] on the DOM manipulation [=task source=] with |workerGlobalScope|
+        to run the following steps:
+        1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated with |transform|.
+        1. Let |jsFrame| be a new {{RTCEncodedVideoFrame}} from |frame| if |frame| is a video
+            frame, or a new {{RTCEncodedAudioFrame}} from |frame| otherwise.
+        1. Invoke [$readEncodedData$] with |transformer| and |jsFrame|.
+    1. Wait for |frameSource|.[=[[processedFramesQueue]]=] to become non-empty.
+    1. Return the result of [=dequeueing=] from |frameSource|.[=[[processedFramesQueue]]=].
+
+Each {{RTCRtpScriptTransform}} has the following [$disassociation algorithm$]:
+1. Let |transform| be the {{RTCRtpScriptTransform}} object that owns the [$disassociation algorithm$].
+1. [=Queue a global task=] on the DOM manipulation [=task source=] with
+    |transform|.{{[[worker]]}}'s {{WorkerGlobalScope}} to run the following steps:
+    1. Let |transformer| be the {{RTCRtpScriptTransformer}} object associated with |transform|.
+    1. [=ReadableStream/cancel=] |transformer|.{{[[readable]]}}.
+    1. [=WritableStream/abort=] |transformer|.{{[[writable]]}}.
 
 # <dfn interface>RTCRtpScriptTransformer</dfn> interface # {#RTCRtpScriptTransformer-interface}
 <pre class="idl">
@@ -959,7 +986,7 @@ interface RTCRtpScriptTransformer : EventTarget {
 
 ## Internal slots ## {#RTCRtpScriptTransformer-internal-slots}
 
-An {{RTCRtpScriptTransformer}} object has the following internal slots.
+An {{RTCRtpScriptTransformer}} object has the following internal slots:
 
 <table class="data" dfn-for="RTCRtpScriptTransformer" dfn-type="attribute">
  <thead>

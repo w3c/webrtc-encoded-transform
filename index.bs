@@ -1113,8 +1113,9 @@ or Full Intra Refresh (FIR), queue a task to perform the following steps:
 
 ## KeyFrame Algorithms ## {#KeyFrame-algorithms}
 
-The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |encoder| and |rid|, is defined by running these steps:
-1. If |encoder| is not an [=encoder=], reject |promise| with {{InvalidStateError}}, abort these steps.
+The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |frameSource| and |rid|, is defined by running these steps:
+1. If |frameSource| is not an [=encoder=], reject |promise| with {{InvalidStateError}}, abort these steps.
+1. Let |encoder| be |frameSource|.
 1. If |encoder| does not belong to a video {{RTCRtpSender}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. If |rid| is defined, but does not conform to the grammar requirements specified
     in Section 10 of [[!RFC8851]], then reject |promise| with {{TypeError}} and abort
@@ -1151,8 +1152,9 @@ By resolving the promises just before enqueuing the corresponding key frame in a
 the resolution callbacks of the promises are always executed just before the corresponding key frame is exposed.
 If the promise is associated with several layers, it will be resolved once key frames have been enqueued for all of them.
 
-The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and |depacketizer|, is defined by running these steps:
-1. If |depacketizer| is not a [=depacketizer=], reject |promise| with {{InvalidStateError}}, abort these steps.
+The <dfn abstract-op>send request key frame algorithm</dfn>, given |promise| and |frameSource|, is defined by running these steps:
+1. If |frameSource| is not a [=depacketizer=], reject |promise| with {{InvalidStateError}}, abort these steps.
+1. Let |depacketizer| be |frameSource|.
 1. If |depacketizer| does not belong to a video {{RTCRtpReceiver}}, reject |promise| with {{InvalidStateError}}, abort these steps.
 1. [=In parallel=], run the following steps:
     1. If sending a Full Intra Request (FIR) by |depacketizer|'s receiver is not deemed appropriate, [=resolve=] |promise| with undefined and abort these steps.

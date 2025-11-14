@@ -237,8 +237,14 @@ dictionary SFrameTransformOptions {
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
-interface mixin SFrameKeyManagement {
+interface mixin SFrameEncrypterManagement {
     Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyID);
+    attribute EventHandler onerror;
+};
+
+interface mixin SFrameDecrypterManagement {
+    Promise<undefined> addDecryptionKey(CryptoKey key, CryptoKeyID keyID);
+    Promise<undefined> removeDecryptionKey(CryptoKeyID keyID);
     attribute EventHandler onerror;
 };
 
@@ -253,14 +259,14 @@ interface SFrameEncrypterStream : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
 SFrameEncrypterStream includes GenericTransformStream;
-SFrameEncrypterStream includes SFrameKeyManagement;
+SFrameEncrypterStream includes SFrameEncrypterManagement;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameDecrypterStream : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
 SFrameDecrypterStream includes GenericTransformStream;
-SFrameDecrypterStream includes SFrameKeyManagement;
+SFrameDecrypterStream includes SFrameDecrypterManagement;
 
 enum SFrameTransformErrorEventType {
     "authentication",
@@ -335,14 +341,40 @@ The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these 
 1. [=ReadableStream/Enqueue=] |frame| in |this|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
-The <dfn method for="SFrameTransform">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
+The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
-2. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception.
-3. Otherwise, [=in parallel=], run the following steps:
-    1. Set |key| with its optional |keyID| as key material to use for the SFrame transform algorithm, as defined by [[RFC9605]].
-    2. If setting the key material fails, [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
-    3. [=Resolve=] |promise| with undefined.
-4. Return |promise|.
+1. If |keyId| is <code>undefined</code>, run the following steps:
+   1. Let |currentKeyId| be |this|.`[[currentKeyId]]` if not undefined or 0 otherwise.
+   1. If |currentKeyId| is greater or equal to 2<sup>64</sup>-1, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
+   1. Set |keyId| to |currentKeyId| incremented by 1.
+1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
+1.  Set |this|.`[[currentKeyId]]` to |keyId|.
+1. [=In parallel=], run the following steps:
+    1. Set |key| and |keyID| as key material to use for the SFrame transform encryption algorithm, as defined by [[RFC9605]].
+    1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
+    1. [=Queue a task=] to [=resolve=] |promise| with undefined.
+1. Return |promise|.
+
+The <dfn method for="SFrameDecrypterKeyManager">addEncryptionKey(|key|, |keyID|)</dfn> method steps are:
+1. Let |promise| be [=a new promise=].
+1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps..
+1. [=In parallel=], run the following steps:
+    1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
+    1. Set an entry to |keyStore| with |keyId| as key and |keyValue| as value. This overrides any existing entry to |keyId|.
+    1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
+    1. [=Resolve=] |promise| with undefined.
+1. Return |promise|.
+
+// FIXME: Should SFrameTransform receiver be made aware of the current key in use, so that it would call removeEncryptionKey appropriately.
+// Or should we add an option to let the UA remove the key automatically on new KeyID?
+The <dfn method for="SFrameDecrypterKeyManager">removeEncryptionKey(|key|, |keyID|)</dfn> method steps are:
+1. Let |promise| be [=a new promise=].
+1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.
+1. [=In parallel=], run the following steps:
+    1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
+    1. Remove the entry of |keyStore| at |keyId| if it exits.
+    1. [=Resolve=] |promise| with undefined.
+1. Return |promise|.
 
 
 # RTCRtpScriptTransform # {#scriptTransform}

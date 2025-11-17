@@ -48,12 +48,21 @@ spec:webidl; type:dfn; text:resolve
     "href": "https://datatracker.ietf.org/doc/draft-ietf-avtcore-abs-capture-time/",
     "title": "RTP Header Extension for Absolute Capture Time",
     "publisher": "IETF"
+   },
+   "RTP-SFRAME-PAYLOAD": {
+    "href": "https://datatracker.ietf.org/doc/draft-ietf-avtcore-rtp-sframe/",
+    "title": "RTP Payload Format for SFrame",
+    "publisher": "IETF"
    }
 }
 </pre>
 <pre class=link-defaults>
 spec:streams; type:interface; text:ReadableStream
 spec:infra; type:dfn; text:list
+</pre>
+<pre class=anchors>
+url: https://w3c.github.io/webrtc-pc/#dfn-update-the-negotiation-needed-flag; text: update the negotiation-needed flag; type: dfn; spec: WEBRTC
+url: https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed; text: check the negotiation-needed flag; type: dfn; spec: WEBRTC
 </pre>
 
 # Introduction # {#introduction}
@@ -101,6 +110,14 @@ argument, ensure that the codec is disabled and produces no output.
 
 
 ### Stream creation ### {#stream-creation}
+
+At construction of each {{RTCRtpTransceiver}}, run the following steps:
+1. If [=this=] is associated with a media description, initialize [=this=].`[[useSFrame]]` from the media description. If [=this=].`[[useSFrame]]` is true, enable SFrame RTP packetization for [=this=].
+1. Otherwise, [=queue a task=] to run the following steps:
+    1. If [=this=].`[[useSFrame]]` is undefined, set [=this=].`[[useSFrame]]` to false.
+
+The [=check the negotiation-needed flag=] algorithm is updated by adding the below step after step 5.4:
+1. If |transceiver|.`[[useSFrame]]` is true and the media description does not describe the use of SFrame RTP packetization as defined in [[RTP-SFRAME-PAYLOAD]], return true.
 
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:
 1. Initialize [=this=].`[[transform]]` to null.
@@ -185,6 +202,15 @@ The <dfn attribute for="RTCRtpSender,RTCRtpReceiver">transform</dfn> getter step
 
 The `transform` setter steps are:
 1. Let |transform| be the argument to the setter.
+1. Let |transceiver| be the {{RTCRtpTransceiver}} associated to [=this=].
+1. If |transform|.`[[useSFrame]]` is true, run the following steps:
+    1. If |transceiver|.`[[useSFrame]]` is false, throw a {{InvalidModificationError}} and abort these steps.
+    1. Otherwise, if |transceiver|.`[[useSFrame]]` is undefined, run the following steps:
+        1. Set |transceiver|.`[[useSFrame]]` to true.
+        1. Enable SFrame RTP packetization for |transceiver| and [=update the negotiation-needed flag=] for [=this=]'s connection.
+1. Otherwise, run the following steps:
+    1. If |transceiver|.`[[useSFrame]]` is true, throw a {{InvalidModificationError}} and abort these steps.
+    1. Set |transceiver|.`[[useSFrame]]` to false.
 1. Let |checkedTransform| set to |transform| if it is not null or to an [=identity transform stream=] otherwise.
 1. If |checkedTransform|.`[[owner]]` is not null, throw a {{InvalidStateError}} and abort these steps.
 1. Let |reader| be the result of [=ReadableStream/getting a reader=] for |checkedTransform|.`[[readable]]`.
@@ -286,6 +312,7 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 
 The <dfn constructor for="SFrameTransform" lt="SFrameTransform(options)"><code>new SFrameTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |options| be the method's first argument.
+1. Set |this|.`[[useSFrame]]` to true.
 1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
 
 The <dfn constructor for="SFrameEncrypterStream" lt="SFrameEncrypterStream(options)"><code>new SFrameEncrypterStream(<var>options</var>)</code></dfn> constructor steps are:
@@ -930,6 +957,14 @@ interface RTCRtpScriptTransformer : EventTarget {
     readonly attribute any options;
 };
 
+enum RTCRtpScriptTransformType {
+    "sframe"
+};
+
+dictionary PartialTransformOptions {
+    RTCRtpScriptTransformType type;
+};
+
 [Exposed=Window]
 interface RTCRtpScriptTransform {
     constructor(Worker worker, optional any options, optional sequence&lt;object&gt; transfer);
@@ -945,14 +980,16 @@ interface KeyFrameRequestEvent : Event {
 ## Operations ## {#RTCRtpScriptTransform-operations}
 
 The <dfn constructor for="RTCRtpScriptTransform" lt="RTCRtpScriptTransform(worker, options)"><code>new RTCRtpScriptTransform(|worker|, |options|, |transfer|)</code></dfn> constructor steps are:
+1. Let |typedOptions| be |options|, [=converted to an IDL value=]  of type {{PartialTransformOptions}}.
+1. If |typedOptions|.{{PartialTransformOptions/type}} is equal to {{RTCRtpScriptTransformType/"sframe"}}, set |this|.`[[useSFrame]]` to true.
 1. Set |t1| to an [=identity transform stream=].
-2. Set |t2| to an [=identity transform stream=].
-3. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
-4. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
-5. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
-6. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
-7. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
-8. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
+1. Set |t2| to an [=identity transform stream=].
+1. Set |this|.`[[writable]]` to |t1|.`[[writable]]`.
+1. Set |this|.`[[readable]]` to |t2|.`[[readable]]`.
+1. Let |serializedOptions| be the result of [$StructuredSerializeWithTransfer$](|options|, |transfer|).
+1. Let |serializedReadable| be the result of [$StructuredSerializeWithTransfer$](|t1|.`[[readable]]`, « |t1|.`[[readable]]` »).
+1. Let |serializedWritable| be the result of [$StructuredSerializeWithTransfer$](|t2|.`[[writable]]`, « |t2|.`[[writable]]` »).
+1. [=Queue a task=] on the DOM manipulation [=task source=] |worker|'s global scope to run the following steps:
     1. Let |transformerOptions| be the result of [$StructuredDeserializeWithTransfer$](|serializedOptions|, the current Realm).
     2. Let |readable| be the result of [$StructuredDeserializeWithTransfer$](|serializedReadable|, the current Realm).
     3. Let |writable| be the result of [$StructuredDeserializeWithTransfer$](|serializedWritable|, the current Realm).

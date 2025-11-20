@@ -378,8 +378,6 @@ The <dfn method for="SFrameDecrypterKeyManager">addEncryptionKey(|key|, |keyID|)
     1. [=Resolve=] |promise| with undefined.
 1. Return |promise|.
 
-// FIXME: Should SFrameTransform receiver be made aware of the current key in use, so that it would call removeEncryptionKey appropriately.
-// Or should we add an option to let the UA remove the key automatically on new KeyID?
 The <dfn method for="SFrameDecrypterKeyManager">removeEncryptionKey(|key|, |keyID|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.

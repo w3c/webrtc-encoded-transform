@@ -82,7 +82,7 @@ insert the processing into the pipeline.
 
 <pre class="idl">
 typedef (SFrameSenderTransform or RTCRtpScriptTransform) RTCRtpSenderTransform;
-typedef (SFrameReceiverTransform or RTCRtpScriptTransform) RTCRtpReceierTransform;
+typedef (SFrameReceiverTransform or RTCRtpScriptTransform) RTCRtpReceiverTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {

@@ -242,13 +242,13 @@ interface mixin SFrameDecrypterManagement {
 interface SFrameSenderTransform {
     constructor(optional SFrameTransformOptions options = {});
 };
-SFrameSenderTransform includes SFrameEncrypterKeyManagement;
+SFrameSenderTransform includes SFrameEncrypterManagement;
 
 [Exposed=Window]
 interface SFrameReceiverTransform : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
-SFrameReceiverTransform includes SFrameDecrypterKeyManagement;
+SFrameReceiverTransform includes SFrameDecrypterManagement;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameEncrypterStream : EventTarget {

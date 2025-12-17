@@ -571,7 +571,7 @@ interface RTCEncodedVideoFrame {
 ### Members ### {#RTCEncodedVideoFrame-members}
 <dl dfn-for="RTCEncodedVideoFrame" class="dictionary-members">
     <dt>
-        <dfn attribute>type</dfn> <span class="idlMemberType">RTCEncodedVideoFrameType</span>
+        <dfn attribute>type</dfn> <span class="idlMemberType">EncodedVideoChunkType</span>
     </dt>
     <dd>
         <p>
@@ -1130,7 +1130,7 @@ The <dfn abstract-op>generate key frame algorithm</dfn>, given |promise|, |frame
 For any [=encoder=] associated with an {{RTCRtpScriptTransformer}} |transformer|, the user agent MUST run the following steps just before any |frame| is [=ReadableStream/enqueued=] into |transformer|.{{[[readable]]}}:
 1. Let |encoder| be |transformer|.{{[[frameSource]]}}.
 1. If |encoder|.`[[pendingKeyFrameTasks]]` is undefined, abort these steps.
-1. If |frame| is not a video {{RTCEncodedVideoFrameType/"key"}} frame, abort these steps.
+1. If |frame| is not a video {{EncodedVideoChunkType/"key"}} frame, abort these steps.
 1. For each |task| in |encoder|.`[[pendingKeyFrameTasks]]`, run the following steps:
     1. If |frame| was generated for a layer [=list/contained=] in |task|.`[[layers]]`,
         then run the following steps:

@@ -362,7 +362,7 @@ The <dfn method for="SFrameDecrypterKeyManager">addDecryptionKey(|key|, |keyID|)
 1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps..
 1. [=In parallel=], run the following steps:
     1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
-    1. Set an entry to |keyStore| with |keyId| as key and |keyValue| as value. This overrides any existing entry to |keyId|.
+    1. [=map/set|Set=] |keyStore|[|keyId|] to |keyValue|.
     1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
     1. [=Resolve=] |promise| with undefined.
 1. Return |promise|.

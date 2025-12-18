@@ -227,7 +227,7 @@ dictionary SFrameTransformOptions {
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
-interface mixin SFrameEncrypterManagement {
+interface mixin SFrameEncrypterManager {
     Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyId);
     attribute EventHandler onerror;
 };

@@ -255,7 +255,7 @@ interface SFrameEncrypterStream : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
 SFrameEncrypterStream includes GenericTransformStream;
-SFrameEncrypterStream includes SFrameEncrypterManagement;
+SFrameEncrypterStream includes SFrameEncrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameDecrypterStream : EventTarget {

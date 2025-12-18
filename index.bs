@@ -232,7 +232,7 @@ interface mixin SFrameEncrypterManagement {
     attribute EventHandler onerror;
 };
 
-interface mixin SFrameDecrypterManagement {
+interface mixin SFrameDecrypterManager {
     Promise<undefined> addDecryptionKey(CryptoKey key, CryptoKeyID keyId);
     Promise<undefined> removeDecryptionKey(CryptoKeyID keyId);
     attribute EventHandler onerror;

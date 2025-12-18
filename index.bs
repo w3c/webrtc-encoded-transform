@@ -373,7 +373,7 @@ The <dfn method for="SFrameDecrypterKeyManager">removeDecryptionKey(|key|, |keyI
 1. [=In parallel=], run the following steps:
     1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
     1. Remove the entry of |keyStore| at |keyId| if it exits.
-    1. [=Resolve=] |promise| with undefined.
+    1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.
 
 

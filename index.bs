@@ -242,7 +242,7 @@ interface mixin SFrameDecrypterManager {
 interface SFrameSenderTransform {
     constructor(optional SFrameTransformOptions options = {});
 };
-SFrameSenderTransform includes SFrameEncrypterManagement;
+SFrameSenderTransform includes SFrameEncrypterManager;
 
 [Exposed=Window]
 interface SFrameReceiverTransform : EventTarget {

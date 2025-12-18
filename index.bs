@@ -233,7 +233,7 @@ interface mixin SFrameEncrypterManagement {
 };
 
 interface mixin SFrameDecrypterManagement {
-    Promise<undefined> addDecryptionKey(CryptoKey key, CryptoKeyID keyID);
+    Promise<undefined> addDecryptionKey(CryptoKey key, CryptoKeyID keyId);
     Promise<undefined> removeDecryptionKey(CryptoKeyID keyId);
     attribute EventHandler onerror;
 };

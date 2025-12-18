@@ -228,7 +228,7 @@ typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
 interface mixin SFrameEncrypterManagement {
-    Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyID);
+    Promise<undefined> setEncryptionKey(CryptoKey key, optional CryptoKeyID keyId);
     attribute EventHandler onerror;
 };
 

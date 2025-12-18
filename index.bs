@@ -262,7 +262,7 @@ interface SFrameDecrypterStream : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
 SFrameDecrypterStream includes GenericTransformStream;
-SFrameDecrypterStream includes SFrameDecrypterManagement;
+SFrameDecrypterStream includes SFrameDecrypterManager;
 
 enum SFrameTransformErrorEventType {
     "authentication",

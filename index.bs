@@ -364,7 +364,7 @@ The <dfn method for="SFrameDecrypterKeyManager">addDecryptionKey(|key|, |keyID|)
     1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
     1. [=map/set|Set=] |keyStore|[|keyId|] to |keyValue|.
     1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
-    1. [=Resolve=] |promise| with undefined.
+    1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.
 
 The <dfn method for="SFrameDecrypterKeyManager">removeDecryptionKey(|key|, |keyID|)</dfn> method steps are:

@@ -248,7 +248,7 @@ SFrameSenderTransform includes SFrameEncrypterManagement;
 interface SFrameReceiverTransform : EventTarget {
     constructor(optional SFrameTransformOptions options = {});
 };
-SFrameReceiverTransform includes SFrameDecrypterManagement;
+SFrameReceiverTransform includes SFrameDecrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameEncrypterStream : EventTarget {

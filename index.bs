@@ -349,7 +349,7 @@ The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyId|)
    1. Let |currentKeyId| be |this|.`[[currentKeyId]]` if not undefined or 0 otherwise.
    1. If |currentKeyId| is greater or equal to 2<sup>64</sup>-1, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
    1. Set |keyId| to |currentKeyId| incremented by 1.
-1. If |keyID| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
+1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
 1.  Set |this|.`[[currentKeyId]]` to |keyId|.
 1. [=In parallel=], run the following steps:
     1. Set the SFrame transform encryption algorithm's key material to |key| and |keyID|, as defined by [[RFC9605]].

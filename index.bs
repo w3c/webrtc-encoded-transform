@@ -343,7 +343,7 @@ The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these 
 1. [=ReadableStream/Enqueue=] |frame| in |this|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
-The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyId|)</dfn> method steps are:
+The <dfn method for="SFrameEncrypterManager">setEncryptionKey(|key|, |keyId|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 1. If |keyId| is <code>undefined</code>, run the following steps:
    1. Let |currentKeyId| be |this|.`[[currentKeyId]]` if not undefined or 0 otherwise.
@@ -357,7 +357,7 @@ The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyId|)
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.
 
-The <dfn method for="SFrameDecrypterKeyManager">addDecryptionKey(|key|, |keyId|)</dfn> method steps are:
+The <dfn method for="SFrameDecrypterManager">addDecryptionKey(|key|, |keyId|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.
 1. [=In parallel=], run the following steps:
@@ -367,7 +367,7 @@ The <dfn method for="SFrameDecrypterKeyManager">addDecryptionKey(|key|, |keyId|)
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.
 
-The <dfn method for="SFrameDecrypterKeyManager">removeDecryptionKey(|key|, |keyId|)</dfn> method steps are:
+The <dfn method for="SFrameDecrypterManager">removeDecryptionKey(|keyId|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.
 1. [=In parallel=], run the following steps:

@@ -367,7 +367,7 @@ The <dfn method for="SFrameDecrypterManager">removeDecryptionKey(|keyId|)</dfn> 
 1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.
 1. [=In parallel=], run the following steps:
     1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
-    1. Remove the entry of |keyStore| at |keyId| if it exits.
+    1. [=map/remove|Remove=] |keyStore|[|keyId|].
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.
 

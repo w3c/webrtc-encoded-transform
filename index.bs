@@ -81,8 +81,8 @@ It uses an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
-typedef (SFrameSenderTransform or RTCRtpScriptTransform) RTCRtpSenderTransform;
-typedef (SFrameReceiverTransform or RTCRtpScriptTransform) RTCRtpReceiverTransform;
+typedef (RTCSFrameSenderTransform or RTCRtpScriptTransform) RTCRtpSenderTransform;
+typedef (RTCSFrameReceiverTransform or RTCRtpScriptTransform) RTCRtpReceiverTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
@@ -220,7 +220,7 @@ enum SFrameCipherSuite {
      "AES_256_GCM_SHA512_128"
 };
 
-dictionary SFrameTransformOptions {
+dictionary RTCSFrameTransformOptions {
     required SFrameCipherSuite cipherSuite;
 };
 
@@ -239,16 +239,16 @@ interface mixin SFrameDecrypterManager {
 };
 
 [Exposed=Window]
-interface SFrameSenderTransform {
-    constructor(optional SFrameTransformOptions options = {});
+interface RTCSFrameSenderTransform {
+    constructor(optional RTCSFrameTransformOptions options = {});
 };
-SFrameSenderTransform includes SFrameEncrypterManager;
+RTCSFrameSenderTransform includes SFrameEncrypterManager;
 
 [Exposed=Window]
-interface SFrameReceiverTransform : EventTarget {
-    constructor(optional SFrameTransformOptions options = {});
+interface RTCSFrameReceiverTransform : EventTarget {
+    constructor(optional RTCSFrameTransformOptions options = {});
 };
-SFrameReceiverTransform includes SFrameDecrypterManager;
+RTCSFrameReceiverTransform includes SFrameDecrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameEncrypterStream : EventTarget {
@@ -286,12 +286,12 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 };
 </xmp>
 
-The <dfn constructor for="SFrameSenderTransform" lt="SFrameSenderTransform(options)"><code>new SFrameSenderTransform(<var>options</var>)</code></dfn> constructor steps are:
+The <dfn constructor for="RTCSFrameSenderTransform" lt="RTCSFrameSenderTransform(options)"><code>new RTCSFrameSenderTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |options| be the method's first argument.
 1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
 1. Set |this|.`[[role]]` to 'encrypt'.
 
-The <dfn constructor for="SFrameReceiverTransform" lt="SFrameReceiverTransform(options)"><code>new SFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:
+The <dfn constructor for="RTCSFrameReceiverTransform" lt="RTCSFrameReceiverTransform(options)"><code>new RTCSFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |options| be the method's first argument.
 1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
 1. Set |this|.`[[role]]` to 'decrypt'.

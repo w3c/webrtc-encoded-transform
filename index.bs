@@ -345,12 +345,7 @@ The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these 
 ## Methods ## {#sframe-transform-methods}
 The <dfn method for="SFrameEncrypterManager">setEncryptionKey(|key|, |keyId|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
-1. If |keyId| is <code>undefined</code>, run the following steps:
-   1. Let |currentKeyId| be |this|.`[[currentKeyId]]` if not undefined or 0 otherwise.
-   1. If |currentKeyId| is greater or equal to 2<sup>64</sup>-1, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
-   1. Set |keyId| to |currentKeyId| incremented by 1.
 1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception and abort these steps.
-1.  Set |this|.`[[currentKeyId]]` to |keyId|.
 1. [=In parallel=], run the following steps:
     1. Set the SFrame transform encryption algorithm's key material to |key| and |keyId|, as defined by [[RFC9605]].
     1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.

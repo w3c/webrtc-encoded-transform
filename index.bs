@@ -343,7 +343,7 @@ The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these 
 1. [=ReadableStream/Enqueue=] |frame| in |this|.`[[transform]]`.
 
 ## Methods ## {#sframe-transform-methods}
-The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyID|)</dfn> method steps are:
+The <dfn method for="SFrameEncrypterKeyManager">setEncryptionKey(|key|, |keyId|)</dfn> method steps are:
 1. Let |promise| be [=a new promise=].
 1. If |keyId| is <code>undefined</code>, run the following steps:
    1. Let |currentKeyId| be |this|.`[[currentKeyId]]` if not undefined or 0 otherwise.

@@ -229,7 +229,6 @@ typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
 interface mixin SFrameEncrypterManager {
     Promise<undefined> setEncryptionKey(CryptoKey key, CryptoKeyID keyId);
-    attribute EventHandler onerror;
 };
 
 interface mixin SFrameDecrypterManager {
@@ -327,13 +326,13 @@ The <dfn>SFrame transform algorithm</dfn>, given |this| and |frame|, runs these 
 1. If |data| is undefined, abort these steps.
 1. Let |buffer| be the result of running the SFrame algorithm with |data|, |this|.`[[cipherSuite]]`, and |role| as parameters. This algorithm is defined by [[RFC9605]] and returns an {{ArrayBuffer}}.
 1. If the SFrame algorithm exits abruptly with an error, [=queue a task=] to run the following sub steps:
-     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameKeyManagement/onerror|error}} at |this|,
+     1. If the processing fails on decryption side due to |data| not following the SFrame format, [=fire an event=] named {{SFrameDecrypterManager/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/syntax}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
-     1. If the processing fails on decryption side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameKeyManagement/onerror|error}} at |this|,
+     1. If the processing fails on decryption side due to the key identifier parsed in |data| being unknown, [=fire an event=] named {{SFrameDecrypterManager/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/keyID}},
         its {{SFrameTransformErrorEvent/frame}} attribute set to |frame| and its {{SFrameTransformErrorEvent/keyID}} attribute set to the keyID value parsed in the SFrame header.
-     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameKeyManagement/onerror|error}} at |this|,
+     1. If the processing fails on decryption side due to validation of the authentication tag, [=fire an event=] named {{SFrameDecrypterManager/onerror|error}} at |this|,
         using the {{SFrameTransformErrorEvent}} interface with its {{SFrameTransformErrorEvent/errorType}} attribute set to {{SFrameTransformErrorEventType/authentication}}
         and its {{SFrameTransformErrorEvent/frame}} attribute set to |frame|.
      1. Abort these steps.
@@ -357,7 +356,7 @@ The <dfn method for="SFrameDecrypterManager">addDecryptionKey(|key|, |keyId|)</d
 1. If |keyId| is a {{bigint}} which cannot be represented as a integer between 0 and 2<sup>64</sup>-1 inclusive, [=reject=] |promise| with a {{RangeError}} exception, and abort these steps.
 1. [=In parallel=], run the following steps:
     1. Let |keyStore| be the key store used for the SFrame transform algorithm, as defined by [[RFC9605]].
-    1. [=map/set|Set=] |keyStore|[|keyId|] to |keyValue|.
+    1. [=map/set|Set=] |keyStore|[|keyId|] to |key|.
     1. If setting the key material fails, [=queue a task=] to [=reject=] |promise| with an {{InvalidModificationError}} exception and abort these steps.
     1. [=Queue a task=] to [=resolve=] |promise| with undefined.
 1. Return |promise|.

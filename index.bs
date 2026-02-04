@@ -253,6 +253,15 @@ dictionary SFrameTransformOptions {
     required SFrameCipherSuite cipherSuite;
 };
 
+enum SFrameType {
+    "per-frame",
+    "per-packet"
+};
+
+dictionary RTCSFrameSenderTransformOptions : SFrameTransformOptions {
+    SFrameType type = "per-frame";
+};
+
 typedef [EnforceRange] unsigned long long SmallCryptoKeyID;
 typedef (SmallCryptoKeyID or bigint) CryptoKeyID;
 
@@ -268,7 +277,7 @@ interface mixin SFrameDecrypterManager {
 
 [Exposed=Window]
 interface RTCSFrameSenderTransform {
-    constructor(optional SFrameTransformOptions options = {});
+    constructor(optional RTCSFrameSenderTransformOptions options = {});
 };
 RTCSFrameSenderTransform includes SFrameEncrypterManager;
 
@@ -340,6 +349,7 @@ The <dfn constructor for="SFrameDecrypterStream" lt="SFrameDecrypterStream(optio
 
 The <dfn>SFrame initialization algorithm</dfn>, given |this| and |options|, runs these steps:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the [=SFrame transform algorithm=] with |this| and |frame|.
+    If |options| is a {{RTCSFrameSenderTransformOptions}}, per-frame sending as defined in [[RTP-SFRAME-PAYLOAD]] is used if |options|["{{RTCSFrameSenderTransformOptions/type}}"] is 'per-frame'. Otherwise per-packet sending is used, as defined in [[RTP-SFRAME-PAYLOAD]].
 1. Set |this|.`[[transform]]` to a new {{TransformStream}}.
 1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[transform]]` with [=TransformStream/set up/transformAlgorithm=] set to |transformAlgorithm|.
 1. Set |this|.`[[cipherSuite]]` to |options|["{{SFrameTransformOptions/cipherSuite}}"].

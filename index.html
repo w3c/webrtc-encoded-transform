@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 0ef803fdf, updated Tue Jan 6 11:59:39 2026 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="d7bc0a9ece999ed3535cf9fce5c4cfa9ba523810" name="revision">
+  <meta content="1d0f17e862a914bf7945959dd9e23348c83497e1" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -742,7 +742,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">WebRTC Encoded Transform</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-03-19">19 March 2026</time></p>
+    <time class="dt-updated" datetime="2026-03-26">26 March 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -959,14 +959,32 @@ user agent MUST invoke the <a data-link-type="dfn" href="#depacketizer" id="ref-
 on it and pass the result to the associated <a data-link-type="dfn" href="#decoder" id="ref-for-decoder">decoder</a> in place of
 the original frame.</p>
    <h3 class="heading settled" data-level="2.1" id="operation"><span class="secno">2.1. </span><span class="content">Extension operation</span><a class="self-link" href="#operation"></a></h3>
+   <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver" id="ref-for-dom-rtcrtptransceiver">RTCRtpTransceiver</a></code>, run the following steps:</p>
+   <ol>
+    <li data-md>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.<code>[[useSFrame]]</code> to undefined.</p>
+    <li data-md>
+     <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a> is associated with a media description, initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[useSFrame]]</code> from the media description. If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>.<code>[[useSFrame]]</code> is true, enable SFrame RTP packetization for <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a>.</p>
+    <li data-md>
+     <p>Otherwise, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">queue a task</a> to run the following steps:</p>
+     <ol>
+      <li data-md>
+       <p>If <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>.<code>[[useSFrame]]</code> is undefined, set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[useSFrame]]</code> to false.</p>
+     </ol>
+   </ol>
+   <p class="note" role="note">
+<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver" id="ref-for-dom-rtcrtptransceiver①">RTCRtpTransceiver</a></code>.<code>[[useSFrame]]</code> should be set either synchronously, in case it is already tied to a SDP m-section, or asynchronously, before it is associated to a SDP m-section.
+This ensures that <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver" id="ref-for-dom-rtcrtptransceiver②">RTCRtpTransceiver</a></code>.<code>[[useSFrame]]</code> and the corresponding SDP are always synchronized.
+By doing so, the handling related to the negotiation-needed flag, like the <a data-link-type="dfn" href="https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed" id="ref-for-dfn-check-if-negotiation-is-needed">check the negotiation-needed flag</a> algorithm, does not need to take into account <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver" id="ref-for-dom-rtcrtptransceiver③">RTCRtpTransceiver</a></code>.<code>[[useSFrame]]</code>.
+</p>
    <p>At construction of each <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender③">RTCRtpSender</a></code> or <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver" id="ref-for-dom-rtcrtpreceiver③">RTCRtpReceiver</a></code>, run the following steps:</p>
    <ol>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this">this</a>.<code>[[transform]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.<code>[[transform]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①">this</a>.<code>[[pipeToController]]</code> to null.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>.<code>[[pipeToController]]</code> to null.</p>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②">this</a>.<code>[[frameSource]]</code> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this③">this</a>’s <a data-link-type="dfn" href="#encoder" id="ref-for-encoder③">encoder</a> if <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this④">this</a> is an <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code> or <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑤">this</a>’s <a data-link-type="dfn" href="#depacketizer" id="ref-for-depacketizer③">depacketizer</a> otherwise.</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>.<code>[[frameSource]]</code> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a>’s <a data-link-type="dfn" href="#encoder" id="ref-for-encoder③">encoder</a> if <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a> is an <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender" id="ref-for-dom-rtcrtpsender④">RTCRtpSender</a></code> or <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①②">this</a>’s <a data-link-type="dfn" href="#depacketizer" id="ref-for-depacketizer③">depacketizer</a> otherwise.</p>
    </ol>
    <h4 class="heading settled" data-level="2.1.1" id="stream-processing"><span class="secno">2.1.1. </span><span class="content">Stream processing</span><a class="self-link" href="#stream-processing"></a></h4>
    <p class="note" role="note">
@@ -1046,27 +1064,51 @@ As <a data-link-type="abstract-op" href="#abstract-opdef-writeencodeddata" id="r
 and a <dfn class="dfn-paneled" data-dfn-for="RTCRtpTransform" data-dfn-type="abstract-op" data-export id="abstract-opdef-rtcrtptransform-disassociation-algorithm">disassociation algorithm</dfn>, both empty by default.</p>
    <h3 class="heading settled" data-level="2.2" id="attribute"><span class="secno">2.2. </span><span class="content">Extension attribute</span><a class="self-link" href="#attribute"></a></h3>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpSender,RTCRtpReceiver" data-dfn-type="attribute" data-export id="dom-rtcrtpsender-transform"><code>transform</code></dfn> getter steps are to
-return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑥">this</a>.<code>[[transform]]</code>. The setter steps are:</p>
+return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>.<code>[[transform]]</code>. The setter steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>transform</var> be the argument to the setter.</p>
     <li data-md>
+     <p>Let <var>transceiver</var> be the <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver" id="ref-for-dom-rtcrtptransceiver④">RTCRtpTransceiver</a></code> associated to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①④">this</a>.</p>
+    <li data-md>
+     <p>If <var>transform</var>.<code>[[useSFrame]]</code> is true, run the following steps:</p>
+     <ol>
+      <li data-md>
+       <p>If <var>transceiver</var>.<code>[[useSFrame]]</code> is false, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror">InvalidModificationError</a></code> and abort these steps.</p>
+      <li data-md>
+       <p>Otherwise, if <var>transceiver</var>.<code>[[useSFrame]]</code> is undefined, run the following steps:</p>
+       <ol>
+        <li data-md>
+         <p>Set <var>transceiver</var>.<code>[[useSFrame]]</code> to true.</p>
+        <li data-md>
+         <p>Enable SFrame RTP packetization for <var>transceiver</var>.</p>
+       </ol>
+     </ol>
+    <li data-md>
+     <p>Otherwise, run the following steps:</p>
+     <ol>
+      <li data-md>
+       <p>If <var>transceiver</var>.<code>[[useSFrame]]</code> is true, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror①">InvalidModificationError</a></code> and abort these steps.</p>
+      <li data-md>
+       <p>Set <var>transceiver</var>.<code>[[useSFrame]]</code> to false.</p>
+     </ol>
+    <li data-md>
      <p>If <var>transform</var> is not null and <var>transform</var>.<code>[[owner]]</code> is not null, throw a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>Set <var>transform</var>.<code>[[owner]]</code> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑦">this</a>.</p>
+     <p>Set <var>transform</var>.<code>[[owner]]</code> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑤">this</a>.</p>
     <li data-md>
-     <p>Let <var>oldTransform</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑧">this</a>.<code>[[transform]]</code>.</p>
+     <p>Let <var>oldTransform</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑥">this</a>.<code>[[transform]]</code>.</p>
     <li data-md>
      <p>If <var>oldTransform</var> is not null, run <var>oldTransform</var>’s <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-disassociation-algorithm" id="ref-for-abstract-opdef-rtcrtptransform-disassociation-algorithm">disassociation algorithm</a>.</p>
     <li data-md>
-     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this⑨">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
+     <p>Set <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑦">this</a>.<code>[[transform]]</code> to <var>transform</var>.</p>
     <li data-md>
-     <p>If <var>transform</var> is not null, run <var>transform</var>’s <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-algorithm" id="ref-for-abstract-opdef-rtcrtptransform-association-algorithm">association algorithm</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⓪">this</a>.</p>
+     <p>If <var>transform</var> is not null, run <var>transform</var>’s <a data-link-type="abstract-op" href="#abstract-opdef-rtcrtptransform-association-algorithm" id="ref-for-abstract-opdef-rtcrtptransform-association-algorithm">association algorithm</a> with <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑧">this</a>.</p>
     <li data-md>
      <p>If <var>transform</var> is null, run the following steps:</p>
      <ol>
       <li data-md>
-       <p>Let <var>frameSource</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①①">this</a>.<code>[[frameSource]]</code>.</p>
+       <p>Let <var>frameSource</var> be <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑨">this</a>.<code>[[frameSource]]</code>.</p>
       <li data-md>
        <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">In parallel</a>, set <var>frameSource</var>.<a data-link-type="dfn" href="#transformframealgorithm" id="ref-for-transformframealgorithm②">[[transformFrameAlgorithm]]</a> to the <a data-link-type="dfn" href="#passthrough-algorithm" id="ref-for-passthrough-algorithm">passthrough algorithm</a>.</p>
      </ol>
@@ -1160,6 +1202,8 @@ The APIs presented in this section allow applications to process SFrame data usi
      <p>Run the <a data-link-type="dfn" href="#sframe-initialization-algorithm" id="ref-for-sframe-initialization-algorithm">SFrame initialization algorithm</a> with <var>this</var> and <var>options</var>.</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[role]]</code> to 'encrypt'.</p>
+    <li data-md>
+     <p>Set <var>this</var>.<code>[[useSFrame]]</code> to true.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameReceiverTransform" data-dfn-type="constructor" data-export data-lt="RTCSFrameReceiverTransform(options)|constructor(options)|RTCSFrameReceiverTransform()|constructor()" id="dom-rtcsframereceivertransform-rtcsframereceivertransform"><code>new RTCSFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
@@ -1169,6 +1213,8 @@ The APIs presented in this section allow applications to process SFrame data usi
      <p>Run the <a data-link-type="dfn" href="#sframe-initialization-algorithm" id="ref-for-sframe-initialization-algorithm①">SFrame initialization algorithm</a> with <var>this</var> and <var>options</var>.</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[role]]</code> to 'decrypt'.</p>
+    <li data-md>
+     <p>Set <var>this</var>.<code>[[useSFrame]]</code> to true.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterStream" data-dfn-type="constructor" data-export data-lt="SFrameEncrypterStream(options)|constructor(options)|SFrameEncrypterStream()|constructor()" id="dom-sframeencrypterstream-sframeencrypterstream"><code>new SFrameEncrypterStream(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
@@ -1196,7 +1242,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <li data-md>
      <p>Set <var>this</var>.<code>[[transform]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①②">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
+     <p><a data-link-type="dfn" href="https://streams.spec.whatwg.org/#readablestream-set-up" id="ref-for-readablestream-set-up">Set up</a> <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②⓪">this</a>.<code>[[transform]]</code> with <a data-link-type="dfn" href="https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm" id="ref-for-transformstream-set-up-transformalgorithm">transformAlgorithm</a> set to <var>transformAlgorithm</var>.</p>
     <li data-md>
      <p>Set <var>this</var>.<code>[[cipherSuite]]</code> to <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-sframetransformoptions-ciphersuite" id="ref-for-dom-sframetransformoptions-ciphersuite">cipherSuite</a></code>"].</p>
     <li data-md>
@@ -1225,7 +1271,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <li data-md>
      <p>Let <var>buffer</var> be the result of running the SFrame algorithm with <var>data</var>, <var>this</var>.<code>[[cipherSuite]]</code>, and <var>role</var> as parameters. This algorithm is defined by <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a> and returns an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer">ArrayBuffer</a></code>.</p>
     <li data-md>
-     <p>If the SFrame algorithm exits abruptly with an error, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task">queue a task</a> to run the following sub steps:</p>
+     <p>If the SFrame algorithm exits abruptly with an error, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task①">queue a task</a> to run the following sub steps:</p>
      <ol>
       <li data-md>
        <p>If the processing fails on decryption side due to <var>data</var> not following the SFrame format, <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">fire an event</a> named <code class="idl"><a data-link-type="idl" href="#dom-sframedecryptermanager-onerror" id="ref-for-dom-sframedecryptermanager-onerror">error</a></code> at <var>this</var>,
@@ -1266,9 +1312,9 @@ The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterManager" data
       <li data-md>
        <p>Set the SFrame transform encryption algorithm’s key material to <var>key</var> and <var>keyId</var>, as defined by <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a>.</p>
       <li data-md>
-       <p>If setting the key material fails, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task①">queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror">InvalidModificationError</a></code> exception and abort these steps.</p>
+       <p>If setting the key material fails, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task②">queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror②">InvalidModificationError</a></code> exception and abort these steps.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task②">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve">resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task③">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
     <li data-md>
      <p>Return <var>promise</var>.</p>
@@ -1287,9 +1333,9 @@ The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterManager" data
       <li data-md>
        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-set" id="ref-for-map-set">Set</a> <var>keyStore</var>[<var>keyId</var>] to <var>key</var>.</p>
       <li data-md>
-       <p>If setting the key material fails, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task③">queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror①">InvalidModificationError</a></code> exception and abort these steps.</p>
+       <p>If setting the key material fails, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidmodificationerror" id="ref-for-invalidmodificationerror③">InvalidModificationError</a></code> exception and abort these steps.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task④">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①">resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑤">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
     <li data-md>
      <p>Return <var>promise</var>.</p>
@@ -1308,7 +1354,7 @@ The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterManager" data
       <li data-md>
        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-remove" id="ref-for-map-remove">Remove</a> <var>keyStore</var>[<var>keyId</var>].</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑤">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑥">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
     <li data-md>
      <p>Return <var>promise</var>.</p>
@@ -1805,7 +1851,7 @@ Their <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/struc
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransform" data-dfn-type="constructor" data-export data-lt="RTCRtpScriptTransform(worker, options, transfer)|constructor(worker, options, transfer)|RTCRtpScriptTransform(worker, options)|constructor(worker, options)|RTCRtpScriptTransform(worker)|constructor(worker)" id="dom-rtcrtpscripttransform-rtcrtpscripttransform"><code>new RTCRtpScriptTransform(<var>worker</var>, <var>options</var>, <var>transfer</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
-     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①③">this</a>’s internal slot as follows:</p>
+     <p>Initialize <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②①">this</a>’s internal slot as follows:</p>
      <dl>
       <dt data-md><code class="idl"><a data-link-type="idl" href="#dom-rtcrtpscripttransform-worker-slot" id="ref-for-dom-rtcrtpscripttransform-worker-slot">[[worker]]</a></code>
       <dd data-md>
@@ -2004,17 +2050,17 @@ parameter and <var>frame</var> as input, given <var>frame</var>.</p>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-options"><code>options</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①④">this</a>.<code>[[options]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②②">this</a>.<code>[[options]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-readable"><code>readable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑤">this</a>.<code>[[readable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②③">this</a>.<code>[[readable]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-writable"><code>writable</code></dfn> getter steps are:</p>
    <ol>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this①⑥">this</a>.<code>[[writable]]</code>.</p>
+     <p>Return <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#this" id="ref-for-this②④">this</a>.<code>[[writable]]</code>.</p>
    </ol>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-onbandwidthestimate"><code>onbandwidthestimate</code></dfn> EventHandler has type bandwidthestimate.</p>
    <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCRtpScriptTransformer" data-dfn-type="attribute" data-export id="dom-rtcrtpscripttransformer-onkeyframerequest"><code>onkeyframerequest</code></dfn> EventHandler has type keyframerequest.</p>
@@ -2079,7 +2125,7 @@ corresponding <code class="idl"><a data-link-type="idl" href="https://w3c.github
      <p class="note" role="note"><span class="marker">Note:</span> If no <var>rid</var> is passed in, keyframes are generated for all active layers.</p>
      <ol>
       <li data-md>
-       <p>If <var>layers</var> is now empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑥">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps.</p>
+       <p>If <var>layers</var> is now empty, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑦">queue a task</a> to reject <var>promise</var> with <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code> and abort these steps.</p>
       <li data-md>
        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-remove" id="ref-for-list-remove②">Remove</a> from <var>layers</var> all layers already <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-list-contain">found</a> in any <code>[[layers]]</code> of any tasks in <var>encoder</var>.<code>[[pendingKeyFrameTasks]]</code>.</p>
       <li data-md>
@@ -2138,7 +2184,7 @@ Section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec 
       <li data-md>
        <p>Generate a Full Intra Request (FIR) packet as defined in section 4.3.1 of <a data-link-type="biblio" href="#biblio-rfc5104" title="Codec Control Messages in the RTP Audio-Visual Profile with Feedback (AVPF)">[RFC5104]</a> and send it through <var>depacketizer</var>’s receiver.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑦">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑤">resolve</a> <var>promise</var> with undefined.</p>
+       <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task" id="ref-for-queue-a-task⑧">Queue a task</a> to <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑤">resolve</a> <var>promise</var> with undefined.</p>
      </ol>
    </ol>
    <h2 class="heading settled" data-level="7" id="privacy"><span class="secno">7. </span><span class="content">Privacy and security considerations</span><a class="self-link" href="#privacy"></a></h2>
@@ -2537,7 +2583,9 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="7c983b6d">RTCPeerConnection</span>
      <li><span class="dfn-paneled" id="e4db230f">RTCRtpReceiver</span>
      <li><span class="dfn-paneled" id="b161d57f">RTCRtpSender</span>
+     <li><span class="dfn-paneled" id="dc053979">RTCRtpTransceiver</span>
      <li><span class="dfn-paneled" id="4379d6b1">active</span>
+     <li><span class="dfn-paneled" id="f02c7140">check the negotiation-needed flag</span>
     </ul>
   </ul>
   <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2995,7 +3043,7 @@ let dfnPanelData = {
 "3b35d8a9": {"dfnID":"3b35d8a9","dfnText":"timeOrigin","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-performance-timeorigin"},{"id":"ref-for-dom-performance-timeorigin\u2460"}],"title":"4.1.1. Members"}],"url":"https://w3c.github.io/hr-time/#dom-performance-timeorigin"},
 "3b90bdcd": {"dfnID":"3b90bdcd","dfnText":"resolve","external":true,"refSections":[{"refs":[{"id":"ref-for-resolve"},{"id":"ref-for-resolve\u2460"},{"id":"ref-for-resolve\u2461"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-resolve\u2462"},{"id":"ref-for-resolve\u2463"},{"id":"ref-for-resolve\u2464"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://webidl.spec.whatwg.org/#resolve"},
 "3dc81766": {"dfnID":"3dc81766","dfnText":"set up (for WritableStream)","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-set-up"}],"title":"6.1. Internal slots"}],"url":"https://streams.spec.whatwg.org/#writablestream-set-up"},
-"4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"},{"id":"ref-for-this\u2460"},{"id":"ref-for-this\u2461"},{"id":"ref-for-this\u2462"},{"id":"ref-for-this\u2463"},{"id":"ref-for-this\u2464"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-this\u2465"},{"id":"ref-for-this\u2466"},{"id":"ref-for-this\u2467"},{"id":"ref-for-this\u2468"},{"id":"ref-for-this\u2460\u24ea"},{"id":"ref-for-this\u2460\u2460"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-this\u2460\u2461"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-this\u2460\u2462"}],"title":"5.2. Constructor"},{"refs":[{"id":"ref-for-this\u2460\u2463"},{"id":"ref-for-this\u2460\u2464"},{"id":"ref-for-this\u2460\u2465"}],"title":"6.3. Attributes"}],"url":"https://webidl.spec.whatwg.org/#this"},
+"4013a022": {"dfnID":"4013a022","dfnText":"this","external":true,"refSections":[{"refs":[{"id":"ref-for-this"},{"id":"ref-for-this\u2460"},{"id":"ref-for-this\u2461"},{"id":"ref-for-this\u2462"},{"id":"ref-for-this\u2463"},{"id":"ref-for-this\u2464"},{"id":"ref-for-this\u2465"},{"id":"ref-for-this\u2466"},{"id":"ref-for-this\u2467"},{"id":"ref-for-this\u2468"},{"id":"ref-for-this\u2460\u24ea"},{"id":"ref-for-this\u2460\u2460"},{"id":"ref-for-this\u2460\u2461"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-this\u2460\u2462"},{"id":"ref-for-this\u2460\u2463"},{"id":"ref-for-this\u2460\u2464"},{"id":"ref-for-this\u2460\u2465"},{"id":"ref-for-this\u2460\u2466"},{"id":"ref-for-this\u2460\u2467"},{"id":"ref-for-this\u2460\u2468"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-this\u2461\u24ea"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-this\u2461\u2460"}],"title":"5.2. Constructor"},{"refs":[{"id":"ref-for-this\u2461\u2461"},{"id":"ref-for-this\u2461\u2462"},{"id":"ref-for-this\u2461\u2463"}],"title":"6.3. Attributes"}],"url":"https://webidl.spec.whatwg.org/#this"},
 "4379d6b1": {"dfnID":"4379d6b1","dfnText":"active","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpencodingparameters-active"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active"},
 "44a7708c": {"dfnID":"44a7708c","dfnText":"EventInit","external":true,"refSections":[{"refs":[{"id":"ref-for-dictdef-eventinit"}],"title":"3. SFrame transforms"}],"url":"https://dom.spec.whatwg.org/#dictdef-eventinit"},
 "450958f7": {"dfnID":"450958f7","dfnText":"unsigned short","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-short"},{"id":"ref-for-idl-unsigned-short\u2460"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-short"},
@@ -3030,7 +3078,7 @@ let dfnPanelData = {
 "8f5c2179": {"dfnID":"8f5c2179","dfnText":"a promise resolved with","external":true,"refSections":[{"refs":[{"id":"ref-for-a-promise-resolved-with"},{"id":"ref-for-a-promise-resolved-with\u2460"},{"id":"ref-for-a-promise-resolved-with\u2461"}],"title":"2.1.1. Stream processing"}],"url":"https://webidl.spec.whatwg.org/#a-promise-resolved-with"},
 "93b563b6": {"dfnID":"93b563b6","dfnText":"timestamp","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-videoframe-timestamp"}],"title":"4.2.1. Members"}],"url":"https://w3c.github.io/webcodecs/#dom-videoframe-timestamp"},
 "99c988d6": {"dfnID":"99c988d6","dfnText":"remove (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-remove"},{"id":"ref-for-list-remove\u2460"},{"id":"ref-for-list-remove\u2461"},{"id":"ref-for-list-remove\u2462"},{"id":"ref-for-list-remove\u2463"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://infra.spec.whatwg.org/#list-remove"},
-"9a517a7d": {"dfnID":"9a517a7d","dfnText":"queue a task","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-a-task"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-queue-a-task\u2460"},{"id":"ref-for-queue-a-task\u2461"},{"id":"ref-for-queue-a-task\u2462"},{"id":"ref-for-queue-a-task\u2463"},{"id":"ref-for-queue-a-task\u2464"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-queue-a-task\u2465"},{"id":"ref-for-queue-a-task\u2466"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task"},
+"9a517a7d": {"dfnID":"9a517a7d","dfnText":"queue a task","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-a-task"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-queue-a-task\u2460"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-queue-a-task\u2461"},{"id":"ref-for-queue-a-task\u2462"},{"id":"ref-for-queue-a-task\u2463"},{"id":"ref-for-queue-a-task\u2464"},{"id":"ref-for-queue-a-task\u2465"}],"title":"3.2. Methods"},{"refs":[{"id":"ref-for-queue-a-task\u2466"},{"id":"ref-for-queue-a-task\u2467"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task"},
 "9a9b558b": {"dfnID":"9a9b558b","dfnText":"dequeue","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-dequeue"}],"title":"5.3. Algorithms"}],"url":"https://infra.spec.whatwg.org/#queue-dequeue"},
 "9aeb0a82": {"dfnID":"9aeb0a82","dfnText":"long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-long-long"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-long-long\u2460"}],"title":"4.2.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-long-long"},
 "9cce47fd": {"dfnID":"9cce47fd","dfnText":"sequence","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-sequence"}],"title":"4.1. RTCEncodedFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2460"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-sequence\u2461"}],"title":"5. RTCRtpScriptTransform interface"}],"url":"https://webidl.spec.whatwg.org/#idl-sequence"},
@@ -3058,7 +3106,7 @@ let dfnPanelData = {
 "c187d599": {"dfnID":"c187d599","dfnText":"sub-deserialization","external":true,"refSections":[{"refs":[{"id":"ref-for-sub-deserialization"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-sub-deserialization\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#sub-deserialization"},
 "c3b2d08c": {"dfnID":"c3b2d08c","dfnText":"task source","external":true,"refSections":[{"refs":[{"id":"ref-for-task-source"}],"title":"5.2. Constructor"},{"refs":[{"id":"ref-for-task-source\u2460"},{"id":"ref-for-task-source\u2461"},{"id":"ref-for-task-source\u2462"}],"title":"5.3. Algorithms"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#task-source"},
 "c7574ff1": {"dfnID":"c7574ff1","dfnText":"transformAlgorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-transformstream-set-up-transformalgorithm"}],"title":"3.1. Algorithms"}],"url":"https://streams.spec.whatwg.org/#transformstream-set-up-transformalgorithm"},
-"cae6bf57": {"dfnID":"cae6bf57","dfnText":"InvalidModificationError","external":true,"refSections":[{"refs":[{"id":"ref-for-invalidmodificationerror"},{"id":"ref-for-invalidmodificationerror\u2460"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#invalidmodificationerror"},
+"cae6bf57": {"dfnID":"cae6bf57","dfnText":"InvalidModificationError","external":true,"refSections":[{"refs":[{"id":"ref-for-invalidmodificationerror"},{"id":"ref-for-invalidmodificationerror\u2460"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-invalidmodificationerror\u2461"},{"id":"ref-for-invalidmodificationerror\u2462"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#invalidmodificationerror"},
 "d04a8309": {"dfnID":"d04a8309","dfnText":"writeAlgorithm","external":true,"refSections":[{"refs":[{"id":"ref-for-writablestream-set-up-writealgorithm"}],"title":"6.1. Internal slots"}],"url":"https://streams.spec.whatwg.org/#writablestream-set-up-writealgorithm"},
 "d438bc09": {"dfnID":"d438bc09","dfnText":"set up (for ReadableStream)","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestream-set-up"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-readablestream-set-up\u2460"}],"title":"6.1. Internal slots"}],"url":"https://streams.spec.whatwg.org/#readablestream-set-up"},
 "d54f5897": {"dfnID":"d54f5897","dfnText":"DataCloneError","external":true,"refSections":[{"refs":[{"id":"ref-for-datacloneerror"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-datacloneerror\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://webidl.spec.whatwg.org/#datacloneerror"},
@@ -3066,6 +3114,7 @@ let dfnPanelData = {
 "d76ab844": {"dfnID":"d76ab844","dfnText":"sub-serialization","external":true,"refSections":[{"refs":[{"id":"ref-for-sub-serialization"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-sub-serialization\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#sub-serialization"},
 "da5d8737": {"dfnID":"da5d8737","dfnText":"EncodedVideoChunkType","external":true,"refSections":[{"refs":[{"id":"ref-for-enumdef-encodedvideochunktype"}],"title":"4.3. RTCEncodedVideoFrame interface"},{"refs":[{"id":"ref-for-enumdef-encodedvideochunktype\u2460"}],"title":"4.3.2. Members"}],"url":"https://w3c.github.io/webcodecs/#enumdef-encodedvideochunktype"},
 "dacde8b5": {"dfnID":"dacde8b5","dfnText":"a new promise","external":true,"refSections":[{"refs":[{"id":"ref-for-a-new-promise"},{"id":"ref-for-a-new-promise\u2460"},{"id":"ref-for-a-new-promise\u2461"}],"title":"3.2. Methods"}],"url":"https://webidl.spec.whatwg.org/#a-new-promise"},
+"dc053979": {"dfnID":"dc053979","dfnText":"RTCRtpTransceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtptransceiver"},{"id":"ref-for-dom-rtcrtptransceiver\u2460"},{"id":"ref-for-dom-rtcrtptransceiver\u2461"},{"id":"ref-for-dom-rtcrtptransceiver\u2462"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-dom-rtcrtptransceiver\u2463"}],"title":"2.2. Extension attribute"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver"},
 "decoder": {"dfnID":"decoder","dfnText":"decoder","external":false,"refSections":[{"refs":[{"id":"ref-for-decoder"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-decoder\u2460"}],"title":"2.1.1. Stream processing"}],"url":"#decoder"},
 "depacketizer": {"dfnID":"depacketizer","dfnText":"depacketizer","external":false,"refSections":[{"refs":[{"id":"ref-for-depacketizer"},{"id":"ref-for-depacketizer\u2460"},{"id":"ref-for-depacketizer\u2461"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-depacketizer\u2462"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-depacketizer\u2463"},{"id":"ref-for-depacketizer\u2464"},{"id":"ref-for-depacketizer\u2465"}],"title":"2.1.1. Stream processing"},{"refs":[{"id":"ref-for-depacketizer\u2466"}],"title":"6.1. Internal slots"},{"refs":[{"id":"ref-for-depacketizer\u2467"}],"title":"6.5. KeyFrame Algorithms"}],"url":"#depacketizer"},
 "dictdef-rtcencodedaudioframemetadata": {"dfnID":"dictdef-rtcencodedaudioframemetadata","dfnText":"RTCEncodedAudioFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedaudioframemetadata\u2460"},{"id":"ref-for-dictdef-rtcencodedaudioframemetadata\u2461"}],"title":"4.5. RTCEncodedAudioFrame interface"}],"url":"#dictdef-rtcencodedaudioframemetadata"},
@@ -3181,6 +3230,7 @@ let dfnPanelData = {
 "enumdef-sframeciphersuite": {"dfnID":"enumdef-sframeciphersuite","dfnText":"SFrameCipherSuite","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframeciphersuite"}],"title":"3. SFrame transforms"}],"url":"#enumdef-sframeciphersuite"},
 "enumdef-sframetransformerroreventtype": {"dfnID":"enumdef-sframetransformerroreventtype","dfnText":"SFrameTransformErrorEventType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformerroreventtype"},{"id":"ref-for-enumdef-sframetransformerroreventtype\u2460"}],"title":"3. SFrame transforms"}],"url":"#enumdef-sframetransformerroreventtype"},
 "eventdef-dedicatedworkerglobalscope-rtctransform": {"dfnID":"eventdef-dedicatedworkerglobalscope-rtctransform","dfnText":"rtctransform","external":false,"refSections":[],"url":"#eventdef-dedicatedworkerglobalscope-rtctransform"},
+"f02c7140": {"dfnID":"f02c7140","dfnText":"check the negotiation-needed flag","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-check-if-negotiation-is-needed"}],"title":"2.1. Extension operation"}],"url":"https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed"},
 "f0951476": {"dfnID":"f0951476","dfnText":"EventHandler","external":true,"refSections":[{"refs":[{"id":"ref-for-eventhandler"}],"title":"3. SFrame transforms"},{"refs":[{"id":"ref-for-eventhandler\u2460"}],"title":"6. RTCRtpScriptTransformer interface"},{"refs":[{"id":"ref-for-eventhandler\u2461"}],"title":"6.4. Events"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"},
 "f14b47b8": {"dfnID":"f14b47b8","dfnText":"unsigned long long","external":true,"refSections":[{"refs":[{"id":"ref-for-idl-unsigned-long-long"}],"title":"3. SFrame transforms"},{"refs":[{"id":"ref-for-idl-unsigned-long-long\u2460"},{"id":"ref-for-idl-unsigned-long-long\u2461"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-idl-unsigned-long-long\u2462"}],"title":"4.2.1. Members"}],"url":"https://webidl.spec.whatwg.org/#idl-unsigned-long-long"},
 "f2f85335": {"dfnID":"f2f85335","dfnText":"structuredClone(value, options)","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-structuredclone"}],"title":"4.3.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#dom-structuredclone"},
@@ -3745,10 +3795,12 @@ let refsData = {
 "https://w3c.github.io/webcodecs/#dom-videoframe-timestamp": {"displayText":"timestamp","export":true,"for_":["VideoFrame"],"level":"1","normative":true,"shortname":"webcodecs","spec":"webcodecs","status":"current","text":"timestamp","type":"attribute","url":"https://w3c.github.io/webcodecs/#dom-videoframe-timestamp"},
 "https://w3c.github.io/webcodecs/#enumdef-encodedvideochunktype": {"displayText":"EncodedVideoChunkType","export":true,"for_":[],"level":"1","normative":true,"shortname":"webcodecs","spec":"webcodecs","status":"current","text":"EncodedVideoChunkType","type":"enum","url":"https://w3c.github.io/webcodecs/#enumdef-encodedvideochunktype"},
 "https://w3c.github.io/webcrypto/#dfn-CryptoKey": {"displayText":"CryptoKey","export":true,"for_":[],"level":"2","normative":true,"shortname":"webcrypto","spec":"webcrypto-2","status":"current","text":"CryptoKey","type":"interface","url":"https://w3c.github.io/webcrypto/#dfn-CryptoKey"},
+"https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed": {"displayText":"check the negotiation-needed flag","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc","spec":"webrtc","status":"anchor-block","text":"check the negotiation-needed flag","type":"dfn","url":"https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection": {"displayText":"RTCPeerConnection","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCPeerConnection","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcpeerconnection"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active": {"displayText":"active","export":true,"for_":["RTCRtpEncodingParameters"],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"active","type":"dict-member","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpencodingparameters-active"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver": {"displayText":"RTCRtpReceiver","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpReceiver","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
 "https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender": {"displayText":"RTCRtpSender","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpSender","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpsender"},
+"https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver": {"displayText":"RTCRtpTransceiver","export":true,"for_":[],"level":"1","normative":true,"shortname":"webrtc","spec":"webrtc","status":"current","text":"RTCRtpTransceiver","type":"interface","url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtptransceiver"},
 "https://webidl.spec.whatwg.org/#BufferSource": {"displayText":"BufferSource","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"BufferSource","type":"typedef","url":"https://webidl.spec.whatwg.org/#BufferSource"},
 "https://webidl.spec.whatwg.org/#EnforceRange": {"displayText":"EnforceRange","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"EnforceRange","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#EnforceRange"},
 "https://webidl.spec.whatwg.org/#Exposed": {"displayText":"Exposed","export":true,"for_":[],"level":"1","normative":true,"shortname":"webidl","spec":"webidl","status":"current","text":"Exposed","type":"extended-attribute","url":"https://webidl.spec.whatwg.org/#Exposed"},

@@ -349,7 +349,7 @@ The <dfn constructor for="SFrameDecrypterStream" lt="SFrameDecrypterStream(optio
 
 The <dfn>SFrame initialization algorithm</dfn>, given |this| and |options|, runs these steps:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the [=SFrame transform algorithm=] with |this| and |frame|.
-1. If |options|["{{RTCSFrameSenderTransformOptions/type}}"] is present, run these steps:
+1. If |options|["{{RTCSFrameSenderTransformOptions/type}}"] is [=map/exists|present=], run these steps:
     1. If |options|["{{RTCSFrameSenderTransformOptions/type}}"] is 'per-frame', use per-frame sending as defined in [[RTP-SFRAME-PAYLOAD]].
     1. Otherwise, use per-packet sending as defined in [[RTP-SFRAME-PAYLOAD]].
 1. Set |this|.`[[transform]]` to a new {{TransformStream}}.

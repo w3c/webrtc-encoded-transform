@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 0ef803fdf, updated Tue Jan 6 11:59:39 2026 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="1d0f17e862a914bf7945959dd9e23348c83497e1" name="revision">
+  <meta content="5d2c82ea964cc04c23205cd04da00211a444135c" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1134,6 +1134,15 @@ The APIs presented in this section allow applications to process SFrame data usi
     <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframeciphersuite" id="ref-for-enumdef-sframeciphersuite"><c- n>SFrameCipherSuite</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameCipherSuite" id="dom-sframetransformoptions-ciphersuite"><code><c- g>cipherSuite</c-></code></dfn>;
 };
 
+<c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-sframetype"><code><c- g>SFrameType</c-></code></dfn> {
+    <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameType" data-dfn-type="enum-value" data-export id="dom-sframetype-per-frame"><code><c- s>"per-frame"</c-></code></dfn>,
+    <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameType" data-dfn-type="enum-value" data-export id="dom-sframetype-per-packet"><code><c- s>"per-packet"</c-></code></dfn>
+};
+
+<c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-rtcsframesendertransformoptions"><code><c- g>RTCSFrameSenderTransformOptions</c-></code></dfn> : <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> {
+    <a data-link-type="idl-name" href="#enumdef-sframetype" id="ref-for-enumdef-sframetype"><c- n>SFrameType</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;per-frame&quot;" data-dfn-for="RTCSFrameSenderTransformOptions" data-dfn-type="dict-member" data-export data-type="SFrameType" id="dom-rtcsframesendertransformoptions-type"><code><c- g>type</c-></code></dfn> = "per-frame";
+};
+
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange" id="ref-for-EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long" id="ref-for-idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></dfn>;
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid" id="ref-for-typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-bigint" id="ref-for-idl-bigint"><c- b>bigint</c-></a>) <dfn class="dfn-paneled idl-code" data-dfn-type="typedef" data-export id="typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></dfn>;
 
@@ -1149,7 +1158,7 @@ The APIs presented in this section allow applications to process SFrame data usi
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcsframesendertransform"><code><c- g>RTCSFrameSenderTransform</c-></code></dfn> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform" id="ref-for-dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform/RTCSFrameSenderTransform(options), RTCSFrameSenderTransform/constructor(options), RTCSFrameSenderTransform/RTCSFrameSenderTransform(), RTCSFrameSenderTransform/constructor()" data-dfn-type="argument" data-export id="dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></dfn> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform" id="ref-for-dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions" id="ref-for-dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform/RTCSFrameSenderTransform(options), RTCSFrameSenderTransform/constructor(options), RTCSFrameSenderTransform/RTCSFrameSenderTransform(), RTCSFrameSenderTransform/constructor()" data-dfn-type="argument" data-export id="dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></dfn> = {});
 };
 <a data-link-type="idl-name" href="#rtcsframesendertransform" id="ref-for-rtcsframesendertransform①"><c- n>RTCSFrameSenderTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager" id="ref-for-sframeencryptermanager"><c- n>SFrameEncrypterManager</c-></a>;
 
@@ -1239,6 +1248,14 @@ The APIs presented in this section allow applications to process SFrame data usi
    <ol>
     <li data-md>
      <p>Let <var>transformAlgorithm</var> be an algorithm which takes a <var>frame</var> as input and runs the <a data-link-type="dfn" href="#sframe-transform-algorithm" id="ref-for-sframe-transform-algorithm">SFrame transform algorithm</a> with <var>this</var> and <var>frame</var>.</p>
+    <li data-md>
+     <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-rtcsframesendertransformoptions-type" id="ref-for-dom-rtcsframesendertransformoptions-type">type</a></code>"] is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists">present</a>, run these steps:</p>
+     <ol>
+      <li data-md>
+       <p>If <var>options</var>["<code class="idl"><a data-link-type="idl" href="#dom-rtcsframesendertransformoptions-type" id="ref-for-dom-rtcsframesendertransformoptions-type①">type</a></code>"] is 'per-frame', use per-frame sending as defined in <a data-link-type="biblio" href="#biblio-rtp-sframe-payload" title="RTP Payload Format for SFrame">[RTP-SFRAME-PAYLOAD]</a>.</p>
+      <li data-md>
+       <p>Otherwise, use per-packet sending as defined in <a data-link-type="biblio" href="#biblio-rtp-sframe-payload" title="RTP Payload Format for SFrame">[RTP-SFRAME-PAYLOAD]</a>.</p>
+     </ol>
     <li data-md>
      <p>Set <var>this</var>.<code>[[transform]]</code> to a new <code class="idl"><a data-link-type="idl" href="https://streams.spec.whatwg.org/#transformstream" id="ref-for-transformstream">TransformStream</a></code>.</p>
     <li data-md>
@@ -2379,6 +2396,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#packetizer">packetizer</a><span>, in § 2</span>
    <li><a href="#passthrough-algorithm">passthrough algorithm</a><span>, in § 2</span>
    <li><a href="#dom-rtcencodedframemetadata-payloadtype">payloadType</a><span>, in § 4.1.1</span>
+   <li><a href="#dom-sframetype-per-frame">"per-frame"</a><span>, in § 3</span>
+   <li><a href="#dom-sframetype-per-packet">"per-packet"</a><span>, in § 3</span>
    <li><a href="#processedframesqueue">[[processedFramesQueue]]</a><span>, in § 2</span>
    <li><a href="#dom-rtcrtpscripttransformer-readable-slot">[[readable]]</a><span>, in § 6.1</span>
    <li><a href="#dom-rtcrtpscripttransformer-readable">readable</a><span>, in § 6.3</span>
@@ -2410,6 +2429,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#rtcsframesendertransform">RTCSFrameSenderTransform</a><span>, in § 3</span>
    <li><a href="#dom-rtcsframesendertransform-rtcsframesendertransform">RTCSFrameSenderTransform()</a><span>, in § 3</span>
    <li><a href="#dom-rtcsframesendertransform-rtcsframesendertransform">RTCSFrameSenderTransform(options)</a><span>, in § 3</span>
+   <li><a href="#dictdef-rtcsframesendertransformoptions">RTCSFrameSenderTransformOptions</a><span>, in § 3</span>
    <li><a href="#eventdef-dedicatedworkerglobalscope-rtctransform">rtctransform</a><span>, in § 5.2</span>
    <li><a href="#rtctransformevent">RTCTransformEvent</a><span>, in § 6.4</span>
    <li><a href="#dom-rtcencodedframemetadata-rtptimestamp">rtpTimestamp</a><span>, in § 4.1.1</span>
@@ -2434,6 +2454,7 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#enumdef-sframetransformerroreventtype">SFrameTransformErrorEventType</a><span>, in § 3</span>
    <li><a href="#dom-sframetransformerrorevent-sframetransformerrorevent">SFrameTransformErrorEvent(type, eventInitDict)</a><span>, in § 3</span>
    <li><a href="#dictdef-sframetransformoptions">SFrameTransformOptions</a><span>, in § 3</span>
+   <li><a href="#enumdef-sframetype">SFrameType</a><span>, in § 3</span>
    <li><a href="#typedefdef-smallcryptokeyid">SmallCryptoKeyID</a><span>, in § 3</span>
    <li><a href="#dom-rtcencodedvideoframemetadata-spatialindex">spatialIndex</a><span>, in § 4.2</span>
    <li><a href="#dom-rtcencodedframemetadata-synchronizationsource">synchronizationSource</a><span>, in § 4.1.1</span>
@@ -2443,7 +2464,12 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcrtpsender-transform">transform</a><span>, in § 2.2</span>
    <li><a href="#dom-rtctransformevent-transformer">transformer</a><span>, in § 6.4</span>
    <li><a href="#transformframealgorithm">[[transformFrameAlgorithm]]</a><span>, in § 2</span>
-   <li><a href="#dom-rtcencodedvideoframe-type">type</a><span>, in § 4.3.2</span>
+   <li>
+    type
+    <ul>
+     <li><a href="#dom-rtcencodedvideoframe-type">attribute for RTCEncodedVideoFrame</a><span>, in § 4.3.2</span>
+     <li><a href="#dom-rtcsframesendertransformoptions-type">dict-member for RTCSFrameSenderTransformOptions</a><span>, in § 3</span>
+    </ul>
    <li><a href="#dom-rtcencodedvideoframemetadata-width">width</a><span>, in § 4.2</span>
    <li><a href="#dom-rtcrtpscripttransform-worker-slot">[[worker]]</a><span>, in § 5.1</span>
    <li><a href="#dom-rtcrtpscripttransformer-writable-slot">[[writable]]</a><span>, in § 6.1</span>
@@ -2504,6 +2530,7 @@ and may not be audited for reception of data from untrusted sources.</p>
      <li><span class="dfn-paneled" id="ae8def21">contain</span>
      <li><span class="dfn-paneled" id="9a9b558b">dequeue</span>
      <li><span class="dfn-paneled" id="06a6db54">enqueue</span>
+     <li><span class="dfn-paneled" id="1243a891">exist</span>
      <li><span class="dfn-paneled" id="649608b9">list</span>
      <li><span class="dfn-paneled" id="47dfca75">queue</span>
      <li><span class="dfn-paneled" id="99c988d6">remove <small>(for list)</small></span>
@@ -2654,6 +2681,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <dd>JM. Valin; K. Vos; T. Terriberry. <a href="https://www.rfc-editor.org/rfc/rfc6716"><cite>Definition of the Opus Audio Codec</cite></a>. September 2012. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6716">https://www.rfc-editor.org/rfc/rfc6716</a>
    <dt id="biblio-rfc9605">[RFC9605]
    <dd>E. Omara; et al. <a href="https://www.rfc-editor.org/rfc/rfc9605"><cite>Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media</cite></a>. August 2024. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc9605">https://www.rfc-editor.org/rfc/rfc9605</a>
+   <dt id="biblio-rtp-sframe-payload">[RTP-SFRAME-PAYLOAD]
+   <dd><a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-rtp-sframe/"><cite>RTP Payload Format for SFrame</cite></a>. URL: <a href="https://datatracker.ietf.org/doc/draft-ietf-avtcore-rtp-sframe/">https://datatracker.ietf.org/doc/draft-ietf-avtcore-rtp-sframe/</a>
    <dt id="biblio-vp9">[VP9]
    <dd><a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf"><cite>VP9 Bitstream &amp; Decoding Process Specification</cite></a>. URL: <a href="https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf">https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.6-20160331-draft.pdf</a>
    <dt id="biblio-webrtc-identity">[WEBRTC-IDENTITY]
@@ -2687,6 +2716,15 @@ and may not be audited for reception of data from untrusted sources.</p>
     <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-sframeciphersuite"><c- n>SFrameCipherSuite</c-></a> <a data-type="SFrameCipherSuite" href="#dom-sframetransformoptions-ciphersuite"><code><c- g>cipherSuite</c-></code></a>;
 };
 
+<c- b>enum</c-> <a href="#enumdef-sframetype"><code><c- g>SFrameType</c-></code></a> {
+    <a href="#dom-sframetype-per-frame"><code><c- s>"per-frame"</c-></code></a>,
+    <a href="#dom-sframetype-per-packet"><code><c- s>"per-packet"</c-></code></a>
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-rtcsframesendertransformoptions"><code><c- g>RTCSFrameSenderTransformOptions</c-></code></a> : <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> {
+    <a data-link-type="idl-name" href="#enumdef-sframetype"><c- n>SFrameType</c-></a> <a data-default="&quot;per-frame&quot;" data-type="SFrameType" href="#dom-rtcsframesendertransformoptions-type"><code><c- g>type</c-></code></a> = "per-frame";
+};
+
 <c- b>typedef</c-> [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#EnforceRange"><c- g>EnforceRange</c-></a>] <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long-long"><c- b>unsigned</c-> <c- b>long</c-> <c- b>long</c-></a> <a href="#typedefdef-smallcryptokeyid"><code><c- g>SmallCryptoKeyID</c-></code></a>;
 <c- b>typedef</c-> (<a data-link-type="idl-name" href="#typedefdef-smallcryptokeyid"><c- n>SmallCryptoKeyID</c-></a> <c- b>or</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-bigint"><c- b>bigint</c-></a>) <a href="#typedefdef-cryptokeyid"><code><c- g>CryptoKeyID</c-></code></a>;
 
@@ -2702,7 +2740,7 @@ and may not be audited for reception of data from untrusted sources.</p>
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <a href="#rtcsframesendertransform"><code><c- g>RTCSFrameSenderTransform</c-></code></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></a> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <a href="#dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></a> = {});
 };
 <a data-link-type="idl-name" href="#rtcsframesendertransform"><c- n>RTCSFrameSenderTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager"><c- n>SFrameEncrypterManager</c-></a>;
 
@@ -3035,6 +3073,7 @@ let dfnPanelData = {
 "06a6db54": {"dfnID":"06a6db54","dfnText":"enqueue","external":true,"refSections":[{"refs":[{"id":"ref-for-queue-enqueue"}],"title":"2.1.1. Stream processing"}],"url":"https://infra.spec.whatwg.org/#queue-enqueue"},
 "0a422d04": {"dfnID":"0a422d04","dfnText":"serializable object","external":true,"refSections":[{"refs":[{"id":"ref-for-serializable-objects"}],"title":"4.3.4. Serialization"},{"refs":[{"id":"ref-for-serializable-objects\u2460"}],"title":"4.5.4. Serialization"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#serializable-objects"},
 "0e6b2056": {"dfnID":"0e6b2056","dfnText":"set","external":true,"refSections":[{"refs":[{"id":"ref-for-map-set"}],"title":"3.2. Methods"}],"url":"https://infra.spec.whatwg.org/#map-set"},
+"1243a891": {"dfnID":"1243a891","dfnText":"exist","external":true,"refSections":[{"refs":[{"id":"ref-for-map-exists"}],"title":"3.1. Algorithms"}],"url":"https://infra.spec.whatwg.org/#map-exists"},
 "129bdae8": {"dfnID":"129bdae8","dfnText":"Event","external":true,"refSections":[{"refs":[{"id":"ref-for-event"}],"title":"3. SFrame transforms"},{"refs":[{"id":"ref-for-event\u2460"},{"id":"ref-for-event\u2461"}],"title":"6.4. Events"}],"url":"https://dom.spec.whatwg.org/#event"},
 "2bc0cdf4": {"dfnID":"2bc0cdf4","dfnText":"EventTarget","external":true,"refSections":[{"refs":[{"id":"ref-for-eventtarget"},{"id":"ref-for-eventtarget\u2460"},{"id":"ref-for-eventtarget\u2461"}],"title":"3. SFrame transforms"},{"refs":[{"id":"ref-for-eventtarget\u2462"}],"title":"6. RTCRtpScriptTransformer interface"}],"url":"https://dom.spec.whatwg.org/#eventtarget"},
 "2e9f6464": {"dfnID":"2e9f6464","dfnText":"canceled flag","external":true,"refSections":[{"refs":[{"id":"ref-for-canceled-flag"}],"title":"6.4. Events"}],"url":"https://dom.spec.whatwg.org/#canceled-flag"},
@@ -3122,6 +3161,7 @@ let dfnPanelData = {
 "dictdef-rtcencodedframemetadata": {"dfnID":"dictdef-rtcencodedframemetadata","dfnText":"RTCEncodedFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedframemetadata"}],"title":"4. Script Transform"},{"refs":[{"id":"ref-for-dictdef-rtcencodedframemetadata\u2460"}],"title":"4.1. RTCEncodedFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedframemetadata\u2461"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedframemetadata\u2462"}],"title":"4.4. RTCEncodedAudioFrameMetadata dictionary"}],"url":"#dictdef-rtcencodedframemetadata"},
 "dictdef-rtcencodedvideoframemetadata": {"dfnID":"dictdef-rtcencodedvideoframemetadata","dfnText":"RTCEncodedVideoFrameMetadata","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata"}],"title":"4.2. RTCEncodedVideoFrameMetadata dictionary"},{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframemetadata\u2460"},{"id":"ref-for-dictdef-rtcencodedvideoframemetadata\u2461"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dictdef-rtcencodedvideoframemetadata"},
 "dictdef-rtcencodedvideoframeoptions": {"dfnID":"dictdef-rtcencodedvideoframeoptions","dfnText":"RTCEncodedVideoFrameOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcencodedvideoframeoptions"}],"title":"4.3. RTCEncodedVideoFrame interface"}],"url":"#dictdef-rtcencodedvideoframeoptions"},
+"dictdef-rtcsframesendertransformoptions": {"dfnID":"dictdef-rtcsframesendertransformoptions","dfnText":"RTCSFrameSenderTransformOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-rtcsframesendertransformoptions"}],"title":"3. SFrame transforms"}],"url":"#dictdef-rtcsframesendertransformoptions"},
 "dictdef-sframetransformerroreventinit": {"dfnID":"dictdef-sframetransformerroreventinit","dfnText":"SFrameTransformErrorEventInit","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-sframetransformerroreventinit"}],"title":"3. SFrame transforms"}],"url":"#dictdef-sframetransformerroreventinit"},
 "dictdef-sframetransformoptions": {"dfnID":"dictdef-sframetransformoptions","dfnText":"SFrameTransformOptions","external":false,"refSections":[{"refs":[{"id":"ref-for-dictdef-sframetransformoptions"},{"id":"ref-for-dictdef-sframetransformoptions\u2460"},{"id":"ref-for-dictdef-sframetransformoptions\u2461"},{"id":"ref-for-dictdef-sframetransformoptions\u2462"}],"title":"3. SFrame transforms"}],"url":"#dictdef-sframetransformoptions"},
 "dom-dedicatedworkerglobalscope-onrtctransform": {"dfnID":"dom-dedicatedworkerglobalscope-onrtctransform","dfnText":"onrtctransform","external":false,"refSections":[],"url":"#dom-dedicatedworkerglobalscope-onrtctransform"},
@@ -3185,6 +3225,7 @@ let dfnPanelData = {
 "dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options": {"dfnID":"dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options"},
 "dom-rtcsframesendertransform-rtcsframesendertransform": {"dfnID":"dom-rtcsframesendertransform-rtcsframesendertransform","dfnText":"new RTCSFrameSenderTransform(options)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcsframesendertransform-rtcsframesendertransform"}],"title":"3. SFrame transforms"}],"url":"#dom-rtcsframesendertransform-rtcsframesendertransform"},
 "dom-rtcsframesendertransform-rtcsframesendertransform-options-options": {"dfnID":"dom-rtcsframesendertransform-rtcsframesendertransform-options-options","dfnText":"options","external":false,"refSections":[],"url":"#dom-rtcsframesendertransform-rtcsframesendertransform-options-options"},
+"dom-rtcsframesendertransformoptions-type": {"dfnID":"dom-rtcsframesendertransformoptions-type","dfnText":"type","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtcsframesendertransformoptions-type"},{"id":"ref-for-dom-rtcsframesendertransformoptions-type\u2460"}],"title":"3.1. Algorithms"}],"url":"#dom-rtcsframesendertransformoptions-type"},
 "dom-rtctransformevent-transformer": {"dfnID":"dom-rtctransformevent-transformer","dfnText":"transformer","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-rtctransformevent-transformer"}],"title":"5.2. Constructor"}],"url":"#dom-rtctransformevent-transformer"},
 "dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32","dfnText":"\"AES_128_CTR_HMAC_SHA256_32\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"},
 "dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64","dfnText":"\"AES_128_CTR_HMAC_SHA256_64\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"},
@@ -3217,6 +3258,8 @@ let dfnPanelData = {
 "dom-sframetransformerroreventtype-keyid": {"dfnID":"dom-sframetransformerroreventtype-keyid","dfnText":"\"keyID\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformerroreventtype-keyid"}],"title":"3.1. Algorithms"}],"url":"#dom-sframetransformerroreventtype-keyid"},
 "dom-sframetransformerroreventtype-syntax": {"dfnID":"dom-sframetransformerroreventtype-syntax","dfnText":"\"syntax\"","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformerroreventtype-syntax"}],"title":"3.1. Algorithms"}],"url":"#dom-sframetransformerroreventtype-syntax"},
 "dom-sframetransformoptions-ciphersuite": {"dfnID":"dom-sframetransformoptions-ciphersuite","dfnText":"cipherSuite","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframetransformoptions-ciphersuite"}],"title":"3.1. Algorithms"}],"url":"#dom-sframetransformoptions-ciphersuite"},
+"dom-sframetype-per-frame": {"dfnID":"dom-sframetype-per-frame","dfnText":"\"per-frame\"","external":false,"refSections":[],"url":"#dom-sframetype-per-frame"},
+"dom-sframetype-per-packet": {"dfnID":"dom-sframetype-per-packet","dfnText":"\"per-packet\"","external":false,"refSections":[],"url":"#dom-sframetype-per-packet"},
 "e3e2d506": {"dfnID":"e3e2d506","dfnText":"cancel","external":true,"refSections":[{"refs":[{"id":"ref-for-readablestream-cancel"}],"title":"5.3. Algorithms"}],"url":"https://streams.spec.whatwg.org/#readablestream-cancel"},
 "e4db230f": {"dfnID":"e4db230f","dfnText":"RTCRtpReceiver","external":true,"refSections":[{"refs":[{"id":"ref-for-dom-rtcrtpreceiver"},{"id":"ref-for-dom-rtcrtpreceiver\u2460"},{"id":"ref-for-dom-rtcrtpreceiver\u2461"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2462"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2463"}],"title":"2.1.2. RTCRtpTransform common processing"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2464"},{"id":"ref-for-dom-rtcrtpreceiver\u2465"}],"title":"2.2. Extension attribute"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2466"}],"title":"3.1. Algorithms"},{"refs":[{"id":"ref-for-dom-rtcrtpreceiver\u2467"}],"title":"6.5. KeyFrame Algorithms"}],"url":"https://w3c.github.io/webrtc-pc/#dom-rtcrtpreceiver"},
 "e7cb09fb": {"dfnID":"e7cb09fb","dfnText":"StructuredDeserializeWithTransfer","external":true,"refSections":[{"refs":[{"id":"ref-for-structureddeserializewithtransfer"}],"title":"2.1.1. Stream processing"},{"refs":[{"id":"ref-for-structureddeserializewithtransfer\u2460"}],"title":"5.2. Constructor"}],"url":"https://html.spec.whatwg.org/multipage/structured-data.html#structureddeserializewithtransfer"},
@@ -3229,6 +3272,7 @@ let dfnPanelData = {
 "encoder": {"dfnID":"encoder","dfnText":"encoder","external":false,"refSections":[{"refs":[{"id":"ref-for-encoder"},{"id":"ref-for-encoder\u2460"},{"id":"ref-for-encoder\u2461"}],"title":"2. Specification"},{"refs":[{"id":"ref-for-encoder\u2462"}],"title":"2.1. Extension operation"},{"refs":[{"id":"ref-for-encoder\u2463"},{"id":"ref-for-encoder\u2464"},{"id":"ref-for-encoder\u2465"},{"id":"ref-for-encoder\u2466"}],"title":"2.1.1. Stream processing"},{"refs":[{"id":"ref-for-encoder\u2467"}],"title":"6.1. Internal slots"},{"refs":[{"id":"ref-for-encoder\u2468"}],"title":"6.4. Events"},{"refs":[{"id":"ref-for-encoder\u2460\u24ea"},{"id":"ref-for-encoder\u2460\u2460"}],"title":"6.5. KeyFrame Algorithms"}],"url":"#encoder"},
 "enumdef-sframeciphersuite": {"dfnID":"enumdef-sframeciphersuite","dfnText":"SFrameCipherSuite","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframeciphersuite"}],"title":"3. SFrame transforms"}],"url":"#enumdef-sframeciphersuite"},
 "enumdef-sframetransformerroreventtype": {"dfnID":"enumdef-sframetransformerroreventtype","dfnText":"SFrameTransformErrorEventType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetransformerroreventtype"},{"id":"ref-for-enumdef-sframetransformerroreventtype\u2460"}],"title":"3. SFrame transforms"}],"url":"#enumdef-sframetransformerroreventtype"},
+"enumdef-sframetype": {"dfnID":"enumdef-sframetype","dfnText":"SFrameType","external":false,"refSections":[{"refs":[{"id":"ref-for-enumdef-sframetype"}],"title":"3. SFrame transforms"}],"url":"#enumdef-sframetype"},
 "eventdef-dedicatedworkerglobalscope-rtctransform": {"dfnID":"eventdef-dedicatedworkerglobalscope-rtctransform","dfnText":"rtctransform","external":false,"refSections":[],"url":"#eventdef-dedicatedworkerglobalscope-rtctransform"},
 "f02c7140": {"dfnID":"f02c7140","dfnText":"check the negotiation-needed flag","external":true,"refSections":[{"refs":[{"id":"ref-for-dfn-check-if-negotiation-is-needed"}],"title":"2.1. Extension operation"}],"url":"https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed"},
 "f0951476": {"dfnID":"f0951476","dfnText":"EventHandler","external":true,"refSections":[{"refs":[{"id":"ref-for-eventhandler"}],"title":"3. SFrame transforms"},{"refs":[{"id":"ref-for-eventhandler\u2460"}],"title":"6. RTCRtpScriptTransformer interface"},{"refs":[{"id":"ref-for-eventhandler\u2461"}],"title":"6.4. Events"}],"url":"https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"},
@@ -3660,6 +3704,7 @@ let refsData = {
 "#dictdef-rtcencodedframemetadata": {"displayText":"RTCEncodedFrameMetadata","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedFrameMetadata","type":"dictionary","url":"#dictdef-rtcencodedframemetadata"},
 "#dictdef-rtcencodedvideoframemetadata": {"displayText":"RTCEncodedVideoFrameMetadata","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedVideoFrameMetadata","type":"dictionary","url":"#dictdef-rtcencodedvideoframemetadata"},
 "#dictdef-rtcencodedvideoframeoptions": {"displayText":"RTCEncodedVideoFrameOptions","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCEncodedVideoFrameOptions","type":"dictionary","url":"#dictdef-rtcencodedvideoframeoptions"},
+"#dictdef-rtcsframesendertransformoptions": {"displayText":"RTCSFrameSenderTransformOptions","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCSFrameSenderTransformOptions","type":"dictionary","url":"#dictdef-rtcsframesendertransformoptions"},
 "#dictdef-sframetransformerroreventinit": {"displayText":"SFrameTransformErrorEventInit","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformErrorEventInit","type":"dictionary","url":"#dictdef-sframetransformerroreventinit"},
 "#dictdef-sframetransformoptions": {"displayText":"SFrameTransformOptions","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformOptions","type":"dictionary","url":"#dictdef-sframetransformoptions"},
 "#dom-keyframerequestevent-rid": {"displayText":"rid","export":true,"for_":["KeyFrameRequestEvent"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"rid","type":"attribute","url":"#dom-keyframerequestevent-rid"},
@@ -3698,6 +3743,7 @@ let refsData = {
 "#dom-rtcrtpsender-transform": {"displayText":"transform","export":true,"for_":["RTCRtpReceiver","RTCRtpSender"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"transform","type":"attribute","url":"#dom-rtcrtpsender-transform"},
 "#dom-rtcsframereceivertransform-rtcsframereceivertransform": {"displayText":"RTCSFrameReceiverTransform(options)","export":true,"for_":["RTCSFrameReceiverTransform"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCSFrameReceiverTransform(options)","type":"constructor","url":"#dom-rtcsframereceivertransform-rtcsframereceivertransform"},
 "#dom-rtcsframesendertransform-rtcsframesendertransform": {"displayText":"RTCSFrameSenderTransform(options)","export":true,"for_":["RTCSFrameSenderTransform"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"RTCSFrameSenderTransform(options)","type":"constructor","url":"#dom-rtcsframesendertransform-rtcsframesendertransform"},
+"#dom-rtcsframesendertransformoptions-type": {"displayText":"type","export":true,"for_":["RTCSFrameSenderTransformOptions"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"type","type":"dict-member","url":"#dom-rtcsframesendertransformoptions-type"},
 "#dom-rtctransformevent-transformer": {"displayText":"transformer","export":true,"for_":["RTCTransformEvent"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"transformer","type":"attribute","url":"#dom-rtctransformevent-transformer"},
 "#dom-sframedecryptermanager-adddecryptionkey": {"displayText":"addDecryptionKey(key, keyId)","export":true,"for_":["SFrameDecrypterManager"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"addDecryptionKey(key, keyId)","type":"method","url":"#dom-sframedecryptermanager-adddecryptionkey"},
 "#dom-sframedecryptermanager-onerror": {"displayText":"onerror","export":true,"for_":["SFrameDecrypterManager"],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"onerror","type":"attribute","url":"#dom-sframedecryptermanager-onerror"},
@@ -3716,6 +3762,7 @@ let refsData = {
 "#encoder": {"displayText":"encoder","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"encoder","type":"dfn","url":"#encoder"},
 "#enumdef-sframeciphersuite": {"displayText":"SFrameCipherSuite","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameCipherSuite","type":"enum","url":"#enumdef-sframeciphersuite"},
 "#enumdef-sframetransformerroreventtype": {"displayText":"SFrameTransformErrorEventType","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameTransformErrorEventType","type":"enum","url":"#enumdef-sframetransformerroreventtype"},
+"#enumdef-sframetype": {"displayText":"SFrameType","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"SFrameType","type":"enum","url":"#enumdef-sframetype"},
 "#keyframerequestevent": {"displayText":"KeyFrameRequestEvent","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"KeyFrameRequestEvent","type":"interface","url":"#keyframerequestevent"},
 "#packetizer": {"displayText":"packetizer","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"packetizer","type":"dfn","url":"#packetizer"},
 "#passthrough-algorithm": {"displayText":"passthrough algorithm","export":true,"for_":[],"level":"","normative":true,"shortname":"webrtc-encoded-transform","spec":"webrtc-encoded-transform","status":"local","text":"passthrough algorithm","type":"dfn","url":"#passthrough-algorithm"},
@@ -3768,6 +3815,7 @@ let refsData = {
 "https://infra.spec.whatwg.org/#list": {"displayText":"list","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"list","type":"dfn","url":"https://infra.spec.whatwg.org/#list"},
 "https://infra.spec.whatwg.org/#list-contain": {"displayText":"contain","export":true,"for_":["list","stack","queue","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"contain","type":"dfn","url":"https://infra.spec.whatwg.org/#list-contain"},
 "https://infra.spec.whatwg.org/#list-remove": {"displayText":"remove","export":true,"for_":["list","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"remove","type":"dfn","url":"https://infra.spec.whatwg.org/#list-remove"},
+"https://infra.spec.whatwg.org/#map-exists": {"displayText":"exist","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"exist","type":"dfn","url":"https://infra.spec.whatwg.org/#map-exists"},
 "https://infra.spec.whatwg.org/#map-remove": {"displayText":"remove","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"remove","type":"dfn","url":"https://infra.spec.whatwg.org/#map-remove"},
 "https://infra.spec.whatwg.org/#map-set": {"displayText":"set","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"set","type":"dfn","url":"https://infra.spec.whatwg.org/#map-set"},
 "https://infra.spec.whatwg.org/#queue": {"displayText":"queue","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"queue","type":"dfn","url":"https://infra.spec.whatwg.org/#queue"},

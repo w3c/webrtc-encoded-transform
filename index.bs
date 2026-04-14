@@ -277,26 +277,26 @@ interface mixin SFrameDecrypterManager {
 
 [Exposed=Window]
 interface RTCSFrameSenderTransform {
-    constructor(optional RTCSFrameSenderTransformOptions options = {});
+    constructor(RTCSFrameSenderTransformOptions options);
 };
 RTCSFrameSenderTransform includes SFrameEncrypterManager;
 
 [Exposed=Window]
 interface RTCSFrameReceiverTransform : EventTarget {
-    constructor(optional SFrameTransformOptions options = {});
+    constructor(SFrameTransformOptions options);
 };
 RTCSFrameReceiverTransform includes SFrameDecrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameEncrypterStream : EventTarget {
-    constructor(optional SFrameTransformOptions options = {});
+    constructor(SFrameTransformOptions options);
 };
 SFrameEncrypterStream includes GenericTransformStream;
 SFrameEncrypterStream includes SFrameEncrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameDecrypterStream : EventTarget {
-    constructor(optional SFrameTransformOptions options = {});
+    constructor(SFrameTransformOptions options);
 };
 SFrameDecrypterStream includes GenericTransformStream;
 SFrameDecrypterStream includes SFrameDecrypterManager;

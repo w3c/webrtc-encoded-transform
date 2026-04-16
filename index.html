@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 0ef803fdf, updated Tue Jan 6 11:59:39 2026 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="112701be61ddf1dff5ee2a9dca3593d89c1f434b" name="revision">
+  <meta content="9111b29c5632f0f1d6049b8839d9280f0f698ffa" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -742,7 +742,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">WebRTC Encoded Transform</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-03-26">26 March 2026</time></p>
+    <time class="dt-updated" datetime="2026-04-16">16 April 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1158,26 +1158,26 @@ The APIs presented in this section allow applications to process SFrame data usi
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcsframesendertransform"><code><c- g>RTCSFrameSenderTransform</c-></code></dfn> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform" id="ref-for-dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions" id="ref-for-dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform/RTCSFrameSenderTransform(options), RTCSFrameSenderTransform/constructor(options), RTCSFrameSenderTransform/RTCSFrameSenderTransform(), RTCSFrameSenderTransform/constructor()" data-dfn-type="argument" data-export id="dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></dfn> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform" id="ref-for-dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions" id="ref-for-dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform/RTCSFrameSenderTransform(options), RTCSFrameSenderTransform/constructor(options)" data-dfn-type="argument" data-export id="dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></dfn>);
 };
 <a data-link-type="idl-name" href="#rtcsframesendertransform" id="ref-for-rtcsframesendertransform①"><c- n>RTCSFrameSenderTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager" id="ref-for-sframeencryptermanager"><c- n>SFrameEncrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="rtcsframereceivertransform"><code><c- g>RTCSFrameReceiverTransform</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframereceivertransform-rtcsframereceivertransform" id="ref-for-dom-rtcsframereceivertransform-rtcsframereceivertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions①"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameReceiverTransform/RTCSFrameReceiverTransform(options), RTCSFrameReceiverTransform/constructor(options), RTCSFrameReceiverTransform/RTCSFrameReceiverTransform(), RTCSFrameReceiverTransform/constructor()" data-dfn-type="argument" data-export id="dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options"><code><c- g>options</c-></code></dfn> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframereceivertransform-rtcsframereceivertransform" id="ref-for-dom-rtcsframereceivertransform-rtcsframereceivertransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions①"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameReceiverTransform/RTCSFrameReceiverTransform(options), RTCSFrameReceiverTransform/constructor(options)" data-dfn-type="argument" data-export id="dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options"><code><c- g>options</c-></code></dfn>);
 };
 <a data-link-type="idl-name" href="#rtcsframereceivertransform" id="ref-for-rtcsframereceivertransform①"><c- n>RTCSFrameReceiverTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframedecryptermanager" id="ref-for-sframedecryptermanager"><c- n>SFrameDecrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframeencrypterstream"><code><c- g>SFrameEncrypterStream</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-sframeencrypterstream-sframeencrypterstream" id="ref-for-dom-sframeencrypterstream-sframeencrypterstream"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions②"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterStream/SFrameEncrypterStream(options), SFrameEncrypterStream/constructor(options), SFrameEncrypterStream/SFrameEncrypterStream(), SFrameEncrypterStream/constructor()" data-dfn-type="argument" data-export id="dom-sframeencrypterstream-sframeencrypterstream-options-options"><code><c- g>options</c-></code></dfn> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframeencrypterstream-sframeencrypterstream" id="ref-for-dom-sframeencrypterstream-sframeencrypterstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions②"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterStream/SFrameEncrypterStream(options), SFrameEncrypterStream/constructor(options)" data-dfn-type="argument" data-export id="dom-sframeencrypterstream-sframeencrypterstream-options-options"><code><c- g>options</c-></code></dfn>);
 };
 <a data-link-type="idl-name" href="#sframeencrypterstream" id="ref-for-sframeencrypterstream"><c- n>SFrameEncrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream"><c- n>GenericTransformStream</c-></a>;
 <a data-link-type="idl-name" href="#sframeencrypterstream" id="ref-for-sframeencrypterstream①"><c- n>SFrameEncrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager" id="ref-for-sframeencryptermanager①"><c- n>SFrameEncrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed③"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="sframedecrypterstream"><code><c- g>SFrameDecrypterStream</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget②"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-sframedecrypterstream-sframedecrypterstream" id="ref-for-dom-sframedecrypterstream-sframedecrypterstream"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions③"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameDecrypterStream/SFrameDecrypterStream(options), SFrameDecrypterStream/constructor(options), SFrameDecrypterStream/SFrameDecrypterStream(), SFrameDecrypterStream/constructor()" data-dfn-type="argument" data-export id="dom-sframedecrypterstream-sframedecrypterstream-options-options"><code><c- g>options</c-></code></dfn> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframedecrypterstream-sframedecrypterstream" id="ref-for-dom-sframedecrypterstream-sframedecrypterstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions" id="ref-for-dictdef-sframetransformoptions③"><c- n>SFrameTransformOptions</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameDecrypterStream/SFrameDecrypterStream(options), SFrameDecrypterStream/constructor(options)" data-dfn-type="argument" data-export id="dom-sframedecrypterstream-sframedecrypterstream-options-options"><code><c- g>options</c-></code></dfn>);
 };
 <a data-link-type="idl-name" href="#sframedecrypterstream" id="ref-for-sframedecrypterstream"><c- n>SFrameDecrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream" id="ref-for-generictransformstream①"><c- n>GenericTransformStream</c-></a>;
 <a data-link-type="idl-name" href="#sframedecrypterstream" id="ref-for-sframedecrypterstream①"><c- n>SFrameDecrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframedecryptermanager" id="ref-for-sframedecryptermanager①"><c- n>SFrameDecrypterManager</c-></a>;
@@ -1203,7 +1203,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <a data-link-type="idl-name" href="#typedefdef-cryptokeyid" id="ref-for-typedefdef-cryptokeyid④"><c- n>CryptoKeyID</c-></a>? <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameTransformErrorEventInit" data-dfn-type="dict-member" data-export data-type="CryptoKeyID?" id="dom-sframetransformerroreventinit-keyid"><code><c- g>keyID</c-></code></dfn>;
 };
 </pre>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform" data-dfn-type="constructor" data-export data-lt="RTCSFrameSenderTransform(options)|constructor(options)|RTCSFrameSenderTransform()|constructor()" id="dom-rtcsframesendertransform-rtcsframesendertransform"><code>new RTCSFrameSenderTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameSenderTransform" data-dfn-type="constructor" data-export data-lt="RTCSFrameSenderTransform(options)|constructor(options)" id="dom-rtcsframesendertransform-rtcsframesendertransform"><code>new RTCSFrameSenderTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
@@ -1214,7 +1214,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <li data-md>
      <p>Set <var>this</var>.<code>[[useSFrame]]</code> to true.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameReceiverTransform" data-dfn-type="constructor" data-export data-lt="RTCSFrameReceiverTransform(options)|constructor(options)|RTCSFrameReceiverTransform()|constructor()" id="dom-rtcsframereceivertransform-rtcsframereceivertransform"><code>new RTCSFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="RTCSFrameReceiverTransform" data-dfn-type="constructor" data-export data-lt="RTCSFrameReceiverTransform(options)|constructor(options)" id="dom-rtcsframereceivertransform-rtcsframereceivertransform"><code>new RTCSFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
@@ -1225,7 +1225,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <li data-md>
      <p>Set <var>this</var>.<code>[[useSFrame]]</code> to true.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterStream" data-dfn-type="constructor" data-export data-lt="SFrameEncrypterStream(options)|constructor(options)|SFrameEncrypterStream()|constructor()" id="dom-sframeencrypterstream-sframeencrypterstream"><code>new SFrameEncrypterStream(<var>options</var>)</code></dfn> constructor steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameEncrypterStream" data-dfn-type="constructor" data-export data-lt="SFrameEncrypterStream(options)|constructor(options)" id="dom-sframeencrypterstream-sframeencrypterstream"><code>new SFrameEncrypterStream(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
@@ -1234,7 +1234,7 @@ The APIs presented in this section allow applications to process SFrame data usi
     <li data-md>
      <p>Set <var>this</var>.<code>[[role]]</code> to 'encrypt'.</p>
    </ol>
-   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameDecrypterStream" data-dfn-type="constructor" data-export data-lt="SFrameDecrypterStream(options)|constructor(options)|SFrameDecrypterStream()|constructor()" id="dom-sframedecrypterstream-sframedecrypterstream"><code>new SFrameDecrypterStream(<var>options</var>)</code></dfn> constructor steps are:</p>
+   <p>The <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameDecrypterStream" data-dfn-type="constructor" data-export data-lt="SFrameDecrypterStream(options)|constructor(options)" id="dom-sframedecrypterstream-sframedecrypterstream"><code>new SFrameDecrypterStream(<var>options</var>)</code></dfn> constructor steps are:</p>
    <ol>
     <li data-md>
      <p>Let <var>options</var> be the method’s first argument.</p>
@@ -2322,10 +2322,6 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li>
     constructor()
     <ul>
-     <li><a href="#dom-rtcsframereceivertransform-rtcsframereceivertransform">constructor for RTCSFrameReceiverTransform</a><span>, in § 3</span>
-     <li><a href="#dom-rtcsframesendertransform-rtcsframesendertransform">constructor for RTCSFrameSenderTransform</a><span>, in § 3</span>
-     <li><a href="#dom-sframedecrypterstream-sframedecrypterstream">constructor for SFrameDecrypterStream</a><span>, in § 3</span>
-     <li><a href="#dom-sframeencrypterstream-sframeencrypterstream">constructor for SFrameEncrypterStream</a><span>, in § 3</span>
      <li><a href="#dom-rtcencodedaudioframe-constructor">method for RTCEncodedAudioFrame</a><span>, in § 4.5.1</span>
      <li><a href="#dom-rtcencodedvideoframe-constructor">method for RTCEncodedVideoFrame</a><span>, in § 4.3.1</span>
     </ul>
@@ -2452,10 +2448,8 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-rtcrtpscripttransform-rtcrtpscripttransform">RTCRtpScriptTransform(workerOrWorkerAndParameters, options, transfer)</a><span>, in § 5.2</span>
    <li><a href="#typedefdef-rtcrtpsendertransform">RTCRtpSenderTransform</a><span>, in § 2</span>
    <li><a href="#rtcsframereceivertransform">RTCSFrameReceiverTransform</a><span>, in § 3</span>
-   <li><a href="#dom-rtcsframereceivertransform-rtcsframereceivertransform">RTCSFrameReceiverTransform()</a><span>, in § 3</span>
    <li><a href="#dom-rtcsframereceivertransform-rtcsframereceivertransform">RTCSFrameReceiverTransform(options)</a><span>, in § 3</span>
    <li><a href="#rtcsframesendertransform">RTCSFrameSenderTransform</a><span>, in § 3</span>
-   <li><a href="#dom-rtcsframesendertransform-rtcsframesendertransform">RTCSFrameSenderTransform()</a><span>, in § 3</span>
    <li><a href="#dom-rtcsframesendertransform-rtcsframesendertransform">RTCSFrameSenderTransform(options)</a><span>, in § 3</span>
    <li><a href="#dictdef-rtcsframesendertransformoptions">RTCSFrameSenderTransformOptions</a><span>, in § 3</span>
    <li><a href="#eventdef-dedicatedworkerglobalscope-rtctransform">rtctransform</a><span>, in § 5.2</span>
@@ -2470,11 +2464,9 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#enumdef-sframeciphersuite">SFrameCipherSuite</a><span>, in § 3</span>
    <li><a href="#sframedecryptermanager">SFrameDecrypterManager</a><span>, in § 3</span>
    <li><a href="#sframedecrypterstream">SFrameDecrypterStream</a><span>, in § 3</span>
-   <li><a href="#dom-sframedecrypterstream-sframedecrypterstream">SFrameDecrypterStream()</a><span>, in § 3</span>
    <li><a href="#dom-sframedecrypterstream-sframedecrypterstream">SFrameDecrypterStream(options)</a><span>, in § 3</span>
    <li><a href="#sframeencryptermanager">SFrameEncrypterManager</a><span>, in § 3</span>
    <li><a href="#sframeencrypterstream">SFrameEncrypterStream</a><span>, in § 3</span>
-   <li><a href="#dom-sframeencrypterstream-sframeencrypterstream">SFrameEncrypterStream()</a><span>, in § 3</span>
    <li><a href="#dom-sframeencrypterstream-sframeencrypterstream">SFrameEncrypterStream(options)</a><span>, in § 3</span>
    <li><a href="#sframe-initialization-algorithm">SFrame initialization algorithm</a><span>, in § 3.1</span>
    <li><a href="#sframe-transform-algorithm">SFrame transform algorithm</a><span>, in § 3.1</span>
@@ -2773,26 +2765,26 @@ and may not be audited for reception of data from untrusted sources.</p>
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <a href="#rtcsframesendertransform"><code><c- g>RTCSFrameSenderTransform</c-></code></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <a href="#dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></a> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframesendertransform-rtcsframesendertransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-rtcsframesendertransformoptions"><c- n>RTCSFrameSenderTransformOptions</c-></a> <a href="#dom-rtcsframesendertransform-rtcsframesendertransform-options-options"><code><c- g>options</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#rtcsframesendertransform"><c- n>RTCSFrameSenderTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager"><c- n>SFrameEncrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->]
 <c- b>interface</c-> <a href="#rtcsframereceivertransform"><code><c- g>RTCSFrameReceiverTransform</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframereceivertransform-rtcsframereceivertransform"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options"><code><c- g>options</c-></code></a> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-rtcsframereceivertransform-rtcsframereceivertransform"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-rtcsframereceivertransform-rtcsframereceivertransform-options-options"><code><c- g>options</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#rtcsframereceivertransform"><c- n>RTCSFrameReceiverTransform</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframedecryptermanager"><c- n>SFrameDecrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframeencrypterstream"><code><c- g>SFrameEncrypterStream</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-sframeencrypterstream-sframeencrypterstream"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframeencrypterstream-sframeencrypterstream-options-options"><code><c- g>options</c-></code></a> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframeencrypterstream-sframeencrypterstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframeencrypterstream-sframeencrypterstream-options-options"><code><c- g>options</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#sframeencrypterstream"><c- n>SFrameEncrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 <a data-link-type="idl-name" href="#sframeencrypterstream"><c- n>SFrameEncrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframeencryptermanager"><c- n>SFrameEncrypterManager</c-></a>;
 
 [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>DedicatedWorker</c->)]
 <c- b>interface</c-> <a href="#sframedecrypterstream"><code><c- g>SFrameDecrypterStream</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
-    <a class="idl-code" data-link-type="constructor" href="#dom-sframedecrypterstream-sframedecrypterstream"><c- g>constructor</c-></a>(<c- b>optional</c-> <a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframedecrypterstream-sframedecrypterstream-options-options"><code><c- g>options</c-></code></a> = {});
+    <a class="idl-code" data-link-type="constructor" href="#dom-sframedecrypterstream-sframedecrypterstream"><c- g>constructor</c-></a>(<a data-link-type="idl-name" href="#dictdef-sframetransformoptions"><c- n>SFrameTransformOptions</c-></a> <a href="#dom-sframedecrypterstream-sframedecrypterstream-options-options"><code><c- g>options</c-></code></a>);
 };
 <a data-link-type="idl-name" href="#sframedecrypterstream"><c- n>SFrameDecrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="https://streams.spec.whatwg.org/#generictransformstream"><c- n>GenericTransformStream</c-></a>;
 <a data-link-type="idl-name" href="#sframedecrypterstream"><c- n>SFrameDecrypterStream</c-></a> <c- b>includes</c-> <a data-link-type="idl-name" href="#sframedecryptermanager"><c- n>SFrameDecrypterManager</c-></a>;

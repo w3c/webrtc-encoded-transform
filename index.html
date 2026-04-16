@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 0ef803fdf, updated Tue Jan 6 11:59:39 2026 -0800" name="generator">
   <link href="https://www.w3.org/TR/webrtc-encoded-transform/" rel="canonical">
-  <meta content="9111b29c5632f0f1d6049b8839d9280f0f698ffa" name="revision">
+  <meta content="f31b461efe200263de5a38633de5e0c04a900d73" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>/* Boilerplate: style-autolinks */
@@ -1121,13 +1121,16 @@ Similarly, if a web application sets the transform synchronously at creation of 
    <p>
 The APIs presented in this section allow applications to process SFrame data using specific cipher suites defined in <a data-link-type="biblio" href="#biblio-rfc9605" title="Secure Frame (SFrame): Lightweight Authenticated Encryption for Real-Time Media">[RFC9605]</a>.
 </p>
-<pre class="def highlight idl">// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
+<pre class="def highlight idl">// List of supported cipher suites, as defined in [[RFC9605]] section 4.5 and in https://datatracker.ietf.org/doc/draft-barnes-sframe-iana-256/.
 <c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-sframeciphersuite"><code><c- g>SFrameCipherSuite</c-></code></dfn> {
      <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"><code><c- s>"AES_128_CTR_HMAC_SHA256_80"</c-></code></dfn>,
      <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"><code><c- s>"AES_128_CTR_HMAC_SHA256_64"</c-></code></dfn>,
      <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"><code><c- s>"AES_128_CTR_HMAC_SHA256_32"</c-></code></dfn>,
      <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_128_gcm_sha256_128"><code><c- s>"AES_128_GCM_SHA256_128"</c-></code></dfn>,
-     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></dfn>
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80"><code><c- s>"AES_256_CTR_HMAC_SHA512_80"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64"><code><c- s>"AES_256_CTR_HMAC_SHA512_64"</c-></code></dfn>,
+     <dfn class="dfn-paneled idl-code" data-dfn-for="SFrameCipherSuite" data-dfn-type="enum-value" data-export id="dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32"><code><c- s>"AES_256_CTR_HMAC_SHA512_32"</c-></code></dfn>
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-sframetransformoptions"><code><c- g>SFrameTransformOptions</c-></code></dfn> {
@@ -2313,6 +2316,9 @@ and may not be audited for reception of data from untrusted sources.</p>
    <li><a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64">"AES_128_CTR_HMAC_SHA256_64"</a><span>, in § 3</span>
    <li><a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80">"AES_128_CTR_HMAC_SHA256_80"</a><span>, in § 3</span>
    <li><a href="#dom-sframeciphersuite-aes_128_gcm_sha256_128">"AES_128_GCM_SHA256_128"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32">"AES_256_CTR_HMAC_SHA512_32"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64">"AES_256_CTR_HMAC_SHA512_64"</a><span>, in § 3</span>
+   <li><a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80">"AES_256_CTR_HMAC_SHA512_80"</a><span>, in § 3</span>
    <li><a href="#dom-sframeciphersuite-aes_256_gcm_sha512_128">"AES_256_GCM_SHA512_128"</a><span>, in § 3</span>
    <li><a href="#abstract-opdef-rtcrtptransform-association-algorithm">association algorithm</a><span>, in § 2.1.2</span>
    <li><a href="#dom-rtcencodedaudioframemetadata-audiolevel">audioLevel</a><span>, in § 4.4.1</span>
@@ -2728,13 +2734,16 @@ and may not be audited for reception of data from untrusted sources.</p>
     <c- b>attribute</c-> <a data-link-type="idl-name" href="#typedefdef-rtcrtpreceivertransform"><c- n>RTCRtpReceiverTransform</c-></a>? <a class="idl-code" data-link-type="attribute" data-type="RTCRtpReceiverTransform?" href="#dom-rtcrtpsender-transform"><c- g>transform</c-></a>;
 };
 
-// List of supported cipher suites, as defined in [[RFC9605]] section 4.5.
+// List of supported cipher suites, as defined in [[RFC9605]] section 4.5 and in https://datatracker.ietf.org/doc/draft-barnes-sframe-iana-256/.
 <c- b>enum</c-> <a href="#enumdef-sframeciphersuite"><code><c- g>SFrameCipherSuite</c-></code></a> {
      <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"><code><c- s>"AES_128_CTR_HMAC_SHA256_80"</c-></code></a>,
      <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"><code><c- s>"AES_128_CTR_HMAC_SHA256_64"</c-></code></a>,
      <a href="#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_32"><code><c- s>"AES_128_CTR_HMAC_SHA256_32"</c-></code></a>,
      <a href="#dom-sframeciphersuite-aes_128_gcm_sha256_128"><code><c- s>"AES_128_GCM_SHA256_128"</c-></code></a>,
-     <a href="#dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></a>
+     <a href="#dom-sframeciphersuite-aes_256_gcm_sha512_128"><code><c- s>"AES_256_GCM_SHA512_128"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80"><code><c- s>"AES_256_CTR_HMAC_SHA512_80"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64"><code><c- s>"AES_256_CTR_HMAC_SHA512_64"</c-></code></a>,
+     <a href="#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32"><code><c- s>"AES_256_CTR_HMAC_SHA512_32"</c-></code></a>
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-sframetransformoptions"><code><c- g>SFrameTransformOptions</c-></code></a> {
@@ -3269,6 +3278,9 @@ let dfnPanelData = {
 "dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64","dfnText":"\"AES_128_CTR_HMAC_SHA256_64\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_64"},
 "dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80": {"dfnID":"dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80","dfnText":"\"AES_128_CTR_HMAC_SHA256_80\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_ctr_hmac_sha256_80"},
 "dom-sframeciphersuite-aes_128_gcm_sha256_128": {"dfnID":"dom-sframeciphersuite-aes_128_gcm_sha256_128","dfnText":"\"AES_128_GCM_SHA256_128\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_128_gcm_sha256_128"},
+"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32": {"dfnID":"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32","dfnText":"\"AES_256_CTR_HMAC_SHA512_32\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_32"},
+"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64": {"dfnID":"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64","dfnText":"\"AES_256_CTR_HMAC_SHA512_64\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_64"},
+"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80": {"dfnID":"dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80","dfnText":"\"AES_256_CTR_HMAC_SHA512_80\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_256_ctr_hmac_sha512_80"},
 "dom-sframeciphersuite-aes_256_gcm_sha512_128": {"dfnID":"dom-sframeciphersuite-aes_256_gcm_sha512_128","dfnText":"\"AES_256_GCM_SHA512_128\"","external":false,"refSections":[],"url":"#dom-sframeciphersuite-aes_256_gcm_sha512_128"},
 "dom-sframedecryptermanager-adddecryptionkey": {"dfnID":"dom-sframedecryptermanager-adddecryptionkey","dfnText":"addDecryptionKey(key, keyId)","external":false,"refSections":[{"refs":[{"id":"ref-for-dom-sframedecryptermanager-adddecryptionkey"}],"title":"3. SFrame transforms"}],"url":"#dom-sframedecryptermanager-adddecryptionkey"},
 "dom-sframedecryptermanager-adddecryptionkey-key-keyid-key": {"dfnID":"dom-sframedecryptermanager-adddecryptionkey-key-keyid-key","dfnText":"key","external":false,"refSections":[],"url":"#dom-sframedecryptermanager-adddecryptionkey-key-keyid-key"},

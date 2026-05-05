@@ -89,8 +89,8 @@ It uses an additional API on {{RTCRtpSender}} and {{RTCRtpReceiver}} to
 insert the processing into the pipeline.
 
 <pre class="idl">
-typedef (RTCSFrameSenderTransform or RTCRtpScriptTransform) RTCRtpSenderTransform;
-typedef (RTCSFrameReceiverTransform or RTCRtpScriptTransform) RTCRtpReceiverTransform;
+typedef (RTCRtpSFrameEncrypter or RTCRtpScriptTransform) RTCRtpSenderTransform;
+typedef (RTCRtpSFrameDecrypter or RTCRtpScriptTransform) RTCRtpReceiverTransform;
 
 // New methods for RTCRtpSender and RTCRtpReceiver
 partial interface RTCRtpSender {
@@ -261,7 +261,7 @@ enum SFrameType {
     "per-packet"
 };
 
-dictionary RTCSFrameSenderTransformOptions : SFrameTransformOptions {
+dictionary RTCRtpSFrameEncrypterOptions : SFrameTransformOptions {
     SFrameType type = "per-frame";
 };
 
@@ -279,16 +279,16 @@ interface mixin SFrameDecrypterManager {
 };
 
 [Exposed=Window]
-interface RTCSFrameSenderTransform {
-    constructor(RTCSFrameSenderTransformOptions options);
+interface RTCRtpSFrameEncrypter {
+    constructor(RTCRtpSFrameEncrypterOptions options);
 };
-RTCSFrameSenderTransform includes SFrameEncrypterManager;
+RTCRtpSFrameEncrypter includes SFrameEncrypterManager;
 
 [Exposed=Window]
-interface RTCSFrameReceiverTransform : EventTarget {
+interface RTCRtpSFrameDecrypter : EventTarget {
     constructor(SFrameTransformOptions options);
 };
-RTCSFrameReceiverTransform includes SFrameDecrypterManager;
+RTCRtpSFrameDecrypter includes SFrameDecrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
 interface SFrameEncrypterStream : EventTarget {
@@ -326,13 +326,13 @@ dictionary SFrameTransformErrorEventInit : EventInit {
 };
 </xmp>
 
-The <dfn constructor for="RTCSFrameSenderTransform" lt="RTCSFrameSenderTransform(options)"><code>new RTCSFrameSenderTransform(<var>options</var>)</code></dfn> constructor steps are:
+The <dfn constructor for="RTCRtpSFrameEncrypter" lt="RTCRtpSFrameEncrypter(options)"><code>new RTCRtpSFrameEncrypter(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |options| be the method's first argument.
 1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
 1. Set |this|.`[[role]]` to 'encrypt'.
 1. Set |this|.`[[useSFrame]]` to true.
 
-The <dfn constructor for="RTCSFrameReceiverTransform" lt="RTCSFrameReceiverTransform(options)"><code>new RTCSFrameReceiverTransform(<var>options</var>)</code></dfn> constructor steps are:
+The <dfn constructor for="RTCRtpSFrameDecrypter" lt="RTCRtpSFrameDecrypter(options)"><code>new RTCRtpSFrameDecrypter(<var>options</var>)</code></dfn> constructor steps are:
 1. Let |options| be the method's first argument.
 1. Run the [=SFrame initialization algorithm=] with |this| and |options|.
 1. Set |this|.`[[role]]` to 'decrypt'.
@@ -352,8 +352,8 @@ The <dfn constructor for="SFrameDecrypterStream" lt="SFrameDecrypterStream(optio
 
 The <dfn>SFrame initialization algorithm</dfn>, given |this| and |options|, runs these steps:
 1. Let |transformAlgorithm| be an algorithm which takes a |frame| as input and runs the [=SFrame transform algorithm=] with |this| and |frame|.
-1. If |options|["{{RTCSFrameSenderTransformOptions/type}}"] is [=map/exists|present=], run these steps:
-    1. If |options|["{{RTCSFrameSenderTransformOptions/type}}"] is 'per-frame', use per-frame sending as defined in [[RTP-SFRAME-PAYLOAD]].
+1. If |options|["{{RTCRtpSFrameEncrypterOptions/type}}"] is [=map/exists|present=], run these steps:
+    1. If |options|["{{RTCRtpSFrameEncrypterOptions/type}}"] is 'per-frame', use per-frame sending as defined in [[RTP-SFRAME-PAYLOAD]].
     1. Otherwise, use per-packet sending as defined in [[RTP-SFRAME-PAYLOAD]].
 1. Set |this|.`[[transform]]` to a new {{TransformStream}}.
 1. <a dfn for="ReadableStream">Set up</a> [=this=].`[[transform]]` with [=TransformStream/set up/transformAlgorithm=] set to |transformAlgorithm|.

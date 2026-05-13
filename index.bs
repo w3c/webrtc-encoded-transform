@@ -291,7 +291,7 @@ interface RTCSFrameReceiverTransform : EventTarget {
 RTCSFrameReceiverTransform includes SFrameDecrypterManager;
 
 [Exposed=(Window,DedicatedWorker)]
-interface SFrameEncrypterStream : EventTarget {
+interface SFrameEncrypterStream {
     constructor(SFrameTransformOptions options);
 };
 SFrameEncrypterStream includes GenericTransformStream;

@@ -780,6 +780,116 @@ dictionary RTCEncodedAudioFrameMetadata : RTCEncodedFrameMetadata {
     </dd>
 </dl>
 
+## <dfn enum>RTCAudioContentType</dfn> enum ## {#RTCAudioContentType}
+<pre class="idl">
+enum RTCAudioContentType {
+    "speech",
+    "other"
+};
+</pre>
+### Values ### {#RTCAudioContentType-values}
+<dl dfn-for="RTCAudioContentType" class="enum-values">
+    <dt><dfn enum-value>"speech"</dfn></dt>
+    <dd>Indicates that the audio content is speech.</dd>
+    <dt><dfn enum-value>"other"</dfn></dt>
+    <dd>Indicates that the audio content is not speech.</dd>
+</dl>
+
+## <dfn dictionary>RTCEncodedAudioFrameInit</dfn> dictionary ## {#RTCEncodedAudioFrameInit}
+<pre class="idl">
+dictionary RTCEncodedAudioFrameInit {
+    RTCAudioContentType contentType = "speech";
+    required octet payloadType;
+    required unsigned long rtpTimestampWithoutOffset;
+    required ArrayBuffer data;
+    DOMHighResTimeStamp captureTime;
+    sequence&lt;unsigned long&gt; contributingSources = [];
+    DOMString mimeType;
+    double audioLevel;
+};
+</pre>
+### Members ### {#RTCEncodedAudioFrameInit-members}
+<dl dfn-for="RTCEncodedAudioFrameInit" class="dictionary-members">
+    <dt>
+        <dfn dict-member>contentType</dfn> <span class="idlMemberType">RTCAudioContentType</span>
+    </dt>
+    <dd>
+        <p>
+            The type of audio content. Defaults to <code>"speech"</code>.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>payloadType</dfn> <span class="idlMemberType">octet</span>
+    </dt>
+    <dd>
+        <p>
+            The payload type is an unsigned integer value in the range from 0 to 127 per [[RFC3550]]
+            that is used to describe the format of the RTP payload.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>rtpTimestampWithoutOffset</dfn> <span class="idlMemberType">unsigned long</span>
+    </dt>
+    <dd>
+        <p>
+            The RTP timestamp identifier is an unsigned integer value per [[RFC3550]]
+            that reflects the sampling instant of the first octet of the audio data,
+            prior to the addition of any SSRC-specific offset during packetization.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>data</dfn> <span class="idlMemberType">ArrayBuffer</span>
+    </dt>
+    <dd>
+        <p>
+            The encoded audio frame data. The format of the data depends on the codec
+            specified by {{RTCEncodedAudioFrameInit/mimeType}}.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>captureTime</dfn> <span class="idlMemberType">DOMHighResTimeStamp</span>
+    </dt>
+    <dd>
+        <p>
+            A monotonic timestamp representing the time the frame was captured. This value
+            MUST be relative to {{Performance/timeOrigin}}, if available.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>contributingSources</dfn> <span class="idlMemberType">sequence&lt;unsigned long&gt;</span>
+    </dt>
+    <dd>
+        <p>
+            The list of contribution sources (csrc list) as defined in [[RFC3550]].
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>mimeType</dfn> <span class="idlMemberType">DOMString</span>
+    </dt>
+    <dd>
+        <p>
+            The codec MIME media type/subtype defined in the IANA media types registry [[IANA-MEDIA-TYPES]], e.g. audio/opus.
+        </p>
+    </dd>
+    <dt>
+        <dfn dict-member>audioLevel</dfn> <span class="idlMemberType">double</span>
+    </dt>
+    <dd>
+        <p>
+            The audio level of this frame. The value is between 0..1 (linear), 
+            where 1.0 represents 0 dBov, 0 represents silence, and 0.5 represents
+            approximately 6 dBSPL change in the sound pressure level from 0 dBov.
+
+            This value is used to generate a value for the [[!RFC6464]] header extension,
+            if negotiated. [[!RFC6464]] defines the audio level as an integral value from 0 to 127
+            representing the audio level in negative decibels relative to the loudest signal that
+            the system could possibly encode. To convert the linear 0..1 range to the RFC 6464 level,
+            a value of 0 is converted to 127, and all other values are converted using the equation:
+            <code class="math">-20 * log10(audioLevel)</code>.
+        </p>
+    </dd>
+</dl>
+
 ## <dfn interface>RTCEncodedAudioFrame</dfn> interface ## {#RTCEncodedAudioFrame-interface}
 <pre class="idl">
 dictionary RTCEncodedAudioFrameOptions {
@@ -789,15 +899,16 @@ dictionary RTCEncodedAudioFrameOptions {
 [Exposed=(Window,DedicatedWorker), Serializable]
 interface RTCEncodedAudioFrame {
     constructor(RTCEncodedAudioFrame originalFrame, optional RTCEncodedAudioFrameOptions options = {});
+    constructor(RTCEncodedAudioFrameInit init);
     attribute ArrayBuffer data;
     RTCEncodedAudioFrameMetadata getMetadata();
 };
 </pre>
 
-### Constructor ### {#RTCEncodedAudioFrame-constructor}
+### Constructors ### {#RTCEncodedAudioFrame-constructors}
 <dl dfn-for="RTCEncodedAudioFrame" class="dictionary-members">
     <dt>
-        <dfn for="RTCEncodedAudioFrame" method>constructor()</dfn>
+        <dfn for="RTCEncodedAudioFrame" method>constructor(originalFrame, options)</dfn>
     </dt>
     <dd>
         <p>
@@ -814,6 +925,32 @@ interface RTCEncodedAudioFrame {
                 1. For each {`[[key]]`,`[[value]]`} pair of |originalFrame|.`[[getMetadata()]]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
                 1. For each {`[[key]]`,`[[value]]`} pair of |options|.`[metadata]`, set `[[metadata]]`.`[[key]]` to a deep copy of `[[value]]`.
 
+        </p>
+    </dd>
+    <dt>
+        <dfn for="RTCEncodedAudioFrame" method>constructor(init)</dfn>
+    </dt>
+    <dd>
+        <p>
+            Creates a new {{RTCEncodedAudioFrame}} using the parameters in |init|.
+
+            When called, run the following steps:
+
+            1. Let this.`[[data]]` be the result of [[CloneArrayBuffer]](|init|["{{RTCEncodedAudioFrameInit/data}}"], 0, |init|["{{RTCEncodedAudioFrameInit/data}}"].`[[ArrayBufferByteLength]]`).
+            1. Set this.`[[contentType]]` to |init|["{{RTCEncodedAudioFrameInit/contentType}}"].
+            1. Set this.`[[rtpTimestampWithoutOffset]]` to |init|["{{RTCEncodedAudioFrameInit/rtpTimestampWithoutOffset}}"].
+            1. Set this.`[[owner]]` to null.
+            1. Let |m| be a [=map=].
+                1. Set |m|["{{RTCEncodedAudioFrameMetadata/sequenceNumber}}"] to undefined.
+                1. Set |m|["{{RTCEncodedFrameMetadata/payloadType}}"] to |init|["{{RTCEncodedAudioFrameInit/payloadType}}"].
+                1. Set |m|["{{RTCEncodedFrameMetadata/contributingSources}}"] to a copy of |init|["{{RTCEncodedAudioFrameInit/contributingSources}}"].
+                1. If |init|["{{RTCEncodedAudioFrameInit/captureTime}}"] is [=map/exists|present=], set |m|["{{RTCEncodedFrameMetadata/captureTime}}"] to |init|["{{RTCEncodedAudioFrameInit/captureTime}}"] shifted to the capture system's clock.
+                1. If |init|["{{RTCEncodedAudioFrameInit/mimeType}}"] is [=map/exists|present=], set |m|["{{RTCEncodedFrameMetadata/mimeType}}"] to |init|["{{RTCEncodedAudioFrameInit/mimeType}}"].
+                1. If |init|["{{RTCEncodedAudioFrameInit/audioLevel}}"] is [=map/exists|present=], set |m|["{{RTCEncodedAudioFrameMetadata/audioLevel}}"] to |init|["{{RTCEncodedAudioFrameInit/audioLevel}}"].
+            1. Set this.`[[metadata]]` to |m|.
+        </p>
+        <p class="note">
+            Before packetization, <code>rtpTimestamp</code> is absent in metadata because the frame is not yet associated with an active SSRC or packetizer. When the frame is subsequently enqueued and processed by an {{RTCRtpSender}}'s packetizer, the final RTP header timestamp is computed by adding the sender's SSRC-specific random offset to `[[rtpTimestampWithoutOffset]]` per [[RFC3550]].
         </p>
     </dd>
 </dl>
@@ -920,11 +1057,15 @@ Their [=serialization steps=], given |value|, |serialized|, and |forStorage|, ar
 1. If |forStorage| is true, then throw a {{DataCloneError}}.
 1. Set |serialized|.`[[metadata]]` to an internal representation of |value|'s metadata.
 1. Set |serialized|.`[[data]]` to the [=sub-serialization=] of |value|.`[[data]]`.
+1. Set |serialized|.`[[contentType]]` to |value|.`[[contentType]]`.
+1. Set |serialized|.`[[rtpTimestampWithoutOffset]]` to |value|.`[[rtpTimestampWithoutOffset]]`.
 
 Their [=deserialization steps=], given |serialized|, |value| and |realm|, are:
 
 1. Set |value|'s metadata to the platform object representation of |serialized|.`[[metadata]]`
 1. Set |value|.`[[data]]` to the [=sub-deserialization=] of |serialized|.`[[data]]`.
+1. Set |value|.`[[contentType]]` to |serialized|.`[[contentType]]`.
+1. Set |value|.`[[rtpTimestampWithoutOffset]]` to |serialized|.`[[rtpTimestampWithoutOffset]]`.
 
 
 # <dfn interface>RTCRtpScriptTransform</dfn> interface # {#RTCRtpScriptTransform-interface}

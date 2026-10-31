@@ -62,6 +62,7 @@ spec:infra; type:dfn; text:list
 </pre>
 <pre class=anchors>
 url: https://w3c.github.io/webrtc-pc/#dfn-check-if-negotiation-is-needed; text: check the negotiation-needed flag; type: dfn; spec: WEBRTC
+url: https://w3c.github.io/webrtc-pc/#dfn-determine-if-dtmf-can-be-sent; text: determine if DTMF can be sent; type: abstract-op; spec: WEBRTC
 </pre>
 
 # Introduction # {#introduction}
@@ -137,6 +138,15 @@ At construction of each {{RTCRtpTransceiver}}, run the following steps:
 {{RTCRtpTransceiver}}.`[[useSFrame]]` should be set either synchronously, in case it is already tied to a SDP m-section, or asynchronously, before it is associated to a SDP m-section.
 This ensures that {{RTCRtpTransceiver}}.`[[useSFrame]]` and the corresponding SDP are always synchronized.
 By doing so, the handling related to the negotiation-needed flag, like the [=check the negotiation-needed flag=] algorithm, does not need to take into account {{RTCRtpTransceiver}}.`[[useSFrame]]`.
+</p>
+
+When generating an offer or an answer, if an {{RTCRtpTransceiver}}'s `[[useSFrame]]` is true, the user agent MUST NOT include a codec with mimetype <code class="mime">"audio/telephone-event"</code> in the media description associated with that {{RTCRtpTransceiver}}.
+
+The [$determine if DTMF can be sent$] algorithm is extended by inserting the following step before the step that returns true:
+1. If |transceiver|.`[[useSFrame]]` is true, return false.
+
+<p class=note>
+DTMF cannot be used together with SFrame RTP packetization. As a consequence, {{RTCDTMFSender/canInsertDTMF}} is false and {{RTCDTMFSender/insertDTMF()}} throws an {{InvalidStateError}} for an {{RTCRtpSender}} whose {{RTCRtpTransceiver}} uses SFrame.
 </p>
 
 At construction of each {{RTCRtpSender}} or {{RTCRtpReceiver}}, run the following steps:

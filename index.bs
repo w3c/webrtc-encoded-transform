@@ -100,7 +100,14 @@ partial interface RTCRtpSender {
 partial interface RTCRtpReceiver {
     attribute RTCRtpReceiverTransform? transform;
 };
+
+partial interface RTCRtpTransceiver {
+    readonly attribute boolean? useSFrame;
+};
 </pre>
+
+The <dfn attribute for="RTCRtpTransceiver">useSFrame</dfn> getter steps are:
+1. Return [=this=].`[[useSFrame]]`.
 
 This API allows manipulation of <dfn>encoded frames</dfn> in the media
 pipeline between the processing steps of an {{RTCRtpSender}}'s
@@ -128,10 +135,10 @@ the original frame.
 ## Extension operation ## {#operation}
 
 At construction of each {{RTCRtpTransceiver}}, run the following steps:
-1. Initialize [=this=].`[[useSFrame]]` to undefined.
+1. Initialize [=this=].`[[useSFrame]]` to null.
 1. If [=this=] is associated with a media description, initialize [=this=].`[[useSFrame]]` from the media description. If [=this=].`[[useSFrame]]` is true, enable SFrame RTP packetization for [=this=].
 1. Otherwise, [=queue a task=] to run the following steps:
-    1. If [=this=].`[[useSFrame]]` is undefined, set [=this=].`[[useSFrame]]` to false.
+    1. If [=this=].`[[useSFrame]]` is null, set [=this=].`[[useSFrame]]` to false.
 
 <p class=note>
 {{RTCRtpTransceiver}}.`[[useSFrame]]` should be set either synchronously, in case it is already tied to a SDP m-section, or asynchronously, before it is associated to a SDP m-section.
@@ -211,7 +218,7 @@ return [=this=].`[[transform]]`. The setter steps are:
 1. Let |transceiver| be the {{RTCRtpTransceiver}} associated to [=this=].
 1. If |transform|.`[[useSFrame]]` is true, run the following steps:
     1. If |transceiver|.`[[useSFrame]]` is false, throw a {{InvalidModificationError}} and abort these steps.
-    1. Otherwise, if |transceiver|.`[[useSFrame]]` is undefined, run the following steps:
+    1. Otherwise, if |transceiver|.`[[useSFrame]]` is null, run the following steps:
         1. Set |transceiver|.`[[useSFrame]]` to true.
         1. Enable SFrame RTP packetization for |transceiver|.
 1. Otherwise, run the following steps:

@@ -158,6 +158,7 @@ For those reasons, streams backpressure is disabled in WebRTC encoded transforms
 The <dfn abstract-op>readEncodedData</dfn> algorithm is given an {{RTCRtpScriptTransformer}}
 |transformer| as parameter, and |frame| as input. It is defined by running the following steps:
 1. Set |frame|.`[[owner]]` to |transformer|.{{[[frameSource]]}}.
+1. Increment |transformer|.{{[[lastEnqueuedFrameCounter]]}} by 1.
 1. Set |frame|.`[[counter]]` to |transformer|.{{[[lastEnqueuedFrameCounter]]}}.
 1. If |frame|.`[[owner]]` is a [=depacketizer=]:
     1. If the relevant RTP packet contains the

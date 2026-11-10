@@ -1089,9 +1089,9 @@ To <dfn for="RTCRtpScriptTransformer" lt="create|creating">create</dfn> an
     : {{RTCRtpScriptTransformer/[[lastEnqueuedFrameCounter]]}}
     :: 0
 1. [=ReadableStream/Set up=] |transformer|.{{[[readable]]}}. <p class="note">The
-    [$readEncodedData$] algorithm, given |this| as parameter, provides encoded frames to it.
+    [$readEncodedData$] algorithm, given |transformer| as parameter, provides encoded frames to it.
     </p>
-1. Let |writeAlgorithm| be an action that runs [$writeEncodedData$] with |this| as
+1. Let |writeAlgorithm| be an action that runs [$writeEncodedData$] with |transformer| as
     parameter and |frame| as input, given |frame|.
 1. [=WritableStream/Set up=] |transformer|.{{[[writable]]}} with its
     [=WritableStream/set up/writeAlgorithm=] set to |writeAlgorithm| and its [=WritableStream/set up/highWaterMark=] set to <code>Infinity</code>.
